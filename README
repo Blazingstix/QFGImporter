@@ -1,0 +1,19 @@
+﻿This project is my attempt at creating a program that can fully read/edit/create every 
+aspect of the exported/imported character sav file from the infamous Quest For Glory
+series.
+
+I originally begun the concept in 1995 as an alternative to saving my characters on 
+a floppy disk, but severely lacked the skills neccessary, so the idea sat shelved 
+since 1998.
+
+It wasn't until I came across Adam Plocher's QfgCharacterEditor on github 
+(https://github.com/aplocher), and his success in decoding the files for QFG1 and 
+QFG2 that it reignited my passion to fully explore the sav files.
+
+With that desire in mind, I have identified almost 100% of the QFG1 file (with the
+exception of a single bit), and am eager to begin work on QFG2, then 3 and 4.
+
+The GUI is very rough around the edges, but as my goal is fully exploring the contents
+of the sav files, I'm okay with that.
+
+- Charles. (Sept 19, 2013)

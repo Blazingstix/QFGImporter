@@ -1,0 +1,10 @@
+C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\bin\Debug\QFGImporter.exe
+C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\bin\Debug\QFGImporter.pdb
+C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\bin\Debug\QFGImporter.xml
+C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.Form1.resources
+C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.Resources.resources
+C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.vbproj.GenerateResource.Cache
+C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.exe
+C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.xml
+C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.pdb
+C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.TestForm.resources
