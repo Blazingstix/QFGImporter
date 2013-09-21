@@ -13,6 +13,7 @@
         lblOtherDataFilename.Text = String.Empty
         Me.Loading = False
         Call SetMaximumSkill(127)
+        Call SetQFG1Display()
     End Sub
 
     Private Sub btnLoad_Click(sender As System.Object, e As System.EventArgs) Handles btnLoad.Click
@@ -65,10 +66,13 @@
     Private Sub rdoQFG_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdoQFG1.CheckedChanged, rdoQFG2.CheckedChanged, rdoQFG3.CheckedChanged, rdoQFG4.CheckedChanged
         Select Case DirectCast(sender, Control).Name
             Case rdoQFG1.Name
+                Call SetQFG1Display()
             Case rdoQFG2.Name
+                Call SetQFG2Display()
             Case rdoQFG3.Name
+                Call SetQFG3Display()
             Case rdoQFG4.Name
-
+                Call SetQFG4Display()
         End Select
 
         EnableQFG4(rdoQFG4.Checked)
@@ -81,12 +85,12 @@
         rdoPaladin.Enabled = True
     End Sub
 
-    Private Sub numInventory_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numGold.ValueChanged, numDaggers.ValueChanged, numHealingPotions.ValueChanged, numVigorPotions.ValueChanged, numMagicPotions.ValueChanged, numUndeadUnguent.ValueChanged
+    Private Sub numInventory_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numGold.ValueChanged, numDaggers.ValueChanged, numHealingPotions.ValueChanged, numVigorPotions.ValueChanged, numMagicPotions.ValueChanged, numOtherPotions.ValueChanged
         If Me.LoadedChar IsNot Nothing Then
             Dim numValue As NumericUpDown = sender
             Select Case numValue.Name
                 Case numGold.Name
-                    Me.LoadedChar.Gold = numValue.Value
+                    Me.LoadedChar.Currency = numValue.Value
                 Case numDaggers.Name
                     Me.LoadedChar.Daggers = numValue.Value
                 Case numHealingPotions.Name
@@ -95,7 +99,7 @@
                     Me.LoadedChar.StaminaPotions = numValue.Value
                 Case numMagicPotions.Name
                     Me.LoadedChar.MagicPotions = numValue.Value
-                Case numUndeadUnguent.Name
+                Case numOtherPotions.Name
                     If Me.LoadedChar.Game = Enums.Games.QFG1 Then
                         DirectCast(Me.LoadedChar, CharQFG1).UndeadUnguent = numValue.Value
                     End If
@@ -115,26 +119,50 @@
         End If
     End Sub
 
-    Private Sub chkUniqueInventory_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSword.CheckedChanged, chkChainmail.CheckedChanged, chkLockPick.CheckedChanged, chkToolkit.CheckedChanged, chkUnknown1.CheckedChanged, chkDefeatedBabaYaga.CheckedChanged, chkUnknown3.CheckedChanged
+    Private Sub chkUniqueInventory_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkFlag1.CheckedChanged, chkFlag2.CheckedChanged, chkFlag3.CheckedChanged, chkFlag4.CheckedChanged, chkFlag5.CheckedChanged, chkFlag6.CheckedChanged, chkFlag7.CheckedChanged, chkFlag8.CheckedChanged
+        Dim chkFlag As CheckBox = sender
         If Me.LoadedChar IsNot Nothing Then
-            Dim QFG1 As CharQFG1 = Me.LoadedChar
-            Dim chkState As CheckBox = sender
-            Select Case chkState.Name
-                Case chkSword.Name
-                    QFG1.HasSword = chkState.Checked
-                Case chkChainmail.Name
-                    QFG1.HasChainmailArmor = chkState.Checked
-                Case chkLockPick.Name
-                    QFG1.HasLockPick = chkState.Checked
-                Case chkToolkit.Name
-                    QFG1.HasThievesToolkit = chkState.Checked
-                Case chkUnknown1.Name
-                    QFG1.Unknown1 = chkState.Checked
-                Case chkDefeatedBabaYaga.Name
-                    QFG1.Unknown2 = chkState.Checked
-                Case chkUnknown3.Name
-                    QFG1.Unknown3 = chkState.Checked
-            End Select
+            If TypeOf Me.LoadedChar Is CharQFG1 Then
+                Dim QFG1 As CharQFG1 = Me.LoadedChar
+                Select Case chkFlag.Name
+                    Case chkFlag1.Name
+                        QFG1.Flag1 = chkFlag.Checked
+                    Case chkFlag2.Name
+                        QFG1.Flag2 = chkFlag.Checked
+                    Case chkFlag3.Name
+                        QFG1.Flag3 = chkFlag.Checked
+                    Case chkFlag4.Name
+                        QFG1.Flag4 = chkFlag.Checked
+                    Case chkFlag5.Name
+                        QFG1.Flag5 = chkFlag.Checked
+                    Case chkFlag6.Name
+                        QFG1.Flag6 = chkFlag.Checked
+                    Case chkFlag7.Name
+                        QFG1.Flag7 = chkFlag.Checked
+                    Case chkFlag8.Name
+
+                End Select
+            ElseIf TypeOf Me.LoadedChar Is CharQFG2 Then
+                Dim QFG2 As CharQFG2 = Me.LoadedChar
+                Select Case chkFlag.Name
+                    Case chkFlag1.Name
+                        QFG2.Flag1 = chkFlag.Checked
+                    Case chkFlag2.Name
+                        QFG2.Flag2 = chkFlag.Checked
+                    Case chkFlag3.Name
+                        QFG2.Flag3 = chkFlag.Checked
+                    Case chkFlag4.Name
+                        QFG2.Flag4 = chkFlag.Checked
+                    Case chkFlag5.Name
+                        QFG2.Flag5 = chkFlag.Checked
+                    Case chkFlag6.Name
+                        QFG2.Flag6 = chkFlag.Checked
+                    Case chkFlag7.Name
+                        QFG2.Flag7 = chkFlag.Checked
+                    Case chkFlag8.Name
+                        QFG2.Flag8 = chkFlag.Checked
+                End Select
+            End If
         End If
     End Sub
 
@@ -264,27 +292,48 @@
                 Call SetMaximumInventory(127)
                 Call LoadQFG1Common()
                 'unique inventory
-                chkSword.Checked = Me.LoadedChar.HasSword
-                chkChainmail.Checked = Me.LoadedChar.HasChainmailArmor
-                chkLockPick.Checked = Me.LoadedChar.HasLockPick
-                chkToolkit.Checked = Me.LoadedChar.HasThievesToolkit
-                chkUnknown1.Checked = Me.LoadedChar.Unknown1
-                chkDefeatedBabaYaga.Checked = Me.LoadedChar.Unknown2
-                chkUnknown3.Checked = Me.LoadedChar.Unknown3
+                chkFlag1.Checked = Me.LoadedChar.Flag1
+                chkFlag2.Checked = Me.LoadedChar.Flag2
+                chkFlag3.Checked = Me.LoadedChar.Flag3
+                chkFlag4.Checked = Me.LoadedChar.Flag4
+                chkFlag5.Checked = Me.LoadedChar.Flag5
+                chkFlag6.Checked = Me.LoadedChar.Flag6
+                chkFlag7.Checked = Me.LoadedChar.Flag7
 
                 'inventory
                 numGold.Maximum = 10000
-                numGold.Value = Me.LoadedChar.Gold
+                numGold.Value = Me.LoadedChar.Currency
 
                 numDaggers.Value = Me.LoadedChar.Daggers
                 numHealingPotions.Value = Me.LoadedChar.HealingPotions
                 numVigorPotions.Value = Me.LoadedChar.StaminaPotions
                 numMagicPotions.Value = Me.LoadedChar.MagicPotions
-                numUndeadUnguent.Value = DirectCast(Me.LoadedChar, CharQFG1).UndeadUnguent
+                numOtherPotions.Value = DirectCast(Me.LoadedChar, CharQFG1).UndeadUnguent
             ElseIf TypeOf Me.LoadedChar Is CharQFG2 Then
                 Call SetMaximumSkill(255)
                 Call SetMaximumInventory(255)
                 Call LoadQFG1Common()
+                Call LoadQFG2Common()
+                'unique inventory
+                chkFlag1.Checked = Me.LoadedChar.Flag1
+                chkFlag2.Checked = Me.LoadedChar.Flag2
+                chkFlag3.Checked = Me.LoadedChar.Flag3
+                chkFlag4.Checked = Me.LoadedChar.Flag4
+                chkFlag5.Checked = Me.LoadedChar.Flag5
+                chkFlag6.Checked = Me.LoadedChar.Flag6
+                chkFlag7.Checked = Me.LoadedChar.Flag7
+                chkFlag8.Checked = Me.LoadedChar.Flag8
+
+                'inventory
+                numGold.Maximum = 10000
+                numGold.Value = Me.LoadedChar.Currency
+
+                numDaggers.Value = Me.LoadedChar.Daggers
+                numHealingPotions.Value = Me.LoadedChar.HealingPotions
+                numVigorPotions.Value = Me.LoadedChar.StaminaPotions
+                numMagicPotions.Value = Me.LoadedChar.MagicPotions
+                numOtherPotions.Value = DirectCast(Me.LoadedChar, CharQFG2).PoisonCurePills
+
             End If
 
         End If
@@ -293,12 +342,83 @@
         Me.Loading = False
     End Sub
 
+    Private Sub SetQFG1Display()
+        chkFlag1.Text = "Broadsword"
+        chkFlag2.Text = "Chainmail Armor"
+        chkFlag3.Text = "Lock Pick"
+        chkFlag4.Text = "Thief’s Tool Kit"
+        chkFlag5.Text = "Hero of Spielburg"
+        chkFlag6.Text = "Defeated Baba Yaga"
+        chkFlag7.Text = "Flag7"
+        chkFlag8.Text = "(unused)"
+        chkFlag8.Enabled = False
+
+        lblCurrency.Text = "Gold"
+        lblHealingPotions.Text = "Healing Potions"
+        lblMagicPotions.Text = "Magic Potions"
+        lblVigorPotions.Text = "Vigor Potions"
+        lblOtherPotions.Text = "Undead Unguent"
+    End Sub
+
+    Private Sub SetQFG2Display()
+        chkFlag1.Text = "Fine Sword"
+        chkFlag2.Text = "Soulforge"
+        chkFlag3.Text = "Saphirre Pin"
+        chkFlag4.Text = "Brass Lamp"
+        chkFlag5.Text = "EOF Badge"
+        chkFlag6.Text = "X-Ray Glasses"
+        chkFlag7.Text = "Broadsword"
+        chkFlag8.Text = "Chainmail Armor"
+        chkFlag8.Enabled = True
+
+        lblCurrency.Text = "Golden Dinars"
+        lblHealingPotions.Text = "Healing Pills"
+        lblMagicPotions.Text = "Magic Pills"
+        lblVigorPotions.Text = "Vigor Pills"
+        lblOtherPotions.Text = "Poison Cure Pills"
+    End Sub
+
+    Private Sub SetQFG3Display()
+        chkFlag1.Text = "Flag 1"
+        chkFlag2.Text = "Flag 2"
+        chkFlag3.Text = "Flag 3"
+        chkFlag4.Text = "Flag 4"
+        chkFlag5.Text = "Flag 5"
+        chkFlag6.Text = "Flag 6"
+        chkFlag7.Text = "Flag 7"
+        chkFlag8.Text = "Flag 8"
+
+        lblCurrency.Text = "Currency"
+        lblHealingPotions.Text = "Healing Pills"
+        lblMagicPotions.Text = "Magic Pills"
+        lblVigorPotions.Text = "Vigor Pills"
+        lblOtherPotions.Text = "Poison Cure Pills"
+    End Sub
+
+    Private Sub SetQFG4Display()
+        chkFlag1.Text = "Flag 1"
+        chkFlag2.Text = "Flag 2"
+        chkFlag3.Text = "Flag 3"
+        chkFlag4.Text = "Flag 4"
+        chkFlag5.Text = "Flag 5"
+        chkFlag6.Text = "Flag 6"
+        chkFlag7.Text = "Flag 7"
+        chkFlag8.Text = "Flag 8"
+
+        lblCurrency.Text = "Currency"
+        lblHealingPotions.Text = "Healing Potions"
+        lblMagicPotions.Text = "Magic Potions"
+        lblVigorPotions.Text = "Vigor Potions"
+        lblOtherPotions.Text = "Poison Cure Pills"
+    End Sub
+
     Private Sub SelectGame(game As Enums.Games)
         Select Case game
             Case Enums.Games.QFG1
                 rdoQFG1.Checked = True
             Case Enums.Games.QFG2
                 rdoQFG2.Checked = True
+
             Case Enums.Games.QFG3
                 rdoQFG3.Checked = True
             Case Enums.Games.QFG4
@@ -329,14 +449,14 @@
         numLuck.Value = Me.LoadedChar.Luck
 
         'skills
-        numWeaponUse.Value = Me.LoadedChar.GetSkills(Enums.Skills.WeaponUse)
-        numParry.Value = Me.LoadedChar.GetSkills(Enums.Skills.Parry)
-        numDodge.Value = Me.LoadedChar.GetSkills(Enums.Skills.Dodge)
-        numStealth.Value = Me.LoadedChar.GetSkills(Enums.Skills.Stealth)
-        numPickLocks.Value = Me.LoadedChar.GetSkills(Enums.Skills.Picklocks)
-        numThrowing.Value = Me.LoadedChar.GetSkills(Enums.Skills.Throwing)
-        numClimbing.Value = Me.LoadedChar.GetSkills(Enums.Skills.Climbing)
-        numMagic.Value = Me.LoadedChar.GetSkills(Enums.Skills.Magic)
+        numWeaponUse.Value = Me.LoadedChar.WeaponUse
+        numParry.Value = Me.LoadedChar.Parry
+        numDodge.Value = Me.LoadedChar.Dodge
+        numStealth.Value = Me.LoadedChar.Stealth
+        numPickLocks.Value = Me.LoadedChar.PickLocks
+        numThrowing.Value = Me.LoadedChar.Throwing
+        numClimbing.Value = Me.LoadedChar.Climbing
+        numMagic.Value = Me.LoadedChar.Magic
 
         'magic
         numOpen.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Open)
@@ -356,6 +476,15 @@
         numPuzzlePoints.Maximum = 500
         numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
 
+    End Sub
+
+    Private Sub LoadQFG2Common()
+        numCommunication.Value = DirectCast(Me.LoadedChar, CharQFG2).Communication
+        numHonor.Value = DirectCast(Me.LoadedChar, CharQFG2).Honor
+
+        numForceBolt.Value = DirectCast(Me.LoadedChar, CharQFG2).GetMagicSpell(Enums.Magic.ForceBolt)
+        numLevitation.Value = DirectCast(Me.LoadedChar, CharQFG2).GetMagicSpell(Enums.Magic.Levitation)
+        numReversal.Value = DirectCast(Me.LoadedChar, CharQFG2).GetMagicSpell(Enums.Magic.Reversal)
     End Sub
 
     Private Sub EnableQFG1(enabled As Boolean)
@@ -410,6 +539,7 @@
         numFlameDart.Enabled = enabled
         lblFetch.Enabled = enabled
         numFetch.Enabled = enabled
+
 
     End Sub
 
@@ -489,7 +619,7 @@
         numHealingPotions.Maximum = value
         numVigorPotions.Maximum = value
         numMagicPotions.Maximum = value
-        numUndeadUnguent.Maximum = value
+        numOtherPotions.Maximum = value
     End Sub
 
 #End Region

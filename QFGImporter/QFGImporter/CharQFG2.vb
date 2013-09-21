@@ -2,8 +2,8 @@
     Inherits CharGeneric
     Enum ByteNames
         CharacterClass = 0
-        GoldHundreds
-        Gold
+        DinarHundreds
+        Dinar
         PuzzlePoints
         UniqueInventory
         AbilityStrength = 5
@@ -38,8 +38,8 @@
         MagicSpellReversal
         InventoryDaggers = 35
         InventoryHealingPills
-        InventoryVigorPills
         InventoryMagicPills
+        InventoryVigorPills
         InventoryPoisonCurePills = 39
         Unknown40
         Unknown41
@@ -68,14 +68,16 @@
     'Byte 3: Puzzle Points
     '
     'Byte 4: Unique Inventory Items
-    '   bit 0: Sword ?
-    '   bit 1: Chainmail Armor ?
-    '   bit 2: Lockpick ?
-    '   bit 3: Thieves Toolkit ?
-    '   bit 4: (unknown)
-    '   bit 5: (unknown)
-    '   bit 6: (unknown)
-    '   bit 7: (unknown)
+    '   bit 0: Fine Sword
+    '   bit 1: Soulforge (Rakeesh's Paladin Sword)
+    '   bit 2: Saphirre Pin (gift from the Kattas)
+    '   bit 3: Brass Lamp
+    '   bit 4: EOF Badge
+    '   bit 5: X-Ray Glasses
+    '   bit 6: Broadsword
+    '   bit 7: Chainmail
+    '   note: the lock pick, theif's toolkit, and thieves' guild license are not saved in the character file
+    '   note2: having the Compass counts as both bits 0 and 1, so I do not know how to ultimately distinguish between having the fine sword or soulforge
 
     'Bytes 5 - 19: Abilities and Skills 
     '   (5 - Strength, 6 - Inelligence, ... , 17 - Magic, 18 - Communication, 19 - Honor)
@@ -98,12 +100,13 @@
     '   (24 - Open, ... , 31 - Fetch, 32 - ForceBolt, 33 - Levitate, 34 - Reversal)
     '
     'Byte 35: Daggers
+    '   value is number of daggers AND 0xFF
     '
     'Byte 36: Healing Pills
     '
-    'Byte 37: Vigor Pills
+    'Byte 37: Magic Pills
     '
-    'Byte 38: Magic Pills
+    'Byte 38: Vigor Pills
     '
     'Byte 39: Poison Cure Pills
     '
@@ -197,6 +200,119 @@
         Get
             Return 255
         End Get
+    End Property
+
+    Public Property Communication As Integer
+        Get
+            Return GetSkills(Enums.Skills.Communication)
+        End Get
+        Set(value As Integer)
+            SetSkill(Enums.Skills.Communication, value)
+        End Set
+    End Property
+
+    Public Property Honor As Integer
+        Get
+            Return GetSkills(Enums.Skills.Honor)
+        End Get
+        Set(value As Integer)
+            SetSkill(Enums.Skills.Honor, value)
+        End Set
+    End Property
+
+    Public Overrides Property Currency As Integer
+        Get
+            Dim hun As Integer = (Me.DecodedValues(Me.OffsetCharClass + 1)) * 100
+            Dim tens As Integer = Me.DecodedValues(Me.OffsetCharClass + 2)
+            Return hun + tens
+        End Get
+        Set(value As Integer)
+            Dim small As Byte = value Mod 100
+            Dim large As Byte = ((value - small) / 100)
+            Me.DecodedValues(Me.OffsetCharClass + 1) = large
+            Me.DecodedValues(Me.OffsetCharClass + 2) = small
+        End Set
+    End Property
+
+    Public Property PoisonCurePills As Integer
+        Get
+            Return Me.DecodedValues(CharQFG2.ByteNames.InventoryPoisonCurePills)
+        End Get
+        Set(value As Integer)
+            Me.DecodedValues(CharQFG2.ByteNames.InventoryPoisonCurePills) = value
+        End Set
+    End Property
+
+    Public Property HasFineSword As Boolean
+        Get
+            Return Me.Flag1
+        End Get
+        Set(value As Boolean)
+            Me.Flag1 = value
+        End Set
+    End Property
+
+    Public Property HasSoulforge As Boolean
+        Get
+            Return Me.Flag2
+        End Get
+        Set(value As Boolean)
+            Me.Flag2 = value
+        End Set
+    End Property
+
+    Public Property HasSaphirrePin As Boolean
+        Get
+            Return Me.Flag3
+        End Get
+        Set(value As Boolean)
+            Me.Flag3 = value
+        End Set
+    End Property
+
+    Public Property HasBrassLamp As Boolean
+        Get
+            Return Me.Flag4
+        End Get
+        Set(value As Boolean)
+            Me.Flag4 = value
+        End Set
+    End Property
+
+    Public Property HasEOFBadge As Boolean
+        Get
+            Return Me.Flag5
+        End Get
+        Set(value As Boolean)
+            Me.Flag5 = value
+        End Set
+    End Property
+
+    Public Property HasXRayGlasses As Boolean
+        Get
+            Return Me.Flag6
+        End Get
+        Set(value As Boolean)
+            Me.Flag6 = value
+        End Set
+    End Property
+
+    Public Property HasBroadsword As Boolean
+        Get
+            Return Me.Flag7
+        End Get
+        Set(value As Boolean)
+            Me.Flag7 = value
+        End Set
+    End Property
+
+    Public Property HasChainmail As Boolean
+        Get
+            Return Me.Flag8
+        End Get
+        Set(value As Boolean)
+            Me.Flag8 = value
+        End Set
     End Property
 
     Friend Overrides Sub SetGame()

@@ -211,7 +211,7 @@
         End Set
     End Property
 
-    Public Overridable Property StaminaPotions As Integer
+    Public Overridable Property MagicPotions As Integer
         Get
             Return Me.DecodedValues(Me.OffsetInventory + 2)
         End Get
@@ -220,7 +220,7 @@
         End Set
     End Property
 
-    Public Overridable Property MagicPotions As Integer
+    Public Overridable Property StaminaPotions As Integer
         Get
             Return Me.DecodedValues(Me.OffsetInventory + 3)
         End Get
@@ -229,7 +229,7 @@
         End Set
     End Property
 
-    Public Overridable Property Gold As Integer
+    Public Overridable Property Currency As Integer
         Get
             Dim hun As Integer = (Me.DecodedValues(Me.OffsetCharClass + 1) - 1) * 100
             Dim tens As Integer = Me.DecodedValues(Me.OffsetCharClass + 2)
@@ -243,7 +243,7 @@
         End Set
     End Property
 
-    Public Overridable Property HasSword As Boolean
+    Public Overridable Property Flag1 As Boolean
         Get
             Return getBit(Me.DecodedValues(Me.OffsetSkills - 1), 0)
         End Get
@@ -252,7 +252,7 @@
         End Set
     End Property
 
-    Public Overridable Property HasChainmailArmor As Boolean
+    Public Overridable Property Flag2 As Boolean
         Get
             Return getBit(Me.DecodedValues(Me.OffsetSkills - 1), 1)
         End Get
@@ -261,7 +261,7 @@
         End Set
     End Property
 
-    Public Overridable Property HasLockPick As Boolean
+    Public Overridable Property Flag3 As Boolean
         Get
             Return getBit(Me.DecodedValues(Me.OffsetSkills - 1), 2)
         End Get
@@ -270,7 +270,7 @@
         End Set
     End Property
 
-    Public Overridable Property HasThievesToolkit As Boolean
+    Public Overridable Property Flag4 As Boolean
         Get
             Return getBit(Me.DecodedValues(Me.OffsetSkills - 1), 3)
         End Get
@@ -279,7 +279,7 @@
         End Set
     End Property
 
-    Public Overridable Property Unknown1 As Boolean
+    Public Overridable Property Flag5 As Boolean
         Get
             Return getBit(Me.DecodedValues(Me.OffsetSkills - 1), 4)
         End Get
@@ -288,7 +288,7 @@
         End Set
     End Property
 
-    Public Overridable Property Unknown2 As Boolean
+    Public Overridable Property Flag6 As Boolean
         Get
             Return getBit(Me.DecodedValues(Me.OffsetSkills - 1), 5)
         End Get
@@ -297,7 +297,7 @@
         End Set
     End Property
 
-    Public Overridable Property Unknown3 As Boolean
+    Public Overridable Property Flag7 As Boolean
         Get
             Return getBit(Me.DecodedValues(Me.OffsetSkills - 1), 6)
         End Get
@@ -306,6 +306,14 @@
         End Set
     End Property
 
+    Public Overridable Property Flag8 As Boolean
+        Get
+            Return getBit(Me.DecodedValues(Me.OffsetSkills - 1), 7)
+        End Get
+        Set(value As Boolean)
+            Me.DecodedValues(Me.OffsetSkills - 1) = setBit(Me.DecodedValues(Me.OffsetSkills - 1), 7, value)
+        End Set
+    End Property
 
 #End Region
 
@@ -471,7 +479,7 @@
         Dim chk() As Byte = {0, 0}
 
         'check even values
-        For i As Integer = 0 To Me.OffsetOther Step 2
+        For i As Integer = 0 To Me.OffsetOther - 1 Step 2
             chk(0) = (chk(0) + values(i)) Mod &H100
         Next
 
@@ -483,8 +491,8 @@
         'add 0xCE (206) to the 1st checksum
         chk(0) = (CInt(chk(0)) + CInt(Me.InitialChecksum)) Mod &H100
 
-        'next, we limit it to the lower 7 bits
-        '   not sure why.
+        'the InitialLimiter is neccessary for QFG1,
+        '   where all the bytes are only 7 bits (i.e. 127 max)
         chk(0) = chk(0) And Me.InitialLimiter
         chk(1) = chk(1) And Me.InitialLimiter
 

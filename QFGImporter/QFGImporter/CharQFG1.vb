@@ -113,12 +113,13 @@
     '   (22 - Open, ... , 29 - Fetch)
     '
     'Byte 30: Daggers
+    '   (value is number of daggers AND 0xF7)
     '
     'Byte 31: Healing Potions
     '
-    'Byte 32: Vigor Potions
+    'Byte 32: Magic Potions
     '
-    'Byte 33: Magic Potions
+    'Byte 33: Vigor Potions
     '
     'Byte 34: Flasks of Undead Unguent
     '
@@ -221,6 +222,60 @@
         End Get
         Set(value As Integer)
             Me.DecodedValues(CharQFG1.ByteNames.InventoryUndeadUnguent) = value
+        End Set
+    End Property
+
+    Public Property HasBroadsword As Boolean
+        Get
+            Return Me.Flag1()
+        End Get
+        Set(value As Boolean)
+            Me.Flag1 = value
+        End Set
+    End Property
+
+    Public Property HasChainmail As Boolean
+        Get
+            Return Me.Flag2
+        End Get
+        Set(value As Boolean)
+            Me.Flag2 = value
+        End Set
+    End Property
+
+    Public Property HasLockpick As Boolean
+        Get
+            Return Me.Flag3
+        End Get
+        Set(value As Boolean)
+            Me.Flag3 = value
+        End Set
+    End Property
+
+    Public Property HasToolkit As Boolean
+        Get
+            Return Me.Flag4
+        End Get
+        Set(value As Boolean)
+            Me.Flag4 = value
+        End Set
+    End Property
+
+    Public Property HeroOfSpielburg As Boolean
+        Get
+            Return Me.Flag5
+        End Get
+        Set(value As Boolean)
+            Me.Flag5 = value
+        End Set
+    End Property
+
+    Public Property DefeatedBabaYaga As Boolean
+        Get
+            Return Me.Flag6
+        End Get
+        Set(value As Boolean)
+            Me.Flag6 = value
         End Set
     End Property
 

@@ -22,9 +22,9 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.grpGames = New System.Windows.Forms.GroupBox()
         Me.rdoQFG4 = New System.Windows.Forms.RadioButton()
         Me.rdoQFG3 = New System.Windows.Forms.RadioButton()
@@ -128,26 +128,26 @@ Partial Class Form1
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tabCharacter = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.lblUndeadUnguent = New System.Windows.Forms.Label()
+        Me.lblOtherPotions = New System.Windows.Forms.Label()
         Me.lblMagicPotions = New System.Windows.Forms.Label()
         Me.lblVigorPotions = New System.Windows.Forms.Label()
         Me.lblHealingPotions = New System.Windows.Forms.Label()
         Me.lblDaggers = New System.Windows.Forms.Label()
-        Me.numUndeadUnguent = New System.Windows.Forms.NumericUpDown()
-        Me.lblGold = New System.Windows.Forms.Label()
+        Me.numOtherPotions = New System.Windows.Forms.NumericUpDown()
+        Me.lblCurrency = New System.Windows.Forms.Label()
         Me.numMagicPotions = New System.Windows.Forms.NumericUpDown()
         Me.numGold = New System.Windows.Forms.NumericUpDown()
         Me.numVigorPotions = New System.Windows.Forms.NumericUpDown()
         Me.numHealingPotions = New System.Windows.Forms.NumericUpDown()
         Me.numDaggers = New System.Windows.Forms.NumericUpDown()
         Me.grpUniqueInventory = New System.Windows.Forms.GroupBox()
-        Me.chkLockPick = New System.Windows.Forms.CheckBox()
-        Me.chkUnknown3 = New System.Windows.Forms.CheckBox()
-        Me.chkDefeatedBabaYaga = New System.Windows.Forms.CheckBox()
-        Me.chkUnknown1 = New System.Windows.Forms.CheckBox()
-        Me.chkToolkit = New System.Windows.Forms.CheckBox()
-        Me.chkChainmail = New System.Windows.Forms.CheckBox()
-        Me.chkSword = New System.Windows.Forms.CheckBox()
+        Me.chkFlag3 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag7 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag6 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag5 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag4 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag2 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag1 = New System.Windows.Forms.CheckBox()
         Me.tabRawData = New System.Windows.Forms.TabPage()
         Me.lblDifferences = New System.Windows.Forms.Label()
         Me.lblOtherDataFilename = New System.Windows.Forms.Label()
@@ -203,6 +203,7 @@ Partial Class Form1
         Me.txtReferenceData = New System.Windows.Forms.TextBox()
         Me.txtOriginalData = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
+        Me.chkFlag8 = New System.Windows.Forms.CheckBox()
         Me.grpGames.SuspendLayout()
         Me.grpClass.SuspendLayout()
         Me.grpSkills.SuspendLayout()
@@ -253,7 +254,7 @@ Partial Class Form1
         Me.TabControl1.SuspendLayout()
         Me.tabCharacter.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.numUndeadUnguent, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numOtherPotions, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMagicPotions, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numGold, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numVigorPotions, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1352,14 +1353,14 @@ Partial Class Form1
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.lblUndeadUnguent)
+        Me.GroupBox2.Controls.Add(Me.lblOtherPotions)
         Me.GroupBox2.Controls.Add(Me.lblMagicPotions)
         Me.GroupBox2.Controls.Add(Me.lblVigorPotions)
         Me.GroupBox2.Controls.Add(Me.lblHealingPotions)
         Me.GroupBox2.Controls.Add(Me.lblDaggers)
-        Me.GroupBox2.Controls.Add(Me.numUndeadUnguent)
-        Me.GroupBox2.Controls.Add(Me.lblGold)
+        Me.GroupBox2.Controls.Add(Me.numOtherPotions)
         Me.GroupBox2.Controls.Add(Me.numMagicPotions)
+        Me.GroupBox2.Controls.Add(Me.lblCurrency)
         Me.GroupBox2.Controls.Add(Me.numGold)
         Me.GroupBox2.Controls.Add(Me.numVigorPotions)
         Me.GroupBox2.Controls.Add(Me.numHealingPotions)
@@ -1371,19 +1372,19 @@ Partial Class Form1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Inventory"
         '
-        'lblUndeadUnguent
+        'lblOtherPotions
         '
-        Me.lblUndeadUnguent.AutoSize = True
-        Me.lblUndeadUnguent.Location = New System.Drawing.Point(64, 129)
-        Me.lblUndeadUnguent.Name = "lblUndeadUnguent"
-        Me.lblUndeadUnguent.Size = New System.Drawing.Size(89, 13)
-        Me.lblUndeadUnguent.TabIndex = 1
-        Me.lblUndeadUnguent.Text = "Undead Unguent"
+        Me.lblOtherPotions.AutoSize = True
+        Me.lblOtherPotions.Location = New System.Drawing.Point(64, 126)
+        Me.lblOtherPotions.Name = "lblOtherPotions"
+        Me.lblOtherPotions.Size = New System.Drawing.Size(89, 13)
+        Me.lblOtherPotions.TabIndex = 1
+        Me.lblOtherPotions.Text = "Undead Unguent"
         '
         'lblMagicPotions
         '
         Me.lblMagicPotions.AutoSize = True
-        Me.lblMagicPotions.Location = New System.Drawing.Point(64, 107)
+        Me.lblMagicPotions.Location = New System.Drawing.Point(64, 82)
         Me.lblMagicPotions.Name = "lblMagicPotions"
         Me.lblMagicPotions.Size = New System.Drawing.Size(74, 13)
         Me.lblMagicPotions.TabIndex = 1
@@ -1392,7 +1393,7 @@ Partial Class Form1
         'lblVigorPotions
         '
         Me.lblVigorPotions.AutoSize = True
-        Me.lblVigorPotions.Location = New System.Drawing.Point(64, 85)
+        Me.lblVigorPotions.Location = New System.Drawing.Point(64, 104)
         Me.lblVigorPotions.Name = "lblVigorPotions"
         Me.lblVigorPotions.Size = New System.Drawing.Size(69, 13)
         Me.lblVigorPotions.TabIndex = 1
@@ -1401,7 +1402,7 @@ Partial Class Form1
         'lblHealingPotions
         '
         Me.lblHealingPotions.AutoSize = True
-        Me.lblHealingPotions.Location = New System.Drawing.Point(64, 63)
+        Me.lblHealingPotions.Location = New System.Drawing.Point(64, 60)
         Me.lblHealingPotions.Name = "lblHealingPotions"
         Me.lblHealingPotions.Size = New System.Drawing.Size(81, 13)
         Me.lblHealingPotions.TabIndex = 1
@@ -1410,37 +1411,37 @@ Partial Class Form1
         'lblDaggers
         '
         Me.lblDaggers.AutoSize = True
-        Me.lblDaggers.Location = New System.Drawing.Point(64, 41)
+        Me.lblDaggers.Location = New System.Drawing.Point(64, 38)
         Me.lblDaggers.Name = "lblDaggers"
         Me.lblDaggers.Size = New System.Drawing.Size(47, 13)
         Me.lblDaggers.TabIndex = 1
         Me.lblDaggers.Text = "Daggers"
         '
-        'numUndeadUnguent
+        'numOtherPotions
         '
-        Me.numUndeadUnguent.Location = New System.Drawing.Point(6, 124)
-        Me.numUndeadUnguent.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
-        Me.numUndeadUnguent.Name = "numUndeadUnguent"
-        Me.numUndeadUnguent.Size = New System.Drawing.Size(52, 20)
-        Me.numUndeadUnguent.TabIndex = 5
-        Me.numUndeadUnguent.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.numOtherPotions.Location = New System.Drawing.Point(6, 124)
+        Me.numOtherPotions.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
+        Me.numOtherPotions.Name = "numOtherPotions"
+        Me.numOtherPotions.Size = New System.Drawing.Size(52, 20)
+        Me.numOtherPotions.TabIndex = 5
+        Me.numOtherPotions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'lblGold
+        'lblCurrency
         '
-        Me.lblGold.AutoSize = True
-        Me.lblGold.Location = New System.Drawing.Point(64, 16)
-        Me.lblGold.Name = "lblGold"
-        Me.lblGold.Size = New System.Drawing.Size(29, 13)
-        Me.lblGold.TabIndex = 1
-        Me.lblGold.Text = "Gold"
+        Me.lblCurrency.AutoSize = True
+        Me.lblCurrency.Location = New System.Drawing.Point(64, 16)
+        Me.lblCurrency.Name = "lblCurrency"
+        Me.lblCurrency.Size = New System.Drawing.Size(49, 13)
+        Me.lblCurrency.TabIndex = 1
+        Me.lblCurrency.Text = "Currency"
         '
         'numMagicPotions
         '
-        Me.numMagicPotions.Location = New System.Drawing.Point(6, 102)
+        Me.numMagicPotions.Location = New System.Drawing.Point(6, 80)
         Me.numMagicPotions.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numMagicPotions.Name = "numMagicPotions"
         Me.numMagicPotions.Size = New System.Drawing.Size(52, 20)
-        Me.numMagicPotions.TabIndex = 4
+        Me.numMagicPotions.TabIndex = 3
         Me.numMagicPotions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'numGold
@@ -1454,11 +1455,11 @@ Partial Class Form1
         '
         'numVigorPotions
         '
-        Me.numVigorPotions.Location = New System.Drawing.Point(6, 80)
+        Me.numVigorPotions.Location = New System.Drawing.Point(6, 102)
         Me.numVigorPotions.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numVigorPotions.Name = "numVigorPotions"
         Me.numVigorPotions.Size = New System.Drawing.Size(52, 20)
-        Me.numVigorPotions.TabIndex = 3
+        Me.numVigorPotions.TabIndex = 4
         Me.numVigorPotions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'numHealingPotions
@@ -1481,13 +1482,14 @@ Partial Class Form1
         '
         'grpUniqueInventory
         '
-        Me.grpUniqueInventory.Controls.Add(Me.chkLockPick)
-        Me.grpUniqueInventory.Controls.Add(Me.chkUnknown3)
-        Me.grpUniqueInventory.Controls.Add(Me.chkDefeatedBabaYaga)
-        Me.grpUniqueInventory.Controls.Add(Me.chkUnknown1)
-        Me.grpUniqueInventory.Controls.Add(Me.chkToolkit)
-        Me.grpUniqueInventory.Controls.Add(Me.chkChainmail)
-        Me.grpUniqueInventory.Controls.Add(Me.chkSword)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag3)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag8)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag7)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag6)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag5)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag4)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag2)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag1)
         Me.grpUniqueInventory.Location = New System.Drawing.Point(370, 6)
         Me.grpUniqueInventory.Name = "grpUniqueInventory"
         Me.grpUniqueInventory.Size = New System.Drawing.Size(132, 149)
@@ -1495,75 +1497,75 @@ Partial Class Form1
         Me.grpUniqueInventory.TabStop = False
         Me.grpUniqueInventory.Text = "Unique Inventory"
         '
-        'chkLockPick
+        'chkFlag3
         '
-        Me.chkLockPick.AutoSize = True
-        Me.chkLockPick.Location = New System.Drawing.Point(6, 54)
-        Me.chkLockPick.Name = "chkLockPick"
-        Me.chkLockPick.Size = New System.Drawing.Size(74, 17)
-        Me.chkLockPick.TabIndex = 2
-        Me.chkLockPick.Text = "Look Pick"
-        Me.chkLockPick.UseVisualStyleBackColor = True
+        Me.chkFlag3.AutoSize = True
+        Me.chkFlag3.Location = New System.Drawing.Point(6, 50)
+        Me.chkFlag3.Name = "chkFlag3"
+        Me.chkFlag3.Size = New System.Drawing.Size(52, 17)
+        Me.chkFlag3.TabIndex = 2
+        Me.chkFlag3.Text = "Flag3"
+        Me.chkFlag3.UseVisualStyleBackColor = True
         '
-        'chkUnknown3
+        'chkFlag7
         '
-        Me.chkUnknown3.AutoSize = True
-        Me.chkUnknown3.Location = New System.Drawing.Point(6, 126)
-        Me.chkUnknown3.Name = "chkUnknown3"
-        Me.chkUnknown3.Size = New System.Drawing.Size(78, 17)
-        Me.chkUnknown3.TabIndex = 6
-        Me.chkUnknown3.Text = "Unknown3"
-        Me.chkUnknown3.UseVisualStyleBackColor = True
+        Me.chkFlag7.AutoSize = True
+        Me.chkFlag7.Location = New System.Drawing.Point(6, 114)
+        Me.chkFlag7.Name = "chkFlag7"
+        Me.chkFlag7.Size = New System.Drawing.Size(52, 17)
+        Me.chkFlag7.TabIndex = 6
+        Me.chkFlag7.Text = "Flag7"
+        Me.chkFlag7.UseVisualStyleBackColor = True
         '
-        'chkDefeatedBabaYaga
+        'chkFlag6
         '
-        Me.chkDefeatedBabaYaga.AutoSize = True
-        Me.chkDefeatedBabaYaga.Location = New System.Drawing.Point(6, 108)
-        Me.chkDefeatedBabaYaga.Name = "chkDefeatedBabaYaga"
-        Me.chkDefeatedBabaYaga.Size = New System.Drawing.Size(126, 17)
-        Me.chkDefeatedBabaYaga.TabIndex = 5
-        Me.chkDefeatedBabaYaga.Text = "Defeated Baba Yaga"
-        Me.chkDefeatedBabaYaga.UseVisualStyleBackColor = True
+        Me.chkFlag6.AutoSize = True
+        Me.chkFlag6.Location = New System.Drawing.Point(6, 98)
+        Me.chkFlag6.Name = "chkFlag6"
+        Me.chkFlag6.Size = New System.Drawing.Size(52, 17)
+        Me.chkFlag6.TabIndex = 5
+        Me.chkFlag6.Text = "Flag6"
+        Me.chkFlag6.UseVisualStyleBackColor = True
         '
-        'chkUnknown1
+        'chkFlag5
         '
-        Me.chkUnknown1.AutoSize = True
-        Me.chkUnknown1.Location = New System.Drawing.Point(6, 90)
-        Me.chkUnknown1.Name = "chkUnknown1"
-        Me.chkUnknown1.Size = New System.Drawing.Size(78, 17)
-        Me.chkUnknown1.TabIndex = 4
-        Me.chkUnknown1.Text = "Unknown1"
-        Me.chkUnknown1.UseVisualStyleBackColor = True
+        Me.chkFlag5.AutoSize = True
+        Me.chkFlag5.Location = New System.Drawing.Point(6, 82)
+        Me.chkFlag5.Name = "chkFlag5"
+        Me.chkFlag5.Size = New System.Drawing.Size(52, 17)
+        Me.chkFlag5.TabIndex = 4
+        Me.chkFlag5.Text = "Flag5"
+        Me.chkFlag5.UseVisualStyleBackColor = True
         '
-        'chkToolkit
+        'chkFlag4
         '
-        Me.chkToolkit.AutoSize = True
-        Me.chkToolkit.Location = New System.Drawing.Point(6, 72)
-        Me.chkToolkit.Name = "chkToolkit"
-        Me.chkToolkit.Size = New System.Drawing.Size(103, 17)
-        Me.chkToolkit.TabIndex = 3
-        Me.chkToolkit.Text = "Thieves Tool Kit"
-        Me.chkToolkit.UseVisualStyleBackColor = True
+        Me.chkFlag4.AutoSize = True
+        Me.chkFlag4.Location = New System.Drawing.Point(6, 66)
+        Me.chkFlag4.Name = "chkFlag4"
+        Me.chkFlag4.Size = New System.Drawing.Size(52, 17)
+        Me.chkFlag4.TabIndex = 3
+        Me.chkFlag4.Text = "Flag4"
+        Me.chkFlag4.UseVisualStyleBackColor = True
         '
-        'chkChainmail
+        'chkFlag2
         '
-        Me.chkChainmail.AutoSize = True
-        Me.chkChainmail.Location = New System.Drawing.Point(6, 36)
-        Me.chkChainmail.Name = "chkChainmail"
-        Me.chkChainmail.Size = New System.Drawing.Size(101, 17)
-        Me.chkChainmail.TabIndex = 1
-        Me.chkChainmail.Text = "Chainmail Armor"
-        Me.chkChainmail.UseVisualStyleBackColor = True
+        Me.chkFlag2.AutoSize = True
+        Me.chkFlag2.Location = New System.Drawing.Point(6, 34)
+        Me.chkFlag2.Name = "chkFlag2"
+        Me.chkFlag2.Size = New System.Drawing.Size(52, 17)
+        Me.chkFlag2.TabIndex = 1
+        Me.chkFlag2.Text = "Flag2"
+        Me.chkFlag2.UseVisualStyleBackColor = True
         '
-        'chkSword
+        'chkFlag1
         '
-        Me.chkSword.AutoSize = True
-        Me.chkSword.Location = New System.Drawing.Point(6, 18)
-        Me.chkSword.Name = "chkSword"
-        Me.chkSword.Size = New System.Drawing.Size(56, 17)
-        Me.chkSword.TabIndex = 0
-        Me.chkSword.Text = "Sword"
-        Me.chkSword.UseVisualStyleBackColor = True
+        Me.chkFlag1.AutoSize = True
+        Me.chkFlag1.Location = New System.Drawing.Point(6, 18)
+        Me.chkFlag1.Name = "chkFlag1"
+        Me.chkFlag1.Size = New System.Drawing.Size(52, 17)
+        Me.chkFlag1.TabIndex = 0
+        Me.chkFlag1.Text = "Flag1"
+        Me.chkFlag1.UseVisualStyleBackColor = True
         '
         'tabRawData
         '
@@ -1666,34 +1668,34 @@ Partial Class Form1
         '
         'DataGridView1
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column9, Me.Column10, Me.Column11, Me.Column12, Me.Column13, Me.Column14, Me.Column15})
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView1.Location = New System.Drawing.Point(253, 372)
         Me.DataGridView1.Name = "DataGridView1"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView1.Size = New System.Drawing.Size(420, 57)
         Me.DataGridView1.TabIndex = 3
         Me.DataGridView1.Visible = False
@@ -2139,6 +2141,17 @@ Partial Class Form1
         Me.btnSave.Text = "Save As..."
         Me.btnSave.UseVisualStyleBackColor = True
         '
+        'chkFlag8
+        '
+        Me.chkFlag8.AutoSize = True
+        Me.chkFlag8.Enabled = False
+        Me.chkFlag8.Location = New System.Drawing.Point(6, 130)
+        Me.chkFlag8.Name = "chkFlag8"
+        Me.chkFlag8.Size = New System.Drawing.Size(52, 17)
+        Me.chkFlag8.TabIndex = 6
+        Me.chkFlag8.Text = "Flag8"
+        Me.chkFlag8.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2210,7 +2223,7 @@ Partial Class Form1
         Me.tabCharacter.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.numUndeadUnguent, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numOtherPotions, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMagicPotions, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numGold, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numVigorPotions, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2380,21 +2393,21 @@ Partial Class Form1
     Friend WithEvents chkOther4 As System.Windows.Forms.CheckBox
     Friend WithEvents chkOther0 As System.Windows.Forms.CheckBox
     Friend WithEvents lblDifferences As System.Windows.Forms.Label
-    Friend WithEvents chkChainmail As System.Windows.Forms.CheckBox
-    Friend WithEvents chkSword As System.Windows.Forms.CheckBox
-    Friend WithEvents lblGold As System.Windows.Forms.Label
+    Friend WithEvents chkFlag2 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag1 As System.Windows.Forms.CheckBox
+    Friend WithEvents lblCurrency As System.Windows.Forms.Label
     Friend WithEvents numGold As System.Windows.Forms.NumericUpDown
-    Friend WithEvents chkLockPick As System.Windows.Forms.CheckBox
-    Friend WithEvents chkToolkit As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag3 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag4 As System.Windows.Forms.CheckBox
     Friend WithEvents numReferenceValueHex As System.Windows.Forms.NumericUpDown
     Friend WithEvents numReferenceValue As System.Windows.Forms.NumericUpDown
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents lblUndeadUnguent As System.Windows.Forms.Label
+    Friend WithEvents lblOtherPotions As System.Windows.Forms.Label
     Friend WithEvents lblMagicPotions As System.Windows.Forms.Label
     Friend WithEvents lblVigorPotions As System.Windows.Forms.Label
     Friend WithEvents lblHealingPotions As System.Windows.Forms.Label
     Friend WithEvents lblDaggers As System.Windows.Forms.Label
-    Friend WithEvents numUndeadUnguent As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numOtherPotions As System.Windows.Forms.NumericUpDown
     Friend WithEvents numMagicPotions As System.Windows.Forms.NumericUpDown
     Friend WithEvents numVigorPotions As System.Windows.Forms.NumericUpDown
     Friend WithEvents numHealingPotions As System.Windows.Forms.NumericUpDown
@@ -2405,10 +2418,11 @@ Partial Class Form1
     Friend WithEvents numMagicPoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents numStaminaPoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents numHealthPoints As System.Windows.Forms.NumericUpDown
-    Friend WithEvents chkDefeatedBabaYaga As System.Windows.Forms.CheckBox
-    Friend WithEvents chkUnknown1 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag6 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag5 As System.Windows.Forms.CheckBox
     Friend WithEvents lblPuzzlePoints As System.Windows.Forms.Label
     Friend WithEvents numPuzzlePoints As System.Windows.Forms.NumericUpDown
-    Friend WithEvents chkUnknown3 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag7 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag8 As System.Windows.Forms.CheckBox
 
 End Class
