@@ -10,6 +10,7 @@
     Private Sub Form1_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Me.OriginalTitle = Me.Text
         Call EnableTestData(False)
+        lblOtherDataFilename.Text = String.Empty
         Me.Loading = False
         Call SetMaximumSkill(127)
     End Sub
@@ -36,6 +37,8 @@
                     Me.LoadedChar = New CharQFG1(fileContents)
                     Call LoadForm()
                 Case Enums.Games.QFG2
+                    Me.LoadedChar = New CharQFG2(fileContents)
+                    Call LoadForm()
                 Case Enums.Games.QFG3
                 Case Enums.Games.QFG4
 
@@ -252,42 +255,14 @@
             grpSkills.Enabled = False
             grpSpells.Enabled = False
         Else
+            txtName.Text = Me.LoadedChar.Name
+            Call SelectClass(Me.LoadedChar.CharacterClass)
+            Call SelectGame(Me.LoadedChar.Game)
+
             If TypeOf Me.LoadedChar Is CharQFG1 Then
-                rdoQFG1.Checked = True
-                Call SelectClass(Me.LoadedChar.CharacterClass)
-                txtName.Text = Me.LoadedChar.Name
-
-                numStrength.Value = Me.LoadedChar.Strength
-                numIntelligence.Value = Me.LoadedChar.Intelligence
-                numAgility.Value = Me.LoadedChar.Agility
-                numVitality.Value = Me.LoadedChar.Vitality
-                numLuck.Value = Me.LoadedChar.Luck
-
-                numWeaponUse.Value = Me.LoadedChar.GetSkills(Enums.Skills.WeaponUse)
-                numParry.Value = Me.LoadedChar.GetSkills(Enums.Skills.Parry)
-                numDodge.Value = Me.LoadedChar.GetSkills(Enums.Skills.Dodge)
-                numStealth.Value = Me.LoadedChar.GetSkills(Enums.Skills.Stealth)
-                numPickLocks.Value = Me.LoadedChar.GetSkills(Enums.Skills.Picklocks)
-                numThrowing.Value = Me.LoadedChar.GetSkills(Enums.Skills.Throwing)
-                numClimbing.Value = Me.LoadedChar.GetSkills(Enums.Skills.Climbing)
-                numMagic.Value = Me.LoadedChar.GetSkills(Enums.Skills.Magic)
-
-                numOpen.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Open)
-                numDetectMagic.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Detect)
-                numTrigger.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Trigger)
-                numDazzle.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Dazzle)
-                numZap.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Zap)
-                numCalm.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Calm)
-                numFlameDart.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Flame)
-                numFetch.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Fetch)
-
-                numExperience.Value = Me.LoadedChar.Experience
-                numHealthPoints.Value = Me.LoadedChar.HealthPoints
-                numStaminaPoints.Value = Me.LoadedChar.StaminaPoints
-                numMagicPoints.Value = Me.LoadedChar.MagicPoints
-                numPuzzlePoints.Maximum = 500
-                numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
-
+                Call SetMaximumSkill(127)
+                Call SetMaximumInventory(127)
+                Call LoadQFG1Common()
                 'unique inventory
                 chkSword.Checked = Me.LoadedChar.HasSword
                 chkChainmail.Checked = Me.LoadedChar.HasChainmailArmor
@@ -306,12 +281,29 @@
                 numVigorPotions.Value = Me.LoadedChar.StaminaPotions
                 numMagicPotions.Value = Me.LoadedChar.MagicPotions
                 numUndeadUnguent.Value = DirectCast(Me.LoadedChar, CharQFG1).UndeadUnguent
+            ElseIf TypeOf Me.LoadedChar Is CharQFG2 Then
+                Call SetMaximumSkill(255)
+                Call SetMaximumInventory(255)
+                Call LoadQFG1Common()
             End If
 
         End If
         EnableTestData(True)
         Call LoadTestData()
         Me.Loading = False
+    End Sub
+
+    Private Sub SelectGame(game As Enums.Games)
+        Select Case game
+            Case Enums.Games.QFG1
+                rdoQFG1.Checked = True
+            Case Enums.Games.QFG2
+                rdoQFG2.Checked = True
+            Case Enums.Games.QFG3
+                rdoQFG3.Checked = True
+            Case Enums.Games.QFG4
+                rdoQFG4.Checked = True
+        End Select
     End Sub
 
     Private Sub SelectClass(charClass As Enums.CharacterClass)
@@ -326,6 +318,43 @@
                 rdoPaladin.Checked = True
             Case Else
         End Select
+    End Sub
+
+    Private Sub LoadQFG1Common()
+        'abilities
+        numStrength.Value = Me.LoadedChar.Strength
+        numIntelligence.Value = Me.LoadedChar.Intelligence
+        numAgility.Value = Me.LoadedChar.Agility
+        numVitality.Value = Me.LoadedChar.Vitality
+        numLuck.Value = Me.LoadedChar.Luck
+
+        'skills
+        numWeaponUse.Value = Me.LoadedChar.GetSkills(Enums.Skills.WeaponUse)
+        numParry.Value = Me.LoadedChar.GetSkills(Enums.Skills.Parry)
+        numDodge.Value = Me.LoadedChar.GetSkills(Enums.Skills.Dodge)
+        numStealth.Value = Me.LoadedChar.GetSkills(Enums.Skills.Stealth)
+        numPickLocks.Value = Me.LoadedChar.GetSkills(Enums.Skills.Picklocks)
+        numThrowing.Value = Me.LoadedChar.GetSkills(Enums.Skills.Throwing)
+        numClimbing.Value = Me.LoadedChar.GetSkills(Enums.Skills.Climbing)
+        numMagic.Value = Me.LoadedChar.GetSkills(Enums.Skills.Magic)
+
+        'magic
+        numOpen.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Open)
+        numDetectMagic.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Detect)
+        numTrigger.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Trigger)
+        numDazzle.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Dazzle)
+        numZap.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Zap)
+        numCalm.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Calm)
+        numFlameDart.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Flame)
+        numFetch.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Fetch)
+
+        'assorted other attributesd
+        numExperience.Value = Me.LoadedChar.Experience
+        numHealthPoints.Value = Me.LoadedChar.HealthPoints
+        numStaminaPoints.Value = Me.LoadedChar.StaminaPoints
+        numMagicPoints.Value = Me.LoadedChar.MagicPoints
+        numPuzzlePoints.Maximum = 500
+        numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
 
     End Sub
 
@@ -606,7 +635,14 @@
 
         Call LoadSelectedByteReference()
 
-        lblByteName.Text = DirectCast(CInt(numOffset.Value), CharQFG1.ByteNames).ToString
+        Select Case Me.LoadedChar.Game
+            Case Enums.Games.QFG1
+                lblByteName.Text = DirectCast(CInt(numOffset.Value), CharQFG1.ByteNames).ToString
+            Case Enums.Games.QFG2
+                lblByteName.Text = DirectCast(CInt(numOffset.Value), CharQFG2.ByteNames).ToString
+            Case Enums.Games.QFG3
+            Case Enums.Games.QFG4
+        End Select
     End Sub
 
     Private Sub DisplaySelectedByte(value As Integer)

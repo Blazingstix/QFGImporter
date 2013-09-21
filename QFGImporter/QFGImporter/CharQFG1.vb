@@ -68,6 +68,8 @@
     '
     'Byte 0: Character Class 
     '   (0 for Fighter, 1 for Magic User, 2 for Thief)
+    '   (If Character class is set to 3, QFG 2 will import the character as a Paladin.
+    '   I do not know if this causes any bugs throughout the game, but it's a cool tidbit.)
     '
     'Bytes 1 and 2: Gold
     '   (Byte1 - 1) * 100 = The hundreds column of gold.
