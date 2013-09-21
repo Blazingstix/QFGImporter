@@ -6,7 +6,12 @@ QFGImporter
 </name>
 </assembly>
 <members>
-<member name="P:QFGImporter.My.Resources.Resources.ResourceManager">
+<member name="M:QFGImporter.Form1.LoadSelectedByte">
+	<summary>
+ Loads the selected byte for viewing/editing
+ </summary>
+	<remarks></remarks>
+</member><member name="P:QFGImporter.My.Resources.Resources.ResourceManager">
 	<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>

@@ -22,9 +22,9 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.grpGames = New System.Windows.Forms.GroupBox()
         Me.rdoQFG4 = New System.Windows.Forms.RadioButton()
         Me.rdoQFG3 = New System.Windows.Forms.RadioButton()
@@ -126,7 +126,7 @@ Partial Class Form1
         Me.btnLoad = New System.Windows.Forms.Button()
         Me.btnTest = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.tabCharacter = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.lblUndeadUnguent = New System.Windows.Forms.Label()
         Me.lblMagicPotions = New System.Windows.Forms.Label()
@@ -148,13 +148,13 @@ Partial Class Form1
         Me.chkToolkit = New System.Windows.Forms.CheckBox()
         Me.chkChainmail = New System.Windows.Forms.CheckBox()
         Me.chkSword = New System.Windows.Forms.CheckBox()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.tabRawData = New System.Windows.Forms.TabPage()
         Me.lblDifferences = New System.Windows.Forms.Label()
         Me.lblOtherDataFilename = New System.Windows.Forms.Label()
         Me.btnDeltaNext = New System.Windows.Forms.Button()
         Me.btnDeltaPrev = New System.Windows.Forms.Button()
-        Me.btnLoadOther = New System.Windows.Forms.Button()
-        Me.lblOtherData = New System.Windows.Forms.Label()
+        Me.btnLoadReference = New System.Windows.Forms.Button()
+        Me.lblReferenceData = New System.Windows.Forms.Label()
         Me.lblMainData = New System.Windows.Forms.Label()
         Me.lblByteName = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -174,9 +174,9 @@ Partial Class Form1
         Me.Column14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.numOtherValueHex = New System.Windows.Forms.NumericUpDown()
+        Me.numReferenceValueHex = New System.Windows.Forms.NumericUpDown()
         Me.numValueHex = New System.Windows.Forms.NumericUpDown()
-        Me.numOtherValue = New System.Windows.Forms.NumericUpDown()
+        Me.numReferenceValue = New System.Windows.Forms.NumericUpDown()
         Me.numValue = New System.Windows.Forms.NumericUpDown()
         Me.rdoLE = New System.Windows.Forms.RadioButton()
         Me.rdoBE = New System.Windows.Forms.RadioButton()
@@ -200,7 +200,7 @@ Partial Class Form1
         Me.lblOffset = New System.Windows.Forms.Label()
         Me.numBytes = New System.Windows.Forms.NumericUpDown()
         Me.numOffset = New System.Windows.Forms.NumericUpDown()
-        Me.txtOtherData = New System.Windows.Forms.TextBox()
+        Me.txtReferenceData = New System.Windows.Forms.TextBox()
         Me.txtOriginalData = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.grpGames.SuspendLayout()
@@ -251,7 +251,7 @@ Partial Class Form1
         CType(Me.numStaminaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHealthPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
+        Me.tabCharacter.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.numUndeadUnguent, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMagicPotions, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -260,12 +260,12 @@ Partial Class Form1
         CType(Me.numHealingPotions, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDaggers, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpUniqueInventory.SuspendLayout()
-        Me.TabPage2.SuspendLayout()
+        Me.tabRawData.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.numOtherValueHex, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numReferenceValueHex, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numValueHex, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numOtherValue, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numReferenceValue, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numValue, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numBytes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1322,33 +1322,33 @@ Partial Class Form1
         Me.TabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.tabCharacter)
+        Me.TabControl1.Controls.Add(Me.tabRawData)
         Me.TabControl1.Location = New System.Drawing.Point(12, 41)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(682, 501)
         Me.TabControl1.TabIndex = 12
         '
-        'TabPage1
+        'tabCharacter
         '
-        Me.TabPage1.Controls.Add(Me.GroupBox2)
-        Me.TabPage1.Controls.Add(Me.grpUniqueInventory)
-        Me.TabPage1.Controls.Add(Me.grpGames)
-        Me.TabPage1.Controls.Add(Me.grpClass)
-        Me.TabPage1.Controls.Add(Me.grpSkills)
-        Me.TabPage1.Controls.Add(Me.txtName)
-        Me.TabPage1.Controls.Add(Me.grpSpells)
-        Me.TabPage1.Controls.Add(Me.lblName)
-        Me.TabPage1.Controls.Add(Me.grpAbilities)
-        Me.TabPage1.Controls.Add(Me.grpOther)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(674, 475)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "Character Sheet"
-        Me.TabPage1.UseVisualStyleBackColor = True
+        Me.tabCharacter.Controls.Add(Me.GroupBox2)
+        Me.tabCharacter.Controls.Add(Me.grpUniqueInventory)
+        Me.tabCharacter.Controls.Add(Me.grpGames)
+        Me.tabCharacter.Controls.Add(Me.grpClass)
+        Me.tabCharacter.Controls.Add(Me.grpSkills)
+        Me.tabCharacter.Controls.Add(Me.txtName)
+        Me.tabCharacter.Controls.Add(Me.grpSpells)
+        Me.tabCharacter.Controls.Add(Me.lblName)
+        Me.tabCharacter.Controls.Add(Me.grpAbilities)
+        Me.tabCharacter.Controls.Add(Me.grpOther)
+        Me.tabCharacter.Location = New System.Drawing.Point(4, 22)
+        Me.tabCharacter.Name = "tabCharacter"
+        Me.tabCharacter.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabCharacter.Size = New System.Drawing.Size(674, 475)
+        Me.tabCharacter.TabIndex = 0
+        Me.tabCharacter.Text = "Character Sheet"
+        Me.tabCharacter.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
@@ -1565,31 +1565,31 @@ Partial Class Form1
         Me.chkSword.Text = "Sword"
         Me.chkSword.UseVisualStyleBackColor = True
         '
-        'TabPage2
+        'tabRawData
         '
-        Me.TabPage2.Controls.Add(Me.lblDifferences)
-        Me.TabPage2.Controls.Add(Me.lblOtherDataFilename)
-        Me.TabPage2.Controls.Add(Me.btnDeltaNext)
-        Me.TabPage2.Controls.Add(Me.btnDeltaPrev)
-        Me.TabPage2.Controls.Add(Me.btnLoadOther)
-        Me.TabPage2.Controls.Add(Me.lblOtherData)
-        Me.TabPage2.Controls.Add(Me.lblMainData)
-        Me.TabPage2.Controls.Add(Me.lblByteName)
-        Me.TabPage2.Controls.Add(Me.DataGridView1)
-        Me.TabPage2.Controls.Add(Me.GroupBox1)
-        Me.TabPage2.Controls.Add(Me.lblBytes)
-        Me.TabPage2.Controls.Add(Me.lblOffset)
-        Me.TabPage2.Controls.Add(Me.numBytes)
-        Me.TabPage2.Controls.Add(Me.numOffset)
-        Me.TabPage2.Controls.Add(Me.txtOtherData)
-        Me.TabPage2.Controls.Add(Me.txtOriginalData)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(674, 475)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Raw Data"
-        Me.TabPage2.UseVisualStyleBackColor = True
+        Me.tabRawData.Controls.Add(Me.lblDifferences)
+        Me.tabRawData.Controls.Add(Me.lblOtherDataFilename)
+        Me.tabRawData.Controls.Add(Me.btnDeltaNext)
+        Me.tabRawData.Controls.Add(Me.btnDeltaPrev)
+        Me.tabRawData.Controls.Add(Me.btnLoadReference)
+        Me.tabRawData.Controls.Add(Me.lblReferenceData)
+        Me.tabRawData.Controls.Add(Me.lblMainData)
+        Me.tabRawData.Controls.Add(Me.lblByteName)
+        Me.tabRawData.Controls.Add(Me.DataGridView1)
+        Me.tabRawData.Controls.Add(Me.GroupBox1)
+        Me.tabRawData.Controls.Add(Me.lblBytes)
+        Me.tabRawData.Controls.Add(Me.lblOffset)
+        Me.tabRawData.Controls.Add(Me.numBytes)
+        Me.tabRawData.Controls.Add(Me.numOffset)
+        Me.tabRawData.Controls.Add(Me.txtReferenceData)
+        Me.tabRawData.Controls.Add(Me.txtOriginalData)
+        Me.tabRawData.Location = New System.Drawing.Point(4, 22)
+        Me.tabRawData.Name = "tabRawData"
+        Me.tabRawData.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabRawData.Size = New System.Drawing.Size(674, 475)
+        Me.tabRawData.TabIndex = 1
+        Me.tabRawData.Text = "Edit Raw Data"
+        Me.tabRawData.UseVisualStyleBackColor = True
         '
         'lblDifferences
         '
@@ -1628,23 +1628,23 @@ Partial Class Form1
         Me.btnDeltaPrev.Text = "< Prev"
         Me.btnDeltaPrev.UseVisualStyleBackColor = True
         '
-        'btnLoadOther
+        'btnLoadReference
         '
-        Me.btnLoadOther.Location = New System.Drawing.Point(6, 267)
-        Me.btnLoadOther.Name = "btnLoadOther"
-        Me.btnLoadOther.Size = New System.Drawing.Size(101, 23)
-        Me.btnLoadOther.TabIndex = 9
-        Me.btnLoadOther.Text = "Load Other..."
-        Me.btnLoadOther.UseVisualStyleBackColor = True
+        Me.btnLoadReference.Location = New System.Drawing.Point(6, 267)
+        Me.btnLoadReference.Name = "btnLoadReference"
+        Me.btnLoadReference.Size = New System.Drawing.Size(101, 23)
+        Me.btnLoadReference.TabIndex = 9
+        Me.btnLoadReference.Text = "Load Reference..."
+        Me.btnLoadReference.UseVisualStyleBackColor = True
         '
-        'lblOtherData
+        'lblReferenceData
         '
-        Me.lblOtherData.AutoSize = True
-        Me.lblOtherData.Location = New System.Drawing.Point(6, 203)
-        Me.lblOtherData.Name = "lblOtherData"
-        Me.lblOtherData.Size = New System.Drawing.Size(62, 13)
-        Me.lblOtherData.TabIndex = 8
-        Me.lblOtherData.Text = "Other Data:"
+        Me.lblReferenceData.AutoSize = True
+        Me.lblReferenceData.Location = New System.Drawing.Point(6, 203)
+        Me.lblReferenceData.Name = "lblReferenceData"
+        Me.lblReferenceData.Size = New System.Drawing.Size(86, 13)
+        Me.lblReferenceData.TabIndex = 8
+        Me.lblReferenceData.Text = "Reference Data:"
         '
         'lblMainData
         '
@@ -1665,34 +1665,34 @@ Partial Class Form1
         '
         'DataGridView1
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column9, Me.Column10, Me.Column11, Me.Column12, Me.Column13, Me.Column14, Me.Column15})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle5
         Me.DataGridView1.Location = New System.Drawing.Point(253, 372)
         Me.DataGridView1.Name = "DataGridView1"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.DataGridView1.Size = New System.Drawing.Size(420, 57)
         Me.DataGridView1.TabIndex = 3
         Me.DataGridView1.Visible = False
@@ -1789,9 +1789,9 @@ Partial Class Form1
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.numOtherValueHex)
+        Me.GroupBox1.Controls.Add(Me.numReferenceValueHex)
         Me.GroupBox1.Controls.Add(Me.numValueHex)
-        Me.GroupBox1.Controls.Add(Me.numOtherValue)
+        Me.GroupBox1.Controls.Add(Me.numReferenceValue)
         Me.GroupBox1.Controls.Add(Me.numValue)
         Me.GroupBox1.Controls.Add(Me.rdoLE)
         Me.GroupBox1.Controls.Add(Me.rdoBE)
@@ -1818,16 +1818,16 @@ Partial Class Form1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Bits"
         '
-        'numOtherValueHex
+        'numReferenceValueHex
         '
-        Me.numOtherValueHex.Hexadecimal = True
-        Me.numOtherValueHex.Location = New System.Drawing.Point(85, 56)
-        Me.numOtherValueHex.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.numOtherValueHex.Name = "numOtherValueHex"
-        Me.numOtherValueHex.ReadOnly = True
-        Me.numOtherValueHex.Size = New System.Drawing.Size(73, 20)
-        Me.numOtherValueHex.TabIndex = 2
-        Me.numOtherValueHex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.numReferenceValueHex.Hexadecimal = True
+        Me.numReferenceValueHex.Location = New System.Drawing.Point(85, 56)
+        Me.numReferenceValueHex.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.numReferenceValueHex.Name = "numReferenceValueHex"
+        Me.numReferenceValueHex.ReadOnly = True
+        Me.numReferenceValueHex.Size = New System.Drawing.Size(73, 20)
+        Me.numReferenceValueHex.TabIndex = 2
+        Me.numReferenceValueHex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'numValueHex
         '
@@ -1840,14 +1840,15 @@ Partial Class Form1
         Me.numValueHex.TabIndex = 2
         Me.numValueHex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'numOtherValue
+        'numReferenceValue
         '
-        Me.numOtherValue.Location = New System.Drawing.Point(6, 56)
-        Me.numOtherValue.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.numOtherValue.Name = "numOtherValue"
-        Me.numOtherValue.Size = New System.Drawing.Size(73, 20)
-        Me.numOtherValue.TabIndex = 2
-        Me.numOtherValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.numReferenceValue.Location = New System.Drawing.Point(6, 56)
+        Me.numReferenceValue.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.numReferenceValue.Name = "numReferenceValue"
+        Me.numReferenceValue.ReadOnly = True
+        Me.numReferenceValue.Size = New System.Drawing.Size(73, 20)
+        Me.numReferenceValue.TabIndex = 2
+        Me.numReferenceValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'numValue
         '
@@ -1884,6 +1885,7 @@ Partial Class Form1
         '
         Me.chkOther7.AutoSize = True
         Me.chkOther7.CheckAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.chkOther7.Enabled = False
         Me.chkOther7.Location = New System.Drawing.Point(164, 50)
         Me.chkOther7.Name = "chkOther7"
         Me.chkOther7.Size = New System.Drawing.Size(17, 31)
@@ -1895,6 +1897,7 @@ Partial Class Form1
         '
         Me.chkOther3.AutoSize = True
         Me.chkOther3.CheckAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.chkOther3.Enabled = False
         Me.chkOther3.Location = New System.Drawing.Point(256, 50)
         Me.chkOther3.Name = "chkOther3"
         Me.chkOther3.Size = New System.Drawing.Size(17, 31)
@@ -1917,6 +1920,7 @@ Partial Class Form1
         '
         Me.chkOther6.AutoSize = True
         Me.chkOther6.CheckAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.chkOther6.Enabled = False
         Me.chkOther6.Location = New System.Drawing.Point(187, 50)
         Me.chkOther6.Name = "chkOther6"
         Me.chkOther6.Size = New System.Drawing.Size(17, 31)
@@ -1939,6 +1943,7 @@ Partial Class Form1
         '
         Me.chkOther2.AutoSize = True
         Me.chkOther2.CheckAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.chkOther2.Enabled = False
         Me.chkOther2.Location = New System.Drawing.Point(279, 50)
         Me.chkOther2.Name = "chkOther2"
         Me.chkOther2.Size = New System.Drawing.Size(17, 31)
@@ -1961,6 +1966,7 @@ Partial Class Form1
         '
         Me.chkOther5.AutoSize = True
         Me.chkOther5.CheckAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.chkOther5.Enabled = False
         Me.chkOther5.Location = New System.Drawing.Point(210, 50)
         Me.chkOther5.Name = "chkOther5"
         Me.chkOther5.Size = New System.Drawing.Size(17, 31)
@@ -1983,6 +1989,7 @@ Partial Class Form1
         '
         Me.chkOther1.AutoSize = True
         Me.chkOther1.CheckAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.chkOther1.Enabled = False
         Me.chkOther1.Location = New System.Drawing.Point(302, 50)
         Me.chkOther1.Name = "chkOther1"
         Me.chkOther1.Size = New System.Drawing.Size(17, 31)
@@ -2005,6 +2012,7 @@ Partial Class Form1
         '
         Me.chkOther4.AutoSize = True
         Me.chkOther4.CheckAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.chkOther4.Enabled = False
         Me.chkOther4.Location = New System.Drawing.Point(233, 50)
         Me.chkOther4.Name = "chkOther4"
         Me.chkOther4.Size = New System.Drawing.Size(17, 31)
@@ -2027,6 +2035,7 @@ Partial Class Form1
         '
         Me.chkOther0.AutoSize = True
         Me.chkOther0.CheckAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.chkOther0.Enabled = False
         Me.chkOther0.Location = New System.Drawing.Point(325, 50)
         Me.chkOther0.Name = "chkOther0"
         Me.chkOther0.Size = New System.Drawing.Size(17, 31)
@@ -2094,22 +2103,24 @@ Partial Class Form1
         Me.numOffset.TabIndex = 1
         Me.numOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'txtOtherData
+        'txtReferenceData
         '
-        Me.txtOtherData.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.txtReferenceData.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtOtherData.HideSelection = False
-        Me.txtOtherData.Location = New System.Drawing.Point(6, 219)
-        Me.txtOtherData.Multiline = True
-        Me.txtOtherData.Name = "txtOtherData"
-        Me.txtOtherData.ReadOnly = True
-        Me.txtOtherData.Size = New System.Drawing.Size(667, 42)
-        Me.txtOtherData.TabIndex = 0
+        Me.txtReferenceData.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtReferenceData.HideSelection = False
+        Me.txtReferenceData.Location = New System.Drawing.Point(6, 219)
+        Me.txtReferenceData.Multiline = True
+        Me.txtReferenceData.Name = "txtReferenceData"
+        Me.txtReferenceData.ReadOnly = True
+        Me.txtReferenceData.Size = New System.Drawing.Size(667, 42)
+        Me.txtReferenceData.TabIndex = 0
         '
         'txtOriginalData
         '
         Me.txtOriginalData.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtOriginalData.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOriginalData.HideSelection = False
         Me.txtOriginalData.Location = New System.Drawing.Point(6, 158)
         Me.txtOriginalData.Multiline = True
@@ -2194,8 +2205,8 @@ Partial Class Form1
         CType(Me.numStaminaPoints, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHealthPoints, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabControl1.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout()
+        Me.tabCharacter.ResumeLayout(False)
+        Me.tabCharacter.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.numUndeadUnguent, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2206,14 +2217,14 @@ Partial Class Form1
         CType(Me.numDaggers, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpUniqueInventory.ResumeLayout(False)
         Me.grpUniqueInventory.PerformLayout()
-        Me.TabPage2.ResumeLayout(False)
-        Me.TabPage2.PerformLayout()
+        Me.tabRawData.ResumeLayout(False)
+        Me.tabRawData.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.numOtherValueHex, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numReferenceValueHex, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numValueHex, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numOtherValue, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numReferenceValue, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numValue, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numBytes, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2301,8 +2312,8 @@ Partial Class Form1
     Friend WithEvents btnLoad As System.Windows.Forms.Button
     Friend WithEvents btnTest As System.Windows.Forms.Button
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents tabCharacter As System.Windows.Forms.TabPage
+    Friend WithEvents tabRawData As System.Windows.Forms.TabPage
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents lblFrostBite As System.Windows.Forms.Label
     Friend WithEvents lblGlide As System.Windows.Forms.Label
@@ -2354,10 +2365,10 @@ Partial Class Form1
     Friend WithEvents numValueHex As System.Windows.Forms.NumericUpDown
     Friend WithEvents btnDeltaNext As System.Windows.Forms.Button
     Friend WithEvents btnDeltaPrev As System.Windows.Forms.Button
-    Friend WithEvents btnLoadOther As System.Windows.Forms.Button
-    Friend WithEvents lblOtherData As System.Windows.Forms.Label
+    Friend WithEvents btnLoadReference As System.Windows.Forms.Button
+    Friend WithEvents lblReferenceData As System.Windows.Forms.Label
     Friend WithEvents lblMainData As System.Windows.Forms.Label
-    Friend WithEvents txtOtherData As System.Windows.Forms.TextBox
+    Friend WithEvents txtReferenceData As System.Windows.Forms.TextBox
     Friend WithEvents lblOtherDataFilename As System.Windows.Forms.Label
     Friend WithEvents chkOther7 As System.Windows.Forms.CheckBox
     Friend WithEvents chkOther3 As System.Windows.Forms.CheckBox
@@ -2374,8 +2385,8 @@ Partial Class Form1
     Friend WithEvents numGold As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkLockPick As System.Windows.Forms.CheckBox
     Friend WithEvents chkToolkit As System.Windows.Forms.CheckBox
-    Friend WithEvents numOtherValueHex As System.Windows.Forms.NumericUpDown
-    Friend WithEvents numOtherValue As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numReferenceValueHex As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numReferenceValue As System.Windows.Forms.NumericUpDown
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents lblUndeadUnguent As System.Windows.Forms.Label
     Friend WithEvents lblMagicPotions As System.Windows.Forms.Label

@@ -8,3 +8,13 @@ C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\o
 C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.xml
 C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.pdb
 C:\Users\Charles\documents\visual studio 2010\Projects\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.TestForm.resources
+C:\Git\QFGImporter\QFGImporter\bin\Debug\QFGImporter.exe
+C:\Git\QFGImporter\QFGImporter\bin\Debug\QFGImporter.pdb
+C:\Git\QFGImporter\QFGImporter\bin\Debug\QFGImporter.xml
+C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.Form1.resources
+C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.Resources.resources
+C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.TestForm.resources
+C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.vbproj.GenerateResource.Cache
+C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.exe
+C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.xml
+C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.pdb
