@@ -3,9 +3,24 @@
 
 #Region "Byte Breakdown"
     ' I don't know the layout of the QFG3/4 files yet, but I suspect they are similar to QFG1/2
-    '   except that instead of being 8-bit bytes, it uses 16-bit shorts.
+    '   except that instead of being 8-bit bytes, it uses 16-bit unsigned shorts.
     '
+    'UShort 0: Character Class
     '
+    'UShort 1: (unknown)
+    '
+    'UShort 2: (unknown)
+    '
+    'UShort 3: (unknown)
+    '
+    'UShort 4 - 18: Abilities and Skills
+    '   (4 - Strength, 5 - Intelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor)
+    '
+    'UShort 19: (unknown)
+    '
+    'UShort 20: (unknown)
+    '
+    'UShort 21: (unknown)
     '
     '
 #End Region
@@ -94,14 +109,20 @@
     Public Sub New(fileContents)
         Call Load(fileContents)
         Me.EncodedData2 = ConvertByteToShort(Me.EncodedData)
-        'Me.DecodedValues2 = CharGeneric.DecodeBytesXor(Me.EncodedData2, &H53)
         Me.DecodedValues2 = Me.EncodedData2
+        Me.DecodedValues2 = CharGeneric.DecodeBytesXor(Me.EncodedData2, &H53)
     End Sub
 
     Private Function ConvertByteToShort(bytes As Byte()) As UShort()
-        Dim shorts(bytes.Length / 2 - 1) As UShort
+        Dim shorts(Math.Ceiling(bytes.Length / 2) - 1) As UShort
         For i As Integer = 0 To shorts.Length - 1
-            shorts(i) = (CUShort(bytes(2 * i)) << 8) Or bytes(2 * i + 1)
+            Dim byteA As Byte = bytes(2 * i)
+            Dim byteB As Byte = 0
+            If 2 * i + 1 < bytes.Length Then
+                byteB = bytes(2 * i + 1)
+            End If
+
+            shorts(i) = (CUShort(byteA) << 8) Or byteB
         Next
         Return shorts
     End Function

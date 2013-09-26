@@ -15,18 +15,24 @@ Public Class TestForm
     End Sub
 
     Private Sub SelectFile()
-        Dim name As String = "Unknown Hero"
-        Me.FileContents = String.Empty
-        If IsQFG3() Then
-            Me.FileContents = " glory3.sav" & vbLf
-        ElseIf IsQFG4() Then
-            Me.FileContents = " glory4.sav" & vbLf
-        End If
-        Me.FileContents &= name
-        Me.FileContents &= vbLf
-        Me.FileContents &= GetTestCase()
-        Me.FileContents &= vbLf
+        Me.FileContents = Me.GetFileContents()
     End Sub
+
+    Private Function GetFileContents() As String
+        Dim ret As String = String.Empty
+        Dim name As String = "Unknown Hero"
+
+        If IsQFG3() Then
+            ret = " glory3.sav" & vbLf
+        ElseIf IsQFG4() Then
+            ret = " glory4.sav" & vbLf
+        End If
+        ret &= name
+        ret &= vbLf
+        ret &= GetTestCase()
+        ret &= vbLf
+        Return ret
+    End Function
 
     Private Function GetTestCase() As String
         'QFG1
@@ -166,5 +172,15 @@ Public Class TestForm
         Dim out As String = str.ToString
         MessageBox.Show(out)
 
+    End Sub
+
+    Private Sub btnSaveAs_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveAs.Click
+        Dim fso As New SaveFileDialog
+        fso.Filter = CharGeneric.QFGFileFilter
+        If fso.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Dim fs As New IO.StreamWriter(fso.OpenFile())
+            fs.Write(Me.GetFileContents())
+            fs.Close()
+        End If
     End Sub
 End Class

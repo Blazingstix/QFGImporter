@@ -19,7 +19,7 @@
 
     Private Sub btnLoad_Click(sender As System.Object, e As System.EventArgs) Handles btnLoad.Click
         Dim fso As New OpenFileDialog
-        fso.Filter = "QFG Import Character (*.sav)|*.sav|All Files (*.*)|*.*"
+        fso.Filter = CharGeneric.QFGFileFilter
         If fso.ShowDialog = Windows.Forms.DialogResult.OK Then
             Call Me.CloseCharacter()
             Me.LoadedFilename = fso.FileName
@@ -58,7 +58,7 @@
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
         Dim fso As New SaveFileDialog
-        fso.Filter = "QFG Import Character (*.sav)|*.sav|All Files (*.*)|*.*"
+        fso.Filter = CharGeneric.QFGFileFilter
         fso.InitialDirectory = IO.Path.GetDirectoryName(Me.LoadedFilename)
         fso.FileName = IO.Path.GetFileName(Me.LoadedFilename)
         fso.OverwritePrompt = True

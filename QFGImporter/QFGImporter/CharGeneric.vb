@@ -1,5 +1,7 @@
 ﻿Public MustInherit Class CharGeneric
 #Region "Constants"
+    Public Const QFGFileFilter As String = "QFG Import Character (*.sav)|*.sav|All Files (*.*)|*.*"
+
     Friend MustOverride ReadOnly Property OffsetCharClass As Byte
     Friend MustOverride ReadOnly Property OffsetSkills As Byte
     Friend MustOverride ReadOnly Property OffsetExperience As Byte
@@ -526,11 +528,11 @@
         Return decodedValues
     End Function
 
-    Public Shared Function DecodeBytesXor(encodedData As Short(), initialCipher As Short, Optional Limiter As Short = Short.MaxValue) As Short()
-        Dim decodedValues(encodedData.Length - 1) As Short
+    Public Shared Function DecodeBytesXor(encodedData As UShort(), initialCipher As UShort, Optional Limiter As UShort = UShort.MaxValue) As UShort()
+        Dim decodedValues(encodedData.Length - 1) As UShort
 
         For i As Integer = 0 To encodedData.Length - 1
-            Dim cipher As Short
+            Dim cipher As UShort
             If i = 0 Then
                 cipher = initialCipher
             Else
@@ -640,4 +642,5 @@
         str &= vbLf
         Return str
     End Function
+
 End Class

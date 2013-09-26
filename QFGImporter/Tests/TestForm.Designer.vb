@@ -65,6 +65,7 @@ Partial Class TestForm
         Me.QFG4Wizard = New System.Windows.Forms.RadioButton()
         Me.QFG4Thief = New System.Windows.Forms.RadioButton()
         Me.QFG4Paladin = New System.Windows.Forms.RadioButton()
+        Me.btnSaveAs = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -80,6 +81,7 @@ Partial Class TestForm
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(146, 29)
         Me.TableLayoutPanel1.TabIndex = 0
         '
@@ -235,7 +237,7 @@ Partial Class TestForm
         'Button1
         '
         Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(254, 434)
+        Me.Button1.Location = New System.Drawing.Point(173, 434)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 8
@@ -502,6 +504,15 @@ Partial Class TestForm
         Me.QFG4Paladin.Text = "QFG4 - Paladin"
         Me.QFG4Paladin.UseVisualStyleBackColor = True
         '
+        'btnSaveAs
+        '
+        Me.btnSaveAs.Location = New System.Drawing.Point(254, 434)
+        Me.btnSaveAs.Name = "btnSaveAs"
+        Me.btnSaveAs.Size = New System.Drawing.Size(75, 23)
+        Me.btnSaveAs.TabIndex = 9
+        Me.btnSaveAs.Text = "Save As..."
+        Me.btnSaveAs.UseVisualStyleBackColor = True
+        '
         'TestForm
         '
         Me.AcceptButton = Me.OK_Button
@@ -509,6 +520,7 @@ Partial Class TestForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(490, 472)
+        Me.Controls.Add(Me.btnSaveAs)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.QFG2ThiefHybrid)
         Me.Controls.Add(Me.QFG1ThiefHybrid)
@@ -605,5 +617,6 @@ Partial Class TestForm
     Friend WithEvents QFG4Wizard As System.Windows.Forms.RadioButton
     Friend WithEvents QFG4Thief As System.Windows.Forms.RadioButton
     Friend WithEvents QFG4Paladin As System.Windows.Forms.RadioButton
+    Friend WithEvents btnSaveAs As System.Windows.Forms.Button
 
 End Class
