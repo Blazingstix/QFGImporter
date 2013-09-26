@@ -75,6 +75,7 @@
     <Compile Include="QFGImporter\CharGeneric.vb" />
     <Compile Include="QFGImporter\CharQFG1.vb" />
     <Compile Include="QFGImporter\CharQFG2.vb" />
+    <Compile Include="QFGImporter\CharQFG3.vb" />
     <Compile Include="QFGImporter\Enums.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>

@@ -52,7 +52,7 @@
 
     End Enum
 
-#Region "AdditionalBits"
+#Region "Byte Breakdown"
     'Byte 0: Character Class 
     '   (0 for Fighter, 1 for Magic User, 2 for Thief, 3 for Paladin)
     '
@@ -175,12 +175,6 @@
     Friend Overrides ReadOnly Property InitialCipher As Byte
         Get
             Return &H53
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property InitialLimiter As Byte
-        Get
-            Return &HFF
         End Get
     End Property
 

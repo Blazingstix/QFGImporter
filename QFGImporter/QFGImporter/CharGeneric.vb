@@ -14,8 +14,12 @@
     Friend MustOverride ReadOnly Property SkillTechnicalMaximum As UShort
 
     Friend MustOverride ReadOnly Property InitialCipher As Byte
-    Friend MustOverride ReadOnly Property InitialLimiter As Byte
     Friend MustOverride ReadOnly Property InitialChecksum As Byte
+    Friend Overridable ReadOnly Property InitialLimiter As Byte
+        Get
+            Return &HFF
+        End Get
+    End Property
 
 #End Region
 
@@ -25,7 +29,7 @@
     Public Property Game As Enums.Games
     Public Property Name As String = String.Empty
     Friend Property EncodedData As Byte()
-    Friend Property DecodedValues As Integer()
+    Friend Property DecodedValues As Byte()
     Friend Property Extra As String
 
 #End Region
@@ -380,16 +384,20 @@
                 End If
             End If
             Me.EncodedData = convertHexStringToByteArray(data)
-            Me.DecodedValues = DecodeBytes(Me.EncodedData)
+            Call Me.DecodeValues()
         End If
+    End Sub
+
+    Public Sub DecodeValues()
+        Me.DecodedValues = Me.GetDecodedBytes(Me.EncodedData)
     End Sub
 
     Public Shared Function GetGame(FileContents As String) As Enums.Games
         Dim lines As String() = CharGeneric.SplitInputFile(FileContents)
         If lines IsNot Nothing AndAlso lines.Length > 1 Then
-            If lines(0) = " glory3.sav" Then
+            If lines(0).Trim = "glory3.sav" Then
                 Return Enums.Games.QFG3
-            ElseIf lines(0) = " glory4.sav" Then
+            ElseIf lines(0).Trim = "glory4.sav" Then
                 Return Enums.Games.QFG4
             ElseIf lines(1).Length = 86 Then
                 Return Enums.Games.QFG1
@@ -404,28 +412,46 @@
         Return Nothing
     End Function
 
-    Friend Overridable Sub SetGame()
-
-    End Sub
+    Friend MustOverride Sub SetGame()
 
     Public Shared Function SplitInputFile(import As String) As String()
-        import = import.Replace(vbCrLf, vbLf)
+        If import.Contains(vbCrLf) Then
+            import = import.Replace(vbCrLf, vbLf)
+        End If
         Dim splitChars As Char() = {vbLf}
+        'start off assuming it's QFG1 or QFG2, but if it's QFG3 or QFG4, 
+        '   then we'll re-split it acordingly
+        'NOTE: this is done in an effort to still support the files created by my
+        '   original QFG Importer '95. In that program, I appended a text disclaimer 
+        '   to the end of each created file.
         Dim lines() As String = import.Split(splitChars, 3)
+        If lines(0).Trim.Equals("glory3.sav") Or lines(0).Trim.Equals("glory4.sav") Then
+            lines = import.Split(splitChars, 4)
+        End If
         Return lines
     End Function
 
     Public Function ParseCharacter(import As String) As String()
-        'MessageBox.Show(import)
         Dim lines As String() = SplitInputFile(import)
+        Dim name As String
+        Dim data As String
+        Dim extra As String = String.Empty
         If lines.Length > 1 Then
-            Dim name As String = lines(0)
-            Dim data As String = lines(1)
-            If lines.Length > 2 Then
-                Dim extra As String = lines(2)
+            If Me.Game = Enums.Games.QFG1 Or Me.Game = Enums.Games.QFG2 Then
+                name = lines(0)
+                data = lines(1)
+                If lines.Length > 2 Then
+                    extra = lines(2)
+                End If
+            Else
+                name = lines(1)
+                data = lines(2)
+                If lines.Length > 3 Then
+                    extra = lines(3)
+                End If
             End If
-            Dim dataBytes As Byte() = convertHexStringToByteArray(data)
-            Dim values As Integer() = DecodeBytes(dataBytes)
+            'Dim dataBytes As Byte() = convertHexStringToByteArray(data)
+            'Dim values As Integer() = Me.DecodeBytes(dataBytes)
             'Dim chk As Byte() = Checksums(values)
         End If
         Return lines
@@ -442,40 +468,101 @@
         Return buffer
     End Function
 
-    Public Function DecodeBytes(data As Byte()) As Integer()
-        Dim values(data.Length - 1) As Integer
-
-        For i As Integer = 0 To data.Length - 1
-            Dim cipher As Byte
-            If i = 0 Then
-                cipher = Me.InitialCipher
-            Else
-                cipher = data(i - 1) And Me.InitialLimiter
-            End If
-
-            values(i) = data(i) Xor cipher
-        Next
-
-        Return values
+    Public Function GetDecodedBytes(encodedData As Byte()) As Byte()
+        Select Case Me.Game
+            Case Enums.Games.QFG1, Enums.Games.QFG2
+                Return CharGeneric.DecodeBytesXor(encodedData, Me.InitialCipher, Me.InitialLimiter)
+            Case Enums.Games.QFG3
+                Dim i(encodedData.Length - 1) As Byte
+                For x As Integer = 0 To encodedData.Length - 1
+                    i(x) = encodedData(x)
+                Next
+                Return i
+            Case Else
+                'for everything else, do not even try to decode the values
+                Dim i(encodedData.Length - 1) As Byte
+                For x As Integer = 0 To encodedData.Length - 1
+                    i(x) = encodedData(x)
+                Next
+                Return i
+        End Select
     End Function
 
-    Public Function EncodeBytes(data As Integer()) As Byte()
-        Dim values(data.Length - 1) As Byte
-        For i As Integer = 0 To data.Length - 1
-            Dim cipher As Byte
-            If i = 0 Then
-                cipher = Me.InitialCipher
-            Else
-                cipher = values(i - 1) And Me.InitialLimiter
-            End If
-
-            values(i) = data(i) Xor cipher
-        Next
-
-        Return values
+    Public Function GetEncodedBytes(decodedValues As Byte()) As Byte()
+        Select Case Me.Game
+            Case Enums.Games.QFG1, Enums.Games.QFG2
+                Return CharGeneric.EncodeBytesXor(decodedValues, Me.InitialCipher, Me.InitialLimiter)
+            Case Enums.Games.QFG3
+                'for everything else, do not even try to decode the values
+                Dim b(decodedValues.Length - 1) As Byte
+                For x As Integer = 0 To decodedValues.Length - 1
+                    b(x) = EncodedData(x)
+                Next
+                Return b
+            Case Else
+                'for everything else, do not even try to decode the values
+                Dim b(decodedValues.Length - 1) As Byte
+                For x As Integer = 0 To decodedValues.Length - 1
+                    b(x) = EncodedData(x)
+                Next
+                Return b
+        End Select
     End Function
 
-    Private Function Checksums(values As Integer()) As Byte()
+    Public Shared Function DecodeBytesXor(encodedData As Byte(), initialCipher As Byte, Optional Limiter As Byte = Byte.MaxValue) As Byte()
+        Dim decodedValues(encodedData.Length - 1) As Byte
+
+        For i As Integer = 0 To encodedData.Length - 1
+            Dim cipher As Byte
+            If i = 0 Then
+                cipher = initialCipher
+            Else
+                cipher = encodedData(i - 1) And Limiter
+            End If
+
+            decodedValues(i) = encodedData(i) Xor cipher
+        Next
+
+        Return decodedValues
+    End Function
+
+    Public Shared Function DecodeBytesXor(encodedData As Short(), initialCipher As Short, Optional Limiter As Short = Short.MaxValue) As Short()
+        Dim decodedValues(encodedData.Length - 1) As Short
+
+        For i As Integer = 0 To encodedData.Length - 1
+            Dim cipher As Short
+            If i = 0 Then
+                cipher = initialCipher
+            Else
+                cipher = encodedData(i - 1) And Limiter
+            End If
+
+            decodedValues(i) = encodedData(i) Xor cipher
+        Next
+
+        Return decodedValues
+    End Function
+
+
+    Public Shared Function EncodeBytesXor(decodedValues As Byte(), initialCipher As Byte, Optional Limiter As Byte = Byte.MaxValue) As Byte()
+        Dim encodedData(decodedValues.Length - 1) As Byte
+
+        For i As Integer = 0 To decodedValues.Length - 1
+            Dim cipher As Byte
+            If i = 0 Then
+                cipher = initialCipher
+            Else
+                ' use the previously (just) encoded value as a cipher for the next value to encode
+                cipher = encodedData(i - 1) And Limiter
+            End If
+
+            encodedData(i) = decodedValues(i) Xor cipher
+        Next
+
+        Return encodedData
+    End Function
+
+    Private Function Checksums(values As Byte()) As Byte()
         Dim chk() As Byte = {0, 0}
 
         'check even values
@@ -500,7 +587,8 @@
     End Function
 
     Private Function VerifyChecksums() As Boolean
-
+        Dim chk() As Byte = Checksums(Me.DecodedValues)
+        Return (chk(0) = Me.DecodedValues(Me.OffsetChecksum) AndAlso chk(1) = Me.DecodedValues(Me.OffsetChecksum + 1))
     End Function
 
     Private Sub SetChecksums()
@@ -513,9 +601,7 @@
 
     Private Sub EncodeValues()
         Call SetChecksums()
-        'TODO: encode data
-        Me.EncodedData = Me.EncodeBytes(Me.DecodedValues)
-
+        Me.EncodedData = Me.GetEncodedBytes(Me.DecodedValues)
     End Sub
 
     Public Sub New()
@@ -523,9 +609,21 @@
     End Sub
 
     Public Function DecodedValuesToString() As String
+        Return CharGeneric.BytesToString(Me.DecodedValues)
+    End Function
+
+    Public Shared Function BytesToString(byteArray As Byte()) As String
         Dim values As String = String.Empty
-        For Each i As Integer In Me.DecodedValues
+        For Each i As Integer In byteArray
             values &= i.ToString("X2") & " "
+        Next
+        Return values.Trim
+    End Function
+
+    Public Shared Function BytesToString(shortArray As UShort()) As String
+        Dim values As String = String.Empty
+        For Each i As Integer In shortArray
+            values &= i.ToString("X4") & " "
         Next
         Return values.Trim
     End Function

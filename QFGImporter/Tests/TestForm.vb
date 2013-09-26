@@ -15,39 +15,133 @@ Public Class TestForm
     End Sub
 
     Private Sub SelectFile()
-        Dim name As String = "Unknown Hero" & vbLf
-        If QFG1Fighter.Checked Then
-            Me.FileContents = name & TestCases.Glory1Fighter
-        ElseIf QFG1FighterA.Checked Then
-            Me.FileContents = name & TestCases.Glory1FighterA
-        ElseIf QFG1FighterB.Checked Then
-            Me.FileContents = name & TestCases.Glory1FighterB
-        ElseIf QFG1FighterHybrid.Checked Then
-            Me.FileContents = name & TestCases.Glory1FighterPerfect
-
-        ElseIf QFG1Wizard.Checked Then
-            Me.FileContents = name & TestCases.Glory1Wizard
-        ElseIf QFG1WizardA.Checked Then
-            Me.FileContents = name & TestCases.Glory1WizardA
-        ElseIf QFG1WizardB.Checked Then
-            Me.FileContents = name & TestCases.Glory1WizardB
-        ElseIf QFG1WizardHybrid.Checked Then
-            Me.FileContents = name & TestCases.Glory1WizardPerfect
-
-        ElseIf QFG1Thief.Checked Then
-            Me.FileContents = name & TestCases.Glory1Thief
-        ElseIf QFG1ThiefA.Checked Then
-            Me.FileContents = name & TestCases.Glory1ThiefA
-        ElseIf QFG1ThiefB.Checked Then
-            Me.FileContents = name & TestCases.Glory1ThiefB
-        ElseIf QFG1ThiefHybrid.Checked Then
-            Me.FileContents = name & TestCases.Glory1ThiefPerfect
-
-
+        Dim name As String = "Unknown Hero"
+        Me.FileContents = String.Empty
+        If IsQFG3() Then
+            Me.FileContents = " glory3.sav" & vbLf
+        ElseIf IsQFG4() Then
+            Me.FileContents = " glory4.sav" & vbLf
         End If
-
+        Me.FileContents &= name
+        Me.FileContents &= vbLf
+        Me.FileContents &= GetTestCase()
         Me.FileContents &= vbLf
     End Sub
+
+    Private Function GetTestCase() As String
+        'QFG1
+        If QFG1Fighter.Checked Then
+            Return TestCases.Glory1Fighter
+        ElseIf QFG1FighterA.Checked Then
+            Return TestCases.Glory1FighterA
+        ElseIf QFG1FighterB.Checked Then
+            Return TestCases.Glory1FighterB
+        ElseIf QFG1FighterHybrid.Checked Then
+            Return TestCases.Glory1FighterPerfect
+
+        ElseIf QFG1Wizard.Checked Then
+            Return TestCases.Glory1Wizard
+        ElseIf QFG1WizardA.Checked Then
+            Return TestCases.Glory1WizardA
+        ElseIf QFG1WizardB.Checked Then
+            Return TestCases.Glory1WizardB
+        ElseIf QFG1WizardHybrid.Checked Then
+            Return TestCases.Glory1WizardPerfect
+
+        ElseIf QFG1Thief.Checked Then
+            Return TestCases.Glory1Thief
+        ElseIf QFG1ThiefA.Checked Then
+            Return TestCases.Glory1ThiefA
+        ElseIf QFG1ThiefB.Checked Then
+            Return TestCases.Glory1ThiefB
+        ElseIf QFG1ThiefHybrid.Checked Then
+            Return TestCases.Glory1ThiefPerfect
+
+            'QFG2
+        ElseIf QFG2Fighter.Checked Then
+            Return TestCases.Glory2Fighter
+        ElseIf QFG2FighterA.Checked Then
+            Return TestCases.Glory2FighterA
+        ElseIf QFG2FighterB.Checked Then
+            Return TestCases.Glory2FighterB
+        ElseIf QFG2FighterHybrid.Checked Then
+            Return TestCases.Glory2FighterPerfect
+
+        ElseIf QFG2Wizard.Checked Then
+            Return TestCases.Glory2Wizard
+        ElseIf QFG2WizardA.Checked Then
+            Return TestCases.Glory2WizardA
+        ElseIf QFG2WizardB.Checked Then
+            Return TestCases.Glory2WizardB
+        ElseIf QFG2WizardHybrid.Checked Then
+            Return TestCases.Glory2WizardPerfect
+
+        ElseIf QFG2Thief.Checked Then
+            Return TestCases.Glory2Thief
+        ElseIf QFG2ThiefA.Checked Then
+            Return TestCases.Glory2ThiefA
+        ElseIf QFG2ThiefB.Checked Then
+            Return TestCases.Glory2ThiefB
+        ElseIf QFG2ThiefHybrid.Checked Then
+            Return TestCases.Glory2ThiefPerfect
+
+        ElseIf QFG2Paladin.Checked Then
+            Return TestCases.Glory2Paladin
+        ElseIf QFG2PaladinA.Checked Then
+            Return TestCases.Glory2PaladinA
+        ElseIf QFG2PaladinB.Checked Then
+            Return TestCases.Glory2PaladinB
+
+            'QFG3
+        ElseIf QFG3Fighter.Checked Then
+            Return TestCases.Glory3Fighter
+        ElseIf QFG3FighterA.Checked Then
+            Return TestCases.Glory3FighterA
+        ElseIf QFG3Wizard.Checked Then
+            Return TestCases.Glory3Wizard
+        ElseIf QFG3Thief.Checked Then
+            Return TestCases.Glory3Thief
+        ElseIf QFG3ThiefA.Checked Then
+            Return TestCases.Glory3ThiefA
+        ElseIf QFG3Paladin.Checked Then
+            Return TestCases.Glory3Paladin
+        ElseIf QFG3PaladinA.Checked Then
+            Return TestCases.Glory3PaladinA
+
+            'QFG4
+        ElseIf QFG4Fighter.Checked Then
+            Return TestCases.Glory4Fighter
+        ElseIf QFG4Wizard.Checked Then
+            Return TestCases.Glory4Wizard
+        ElseIf QFG4Thief.Checked Then
+            Return TestCases.Glory4Thief
+        ElseIf QFG4Paladin.Checked Then
+            Return TestCases.Glory4Paladin
+        End If
+
+        Return String.Empty
+    End Function
+
+    Private Function IsQFG3() As Boolean
+        Dim rslt As Boolean = False
+        rslt = rslt Or QFG3Fighter.Checked
+        rslt = rslt Or QFG3FighterA.Checked
+        rslt = rslt Or QFG3Wizard.Checked
+        rslt = rslt Or QFG3Thief.Checked
+        rslt = rslt Or QFG3ThiefA.Checked
+        rslt = rslt Or QFG3Paladin.Checked
+        rslt = rslt Or QFG3PaladinA.Checked
+        Return rslt
+    End Function
+
+    Private Function IsQFG4() As Boolean
+        Dim rslt As Boolean = False
+        rslt = rslt Or QFG4Fighter.Checked
+        rslt = rslt Or QFG4Wizard.Checked
+        rslt = rslt Or QFG4Thief.Checked
+        rslt = rslt Or QFG4Paladin.Checked
+        Return rslt
+    End Function
 
     Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles Button1.Click
         Dim col As New Collections.ArrayList

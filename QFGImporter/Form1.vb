@@ -5,6 +5,7 @@
     Public Property LoadedChar As CharGeneric = Nothing
     Public Property ReferenceChar As CharGeneric = Nothing
     Public DeltaOffsets As New Collections.ArrayList
+    Public Property UnalteredData As Byte()
 
 #Region "Events_Main"
     Private Sub Form1_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
@@ -20,6 +21,7 @@
         Dim fso As New OpenFileDialog
         fso.Filter = "QFG Import Character (*.sav)|*.sav|All Files (*.*)|*.*"
         If fso.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Call Me.CloseCharacter()
             Me.LoadedFilename = fso.FileName
             Dim fileContents As String = String.Empty
             Dim s As IO.FileStream = fso.OpenFile()
@@ -32,20 +34,26 @@
             'set the form's title, baased on the open file's name
             Me.Text = Me.OriginalTitle & ": " & System.IO.Path.GetFileName(Me.LoadedFilename)
 
-            'CharGeneric.ParseCharacter(fileContents)
-            Select Case CharGeneric.GetGame(fileContents)
-                Case Enums.Games.QFG1
-                    Me.LoadedChar = New CharQFG1(fileContents)
-                    Call LoadForm()
-                Case Enums.Games.QFG2
-                    Me.LoadedChar = New CharQFG2(fileContents)
-                    Call LoadForm()
-                Case Enums.Games.QFG3
-                Case Enums.Games.QFG4
-
-            End Select
-
         End If
+    End Sub
+
+    Private Sub LoadGameFromFileContents(fileContents As String)
+        'CharGeneric.ParseCharacter(fileContents)
+        Select Case CharGeneric.GetGame(fileContents)
+            Case Enums.Games.QFG1
+                Me.LoadedChar = New CharQFG1(fileContents)
+                Call LoadForm()
+            Case Enums.Games.QFG2
+                Me.LoadedChar = New CharQFG2(fileContents)
+                Call LoadForm()
+            Case Enums.Games.QFG3
+                Me.LoadedChar = New CharQFG3(fileContents)
+                Call LoadForm()
+                txtReferenceData.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2)
+            Case Enums.Games.QFG4
+
+        End Select
+
     End Sub
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
@@ -273,6 +281,12 @@
 #End Region
 
 #Region "Declarations_Main"
+
+    Private Sub CloseCharacter()
+        Me.LoadedChar = Nothing
+        Me.LoadedFilename = Nothing
+        Me.UnalteredData = Nothing
+    End Sub
 
     Private Sub LoadForm()
         Me.Loading = True
@@ -718,6 +732,19 @@
         End If
     End Sub
 
+    Private Sub txtOriginalData_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtOriginalData.MouseUp
+        If Not Me.Loading Then
+            Dim selected As Integer = 0
+            selected = DirectCast(sender, TextBox).SelectionStart
+            selected = Math.Floor(selected / 3)
+            numOffset.Value = selected
+        End If
+    End Sub
+
+    Private Sub btnCloseReference_Click(sender As System.Object, e As System.EventArgs) Handles btnCloseReference.Click
+        Call CloseReferenceData()
+    End Sub
+
 #End Region
 
 
@@ -919,6 +946,11 @@
         End If
     End Sub
 
+    Private Sub CloseReferenceData()
+        Me.ReferenceChar = Nothing
+        Call LoadReferenceData()
+    End Sub
+
     Private Sub UpdateSelectedByte()
         Me.LoadedChar.DecodedValues(numOffset.Value) = numValue.Value
         Call LoadForm()
@@ -931,17 +963,7 @@
         If tstDlg.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim fileContents As String = tstDlg.FileContents
 
-            'CharGeneric.ParseCharacter(fileContents)
-            Select Case CharGeneric.GetGame(fileContents)
-                Case Enums.Games.QFG1
-                    Me.LoadedChar = New CharQFG1(fileContents)
-                    Call LoadForm()
-                Case Enums.Games.QFG2
-                Case Enums.Games.QFG3
-                Case Enums.Games.QFG4
-
-            End Select
-
+            Call LoadGameFromFileContents(fileContents)
         End If
     End Sub
 
@@ -967,13 +989,24 @@
         'MessageBox.Show(output & vbCrLf & vbCrLf & output2)
     End Sub
 
-    Private Sub txtOriginalData_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtOriginalData.MouseUp
-        If Not Me.Loading Then
-            Dim selected As Integer = 0
-            selected = DirectCast(sender, TextBox).SelectionStart
-            selected = Math.Floor(selected / 3)
-            numOffset.Value = selected
+    Private Sub btnCipher_Click(sender As System.Object, e As System.EventArgs) Handles btnCipher.Click
+        If Me.UnalteredData Is Nothing Then
+            Me.UnalteredData = Me.LoadedChar.EncodedData
+            txtReferenceData.Text = CharGeneric.BytesToString(Me.UnalteredData)
+        End If
+        Dim s As String = InputBox("Please enter a cipher value (0 - 255):")
+        Dim i As Byte
+        If Byte.TryParse(s, i) Then
+            Me.LoadedChar.DecodedValues = CharGeneric.DecodeBytesXor(Me.LoadedChar.EncodedData, i)
+            Call LoadTestData()
         End If
     End Sub
 
+    Private Sub btnAttemptRevert_Click(sender As System.Object, e As System.EventArgs) Handles btnAttemptRevert.Click
+        If Me.UnalteredData IsNot Nothing Then
+            Me.LoadedChar.EncodedData = Me.UnalteredData
+            Call Me.LoadedChar.DecodeValues()
+            Call LoadTestData()
+        End If
+    End Sub
 End Class

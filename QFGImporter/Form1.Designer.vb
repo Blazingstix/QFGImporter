@@ -204,6 +204,10 @@ Partial Class Form1
         Me.txtOriginalData = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.chkFlag8 = New System.Windows.Forms.CheckBox()
+        Me.btnCipher = New System.Windows.Forms.Button()
+        Me.bnBitShift = New System.Windows.Forms.Button()
+        Me.btnCloseReference = New System.Windows.Forms.Button()
+        Me.btnAttemptRevert = New System.Windows.Forms.Button()
         Me.grpGames.SuspendLayout()
         Me.grpClass.SuspendLayout()
         Me.grpSkills.SuspendLayout()
@@ -1569,6 +1573,10 @@ Partial Class Form1
         '
         'tabRawData
         '
+        Me.tabRawData.Controls.Add(Me.btnAttemptRevert)
+        Me.tabRawData.Controls.Add(Me.btnCloseReference)
+        Me.tabRawData.Controls.Add(Me.bnBitShift)
+        Me.tabRawData.Controls.Add(Me.btnCipher)
         Me.tabRawData.Controls.Add(Me.lblDifferences)
         Me.tabRawData.Controls.Add(Me.lblOtherDataFilename)
         Me.tabRawData.Controls.Add(Me.btnDeltaNext)
@@ -1596,7 +1604,7 @@ Partial Class Form1
         'lblDifferences
         '
         Me.lblDifferences.AutoSize = True
-        Me.lblDifferences.Location = New System.Drawing.Point(275, 272)
+        Me.lblDifferences.Location = New System.Drawing.Point(382, 308)
         Me.lblDifferences.Name = "lblDifferences"
         Me.lblDifferences.Size = New System.Drawing.Size(70, 13)
         Me.lblDifferences.TabIndex = 3
@@ -1605,7 +1613,7 @@ Partial Class Form1
         'lblOtherDataFilename
         '
         Me.lblOtherDataFilename.AutoSize = True
-        Me.lblOtherDataFilename.Location = New System.Drawing.Point(98, 203)
+        Me.lblOtherDataFilename.Location = New System.Drawing.Point(101, 221)
         Me.lblOtherDataFilename.Name = "lblOtherDataFilename"
         Me.lblOtherDataFilename.Size = New System.Drawing.Size(106, 13)
         Me.lblOtherDataFilename.TabIndex = 12
@@ -1614,7 +1622,7 @@ Partial Class Form1
         'btnDeltaNext
         '
         Me.btnDeltaNext.Enabled = False
-        Me.btnDeltaNext.Location = New System.Drawing.Point(194, 267)
+        Me.btnDeltaNext.Location = New System.Drawing.Point(301, 303)
         Me.btnDeltaNext.Name = "btnDeltaNext"
         Me.btnDeltaNext.Size = New System.Drawing.Size(75, 23)
         Me.btnDeltaNext.TabIndex = 11
@@ -1624,7 +1632,7 @@ Partial Class Form1
         'btnDeltaPrev
         '
         Me.btnDeltaPrev.Enabled = False
-        Me.btnDeltaPrev.Location = New System.Drawing.Point(113, 267)
+        Me.btnDeltaPrev.Location = New System.Drawing.Point(220, 303)
         Me.btnDeltaPrev.Name = "btnDeltaPrev"
         Me.btnDeltaPrev.Size = New System.Drawing.Size(75, 23)
         Me.btnDeltaPrev.TabIndex = 10
@@ -1633,7 +1641,7 @@ Partial Class Form1
         '
         'btnLoadReference
         '
-        Me.btnLoadReference.Location = New System.Drawing.Point(6, 267)
+        Me.btnLoadReference.Location = New System.Drawing.Point(6, 303)
         Me.btnLoadReference.Name = "btnLoadReference"
         Me.btnLoadReference.Size = New System.Drawing.Size(101, 23)
         Me.btnLoadReference.TabIndex = 9
@@ -1643,7 +1651,7 @@ Partial Class Form1
         'lblReferenceData
         '
         Me.lblReferenceData.AutoSize = True
-        Me.lblReferenceData.Location = New System.Drawing.Point(6, 203)
+        Me.lblReferenceData.Location = New System.Drawing.Point(9, 221)
         Me.lblReferenceData.Name = "lblReferenceData"
         Me.lblReferenceData.Size = New System.Drawing.Size(86, 13)
         Me.lblReferenceData.TabIndex = 8
@@ -2112,11 +2120,11 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtReferenceData.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtReferenceData.HideSelection = False
-        Me.txtReferenceData.Location = New System.Drawing.Point(6, 219)
+        Me.txtReferenceData.Location = New System.Drawing.Point(6, 237)
         Me.txtReferenceData.Multiline = True
         Me.txtReferenceData.Name = "txtReferenceData"
         Me.txtReferenceData.ReadOnly = True
-        Me.txtReferenceData.Size = New System.Drawing.Size(667, 42)
+        Me.txtReferenceData.Size = New System.Drawing.Size(662, 60)
         Me.txtReferenceData.TabIndex = 0
         '
         'txtOriginalData
@@ -2129,7 +2137,7 @@ Partial Class Form1
         Me.txtOriginalData.Multiline = True
         Me.txtOriginalData.Name = "txtOriginalData"
         Me.txtOriginalData.ReadOnly = True
-        Me.txtOriginalData.Size = New System.Drawing.Size(667, 42)
+        Me.txtOriginalData.Size = New System.Drawing.Size(662, 60)
         Me.txtOriginalData.TabIndex = 0
         '
         'btnSave
@@ -2151,6 +2159,43 @@ Partial Class Form1
         Me.chkFlag8.TabIndex = 6
         Me.chkFlag8.Text = "Flag8"
         Me.chkFlag8.UseVisualStyleBackColor = True
+        '
+        'btnCipher
+        '
+        Me.btnCipher.Location = New System.Drawing.Point(6, 332)
+        Me.btnCipher.Name = "btnCipher"
+        Me.btnCipher.Size = New System.Drawing.Size(101, 23)
+        Me.btnCipher.TabIndex = 13
+        Me.btnCipher.Text = "Attempt Cipher"
+        Me.btnCipher.UseVisualStyleBackColor = True
+        '
+        'bnBitShift
+        '
+        Me.bnBitShift.Location = New System.Drawing.Point(113, 332)
+        Me.bnBitShift.Name = "bnBitShift"
+        Me.bnBitShift.Size = New System.Drawing.Size(101, 23)
+        Me.bnBitShift.TabIndex = 14
+        Me.bnBitShift.Text = "Attempt Bitshift"
+        Me.bnBitShift.UseVisualStyleBackColor = True
+        '
+        'btnCloseReference
+        '
+        Me.btnCloseReference.Enabled = False
+        Me.btnCloseReference.Location = New System.Drawing.Point(113, 303)
+        Me.btnCloseReference.Name = "btnCloseReference"
+        Me.btnCloseReference.Size = New System.Drawing.Size(101, 23)
+        Me.btnCloseReference.TabIndex = 13
+        Me.btnCloseReference.Text = "Close Reference"
+        Me.btnCloseReference.UseVisualStyleBackColor = True
+        '
+        'btnAttemptRevert
+        '
+        Me.btnAttemptRevert.Location = New System.Drawing.Point(220, 332)
+        Me.btnAttemptRevert.Name = "btnAttemptRevert"
+        Me.btnAttemptRevert.Size = New System.Drawing.Size(101, 23)
+        Me.btnAttemptRevert.TabIndex = 15
+        Me.btnAttemptRevert.Text = "Revert Attempt"
+        Me.btnAttemptRevert.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -2424,5 +2469,9 @@ Partial Class Form1
     Friend WithEvents numPuzzlePoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkFlag7 As System.Windows.Forms.CheckBox
     Friend WithEvents chkFlag8 As System.Windows.Forms.CheckBox
+    Friend WithEvents bnBitShift As System.Windows.Forms.Button
+    Friend WithEvents btnCipher As System.Windows.Forms.Button
+    Friend WithEvents btnCloseReference As System.Windows.Forms.Button
+    Friend WithEvents btnAttemptRevert As System.Windows.Forms.Button
 
 End Class

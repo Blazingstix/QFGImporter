@@ -62,7 +62,7 @@
 
     End Enum
 
-#Region "AdditionalBits"
+#Region "Byte Breakdown"
     ' There is no record of Shields (must be class-based, or linked with Sword)
     ' There is no record of leather armor (Ego is issued at least leather armor)
     '
@@ -89,7 +89,7 @@
     '   bit 3: Thieves Toolkit
     '   bit 4: (unknown - possibly Became Hero of Spielburg?)
     '   bit 5: Defeated Baba Yaga
-    '   bit 6: (unknown)
+    '   bit 6: (unknown - possibly related to Erasmus, and defeating him at Mage’s Maze)
     '   bit 7: (unused)
 
     'Bytes 5 - 17: Abilities and Skills 
@@ -286,7 +286,7 @@
     Public Sub New()
         Call MyBase.New()
         Me.Name = String.Empty
-        Dim newDeco(Me.OffsetEOF - 1) As Integer
+        Dim newDeco(Me.OffsetEOF - 1) As Byte
         For i As Integer = 0 To newDeco.Length - 1
             newDeco(i) = 0
         Next
