@@ -33,7 +33,7 @@
 
             'set the form's title, baased on the open file's name
             Me.Text = Me.OriginalTitle & ": " & System.IO.Path.GetFileName(Me.LoadedFilename)
-
+            Call LoadGameFromFileContents(fileContents)
         End If
     End Sub
 
@@ -49,7 +49,10 @@
             Case Enums.Games.QFG3
                 Me.LoadedChar = New CharQFG3(fileContents)
                 Call LoadForm()
-                txtReferenceData.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2)
+                txtEncodedString.Text = Me.LoadedChar.EncodedString
+                lblEncodedStringLength.Text = Me.LoadedChar.EncodedString.Length
+                txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedData2)
+                txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2)
             Case Enums.Games.QFG4
 
         End Select
@@ -221,15 +224,17 @@
                 Case numMagic.Name
                     Me.LoadedChar.Magic = numValue.Value
                 Case numCommunication.Name
-                    If Me.LoadedChar.Game >= Enums.Games.QFG2 Then
-                        'TODO: Add communication change
+                    If Me.LoadedChar.Game = Enums.Games.QFG2 Then
+                        DirectCast(Me.LoadedChar, CharQFG2).Communication = numValue.Value
+                        'TODO: Add communication change for other games
                     End If
                 Case numHonor.Name
-                    If Me.LoadedChar.Game >= Enums.Games.QFG2 Then
-                        'TODO: Add Honor change
+                    If Me.LoadedChar.Game = Enums.Games.QFG2 Then
+                        DirectCast(Me.LoadedChar, CharQFG2).Honor = numValue.Value
+                        'TODO: Add Honor change for other games
                     End If
                 Case numAcrobatics.Name
-                    If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
+                    If Me.LoadedChar.Game = Enums.Games.QFG4 Then
                         'TODO: Add Acrobatics change
                     End If
             End Select
@@ -256,6 +261,18 @@
                     Me.LoadedChar.SetMagicSpell(Enums.Magic.Flame, numValue.Value)
                 Case numFetch.Name
                     Me.LoadedChar.SetMagicSpell(Enums.Magic.Fetch, numValue.Value)
+                Case numForceBolt.Name
+                    If Me.LoadedChar.Game = Enums.Games.QFG2 Then
+                        DirectCast(Me.LoadedChar, CharQFG2).SetMagicSpell(Enums.Magic.ForceBolt, numValue.Value)
+                    End If
+                Case numLevitation.Name
+                    If Me.LoadedChar.Game = Enums.Games.QFG2 Then
+                        DirectCast(Me.LoadedChar, CharQFG2).SetMagicSpell(Enums.Magic.Levitation, numValue.Value)
+                    End If
+                Case numReversal.Name
+                    If Me.LoadedChar.Game = Enums.Games.QFG2 Then
+                        DirectCast(Me.LoadedChar, CharQFG2).SetMagicSpell(Enums.Magic.Reversal, numValue.Value)
+                    End If
             End Select
         End If
     End Sub
@@ -989,7 +1006,7 @@
         'MessageBox.Show(output & vbCrLf & vbCrLf & output2)
     End Sub
 
-    Private Sub btnCipher_Click(sender As System.Object, e As System.EventArgs) Handles btnCipher.Click
+    Private Sub btnCipher_Click(sender As System.Object, e As System.EventArgs)
         If Me.UnalteredData Is Nothing Then
             Me.UnalteredData = Me.LoadedChar.EncodedData
             txtReferenceData.Text = CharGeneric.BytesToString(Me.UnalteredData)
@@ -1002,7 +1019,7 @@
         End If
     End Sub
 
-    Private Sub btnAttemptRevert_Click(sender As System.Object, e As System.EventArgs) Handles btnAttemptRevert.Click
+    Private Sub btnAttemptRevert_Click(sender As System.Object, e As System.EventArgs)
         If Me.UnalteredData IsNot Nothing Then
             Me.LoadedChar.EncodedData = Me.UnalteredData
             Call Me.LoadedChar.DecodeValues()

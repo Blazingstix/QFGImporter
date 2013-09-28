@@ -3,7 +3,7 @@
 
 #Region "Byte Breakdown"
     ' I don't know the layout of the QFG3/4 files yet, but I suspect they are similar to QFG1/2
-    '   except that instead of being 8-bit bytes, it uses 16-bit unsigned shorts.
+    '   except that instead of being 8-bit bytes, it appears to use 16-bit unsigned shorts.
     '
     'UShort 0: Character Class
     '
@@ -103,13 +103,21 @@
         End Get
     End Property
 
-    Public Property EncodedData2 As UShort()
-    Public Property DecodedValues2 As UShort()
+    Public Property EncodedDataShort As UShort()
+    Public Property DecodedValuesShort As UShort()
+    Public Property EncodedData2 As Byte()
+    Public Property DecodedValues2 As Byte()
 
     Public Sub New(fileContents)
         Call Load(fileContents)
-        Me.EncodedData2 = ConvertByteToShort(Me.EncodedData)
-        Me.DecodedValues2 = Me.EncodedData2
+        Me.EncodedDataShort = ConvertByteToShort(Me.EncodedData)
+        Me.DecodedValuesShort = Me.EncodedDataShort
+        Me.DecodedValuesShort = CharGeneric.DecodeBytesXor(Me.EncodedDataShort, &H53)
+        Dim tmp(Me.EncodedData.Length - 1) As Byte
+        For i As Integer = 0 To Me.EncodedData.Length - 2
+            tmp(i) = Me.EncodedData(i + 1)
+        Next
+        Me.EncodedData2 = tmp
         Me.DecodedValues2 = CharGeneric.DecodeBytesXor(Me.EncodedData2, &H53)
     End Sub
 

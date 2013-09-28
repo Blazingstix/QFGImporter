@@ -33,6 +33,7 @@
     Friend Property EncodedData As Byte()
     Friend Property DecodedValues As Byte()
     Friend Property Extra As String
+    Friend Property EncodedString As String
 
 #End Region
 
@@ -385,6 +386,7 @@
                     Me.Extra = lines(3)
                 End If
             End If
+            Me.EncodedString = data
             Me.EncodedData = convertHexStringToByteArray(data)
             Call Me.DecodeValues()
         End If
@@ -452,9 +454,6 @@
                     extra = lines(3)
                 End If
             End If
-            'Dim dataBytes As Byte() = convertHexStringToByteArray(data)
-            'Dim values As Integer() = Me.DecodeBytes(dataBytes)
-            'Dim chk As Byte() = Checksums(values)
         End If
         Return lines
     End Function
@@ -464,8 +463,17 @@
         Dim buffer(upperBound - 1) As Byte
 
         For i As Integer = 0 To upperBound - 1
-            Dim tempStr As String = hexString.Substring(i * 2, 2).Trim
-            buffer(i) = Convert.ToByte(tempStr, 16)
+            Dim indexInString As Integer = i * 2
+            Dim tempHex As String = String.Empty
+            If indexInString < hexString.Length - 1 Then
+                tempHex = hexString.Substring(indexInString, 2).Trim()
+            Else
+                'NOTE: In QFG3/4, the size of the hex string is sometimes unexpectedly cut short.
+                '   I do not know why this is, so if we are one character short for a full byte
+                '   we add a 0 to the end of the last character
+                tempHex = hexString.Substring(indexInString, 1).Trim & "0"
+            End If
+            buffer(i) = Convert.ToByte(tempHex, 16)
         Next
         Return buffer
     End Function
@@ -474,19 +482,9 @@
         Select Case Me.Game
             Case Enums.Games.QFG1, Enums.Games.QFG2
                 Return CharGeneric.DecodeBytesXor(encodedData, Me.InitialCipher, Me.InitialLimiter)
-            Case Enums.Games.QFG3
-                Dim i(encodedData.Length - 1) As Byte
-                For x As Integer = 0 To encodedData.Length - 1
-                    i(x) = encodedData(x)
-                Next
-                Return i
             Case Else
                 'for everything else, do not even try to decode the values
-                Dim i(encodedData.Length - 1) As Byte
-                For x As Integer = 0 To encodedData.Length - 1
-                    i(x) = encodedData(x)
-                Next
-                Return i
+                Return encodedData
         End Select
     End Function
 
@@ -494,20 +492,9 @@
         Select Case Me.Game
             Case Enums.Games.QFG1, Enums.Games.QFG2
                 Return CharGeneric.EncodeBytesXor(decodedValues, Me.InitialCipher, Me.InitialLimiter)
-            Case Enums.Games.QFG3
-                'for everything else, do not even try to decode the values
-                Dim b(decodedValues.Length - 1) As Byte
-                For x As Integer = 0 To decodedValues.Length - 1
-                    b(x) = EncodedData(x)
-                Next
-                Return b
             Case Else
                 'for everything else, do not even try to decode the values
-                Dim b(decodedValues.Length - 1) As Byte
-                For x As Integer = 0 To decodedValues.Length - 1
-                    b(x) = EncodedData(x)
-                Next
-                Return b
+                Return decodedValues
         End Select
     End Function
 

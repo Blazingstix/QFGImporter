@@ -114,9 +114,9 @@ Partial Class Form1
         Me.grpAbilities = New System.Windows.Forms.GroupBox()
         Me.grpOther = New System.Windows.Forms.GroupBox()
         Me.lblPuzzlePoints = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblMagicPoints = New System.Windows.Forms.Label()
+        Me.lblStaminaPoints = New System.Windows.Forms.Label()
+        Me.lblHealthPoints = New System.Windows.Forms.Label()
         Me.numPuzzlePoints = New System.Windows.Forms.NumericUpDown()
         Me.numMagicPoints = New System.Windows.Forms.NumericUpDown()
         Me.numStaminaPoints = New System.Windows.Forms.NumericUpDown()
@@ -204,10 +204,18 @@ Partial Class Form1
         Me.txtOriginalData = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.chkFlag8 = New System.Windows.Forms.CheckBox()
-        Me.btnCipher = New System.Windows.Forms.Button()
-        Me.bnBitShift = New System.Windows.Forms.Button()
         Me.btnCloseReference = New System.Windows.Forms.Button()
+        Me.tabDecode = New System.Windows.Forms.TabPage()
+        Me.txtEncodedString = New System.Windows.Forms.TextBox()
+        Me.lblEncodedString = New System.Windows.Forms.Label()
         Me.btnAttemptRevert = New System.Windows.Forms.Button()
+        Me.bnBitShift = New System.Windows.Forms.Button()
+        Me.btnCipher = New System.Windows.Forms.Button()
+        Me.lblByteArray = New System.Windows.Forms.Label()
+        Me.txtEncodedByteArray = New System.Windows.Forms.TextBox()
+        Me.lblDecodedByteArray = New System.Windows.Forms.Label()
+        Me.txtDecodedByteArray = New System.Windows.Forms.TextBox()
+        Me.lblEncodedStringLength = New System.Windows.Forms.Label()
         Me.grpGames.SuspendLayout()
         Me.grpClass.SuspendLayout()
         Me.grpSkills.SuspendLayout()
@@ -274,6 +282,7 @@ Partial Class Form1
         CType(Me.numValue, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numBytes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabDecode.SuspendLayout()
         Me.SuspendLayout()
         '
         'grpGames
@@ -1196,9 +1205,9 @@ Partial Class Form1
         'grpOther
         '
         Me.grpOther.Controls.Add(Me.lblPuzzlePoints)
-        Me.grpOther.Controls.Add(Me.Label3)
-        Me.grpOther.Controls.Add(Me.Label2)
-        Me.grpOther.Controls.Add(Me.Label1)
+        Me.grpOther.Controls.Add(Me.lblMagicPoints)
+        Me.grpOther.Controls.Add(Me.lblStaminaPoints)
+        Me.grpOther.Controls.Add(Me.lblHealthPoints)
         Me.grpOther.Controls.Add(Me.lblExperience)
         Me.grpOther.Controls.Add(Me.numPuzzlePoints)
         Me.grpOther.Controls.Add(Me.numMagicPoints)
@@ -1221,32 +1230,32 @@ Partial Class Form1
         Me.lblPuzzlePoints.TabIndex = 8
         Me.lblPuzzlePoints.Text = "Puzzle Points"
         '
-        'Label3
+        'lblMagicPoints
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(64, 127)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(68, 13)
-        Me.Label3.TabIndex = 8
-        Me.Label3.Text = "Magic Points"
+        Me.lblMagicPoints.AutoSize = True
+        Me.lblMagicPoints.Location = New System.Drawing.Point(64, 127)
+        Me.lblMagicPoints.Name = "lblMagicPoints"
+        Me.lblMagicPoints.Size = New System.Drawing.Size(68, 13)
+        Me.lblMagicPoints.TabIndex = 8
+        Me.lblMagicPoints.Text = "Magic Points"
         '
-        'Label2
+        'lblStaminaPoints
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(64, 104)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(77, 13)
-        Me.Label2.TabIndex = 8
-        Me.Label2.Text = "Stamina Points"
+        Me.lblStaminaPoints.AutoSize = True
+        Me.lblStaminaPoints.Location = New System.Drawing.Point(64, 104)
+        Me.lblStaminaPoints.Name = "lblStaminaPoints"
+        Me.lblStaminaPoints.Size = New System.Drawing.Size(77, 13)
+        Me.lblStaminaPoints.TabIndex = 8
+        Me.lblStaminaPoints.Text = "Stamina Points"
         '
-        'Label1
+        'lblHealthPoints
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(64, 81)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(70, 13)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "Health Points"
+        Me.lblHealthPoints.AutoSize = True
+        Me.lblHealthPoints.Location = New System.Drawing.Point(64, 81)
+        Me.lblHealthPoints.Name = "lblHealthPoints"
+        Me.lblHealthPoints.Size = New System.Drawing.Size(70, 13)
+        Me.lblHealthPoints.TabIndex = 8
+        Me.lblHealthPoints.Text = "Health Points"
         '
         'numPuzzlePoints
         '
@@ -1329,6 +1338,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.tabCharacter)
         Me.TabControl1.Controls.Add(Me.tabRawData)
+        Me.TabControl1.Controls.Add(Me.tabDecode)
         Me.TabControl1.Location = New System.Drawing.Point(12, 41)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -1573,10 +1583,7 @@ Partial Class Form1
         '
         'tabRawData
         '
-        Me.tabRawData.Controls.Add(Me.btnAttemptRevert)
         Me.tabRawData.Controls.Add(Me.btnCloseReference)
-        Me.tabRawData.Controls.Add(Me.bnBitShift)
-        Me.tabRawData.Controls.Add(Me.btnCipher)
         Me.tabRawData.Controls.Add(Me.lblDifferences)
         Me.tabRawData.Controls.Add(Me.lblOtherDataFilename)
         Me.tabRawData.Controls.Add(Me.btnDeltaNext)
@@ -2160,24 +2167,6 @@ Partial Class Form1
         Me.chkFlag8.Text = "Flag8"
         Me.chkFlag8.UseVisualStyleBackColor = True
         '
-        'btnCipher
-        '
-        Me.btnCipher.Location = New System.Drawing.Point(6, 332)
-        Me.btnCipher.Name = "btnCipher"
-        Me.btnCipher.Size = New System.Drawing.Size(101, 23)
-        Me.btnCipher.TabIndex = 13
-        Me.btnCipher.Text = "Attempt Cipher"
-        Me.btnCipher.UseVisualStyleBackColor = True
-        '
-        'bnBitShift
-        '
-        Me.bnBitShift.Location = New System.Drawing.Point(113, 332)
-        Me.bnBitShift.Name = "bnBitShift"
-        Me.bnBitShift.Size = New System.Drawing.Size(101, 23)
-        Me.bnBitShift.TabIndex = 14
-        Me.bnBitShift.Text = "Attempt Bitshift"
-        Me.bnBitShift.UseVisualStyleBackColor = True
-        '
         'btnCloseReference
         '
         Me.btnCloseReference.Enabled = False
@@ -2188,14 +2177,124 @@ Partial Class Form1
         Me.btnCloseReference.Text = "Close Reference"
         Me.btnCloseReference.UseVisualStyleBackColor = True
         '
+        'tabDecode
+        '
+        Me.tabDecode.Controls.Add(Me.lblEncodedStringLength)
+        Me.tabDecode.Controls.Add(Me.lblDecodedByteArray)
+        Me.tabDecode.Controls.Add(Me.lblByteArray)
+        Me.tabDecode.Controls.Add(Me.btnAttemptRevert)
+        Me.tabDecode.Controls.Add(Me.bnBitShift)
+        Me.tabDecode.Controls.Add(Me.btnCipher)
+        Me.tabDecode.Controls.Add(Me.lblEncodedString)
+        Me.tabDecode.Controls.Add(Me.txtDecodedByteArray)
+        Me.tabDecode.Controls.Add(Me.txtEncodedByteArray)
+        Me.tabDecode.Controls.Add(Me.txtEncodedString)
+        Me.tabDecode.Location = New System.Drawing.Point(4, 22)
+        Me.tabDecode.Name = "tabDecode"
+        Me.tabDecode.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabDecode.Size = New System.Drawing.Size(674, 475)
+        Me.tabDecode.TabIndex = 2
+        Me.tabDecode.Text = "Decrypt Data"
+        Me.tabDecode.UseVisualStyleBackColor = True
+        '
+        'txtEncodedString
+        '
+        Me.txtEncodedString.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtEncodedString.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEncodedString.Location = New System.Drawing.Point(6, 19)
+        Me.txtEncodedString.Multiline = True
+        Me.txtEncodedString.Name = "txtEncodedString"
+        Me.txtEncodedString.ReadOnly = True
+        Me.txtEncodedString.Size = New System.Drawing.Size(662, 72)
+        Me.txtEncodedString.TabIndex = 0
+        '
+        'lblEncodedString
+        '
+        Me.lblEncodedString.AutoSize = True
+        Me.lblEncodedString.Location = New System.Drawing.Point(6, 3)
+        Me.lblEncodedString.Name = "lblEncodedString"
+        Me.lblEncodedString.Size = New System.Drawing.Size(83, 13)
+        Me.lblEncodedString.TabIndex = 1
+        Me.lblEncodedString.Text = "Encoded String:"
+        '
         'btnAttemptRevert
         '
-        Me.btnAttemptRevert.Location = New System.Drawing.Point(220, 332)
+        Me.btnAttemptRevert.Location = New System.Drawing.Point(220, 353)
         Me.btnAttemptRevert.Name = "btnAttemptRevert"
         Me.btnAttemptRevert.Size = New System.Drawing.Size(101, 23)
-        Me.btnAttemptRevert.TabIndex = 15
+        Me.btnAttemptRevert.TabIndex = 18
         Me.btnAttemptRevert.Text = "Revert Attempt"
         Me.btnAttemptRevert.UseVisualStyleBackColor = True
+        '
+        'bnBitShift
+        '
+        Me.bnBitShift.Location = New System.Drawing.Point(113, 353)
+        Me.bnBitShift.Name = "bnBitShift"
+        Me.bnBitShift.Size = New System.Drawing.Size(101, 23)
+        Me.bnBitShift.TabIndex = 17
+        Me.bnBitShift.Text = "Attempt Bitshift"
+        Me.bnBitShift.UseVisualStyleBackColor = True
+        '
+        'btnCipher
+        '
+        Me.btnCipher.Location = New System.Drawing.Point(6, 353)
+        Me.btnCipher.Name = "btnCipher"
+        Me.btnCipher.Size = New System.Drawing.Size(101, 23)
+        Me.btnCipher.TabIndex = 16
+        Me.btnCipher.Text = "Attempt Cipher"
+        Me.btnCipher.UseVisualStyleBackColor = True
+        '
+        'lblByteArray
+        '
+        Me.lblByteArray.AutoSize = True
+        Me.lblByteArray.Location = New System.Drawing.Point(6, 94)
+        Me.lblByteArray.Name = "lblByteArray"
+        Me.lblByteArray.Size = New System.Drawing.Size(104, 13)
+        Me.lblByteArray.TabIndex = 19
+        Me.lblByteArray.Text = "Encoded Byte Array:"
+        '
+        'txtEncodedByteArray
+        '
+        Me.txtEncodedByteArray.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtEncodedByteArray.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEncodedByteArray.Location = New System.Drawing.Point(6, 110)
+        Me.txtEncodedByteArray.Multiline = True
+        Me.txtEncodedByteArray.Name = "txtEncodedByteArray"
+        Me.txtEncodedByteArray.ReadOnly = True
+        Me.txtEncodedByteArray.Size = New System.Drawing.Size(662, 72)
+        Me.txtEncodedByteArray.TabIndex = 0
+        '
+        'lblDecodedByteArray
+        '
+        Me.lblDecodedByteArray.AutoSize = True
+        Me.lblDecodedByteArray.Location = New System.Drawing.Point(6, 185)
+        Me.lblDecodedByteArray.Name = "lblDecodedByteArray"
+        Me.lblDecodedByteArray.Size = New System.Drawing.Size(105, 13)
+        Me.lblDecodedByteArray.TabIndex = 20
+        Me.lblDecodedByteArray.Text = "Decoded Byte Array:"
+        '
+        'txtDecodedByteArray
+        '
+        Me.txtDecodedByteArray.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtDecodedByteArray.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtDecodedByteArray.Location = New System.Drawing.Point(6, 201)
+        Me.txtDecodedByteArray.Multiline = True
+        Me.txtDecodedByteArray.Name = "txtDecodedByteArray"
+        Me.txtDecodedByteArray.ReadOnly = True
+        Me.txtDecodedByteArray.Size = New System.Drawing.Size(662, 72)
+        Me.txtDecodedByteArray.TabIndex = 0
+        '
+        'lblEncodedStringLength
+        '
+        Me.lblEncodedStringLength.AutoSize = True
+        Me.lblEncodedStringLength.Location = New System.Drawing.Point(95, 3)
+        Me.lblEncodedStringLength.Name = "lblEncodedStringLength"
+        Me.lblEncodedStringLength.Size = New System.Drawing.Size(48, 13)
+        Me.lblEncodedStringLength.TabIndex = 21
+        Me.lblEncodedStringLength.Text = "<length>"
         '
         'Form1
         '
@@ -2287,6 +2386,8 @@ Partial Class Form1
         CType(Me.numValue, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numBytes, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabDecode.ResumeLayout(False)
+        Me.tabDecode.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2457,9 +2558,9 @@ Partial Class Form1
     Friend WithEvents numVigorPotions As System.Windows.Forms.NumericUpDown
     Friend WithEvents numHealingPotions As System.Windows.Forms.NumericUpDown
     Friend WithEvents numDaggers As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblMagicPoints As System.Windows.Forms.Label
+    Friend WithEvents lblStaminaPoints As System.Windows.Forms.Label
+    Friend WithEvents lblHealthPoints As System.Windows.Forms.Label
     Friend WithEvents numMagicPoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents numStaminaPoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents numHealthPoints As System.Windows.Forms.NumericUpDown
@@ -2469,9 +2570,17 @@ Partial Class Form1
     Friend WithEvents numPuzzlePoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkFlag7 As System.Windows.Forms.CheckBox
     Friend WithEvents chkFlag8 As System.Windows.Forms.CheckBox
+    Friend WithEvents btnCloseReference As System.Windows.Forms.Button
+    Friend WithEvents tabDecode As System.Windows.Forms.TabPage
+    Friend WithEvents lblByteArray As System.Windows.Forms.Label
+    Friend WithEvents btnAttemptRevert As System.Windows.Forms.Button
     Friend WithEvents bnBitShift As System.Windows.Forms.Button
     Friend WithEvents btnCipher As System.Windows.Forms.Button
-    Friend WithEvents btnCloseReference As System.Windows.Forms.Button
-    Friend WithEvents btnAttemptRevert As System.Windows.Forms.Button
+    Friend WithEvents lblEncodedString As System.Windows.Forms.Label
+    Friend WithEvents txtEncodedString As System.Windows.Forms.TextBox
+    Friend WithEvents txtEncodedByteArray As System.Windows.Forms.TextBox
+    Friend WithEvents lblDecodedByteArray As System.Windows.Forms.Label
+    Friend WithEvents txtDecodedByteArray As System.Windows.Forms.TextBox
+    Friend WithEvents lblEncodedStringLength As System.Windows.Forms.Label
 
 End Class
