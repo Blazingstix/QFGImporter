@@ -498,6 +498,14 @@
         End Select
     End Function
 
+    ''' <summary>
+    ''' The main method of encription that QFG1/2 saved characters use
+    ''' </summary>
+    ''' <param name="encodedData"></param>
+    ''' <param name="initialCipher"></param>
+    ''' <param name="Limiter"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Shared Function DecodeBytesXor(encodedData As Byte(), initialCipher As Byte, Optional Limiter As Byte = Byte.MaxValue) As Byte()
         Dim decodedValues(encodedData.Length - 1) As Byte
 
@@ -550,6 +558,38 @@
 
         Return encodedData
     End Function
+
+    Public Shared Function BitShift(byteArray As Byte(), bits As SByte) As Byte()
+        Dim result(byteArray.Length - 1) As Byte
+        If bits = 0 Then
+            Return byteArray
+        ElseIf bits > 0 And bits < 8 Then
+            For i As Integer = 0 To byteArray.Length - 2
+                result(i) = (byteArray(i) << bits) Or (byteArray(i + 1) >> (8 - bits))
+            Next
+            result(byteArray.Length - 1) = (byteArray(byteArray.Length - 1) << bits)
+        ElseIf bits = 8 Then
+            For i As Integer = 0 To byteArray.Length - 2
+                result(i) = byteArray(i + 1)
+            Next
+        ElseIf bits > 8 And bits < 16 Then
+            bits = bits Mod 8
+            For i As Integer = 0 To byteArray.Length - 3
+                result(i) = (byteArray(i + 1) << bits) Or (byteArray(i + 2) >> (8 - bits))
+            Next
+            result(byteArray.Length - 2) = (byteArray(byteArray.Length - 2) << bits)
+        ElseIf bits < 0 And bits > -8 Then
+
+        ElseIf bits = -8 Then
+            For i As Integer = 1 To byteArray.Length - 1
+                result(i) = byteArray(i - 1)
+            Next
+        ElseIf bits < -8 And bits > -16 Then
+
+        End If
+        Return result
+    End Function
+
 
     Private Function Checksums(values As Byte()) As Byte()
         Dim chk() As Byte = {0, 0}

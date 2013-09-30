@@ -134,14 +134,15 @@ Partial Class Form1
         Me.lblHealingPotions = New System.Windows.Forms.Label()
         Me.lblDaggers = New System.Windows.Forms.Label()
         Me.numOtherPotions = New System.Windows.Forms.NumericUpDown()
-        Me.lblCurrency = New System.Windows.Forms.Label()
         Me.numMagicPotions = New System.Windows.Forms.NumericUpDown()
+        Me.lblCurrency = New System.Windows.Forms.Label()
         Me.numGold = New System.Windows.Forms.NumericUpDown()
         Me.numVigorPotions = New System.Windows.Forms.NumericUpDown()
         Me.numHealingPotions = New System.Windows.Forms.NumericUpDown()
         Me.numDaggers = New System.Windows.Forms.NumericUpDown()
         Me.grpUniqueInventory = New System.Windows.Forms.GroupBox()
         Me.chkFlag3 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag8 = New System.Windows.Forms.CheckBox()
         Me.chkFlag7 = New System.Windows.Forms.CheckBox()
         Me.chkFlag6 = New System.Windows.Forms.CheckBox()
         Me.chkFlag5 = New System.Windows.Forms.CheckBox()
@@ -149,6 +150,7 @@ Partial Class Form1
         Me.chkFlag2 = New System.Windows.Forms.CheckBox()
         Me.chkFlag1 = New System.Windows.Forms.CheckBox()
         Me.tabRawData = New System.Windows.Forms.TabPage()
+        Me.btnCloseReference = New System.Windows.Forms.Button()
         Me.lblDifferences = New System.Windows.Forms.Label()
         Me.lblOtherDataFilename = New System.Windows.Forms.Label()
         Me.btnDeltaNext = New System.Windows.Forms.Button()
@@ -202,20 +204,24 @@ Partial Class Form1
         Me.numOffset = New System.Windows.Forms.NumericUpDown()
         Me.txtReferenceData = New System.Windows.Forms.TextBox()
         Me.txtOriginalData = New System.Windows.Forms.TextBox()
-        Me.btnSave = New System.Windows.Forms.Button()
-        Me.chkFlag8 = New System.Windows.Forms.CheckBox()
-        Me.btnCloseReference = New System.Windows.Forms.Button()
         Me.tabDecode = New System.Windows.Forms.TabPage()
-        Me.txtEncodedString = New System.Windows.Forms.TextBox()
-        Me.lblEncodedString = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.numCipher = New System.Windows.Forms.NumericUpDown()
+        Me.numDecodedBitShift = New System.Windows.Forms.NumericUpDown()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.numEncodedBitShift = New System.Windows.Forms.NumericUpDown()
+        Me.lblEncodedStringLength = New System.Windows.Forms.Label()
+        Me.lblDecodedByteArray = New System.Windows.Forms.Label()
+        Me.lblByteArray = New System.Windows.Forms.Label()
         Me.btnAttemptRevert = New System.Windows.Forms.Button()
         Me.bnBitShift = New System.Windows.Forms.Button()
         Me.btnCipher = New System.Windows.Forms.Button()
-        Me.lblByteArray = New System.Windows.Forms.Label()
-        Me.txtEncodedByteArray = New System.Windows.Forms.TextBox()
-        Me.lblDecodedByteArray = New System.Windows.Forms.Label()
+        Me.lblEncodedString = New System.Windows.Forms.Label()
         Me.txtDecodedByteArray = New System.Windows.Forms.TextBox()
-        Me.lblEncodedStringLength = New System.Windows.Forms.Label()
+        Me.txtEncodedByteArray = New System.Windows.Forms.TextBox()
+        Me.txtEncodedString = New System.Windows.Forms.TextBox()
+        Me.btnSave = New System.Windows.Forms.Button()
         Me.grpGames.SuspendLayout()
         Me.grpClass.SuspendLayout()
         Me.grpSkills.SuspendLayout()
@@ -283,6 +289,9 @@ Partial Class Form1
         CType(Me.numBytes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabDecode.SuspendLayout()
+        CType(Me.numCipher, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numDecodedBitShift, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numEncodedBitShift, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grpGames
@@ -1440,15 +1449,6 @@ Partial Class Form1
         Me.numOtherPotions.TabIndex = 5
         Me.numOtherPotions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'lblCurrency
-        '
-        Me.lblCurrency.AutoSize = True
-        Me.lblCurrency.Location = New System.Drawing.Point(64, 16)
-        Me.lblCurrency.Name = "lblCurrency"
-        Me.lblCurrency.Size = New System.Drawing.Size(49, 13)
-        Me.lblCurrency.TabIndex = 1
-        Me.lblCurrency.Text = "Currency"
-        '
         'numMagicPotions
         '
         Me.numMagicPotions.Location = New System.Drawing.Point(6, 80)
@@ -1457,6 +1457,15 @@ Partial Class Form1
         Me.numMagicPotions.Size = New System.Drawing.Size(52, 20)
         Me.numMagicPotions.TabIndex = 3
         Me.numMagicPotions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'lblCurrency
+        '
+        Me.lblCurrency.AutoSize = True
+        Me.lblCurrency.Location = New System.Drawing.Point(64, 16)
+        Me.lblCurrency.Name = "lblCurrency"
+        Me.lblCurrency.Size = New System.Drawing.Size(49, 13)
+        Me.lblCurrency.TabIndex = 1
+        Me.lblCurrency.Text = "Currency"
         '
         'numGold
         '
@@ -1520,6 +1529,17 @@ Partial Class Form1
         Me.chkFlag3.TabIndex = 2
         Me.chkFlag3.Text = "Flag3"
         Me.chkFlag3.UseVisualStyleBackColor = True
+        '
+        'chkFlag8
+        '
+        Me.chkFlag8.AutoSize = True
+        Me.chkFlag8.Enabled = False
+        Me.chkFlag8.Location = New System.Drawing.Point(6, 130)
+        Me.chkFlag8.Name = "chkFlag8"
+        Me.chkFlag8.Size = New System.Drawing.Size(52, 17)
+        Me.chkFlag8.TabIndex = 6
+        Me.chkFlag8.Text = "Flag8"
+        Me.chkFlag8.UseVisualStyleBackColor = True
         '
         'chkFlag7
         '
@@ -1607,6 +1627,16 @@ Partial Class Form1
         Me.tabRawData.TabIndex = 1
         Me.tabRawData.Text = "Edit Raw Data"
         Me.tabRawData.UseVisualStyleBackColor = True
+        '
+        'btnCloseReference
+        '
+        Me.btnCloseReference.Enabled = False
+        Me.btnCloseReference.Location = New System.Drawing.Point(113, 303)
+        Me.btnCloseReference.Name = "btnCloseReference"
+        Me.btnCloseReference.Size = New System.Drawing.Size(101, 23)
+        Me.btnCloseReference.TabIndex = 13
+        Me.btnCloseReference.Text = "Close Reference"
+        Me.btnCloseReference.UseVisualStyleBackColor = True
         '
         'lblDifferences
         '
@@ -2147,38 +2177,14 @@ Partial Class Form1
         Me.txtOriginalData.Size = New System.Drawing.Size(662, 60)
         Me.txtOriginalData.TabIndex = 0
         '
-        'btnSave
-        '
-        Me.btnSave.Location = New System.Drawing.Point(93, 12)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 10
-        Me.btnSave.Text = "Save As..."
-        Me.btnSave.UseVisualStyleBackColor = True
-        '
-        'chkFlag8
-        '
-        Me.chkFlag8.AutoSize = True
-        Me.chkFlag8.Enabled = False
-        Me.chkFlag8.Location = New System.Drawing.Point(6, 130)
-        Me.chkFlag8.Name = "chkFlag8"
-        Me.chkFlag8.Size = New System.Drawing.Size(52, 17)
-        Me.chkFlag8.TabIndex = 6
-        Me.chkFlag8.Text = "Flag8"
-        Me.chkFlag8.UseVisualStyleBackColor = True
-        '
-        'btnCloseReference
-        '
-        Me.btnCloseReference.Enabled = False
-        Me.btnCloseReference.Location = New System.Drawing.Point(113, 303)
-        Me.btnCloseReference.Name = "btnCloseReference"
-        Me.btnCloseReference.Size = New System.Drawing.Size(101, 23)
-        Me.btnCloseReference.TabIndex = 13
-        Me.btnCloseReference.Text = "Close Reference"
-        Me.btnCloseReference.UseVisualStyleBackColor = True
-        '
         'tabDecode
         '
+        Me.tabDecode.Controls.Add(Me.Label3)
+        Me.tabDecode.Controls.Add(Me.Label2)
+        Me.tabDecode.Controls.Add(Me.numCipher)
+        Me.tabDecode.Controls.Add(Me.numDecodedBitShift)
+        Me.tabDecode.Controls.Add(Me.Label1)
+        Me.tabDecode.Controls.Add(Me.numEncodedBitShift)
         Me.tabDecode.Controls.Add(Me.lblEncodedStringLength)
         Me.tabDecode.Controls.Add(Me.lblDecodedByteArray)
         Me.tabDecode.Controls.Add(Me.lblByteArray)
@@ -2197,26 +2203,90 @@ Partial Class Form1
         Me.tabDecode.Text = "Decrypt Data"
         Me.tabDecode.UseVisualStyleBackColor = True
         '
-        'txtEncodedString
+        'Label3
         '
-        Me.txtEncodedString.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtEncodedString.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtEncodedString.Location = New System.Drawing.Point(6, 19)
-        Me.txtEncodedString.Multiline = True
-        Me.txtEncodedString.Name = "txtEncodedString"
-        Me.txtEncodedString.ReadOnly = True
-        Me.txtEncodedString.Size = New System.Drawing.Size(662, 72)
-        Me.txtEncodedString.TabIndex = 0
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(296, 193)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(75, 13)
+        Me.Label3.TabIndex = 25
+        Me.Label3.Text = "Cipher Applied"
         '
-        'lblEncodedString
+        'Label2
         '
-        Me.lblEncodedString.AutoSize = True
-        Me.lblEncodedString.Location = New System.Drawing.Point(6, 3)
-        Me.lblEncodedString.Name = "lblEncodedString"
-        Me.lblEncodedString.Size = New System.Drawing.Size(83, 13)
-        Me.lblEncodedString.TabIndex = 1
-        Me.lblEncodedString.Text = "Encoded String:"
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(173, 193)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(60, 13)
+        Me.Label2.TabIndex = 25
+        Me.Label2.Text = "Bits Shifted"
+        '
+        'numCipher
+        '
+        Me.numCipher.Hexadecimal = True
+        Me.numCipher.Location = New System.Drawing.Point(239, 189)
+        Me.numCipher.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.numCipher.Name = "numCipher"
+        Me.numCipher.Size = New System.Drawing.Size(51, 20)
+        Me.numCipher.TabIndex = 24
+        Me.numCipher.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numCipher.Value = New Decimal(New Integer() {83, 0, 0, 0})
+        '
+        'numDecodedBitShift
+        '
+        Me.numDecodedBitShift.Location = New System.Drawing.Point(116, 189)
+        Me.numDecodedBitShift.Maximum = New Decimal(New Integer() {15, 0, 0, 0})
+        Me.numDecodedBitShift.Minimum = New Decimal(New Integer() {15, 0, 0, -2147483648})
+        Me.numDecodedBitShift.Name = "numDecodedBitShift"
+        Me.numDecodedBitShift.Size = New System.Drawing.Size(51, 20)
+        Me.numDecodedBitShift.TabIndex = 24
+        Me.numDecodedBitShift.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(173, 100)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(60, 13)
+        Me.Label1.TabIndex = 23
+        Me.Label1.Text = "Bits Shifted"
+        '
+        'numEncodedBitShift
+        '
+        Me.numEncodedBitShift.Location = New System.Drawing.Point(116, 96)
+        Me.numEncodedBitShift.Maximum = New Decimal(New Integer() {15, 0, 0, 0})
+        Me.numEncodedBitShift.Minimum = New Decimal(New Integer() {15, 0, 0, -2147483648})
+        Me.numEncodedBitShift.Name = "numEncodedBitShift"
+        Me.numEncodedBitShift.Size = New System.Drawing.Size(51, 20)
+        Me.numEncodedBitShift.TabIndex = 22
+        Me.numEncodedBitShift.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblEncodedStringLength
+        '
+        Me.lblEncodedStringLength.AutoSize = True
+        Me.lblEncodedStringLength.Location = New System.Drawing.Point(95, 3)
+        Me.lblEncodedStringLength.Name = "lblEncodedStringLength"
+        Me.lblEncodedStringLength.Size = New System.Drawing.Size(48, 13)
+        Me.lblEncodedStringLength.TabIndex = 21
+        Me.lblEncodedStringLength.Text = "<length>"
+        '
+        'lblDecodedByteArray
+        '
+        Me.lblDecodedByteArray.AutoSize = True
+        Me.lblDecodedByteArray.Location = New System.Drawing.Point(6, 193)
+        Me.lblDecodedByteArray.Name = "lblDecodedByteArray"
+        Me.lblDecodedByteArray.Size = New System.Drawing.Size(105, 13)
+        Me.lblDecodedByteArray.TabIndex = 20
+        Me.lblDecodedByteArray.Text = "Decoded Byte Array:"
+        '
+        'lblByteArray
+        '
+        Me.lblByteArray.AutoSize = True
+        Me.lblByteArray.Location = New System.Drawing.Point(6, 100)
+        Me.lblByteArray.Name = "lblByteArray"
+        Me.lblByteArray.Size = New System.Drawing.Size(104, 13)
+        Me.lblByteArray.TabIndex = 19
+        Me.lblByteArray.Text = "Encoded Byte Array:"
         '
         'btnAttemptRevert
         '
@@ -2245,56 +2315,59 @@ Partial Class Form1
         Me.btnCipher.Text = "Attempt Cipher"
         Me.btnCipher.UseVisualStyleBackColor = True
         '
-        'lblByteArray
+        'lblEncodedString
         '
-        Me.lblByteArray.AutoSize = True
-        Me.lblByteArray.Location = New System.Drawing.Point(6, 94)
-        Me.lblByteArray.Name = "lblByteArray"
-        Me.lblByteArray.Size = New System.Drawing.Size(104, 13)
-        Me.lblByteArray.TabIndex = 19
-        Me.lblByteArray.Text = "Encoded Byte Array:"
-        '
-        'txtEncodedByteArray
-        '
-        Me.txtEncodedByteArray.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtEncodedByteArray.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtEncodedByteArray.Location = New System.Drawing.Point(6, 110)
-        Me.txtEncodedByteArray.Multiline = True
-        Me.txtEncodedByteArray.Name = "txtEncodedByteArray"
-        Me.txtEncodedByteArray.ReadOnly = True
-        Me.txtEncodedByteArray.Size = New System.Drawing.Size(662, 72)
-        Me.txtEncodedByteArray.TabIndex = 0
-        '
-        'lblDecodedByteArray
-        '
-        Me.lblDecodedByteArray.AutoSize = True
-        Me.lblDecodedByteArray.Location = New System.Drawing.Point(6, 185)
-        Me.lblDecodedByteArray.Name = "lblDecodedByteArray"
-        Me.lblDecodedByteArray.Size = New System.Drawing.Size(105, 13)
-        Me.lblDecodedByteArray.TabIndex = 20
-        Me.lblDecodedByteArray.Text = "Decoded Byte Array:"
+        Me.lblEncodedString.AutoSize = True
+        Me.lblEncodedString.Location = New System.Drawing.Point(6, 3)
+        Me.lblEncodedString.Name = "lblEncodedString"
+        Me.lblEncodedString.Size = New System.Drawing.Size(83, 13)
+        Me.lblEncodedString.TabIndex = 1
+        Me.lblEncodedString.Text = "Encoded String:"
         '
         'txtDecodedByteArray
         '
         Me.txtDecodedByteArray.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtDecodedByteArray.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtDecodedByteArray.Location = New System.Drawing.Point(6, 201)
+        Me.txtDecodedByteArray.Location = New System.Drawing.Point(6, 209)
         Me.txtDecodedByteArray.Multiline = True
         Me.txtDecodedByteArray.Name = "txtDecodedByteArray"
         Me.txtDecodedByteArray.ReadOnly = True
         Me.txtDecodedByteArray.Size = New System.Drawing.Size(662, 72)
         Me.txtDecodedByteArray.TabIndex = 0
         '
-        'lblEncodedStringLength
+        'txtEncodedByteArray
         '
-        Me.lblEncodedStringLength.AutoSize = True
-        Me.lblEncodedStringLength.Location = New System.Drawing.Point(95, 3)
-        Me.lblEncodedStringLength.Name = "lblEncodedStringLength"
-        Me.lblEncodedStringLength.Size = New System.Drawing.Size(48, 13)
-        Me.lblEncodedStringLength.TabIndex = 21
-        Me.lblEncodedStringLength.Text = "<length>"
+        Me.txtEncodedByteArray.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtEncodedByteArray.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEncodedByteArray.Location = New System.Drawing.Point(6, 116)
+        Me.txtEncodedByteArray.Multiline = True
+        Me.txtEncodedByteArray.Name = "txtEncodedByteArray"
+        Me.txtEncodedByteArray.ReadOnly = True
+        Me.txtEncodedByteArray.Size = New System.Drawing.Size(662, 72)
+        Me.txtEncodedByteArray.TabIndex = 0
+        '
+        'txtEncodedString
+        '
+        Me.txtEncodedString.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtEncodedString.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEncodedString.Location = New System.Drawing.Point(6, 19)
+        Me.txtEncodedString.Multiline = True
+        Me.txtEncodedString.Name = "txtEncodedString"
+        Me.txtEncodedString.ReadOnly = True
+        Me.txtEncodedString.Size = New System.Drawing.Size(662, 72)
+        Me.txtEncodedString.TabIndex = 0
+        '
+        'btnSave
+        '
+        Me.btnSave.Location = New System.Drawing.Point(93, 12)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.TabIndex = 10
+        Me.btnSave.Text = "Save As..."
+        Me.btnSave.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -2388,6 +2461,9 @@ Partial Class Form1
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabDecode.ResumeLayout(False)
         Me.tabDecode.PerformLayout()
+        CType(Me.numCipher, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numDecodedBitShift, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numEncodedBitShift, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2582,5 +2658,11 @@ Partial Class Form1
     Friend WithEvents lblDecodedByteArray As System.Windows.Forms.Label
     Friend WithEvents txtDecodedByteArray As System.Windows.Forms.TextBox
     Friend WithEvents lblEncodedStringLength As System.Windows.Forms.Label
+    Friend WithEvents numEncodedBitShift As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents numDecodedBitShift As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents numCipher As System.Windows.Forms.NumericUpDown
 
 End Class

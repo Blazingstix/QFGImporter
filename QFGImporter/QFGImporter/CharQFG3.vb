@@ -111,17 +111,18 @@
     Public Sub New(fileContents)
         Call Load(fileContents)
         Me.EncodedDataShort = ConvertByteToShort(Me.EncodedData)
-        Me.DecodedValuesShort = Me.EncodedDataShort
-        Me.DecodedValuesShort = CharGeneric.DecodeBytesXor(Me.EncodedDataShort, &H53)
-        Dim tmp(Me.EncodedData.Length - 1) As Byte
-        For i As Integer = 0 To Me.EncodedData.Length - 2
-            tmp(i) = Me.EncodedData(i + 1)
-        Next
-        Me.EncodedData2 = tmp
-        Me.DecodedValues2 = CharGeneric.DecodeBytesXor(Me.EncodedData2, &H53)
+        Call RecalculateTestValues(0, 0, &H53)
     End Sub
 
-    Private Function ConvertByteToShort(bytes As Byte()) As UShort()
+    Public Sub RecalculateTestValues(bitEncoded As SByte, bitDecoded As SByte, cipher As Byte)
+        'Me.DecodedValuesShort = Me.EncodedDataShort
+        Me.DecodedValuesShort = CharGeneric.DecodeBytesXor(Me.EncodedDataShort, cipher)
+        Me.EncodedData2 = CharGeneric.BitShift(Me.EncodedData, bitEncoded)
+        Me.DecodedValues2 = CharGeneric.DecodeBytesXor(Me.EncodedData2, cipher)
+        Me.DecodedValues2 = CharGeneric.BitShift(Me.DecodedValues2, bitDecoded)
+    End Sub
+
+    Private Shared Function ConvertByteToShort(bytes As Byte()) As UShort()
         Dim shorts(Math.Ceiling(bytes.Length / 2) - 1) As UShort
         For i As Integer = 0 To shorts.Length - 1
             Dim byteA As Byte = bytes(2 * i)

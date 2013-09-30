@@ -49,14 +49,18 @@
             Case Enums.Games.QFG3
                 Me.LoadedChar = New CharQFG3(fileContents)
                 Call LoadForm()
-                txtEncodedString.Text = Me.LoadedChar.EncodedString
-                lblEncodedStringLength.Text = Me.LoadedChar.EncodedString.Length
-                txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedData2)
-                txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2)
+                Call RefreshTestDecrypting()
             Case Enums.Games.QFG4
 
         End Select
 
+    End Sub
+
+    Private Sub RefreshTestDecrypting()
+        txtEncodedString.Text = Me.LoadedChar.EncodedString
+        lblEncodedStringLength.Text = Me.LoadedChar.EncodedString.Length
+        txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedData2)
+        txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2)
     End Sub
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
@@ -1024,6 +1028,15 @@
             Me.LoadedChar.EncodedData = Me.UnalteredData
             Call Me.LoadedChar.DecodeValues()
             Call LoadTestData()
+        End If
+    End Sub
+
+    Private Sub numCipher_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numCipher.ValueChanged, numEncodedBitShift.ValueChanged, numDecodedBitShift.ValueChanged
+        If Not Me.Loading Then
+            If TypeOf Me.LoadedChar Is CharQFG3 Then
+                DirectCast(Me.LoadedChar, CharQFG3).RecalculateTestValues(numEncodedBitShift.Value, numDecodedBitShift.Value, numCipher.Value)
+                Call RefreshTestDecrypting()
+            End If
         End If
     End Sub
 End Class
