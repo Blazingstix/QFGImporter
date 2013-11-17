@@ -18,3 +18,6 @@ C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.vbproj.GenerateResource
 C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.exe
 C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.xml
 C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.pdb
+D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.exe
+D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.xml
+D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.pdb

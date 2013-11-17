@@ -1,0 +1,77 @@
+﻿Quest For Glory 2: Byte Breakdown
+
+Byte 0: Character Class 
+    (0 for Fighter, 1 for Magic User, 2 for Thief, 3 for Paladin)
+    
+Bytes 1 and 2: Dinars
+    (Byte1) * 100 = The hundreds column of dinars.
+    (Byte2) = The remainder of dinars.
+    (Note, centimes are automatically converted to dinars at the end of QFG2, rounded down.
+    (i.e. 9999 centimes == 99 dinars.)
+    i.e. if Ego has 75 dinars, Byte1 = 0, Byte2 = 75
+        if Ego has 150 dinars, Byte1 = 1, Byte2 = 50
+        if Ego has 1031 dinars, Byte1 = 10, Byte2 = 31
+	note: dinars are saved at the end of QFG2, but that value is ignored for the start of QFG3.
+    
+Byte 3: Puzzle Points 
+	value is puzpoints AND 0xFF
+    
+Byte 4: Unique Inventory Items
+    bit 0: Fine Sword
+    bit 1: Soulforge (Rakeesh's Paladin Sword)
+    bit 2: Saphirre Pin (gift from the Kattas)
+    bit 3: Brass Lamp
+    bit 4: EOF Badge
+    bit 5: X-Ray Glasses
+    bit 6: Broadsword
+    bit 7: Chainmail
+    note: the lock pick, theif's toolkit, and thieves' guild license are not saved in the character file
+    note2: having the Compass counts as both bits 0 and 1, so ultimately distinguishing 
+		   between having the fine sword or soulforge must depend on Class.
+
+Bytes 5 - 19: Abilities and Skills 
+    (5 - Strength, 6 - Inelligence, ... , 17 - Magic, 18 - Communication, 19 - Honor)
+
+Byte 20: Experience
+    value is exp AND 0xFF
+    
+Bytes 21 - 23: HP/SP/MP Current Levels
+    Byte 21: Health Points 
+       (health is divided by 2, i.e. 43HP = 86) 
+       value is hp AND 0xFF
+    
+    Byte 22: Stamina Points
+       (stamina is divided by 4, i.e. 15SP = 60)
+       value is sp AND 0xFF
+    
+    Byte 23: Magic Points
+       value is mp AND 0xFF
+    
+Bytes 24 - 34: Magic Spells
+    (24 - Open, ... , 31 - Fetch, 32 - ForceBolt, 33 - Levitate, 34 - Reversal)
+    
+Bytes: 35 - 39: Inventory
+    Byte 35: Daggers
+       value is number of daggers AND 0xFF
+    
+    Byte 36: Healing Pills
+    
+    Byte 37: Magic Pills
+    
+    Byte 38: Vigor Pills
+    
+    Byte 39: Poison Cure Pills
+    
+Bytes 40 and 41: (constants - unknown)
+    (Byte40 = 0xA0)
+    (Byte41 = 0x3E)
+    
+Bytes 42 and 43: Checksums
+    (Byte42 is sum of all even bytes 0 - 39)
+    (Byte43 is sum of all odd bytes 1 - 38)
+    
+Bytes 44 - 47: (constants - unknown)
+    (Byte44 = 0x2F)
+    (Byte45 = 0x90)
+    (Byte46 = 0x19)
+    (Byte47 = 0xA3)
