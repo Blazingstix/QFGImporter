@@ -59,8 +59,13 @@
     Private Sub RefreshTestDecrypting()
         txtEncodedString.Text = Me.LoadedChar.EncodedString
         lblEncodedStringLength.Text = Me.LoadedChar.EncodedString.Length
-        txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedData2)
-        txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2)
+        If numBytesPerWord.Value = 1 Then
+            txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedData2)
+            txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2)
+        Else
+            txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedDataShort)
+            txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValuesShort)
+        End If
     End Sub
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
@@ -1037,6 +1042,12 @@
                 DirectCast(Me.LoadedChar, CharQFG3).RecalculateTestValues(numEncodedBitShift.Value, numDecodedBitShift.Value, numCipher.Value)
                 Call RefreshTestDecrypting()
             End If
+        End If
+    End Sub
+
+    Private Sub numBytesPerWord_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numBytesPerWord.ValueChanged
+        If Not Me.Loading AndAlso Me.LoadedChar IsNot Nothing Then
+            Call RefreshTestDecrypting()
         End If
     End Sub
 End Class

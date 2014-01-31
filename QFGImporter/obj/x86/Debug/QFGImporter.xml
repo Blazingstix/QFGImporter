@@ -6,7 +6,16 @@ QFGImporter
 </name>
 </assembly>
 <members>
-<member name="M:QFGImporter.Form1.LoadSelectedByte">
+<member name="M:QFGImporter.CharGeneric.DecodeBytesXor(System.Byte[],System.Byte,System.Byte)">
+	<summary>
+ The main method of encription that QFG1/2 saved characters use
+ </summary>
+	<param name="encodedData"></param>
+	<param name="initialCipher"></param>
+	<param name="Limiter"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.Form1.LoadSelectedByte">
 	<summary>
  Loads the selected byte for viewing/editing
  </summary>

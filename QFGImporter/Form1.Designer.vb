@@ -22,9 +22,9 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.grpGames = New System.Windows.Forms.GroupBox()
         Me.rdoQFG4 = New System.Windows.Forms.RadioButton()
         Me.rdoQFG3 = New System.Windows.Forms.RadioButton()
@@ -205,11 +205,11 @@ Partial Class Form1
         Me.txtReferenceData = New System.Windows.Forms.TextBox()
         Me.txtOriginalData = New System.Windows.Forms.TextBox()
         Me.tabDecode = New System.Windows.Forms.TabPage()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblCipherApplied = New System.Windows.Forms.Label()
+        Me.lblDecodedBitsShifted = New System.Windows.Forms.Label()
         Me.numCipher = New System.Windows.Forms.NumericUpDown()
         Me.numDecodedBitShift = New System.Windows.Forms.NumericUpDown()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblEncodedBitsShifted = New System.Windows.Forms.Label()
         Me.numEncodedBitShift = New System.Windows.Forms.NumericUpDown()
         Me.lblEncodedStringLength = New System.Windows.Forms.Label()
         Me.lblDecodedByteArray = New System.Windows.Forms.Label()
@@ -222,6 +222,8 @@ Partial Class Form1
         Me.txtEncodedByteArray = New System.Windows.Forms.TextBox()
         Me.txtEncodedString = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
+        Me.numBytesPerWord = New System.Windows.Forms.NumericUpDown()
+        Me.lblBytesPerWord = New System.Windows.Forms.Label()
         Me.grpGames.SuspendLayout()
         Me.grpClass.SuspendLayout()
         Me.grpSkills.SuspendLayout()
@@ -292,6 +294,7 @@ Partial Class Form1
         CType(Me.numCipher, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDecodedBitShift, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numEncodedBitShift, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numBytesPerWord, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grpGames
@@ -1713,34 +1716,34 @@ Partial Class Form1
         '
         'DataGridView1
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column9, Me.Column10, Me.Column11, Me.Column12, Me.Column13, Me.Column14, Me.Column15})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle8
         Me.DataGridView1.Location = New System.Drawing.Point(253, 372)
         Me.DataGridView1.Name = "DataGridView1"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.DataGridView1.Size = New System.Drawing.Size(420, 57)
         Me.DataGridView1.TabIndex = 3
         Me.DataGridView1.Visible = False
@@ -2179,11 +2182,13 @@ Partial Class Form1
         '
         'tabDecode
         '
-        Me.tabDecode.Controls.Add(Me.Label3)
-        Me.tabDecode.Controls.Add(Me.Label2)
+        Me.tabDecode.Controls.Add(Me.lblBytesPerWord)
+        Me.tabDecode.Controls.Add(Me.numBytesPerWord)
+        Me.tabDecode.Controls.Add(Me.lblCipherApplied)
+        Me.tabDecode.Controls.Add(Me.lblDecodedBitsShifted)
         Me.tabDecode.Controls.Add(Me.numCipher)
         Me.tabDecode.Controls.Add(Me.numDecodedBitShift)
-        Me.tabDecode.Controls.Add(Me.Label1)
+        Me.tabDecode.Controls.Add(Me.lblEncodedBitsShifted)
         Me.tabDecode.Controls.Add(Me.numEncodedBitShift)
         Me.tabDecode.Controls.Add(Me.lblEncodedStringLength)
         Me.tabDecode.Controls.Add(Me.lblDecodedByteArray)
@@ -2203,23 +2208,23 @@ Partial Class Form1
         Me.tabDecode.Text = "Decrypt Data"
         Me.tabDecode.UseVisualStyleBackColor = True
         '
-        'Label3
+        'lblCipherApplied
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(296, 193)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(75, 13)
-        Me.Label3.TabIndex = 25
-        Me.Label3.Text = "Cipher Applied"
+        Me.lblCipherApplied.AutoSize = True
+        Me.lblCipherApplied.Location = New System.Drawing.Point(293, 193)
+        Me.lblCipherApplied.Name = "lblCipherApplied"
+        Me.lblCipherApplied.Size = New System.Drawing.Size(75, 13)
+        Me.lblCipherApplied.TabIndex = 25
+        Me.lblCipherApplied.Text = "Cipher Applied"
         '
-        'Label2
+        'lblDecodedBitsShifted
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(173, 193)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(60, 13)
-        Me.Label2.TabIndex = 25
-        Me.Label2.Text = "Bits Shifted"
+        Me.lblDecodedBitsShifted.AutoSize = True
+        Me.lblDecodedBitsShifted.Location = New System.Drawing.Point(170, 193)
+        Me.lblDecodedBitsShifted.Name = "lblDecodedBitsShifted"
+        Me.lblDecodedBitsShifted.Size = New System.Drawing.Size(60, 13)
+        Me.lblDecodedBitsShifted.TabIndex = 25
+        Me.lblDecodedBitsShifted.Text = "Bits Shifted"
         '
         'numCipher
         '
@@ -2242,14 +2247,14 @@ Partial Class Form1
         Me.numDecodedBitShift.TabIndex = 24
         Me.numDecodedBitShift.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'Label1
+        'lblEncodedBitsShifted
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(173, 100)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(60, 13)
-        Me.Label1.TabIndex = 23
-        Me.Label1.Text = "Bits Shifted"
+        Me.lblEncodedBitsShifted.AutoSize = True
+        Me.lblEncodedBitsShifted.Location = New System.Drawing.Point(170, 100)
+        Me.lblEncodedBitsShifted.Name = "lblEncodedBitsShifted"
+        Me.lblEncodedBitsShifted.Size = New System.Drawing.Size(60, 13)
+        Me.lblEncodedBitsShifted.TabIndex = 23
+        Me.lblEncodedBitsShifted.Text = "Bits Shifted"
         '
         'numEncodedBitShift
         '
@@ -2290,7 +2295,7 @@ Partial Class Form1
         '
         'btnAttemptRevert
         '
-        Me.btnAttemptRevert.Location = New System.Drawing.Point(220, 353)
+        Me.btnAttemptRevert.Location = New System.Drawing.Point(220, 287)
         Me.btnAttemptRevert.Name = "btnAttemptRevert"
         Me.btnAttemptRevert.Size = New System.Drawing.Size(101, 23)
         Me.btnAttemptRevert.TabIndex = 18
@@ -2299,7 +2304,7 @@ Partial Class Form1
         '
         'bnBitShift
         '
-        Me.bnBitShift.Location = New System.Drawing.Point(113, 353)
+        Me.bnBitShift.Location = New System.Drawing.Point(113, 287)
         Me.bnBitShift.Name = "bnBitShift"
         Me.bnBitShift.Size = New System.Drawing.Size(101, 23)
         Me.bnBitShift.TabIndex = 17
@@ -2308,7 +2313,7 @@ Partial Class Form1
         '
         'btnCipher
         '
-        Me.btnCipher.Location = New System.Drawing.Point(6, 353)
+        Me.btnCipher.Location = New System.Drawing.Point(6, 287)
         Me.btnCipher.Name = "btnCipher"
         Me.btnCipher.Size = New System.Drawing.Size(101, 23)
         Me.btnCipher.TabIndex = 16
@@ -2368,6 +2373,26 @@ Partial Class Form1
         Me.btnSave.TabIndex = 10
         Me.btnSave.Text = "Save As..."
         Me.btnSave.UseVisualStyleBackColor = True
+        '
+        'numBytesPerWord
+        '
+        Me.numBytesPerWord.Location = New System.Drawing.Point(239, 96)
+        Me.numBytesPerWord.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numBytesPerWord.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numBytesPerWord.Name = "numBytesPerWord"
+        Me.numBytesPerWord.Size = New System.Drawing.Size(51, 20)
+        Me.numBytesPerWord.TabIndex = 26
+        Me.numBytesPerWord.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numBytesPerWord.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'lblBytesPerWord
+        '
+        Me.lblBytesPerWord.AutoSize = True
+        Me.lblBytesPerWord.Location = New System.Drawing.Point(293, 100)
+        Me.lblBytesPerWord.Name = "lblBytesPerWord"
+        Me.lblBytesPerWord.Size = New System.Drawing.Size(80, 13)
+        Me.lblBytesPerWord.TabIndex = 27
+        Me.lblBytesPerWord.Text = "Bytes per Word"
         '
         'Form1
         '
@@ -2464,6 +2489,7 @@ Partial Class Form1
         CType(Me.numCipher, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDecodedBitShift, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numEncodedBitShift, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numBytesPerWord, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2659,10 +2685,12 @@ Partial Class Form1
     Friend WithEvents txtDecodedByteArray As System.Windows.Forms.TextBox
     Friend WithEvents lblEncodedStringLength As System.Windows.Forms.Label
     Friend WithEvents numEncodedBitShift As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents lblDecodedBitsShifted As System.Windows.Forms.Label
     Friend WithEvents numDecodedBitShift As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents lblEncodedBitsShifted As System.Windows.Forms.Label
+    Friend WithEvents lblCipherApplied As System.Windows.Forms.Label
     Friend WithEvents numCipher As System.Windows.Forms.NumericUpDown
+    Friend WithEvents lblBytesPerWord As System.Windows.Forms.Label
+    Friend WithEvents numBytesPerWord As System.Windows.Forms.NumericUpDown
 
 End Class
