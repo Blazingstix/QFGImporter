@@ -135,6 +135,7 @@
   <ItemGroup>
     <Content Include="QFGImporter\QFG1.txt" />
     <Content Include="QFGImporter\QFG2.txt" />
+    <Content Include="QFGImporter\QFG3.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

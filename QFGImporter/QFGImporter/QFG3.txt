@@ -1,0 +1,25 @@
+﻿Quest For Glory 3: Byte Breakdown
+
+QFG3 is different from QFG1 or QFG2 in a subtle but significant way.
+Instead of each value being one byte (as in the previous two games),
+each value is stored in two bytes.
+
+The unusual part is that it is not just a 16-bit number (i.e. -32k to +32k).
+The first byte is the value divided by 100, and the second byte is the remainder.
+
+This causes a problem in *some* QFG3 games, and many more QFG4 games, when you 
+have values larger than 10,000 (most likely experience).
+
+I am still unsure of the exact method of encoding/decoding the values to prevent casual editing.
+
+(From CC:
+Quest for Glory 5 has a similar problem with importing certain QG4 (and a very few QG3) files.  
+The problem is that the export data was output as a series of ASCII values using the "%2x%2x" formatting 
+string (number divided by 100 and remainder thereof) on the assumption that the values would 
+never exceed 10000.  
+Unfortunately, between the facts that stats could get up to 400 and there were more stats in QG4 
+than in earlier games in the series, this sometimes overflowed yielding 5 digits instead of 4, and 
+sometimes went negative (when the values exceeded 32767).
+It's a big mess.)
+
+see also: http://stackoverflow.com/questions/15823597/use-printf-to-print-character-string-in-hex-format-distorted-results
