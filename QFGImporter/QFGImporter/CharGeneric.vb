@@ -28,10 +28,29 @@
 
 #Region "Basic Properties"
 
+    Private aEncodedDataByte As Byte()
+    Private aDecodedValuesByte As Byte()
+    Private aEncodedDataShort As Short()
+    Private aDecodedValuesShort As Short()
+
     Public Property Game As Enums.Games
     Public Property Name As String = String.Empty
     Friend Property EncodedData As Byte()
+        Get
+            Return aEncodedDataByte
+        End Get
+        Set(value As Byte())
+            aEncodedDataByte = value
+        End Set
+    End Property
     Friend Property DecodedValues As Byte()
+        Get
+            Return aDecodedValuesByte
+        End Get
+        Set(value As Byte())
+            aDecodedValuesByte = value
+        End Set
+    End Property
     Friend Property Extra As String
     Friend Property EncodedString As String
 
