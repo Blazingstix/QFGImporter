@@ -4,13 +4,19 @@ QFG3 is different from QFG1 or QFG2 in a subtle but significant way.
 Instead of each value being one byte (as in the previous two games),
 each value is stored in two bytes.
 
-The unusual part is that it is not just a 16-bit number (i.e. -32k to +32k).
-The first byte is the value divided by 100, and the second byte is the remainder.
+Encryption Summary:
+	The data portion of the Saved Character is 208 characters long, and is the ascii representation of the hex values. Each byte is represented by 2 characters (0 - f).
+	The compression scheme follows this convention:
+	Encrypted(N) = Short(N) XOR Short(N-1) with Short(-1) == 0x53
+	
+	Then the Encrypted value is split into two bytes AA BB as follows:
+	AA(N) = Encrypted(N) / 100
+	BB(N) = Encrypted(N) MOD 100
+
+	i.e. The first byte is the value divided by 100, and the second byte is the remainder.
 
 This causes a problem in *some* QFG3 games, and many more QFG4 games, when you 
 have values larger than 10,000 (most likely experience).
-
-I am still unsure of the exact method of encoding/decoding the values to prevent casual editing.
 
 (From CC:
 Quest for Glory 5 has a similar problem with importing certain QG4 (and a very few QG3) files.  
@@ -23,3 +29,77 @@ sometimes went negative (when the values exceeded 32767).
 It's a big mess.)
 
 see also: http://stackoverflow.com/questions/15823597/use-printf-to-print-character-string-in-hex-format-distorted-results
+
+NOTE: Because of the overflow error possibility, you cannot take the below positions for granted.  I do not have a method yet for parsing 
+sav files that have overflow errors.
+	
+Short 0: Character Class 
+    (0 for Fighter, 1 for Magic User, 2 for Thief, 3 for Paladin)
+    
+Shorts 1 and 2: Royals (unconfirmed)
+    (Byte1) * 100 = The hundreds column of royals.
+    (Byte2) = The remainder of royals.
+    (Note, coppers are automatically converted to royals at the end of QFG3, rounded down.
+    (i.e. 9999 coppers == 99 royals.)
+    i.e. if Ego has 75 royals, Short1 = 0, Short2 = 75
+        if Ego has 150 royals, Short1 = 1, Short2 = 50
+        if Ego has 1031 royals, Short1 = 10, Short2 = 31
+	note: royals are saved at the end of QFG3, but that value is ignored for the start of QFG4.
+    
+Short 3: Puzzle Points (unconfirmed)
+	value is puzpoints
+Short 3: Unique Inventory Items (unconfirmed)
+	unknown if all 16 bits are used, or if it is more dividion by 100 + remainder seperation
+
+Shorts 4 - 19: Abilities and Skills 
+    (4 - Strength, 5 - Inelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor)
+	NOTE: Paladin points are not saved, as they are a direct correlation with Honor
+
+Short 19: Experience
+    value is exp 
+	NOTE: This is the most likely place for an overflow
+    
+Shorts 20 - 22: HP/SP/MP Current Levels
+    Short 20: Health Points 
+       (health is 1:1, i.e. 43HP = 43) 
+       value is hp
+    
+    Short 21: Stamina Points
+       (stamina is 1:1, i.e. 60SP = 60)
+       value is sp
+    
+    Short 22: Magic Points
+       (stamina is 1:1, i.e. 5MP = 5)
+	   value is mp 
+    
+Shorts 23 - 36: Magic Spells
+    (23 - Open, ... , 30 - Fetch, 31 - ForceBolt, 32 - Levitate, 33 - Reversal, 34 - Juggling Lights, 35 - Lightning Ball, 36 - Summon Staff)
+    
+Shorts: 37 - 43: Inventory (unconfirmed)
+    Short 37: Daggers (unconfirmed)
+    
+    Short 38: Healing Pills (unconfirmed)
+    
+    Short 39: Magic Pills (unconfirmed)
+    
+    Short 40: Vigor Pills (unconfirmed)
+    
+    Short 41: Poison Cure Pills (unconfirmed)
+
+	Short 42: (unknown)
+
+	Short 43: (unknown)
+    
+Shorts 44 and 45: (constants - unknown)
+    (Byte44 = 0x0019)
+    (Byte45 = 0x00BE)
+    
+Shorts 46 and 47: Checksums
+    (Byte46 is sum of all even bytes 0 - 42)
+    (Byte47 is sum of all odd bytes 1 - 43)
+    
+Shorts 48 - 51: (constants - unknown)
+    (Byte48 = 0x0037)
+    (Byte49 = 0x006D)
+    (Byte50 = 0x00C4)
+    (Byte51 = 0x00F2)
