@@ -36,18 +36,12 @@ sav files that have overflow errors.
 Short 0: Character Class 
     (0 for Fighter, 1 for Magic User, 2 for Thief, 3 for Paladin)
     
-Shorts 1 and 2: Royals (unconfirmed)
-    (Byte1) * 100 = The hundreds column of royals.
-    (Byte2) = The remainder of royals.
-    (Note, coppers are automatically converted to royals at the end of QFG3, rounded down.
-    (i.e. 9999 coppers == 99 royals.)
-    i.e. if Ego has 75 royals, Short1 = 0, Short2 = 75
-        if Ego has 150 royals, Short1 = 1, Short2 = 50
-        if Ego has 1031 royals, Short1 = 10, Short2 = 31
+Shorts 1: Royals (unconfirmed)
 	note: royals are saved at the end of QFG3, but that value is ignored for the start of QFG4.
     
-Short 3: Puzzle Points (unconfirmed)
+Short 2: Puzzle Points (unconfirmed)
 	value is puzpoints
+
 Short 3: Unique Inventory Items (unconfirmed)
 	unknown if all 16 bits are used, or if it is more dividion by 100 + remainder seperation
 
