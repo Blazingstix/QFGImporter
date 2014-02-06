@@ -6,7 +6,23 @@ QFGImporter
 </name>
 </assembly>
 <members>
-<member name="M:QFGImporter.CharGeneric.DecodeBytesXor(System.Byte[],System.Byte,System.Byte)">
+<member name="M:QFGImporter.CharQFG3.ConvertByteToShort(System.Byte[])">
+	<summary>
+ Converts a byte array into a Ushort array of half the length
+ Little Endian. (i.e. AA BB = AABB)
+ </summary>
+	<param name="bytes"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.CharQFG3.ConvertByteToShortX(System.Byte[])">
+	<summary>
+ Custom two-byte word conversion, for QFG3/4.
+ AA BB = (AA*100)+BB
+ </summary>
+	<param name="bytes"></param>
+	<returns></returns>
+	<remarks>Does not work if there are errors/overage in the SAV file</remarks>
+</member><member name="M:QFGImporter.CharGeneric.DecodeBytesXor(System.Byte[],System.Byte,System.Byte)">
 	<summary>
  The main method of encription that QFG1/2 saved characters use
  </summary>

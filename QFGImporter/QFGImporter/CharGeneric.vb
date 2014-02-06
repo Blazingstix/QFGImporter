@@ -641,19 +641,35 @@
         Return CharGeneric.BytesToString(Me.DecodedValues)
     End Function
 
-    Public Shared Function BytesToString(byteArray As Byte()) As String
+    Public Shared Function BytesToString(byteArray As Byte(), Optional hex As Boolean = True) As String
         Dim values As String = String.Empty
         For Each i As Integer In byteArray
-            values &= i.ToString("X2") & " "
+            Dim tmpStr As String = String.Empty
+            If hex Then
+                tmpStr = i.ToString("X2")
+            Else
+                tmpStr = i.ToString
+            End If
+
+            values &= tmpStr & " "
         Next
         Return values.Trim
     End Function
 
-    Public Shared Function BytesToString(shortArray As UShort()) As String
+    Public Shared Function BytesToString(shortArray As UShort(), Optional hex As Boolean = True) As String
         Dim values As String = String.Empty
-        For Each i As Integer In shortArray
-            values &= i.ToString("X4") & " "
-        Next
+        If shortArray IsNot Nothing Then
+            For Each i As Integer In shortArray
+                Dim tmpStr As String = String.Empty
+                If hex Then
+                    tmpStr = i.ToString("X4")
+                Else
+                    tmpStr = i.ToString
+                End If
+
+                values &= tmpStr & " "
+            Next
+        End If
         Return values.Trim
     End Function
 

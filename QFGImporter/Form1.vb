@@ -32,12 +32,16 @@
             s.Close()
 
             'set the form's title, baased on the open file's name
-            Me.Text = Me.OriginalTitle & ": " & System.IO.Path.GetFileName(Me.LoadedFilename)
-            Call LoadGameFromFileContents(fileContents)
+            If LoadGameFromFileContents(fileContents) Then
+                Me.Text = Me.OriginalTitle & ": " & System.IO.Path.GetFileName(Me.LoadedFilename)
+            Else
+                Me.Text = Me.OriginalTitle
+                Me.LoadedFilename = Nothing
+            End If
         End If
     End Sub
 
-    Private Sub LoadGameFromFileContents(fileContents As String)
+    Private Function LoadGameFromFileContents(fileContents As String) As Boolean
         'CharGeneric.ParseCharacter(fileContents)
         Select Case CharGeneric.GetGame(fileContents)
             Case Enums.Games.QFG1
@@ -51,10 +55,11 @@
                 Call LoadForm()
                 Call RefreshTestDecrypting()
             Case Enums.Games.QFG4
-
+                MessageBox.Show("Quest for Glory 4 export characters are not supported yet.")
+                Return False
         End Select
-
-    End Sub
+        Return True
+    End Function
 
     Private Sub RefreshTestDecrypting()
         txtEncodedString.Text = Me.LoadedChar.EncodedString
@@ -62,9 +67,11 @@
         If numBytesPerWord.Value = 1 Then
             txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedData2)
             txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2)
+            txtDecodedByteArrayDecimal.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2, False)
         Else
             txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedDataShort)
             txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValuesShort)
+            txtDecodedByteArrayDecimal.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValuesShort, False)
         End If
     End Sub
 
@@ -1015,17 +1022,34 @@
         'MessageBox.Show(output & vbCrLf & vbCrLf & output2)
     End Sub
 
-    Private Sub btnCipher_Click(sender As System.Object, e As System.EventArgs)
-        If Me.UnalteredData Is Nothing Then
-            Me.UnalteredData = Me.LoadedChar.EncodedData
-            txtReferenceData.Text = CharGeneric.BytesToString(Me.UnalteredData)
+    Private Sub btnCipher_Click(sender As System.Object, e As System.EventArgs) Handles btnCipher.Click
+
+        Dim qg3 As CharQFG3
+        If TypeOf Me.LoadedChar Is CharQFG3 Then
+            qg3 = Me.LoadedChar
+            Dim x As Byte() = qg3.EncodedData
+            Dim y As New Collections.ArrayList
+            Dim x2((x.Length / 2) - 1) As UShort
+            For i As Integer = 0 To x.Length - 1 Step 2
+                Dim val As UShort = x(i) * 100 + x(i + 1)
+                y.Add(val)
+                x2(i / 2) = val
+            Next
+            Dim out() As UShort = CharGeneric.DecodeBytesXor(x2, &H53)
+            MessageBox.Show(y.Count & x2.Length)
+            'qg3.Encode()
         End If
-        Dim s As String = InputBox("Please enter a cipher value (0 - 255):")
-        Dim i As Byte
-        If Byte.TryParse(s, i) Then
-            Me.LoadedChar.DecodedValues = CharGeneric.DecodeBytesXor(Me.LoadedChar.EncodedData, i)
-            Call LoadTestData()
-        End If
+
+        'If Me.UnalteredData Is Nothing Then
+        '    Me.UnalteredData = Me.LoadedChar.EncodedData
+        '    txtReferenceData.Text = CharGeneric.BytesToString(Me.UnalteredData)
+        'End If
+        'Dim s As String = InputBox("Please enter a cipher value (0 - 255):")
+        'Dim i As Byte
+        'If Byte.TryParse(s, i) Then
+        '    Me.LoadedChar.DecodedValues = CharGeneric.DecodeBytesXor(Me.LoadedChar.EncodedData, i)
+        '    Call LoadTestData()
+        'End If
     End Sub
 
     Private Sub btnAttemptRevert_Click(sender As System.Object, e As System.EventArgs)
@@ -1036,10 +1060,10 @@
         End If
     End Sub
 
-    Private Sub numCipher_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numCipher.ValueChanged, numEncodedBitShift.ValueChanged, numDecodedBitShift.ValueChanged
+    Private Sub numCipher_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numCipher.ValueChanged
         If Not Me.Loading Then
             If TypeOf Me.LoadedChar Is CharQFG3 Then
-                DirectCast(Me.LoadedChar, CharQFG3).RecalculateTestValues(numEncodedBitShift.Value, numDecodedBitShift.Value, numCipher.Value)
+                'DirectCast(Me.LoadedChar, CharQFG3).RecalculateTestValues(numEncodedBitShift.Value, numDecodedBitShift.Value, numCipher.Value)
                 Call RefreshTestDecrypting()
             End If
         End If

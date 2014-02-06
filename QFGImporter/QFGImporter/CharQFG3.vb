@@ -110,7 +110,11 @@
 
     Public Sub New(fileContents)
         Call Load(fileContents)
-        Me.EncodedDataShort = ConvertByteToShort(Me.EncodedData)
+        If Me.EncodedString.Length <> 208 Then
+            MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG3 files with data larger than 208 characters can an error, and this program cannot work around that yet.")
+            Exit Sub
+        End If
+        Me.EncodedDataShort = ConvertByteToShortX(Me.EncodedData)
         Call RecalculateTestValues(0, 0, &H53)
     End Sub
 
@@ -122,6 +126,13 @@
         Me.DecodedValues2 = CharGeneric.BitShift(Me.DecodedValues2, bitDecoded)
     End Sub
 
+    ''' <summary>
+    ''' Converts a byte array into a Ushort array of half the length
+    ''' Little Endian. (i.e. AA BB = AABB)
+    ''' </summary>
+    ''' <param name="bytes"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Shared Function ConvertByteToShort(bytes As Byte()) As UShort()
         Dim shorts(Math.Ceiling(bytes.Length / 2) - 1) As UShort
         For i As Integer = 0 To shorts.Length - 1
@@ -134,6 +145,26 @@
             shorts(i) = (CUShort(byteA) << 8) Or byteB
         Next
         Return shorts
+    End Function
+
+    ''' <summary>
+    ''' Custom two-byte word conversion, for QFG3/4.
+    ''' AA BB = (AA*100)+BB
+    ''' </summary>
+    ''' <param name="bytes"></param>
+    ''' <returns></returns>
+    ''' <remarks>Does not work if there are errors/overage in the SAV file</remarks>
+    Private Shared Function ConvertByteToShortX(bytes As Byte()) As UShort()
+
+        'Dim y As New Collections.ArrayList
+        Dim x2((bytes.Length / 2) - 1) As UShort
+        For i As Integer = 0 To bytes.Length - 1 Step 2
+            Dim val As UShort = bytes(i) * 100 + bytes(i + 1)
+            'y.Add(val)
+            x2(i / 2) = val
+        Next
+        '        Dim out() As UShort = CharGeneric.DecodeBytesXor(x2, &H53)
+        Return x2
     End Function
 
     Friend Overrides Sub SetGame()
