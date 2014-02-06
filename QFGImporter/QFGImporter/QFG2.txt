@@ -1,5 +1,10 @@
 ﻿Quest For Glory 2: Byte Breakdown
 
+Encryption Summary:
+	The data portion of the Saved Character is 96 characters long, and is the ascii representation of the hex values. Each byte is represented by 2 characters (0 - f).
+	The compression scheme follows this convention:
+	EncryptedByte(N) = Byte(N) XOR Byte(N-1) with Byte(-1) == 0x53
+	
 Byte 0: Character Class 
     (0 for Fighter, 1 for Magic User, 2 for Thief, 3 for Paladin)
     
