@@ -1,5 +1,10 @@
 ﻿Quest For Glory 1: Byte Breakdown
 
+Encryption Summary:
+	The data portion of the Saved Character is 86 characters long, and is the ascii representation of the hex values. Each byte is represented by 2 characters (0 - f).
+	The compression scheme follows this convention:
+	EncryptedByte(N) = Byte(N) XOR Byte(N-1) with Byte(-1) == 0x53
+	
 Notes:
      There is no record of Shields (must be class-based, or linked with Sword)
      There is no record of leather armor (Ego is issued at least leather armor)
