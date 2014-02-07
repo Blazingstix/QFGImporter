@@ -207,8 +207,6 @@ Partial Class Form1
         Me.txtOriginalData = New System.Windows.Forms.TextBox()
         Me.tabDecode = New System.Windows.Forms.TabPage()
         Me.txtDecodedByteArrayDecimal = New System.Windows.Forms.TextBox()
-        Me.lblBytesPerWord = New System.Windows.Forms.Label()
-        Me.numBytesPerWord = New System.Windows.Forms.NumericUpDown()
         Me.lblCipherApplied = New System.Windows.Forms.Label()
         Me.numCipher = New System.Windows.Forms.NumericUpDown()
         Me.lblEncodedStringLength = New System.Windows.Forms.Label()
@@ -290,7 +288,6 @@ Partial Class Form1
         CType(Me.numBytes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabDecode.SuspendLayout()
-        CType(Me.numBytesPerWord, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numCipher, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -2180,8 +2177,6 @@ Partial Class Form1
         'tabDecode
         '
         Me.tabDecode.Controls.Add(Me.txtDecodedByteArrayDecimal)
-        Me.tabDecode.Controls.Add(Me.lblBytesPerWord)
-        Me.tabDecode.Controls.Add(Me.numBytesPerWord)
         Me.tabDecode.Controls.Add(Me.lblCipherApplied)
         Me.tabDecode.Controls.Add(Me.numCipher)
         Me.tabDecode.Controls.Add(Me.lblEncodedStringLength)
@@ -2214,26 +2209,6 @@ Partial Class Form1
         Me.txtDecodedByteArrayDecimal.ReadOnly = True
         Me.txtDecodedByteArrayDecimal.Size = New System.Drawing.Size(662, 72)
         Me.txtDecodedByteArrayDecimal.TabIndex = 28
-        '
-        'lblBytesPerWord
-        '
-        Me.lblBytesPerWord.AutoSize = True
-        Me.lblBytesPerWord.Location = New System.Drawing.Point(170, 97)
-        Me.lblBytesPerWord.Name = "lblBytesPerWord"
-        Me.lblBytesPerWord.Size = New System.Drawing.Size(80, 13)
-        Me.lblBytesPerWord.TabIndex = 27
-        Me.lblBytesPerWord.Text = "Bytes per Word"
-        '
-        'numBytesPerWord
-        '
-        Me.numBytesPerWord.Location = New System.Drawing.Point(116, 93)
-        Me.numBytesPerWord.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.numBytesPerWord.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numBytesPerWord.Name = "numBytesPerWord"
-        Me.numBytesPerWord.Size = New System.Drawing.Size(49, 20)
-        Me.numBytesPerWord.TabIndex = 26
-        Me.numBytesPerWord.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numBytesPerWord.Value = New Decimal(New Integer() {2, 0, 0, 0})
         '
         'lblCipherApplied
         '
@@ -2468,7 +2443,6 @@ Partial Class Form1
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabDecode.ResumeLayout(False)
         Me.tabDecode.PerformLayout()
-        CType(Me.numBytesPerWord, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numCipher, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -2666,8 +2640,6 @@ Partial Class Form1
     Friend WithEvents lblEncodedStringLength As System.Windows.Forms.Label
     Friend WithEvents lblCipherApplied As System.Windows.Forms.Label
     Friend WithEvents numCipher As System.Windows.Forms.NumericUpDown
-    Friend WithEvents lblBytesPerWord As System.Windows.Forms.Label
-    Friend WithEvents numBytesPerWord As System.Windows.Forms.NumericUpDown
     Friend WithEvents txtDecodedByteArrayDecimal As System.Windows.Forms.TextBox
     Friend WithEvents lblDecodedByteArrayDecimal As System.Windows.Forms.Label
 

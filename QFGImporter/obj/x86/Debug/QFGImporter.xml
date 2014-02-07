@@ -6,20 +6,20 @@ QFGImporter
 </name>
 </assembly>
 <members>
-<member name="M:QFGImporter.CharQFG3.ConvertByteToShort(System.Byte[])">
+<member name="M:QFGImporter.CharGeneric.convertHexStringToByteArray(System.String)">
 	<summary>
- Converts a byte array into a Ushort array of half the length
- Little Endian. (i.e. AA BB = AABB)
+ This is used for QFG1 and QFG2
  </summary>
-	<param name="bytes"></param>
+	<param name="hexString"></param>
 	<returns></returns>
 	<remarks></remarks>
-</member><member name="M:QFGImporter.CharQFG3.ConvertByteToShortX(System.Byte[])">
+</member><member name="M:QFGImporter.CharGeneric.convertHexStringToShortArray(System.String)">
 	<summary>
- Custom two-byte word conversion, for QFG3/4.
+ This is used for QFG3/4.
+ It is a custom two-byte word conversion, for QFG3/4.
  AA BB = (AA*100)+BB
  </summary>
-	<param name="bytes"></param>
+	<param name="hexString"></param>
 	<returns></returns>
 	<remarks>Does not work if there are errors/overage in the SAV file</remarks>
 </member><member name="M:QFGImporter.CharGeneric.DecodeBytesXor(System.Byte[],System.Byte,System.Byte)">

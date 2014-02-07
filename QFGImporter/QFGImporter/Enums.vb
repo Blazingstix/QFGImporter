@@ -54,7 +54,13 @@
         Resistance
         FrostBite
         RitualOfRelease
+    End Enum
 
+    Public Enum OtherSkills
+        Experience = 0
+        HealthPoints
+        StaminaPoints
+        MagicPoints
     End Enum
 
     Public Enum Inventory

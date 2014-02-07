@@ -62,17 +62,11 @@
     End Function
 
     Private Sub RefreshTestDecrypting()
-        txtEncodedString.Text = Me.LoadedChar.EncodedString
-        lblEncodedStringLength.Text = Me.LoadedChar.EncodedString.Length
-        If numBytesPerWord.Value = 1 Then
-            txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedData2)
-            txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2)
-            txtDecodedByteArrayDecimal.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValues2, False)
-        Else
-            txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedDataShort)
-            txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValuesShort)
-            txtDecodedByteArrayDecimal.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValuesShort, False)
-        End If
+        'txtEncodedString.Text = Me.LoadedChar.EncodedString
+        'lblEncodedStringLength.Text = Me.LoadedChar.EncodedString.Length
+        'txtEncodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).EncodedDataShort)
+        'txtDecodedByteArray.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValuesShort)
+        'txtDecodedByteArrayDecimal.Text = CharGeneric.BytesToString(DirectCast(Me.LoadedChar, CharQFG3).DecodedValuesShort, False)
     End Sub
 
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
@@ -332,12 +326,18 @@
         Else
             txtName.Text = Me.LoadedChar.Name
             Call SelectClass(Me.LoadedChar.CharacterClass)
+
             Call SelectGame(Me.LoadedChar.Game)
 
             If TypeOf Me.LoadedChar Is CharQFG1 Then
                 Call SetMaximumSkill(127)
                 Call SetMaximumInventory(127)
                 Call LoadQFG1Common()
+
+                'load puzzle points
+                numPuzzlePoints.Maximum = 500
+                numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
+
                 'unique inventory
                 chkFlag1.Checked = Me.LoadedChar.Flag1
                 chkFlag2.Checked = Me.LoadedChar.Flag2
@@ -361,6 +361,11 @@
                 Call SetMaximumInventory(255)
                 Call LoadQFG1Common()
                 Call LoadQFG2Common()
+
+                'load puzzle points
+                numPuzzlePoints.Maximum = 550
+                numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
+
                 'unique inventory
                 chkFlag1.Checked = Me.LoadedChar.Flag1
                 chkFlag2.Checked = Me.LoadedChar.Flag2
@@ -380,7 +385,24 @@
                 numVigorPotions.Value = Me.LoadedChar.StaminaPotions
                 numMagicPotions.Value = Me.LoadedChar.MagicPotions
                 numOtherPotions.Value = DirectCast(Me.LoadedChar, CharQFG2).PoisonCurePills
+            ElseIf TypeOf Me.LoadedChar Is CharQFG3 Then
+                Call SetMaximumSkill(300)
+                Call SetMaximumInventory(300)
+                Call LoadQFG1Common()
+                Call LoadQFG2Common()
+                Call LoadQFG3Common()
+                'load puzzle points
+                numPuzzlePoints.Maximum = 500
+                numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
 
+                'inventory
+                numGold.Maximum = 10000
+                numGold.Value = Me.LoadedChar.Currency
+
+                numDaggers.Value = Me.LoadedChar.Daggers
+                numHealingPotions.Value = Me.LoadedChar.HealingPotions
+                numVigorPotions.Value = Me.LoadedChar.StaminaPotions
+                numMagicPotions.Value = Me.LoadedChar.MagicPotions
             End If
 
         End If
@@ -516,22 +538,32 @@
         numFetch.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Fetch)
 
         'assorted other attributesd
+        If TypeOf Me.LoadedChar Is CharV2 Then
+            numExperience.Maximum = Short.MaxValue
+        End If
         numExperience.Value = Me.LoadedChar.Experience
         numHealthPoints.Value = Me.LoadedChar.HealthPoints
         numStaminaPoints.Value = Me.LoadedChar.StaminaPoints
         numMagicPoints.Value = Me.LoadedChar.MagicPoints
-        numPuzzlePoints.Maximum = 500
-        numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
 
     End Sub
 
     Private Sub LoadQFG2Common()
-        numCommunication.Value = DirectCast(Me.LoadedChar, CharQFG2).Communication
-        numHonor.Value = DirectCast(Me.LoadedChar, CharQFG2).Honor
 
-        numForceBolt.Value = DirectCast(Me.LoadedChar, CharQFG2).GetMagicSpell(Enums.Magic.ForceBolt)
-        numLevitation.Value = DirectCast(Me.LoadedChar, CharQFG2).GetMagicSpell(Enums.Magic.Levitation)
-        numReversal.Value = DirectCast(Me.LoadedChar, CharQFG2).GetMagicSpell(Enums.Magic.Reversal)
+
+        numCommunication.Value = Me.LoadedChar.GetSkills(Enums.Skills.Communication)
+        numHonor.Value = Me.LoadedChar.GetSkills(Enums.Skills.Honor)
+
+        numForceBolt.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.ForceBolt)
+        numLevitation.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Levitation)
+        numReversal.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Reversal)
+    End Sub
+
+    Private Sub LoadQFG3Common()
+
+        numJugglingLights.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.JugglingLights)
+        numLightningBall.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.LightningBall)
+        numSummonStaff.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.SummonStaff)
     End Sub
 
     Private Sub EnableQFG1(enabled As Boolean)
@@ -637,7 +669,7 @@
         numResistance.Enabled = enabled
     End Sub
 
-    Private Sub SetMaximumSkill(value As UShort)
+    Private Sub SetMaximumSkill(value As Short)
         For Each num As Control In grpAbilities.Controls
             If TypeOf num Is NumericUpDown Then
                 DirectCast(num, NumericUpDown).Maximum = value
@@ -656,12 +688,12 @@
             End If
         Next
 
-        numHealingPotions.Maximum = value
+        numHealthPoints.Maximum = value
         numStaminaPoints.Maximum = value
         numMagicPoints.Maximum = value
     End Sub
 
-    Private Sub SetMaximumInventory(value As UShort)
+    Private Sub SetMaximumInventory(value As Short)
         numDaggers.Maximum = value
         numHealingPotions.Maximum = value
         numVigorPotions.Maximum = value
@@ -767,10 +799,17 @@
 
     Private Sub txtOriginalData_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtOriginalData.MouseUp
         If Not Me.Loading Then
-            Dim selected As Integer = 0
-            selected = DirectCast(sender, TextBox).SelectionStart
-            selected = Math.Floor(selected / 3)
-            numOffset.Value = selected
+            If TypeOf Me.LoadedChar Is CharV2 Then
+                Dim selected As Integer = 0
+                selected = DirectCast(sender, TextBox).SelectionStart
+                selected = Math.Floor(selected / 5)
+                numOffset.Value = selected
+            Else
+                Dim selected As Integer = 0
+                selected = DirectCast(sender, TextBox).SelectionStart
+                selected = Math.Floor(selected / 3)
+                numOffset.Value = selected
+            End If
         End If
     End Sub
 
@@ -790,7 +829,11 @@
 
     Private Sub LoadTestData()
         txtOriginalData.Text = Me.LoadedChar.DecodedValuesToString
-        numOffset.Maximum = Me.LoadedChar.DecodedValues.Length - 1
+        If TypeOf Me.LoadedChar Is CharV2 Then
+            numOffset.Maximum = DirectCast(Me.LoadedChar, CharV2).DecodedValues.Length - 1
+        Else
+            numOffset.Maximum = Me.LoadedChar.DecodedValues.Length - 1
+        End If
 
         Call LoadSelectedByte()
         Call HighlightSelectedByte()
@@ -809,16 +852,32 @@
         numValue.Maximum = 2 ^ (8 * byteCount) - 1
         numValueHex.Maximum = numValue.Maximum
 
-        Dim testvalue As Integer = Me.LoadedChar.DecodedValues(offset)
+        Dim testvalue As Integer = 0
+        If TypeOf Me.LoadedChar Is CharV2 Then
+            testvalue = DirectCast(Me.LoadedChar, CharV2).DecodedValues(offset)
+        Else
+            testvalue = Me.LoadedChar.DecodedValues(offset)
+        End If
 
         'if we're doing multiple bytes, make sure we're not going outside the boundaries
-        If (byteCount > 1) And (offset + byteCount < Me.LoadedChar.DecodedValues.Length) Then
-            Dim bytes(byteCount - 1) As Byte
-            For i As Integer = 0 To byteCount - 1
-                bytes(i) = Me.LoadedChar.DecodedValues(offset + i)
-            Next
-            'sort big-endian or little endian accordingly
-            testvalue = combineBytes(bytes, rdoLE.Checked)
+        If TypeOf Me.LoadedChar Is CharV2 Then
+            'If (byteCount > 1) And (offset + byteCount < DirectCast(Me.LoadedChar, CharV2).DecodedValues.Length) Then
+            '    Dim bytes(byteCount - 1) As Short
+            '    For i As Integer = 0 To byteCount - 1
+            '        bytes(i) = Me.LoadedChar.DecodedValues(offset + i)
+            '    Next
+            '    'sort big-endian or little endian accordingly
+            '    ' testvalue = combineBytes(bytes, rdoLE.Checked)
+            'End If
+        Else
+            If (byteCount > 1) And (offset + byteCount < Me.LoadedChar.DecodedValues.Length) Then
+                Dim bytes(byteCount - 1) As Byte
+                For i As Integer = 0 To byteCount - 1
+                    bytes(i) = Me.LoadedChar.DecodedValues(offset + i)
+                Next
+                'sort big-endian or little endian accordingly
+                testvalue = combineBytes(bytes, rdoLE.Checked)
+            End If
         End If
 
         Call DisplaySelectedByte(testvalue)
@@ -985,7 +1044,11 @@
     End Sub
 
     Private Sub UpdateSelectedByte()
-        Me.LoadedChar.DecodedValues(numOffset.Value) = numValue.Value
+        If TypeOf Me.LoadedChar Is CharV2 Then
+            DirectCast(Me.LoadedChar, CharV2).DecodedValues(numOffset.Value) = numValue.Value
+        Else
+            Me.LoadedChar.DecodedValues(numOffset.Value) = numValue.Value
+        End If
         Call LoadForm()
     End Sub
 #End Region
@@ -1024,21 +1087,21 @@
 
     Private Sub btnCipher_Click(sender As System.Object, e As System.EventArgs) Handles btnCipher.Click
 
-        Dim qg3 As CharQFG3
-        If TypeOf Me.LoadedChar Is CharQFG3 Then
-            qg3 = Me.LoadedChar
-            Dim x As Byte() = qg3.EncodedData
-            Dim y As New Collections.ArrayList
-            Dim x2((x.Length / 2) - 1) As UShort
-            For i As Integer = 0 To x.Length - 1 Step 2
-                Dim val As UShort = x(i) * 100 + x(i + 1)
-                y.Add(val)
-                x2(i / 2) = val
-            Next
-            Dim out() As UShort = CharGeneric.DecodeBytesXor(x2, &H53)
-            MessageBox.Show(y.Count & x2.Length)
-            'qg3.Encode()
-        End If
+        'Dim qg3 As CharQFG3
+        'If TypeOf Me.LoadedChar Is CharQFG3 Then
+        '    qg3 = Me.LoadedChar
+        '    Dim x As Byte() = qg3.EncodedData
+        '    Dim y As New Collections.ArrayList
+        '    Dim x2((x.Length / 2) - 1) As UShort
+        '    For i As Integer = 0 To x.Length - 1 Step 2
+        '        Dim val As UShort = x(i) * 100 + x(i + 1)
+        '        y.Add(val)
+        '        x2(i / 2) = val
+        '    Next
+        '    Dim out() As UShort = CharGeneric.DecodeBytesXor(x2, &H53)
+        '    MessageBox.Show(y.Count & x2.Length)
+        '    'qg3.Encode()
+        'End If
 
         'If Me.UnalteredData Is Nothing Then
         '    Me.UnalteredData = Me.LoadedChar.EncodedData
@@ -1069,7 +1132,7 @@
         End If
     End Sub
 
-    Private Sub numBytesPerWord_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numBytesPerWord.ValueChanged
+    Private Sub numBytesPerWord_ValueChanged(sender As System.Object, e As System.EventArgs)
         If Not Me.Loading AndAlso Me.LoadedChar IsNot Nothing Then
             Call RefreshTestDecrypting()
         End If

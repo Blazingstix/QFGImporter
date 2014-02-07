@@ -28,10 +28,10 @@
 
 #Region "Basic Properties"
 
-    Private aEncodedDataByte As Byte()
-    Private aDecodedValuesByte As Byte()
-    Private aEncodedDataShort As Short()
-    Private aDecodedValuesShort As Short()
+    Friend aEncodedDataByte As Byte()
+    Friend aDecodedValuesByte As Byte()
+    'Friend aEncodedDataShort As Short()
+    'Friend aDecodedValuesShort As Short()
 
     Public Property Game As Enums.Games
     Public Property Name As String = String.Empty
@@ -59,10 +59,18 @@
 #Region "Specific Properties"
     Public Property CharacterClass As Enums.CharacterClass
         Get
-            Return Me.DecodedValues(Me.OffsetCharClass)
+            If TypeOf Me Is CharV2 Then
+                Return DirectCast(Me, CharV2).CharacterClass
+            Else
+                Return Me.DecodedValues(Me.OffsetCharClass)
+            End If
         End Get
         Set(value As Enums.CharacterClass)
-            Me.DecodedValues(Me.OffsetCharClass) = value
+            If TypeOf Me Is CharV2 Then
+                DirectCast(Me, CharV2).CharacterClass = value
+            Else
+                Me.DecodedValues(Me.OffsetCharClass) = value
+            End If
         End Set
     End Property
 
@@ -176,96 +184,160 @@
 
     Public Overridable Property Experience As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetExperience)
+            Return Me.GetOtherSkills(Enums.OtherSkills.Experience)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetExperience) = value
+            Me.SetOtherSkills(Enums.OtherSkills.Experience, value)
         End Set
     End Property
 
     Public Overridable Property HealthPoints As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetExperience + 1) / 2
+            If TypeOf Me Is CharV2 Then
+                Return Me.GetOtherSkills(Enums.OtherSkills.HealthPoints)
+            Else
+                Return Me.GetOtherSkills(Enums.OtherSkills.HealthPoints) / 2
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetExperience + 1) = value * 2
+            If TypeOf Me Is CharV2 Then
+                Me.SetOtherSkills(Enums.OtherSkills.HealthPoints, value)
+            Else
+                Me.SetOtherSkills(Enums.OtherSkills.HealthPoints, value * 2)
+            End If
         End Set
     End Property
 
     Public Overridable Property StaminaPoints As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetExperience + 2) / 4
+            If TypeOf Me Is CharV2 Then
+                Return Me.GetOtherSkills(Enums.OtherSkills.StaminaPoints)
+            Else
+                Return Me.GetOtherSkills(Enums.OtherSkills.StaminaPoints) / 4
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetExperience + 2) = value * 4
+            If TypeOf Me Is CharV2 Then
+                Me.SetOtherSkills(Enums.OtherSkills.StaminaPoints, value)
+            Else
+                Me.SetOtherSkills(Enums.OtherSkills.StaminaPoints, value * 4)
+            End If
         End Set
     End Property
 
     Public Overridable Property MagicPoints As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetExperience + 3)
+            Return Me.GetOtherSkills(Enums.OtherSkills.MagicPoints)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetExperience + 3) = value
+            Me.SetOtherSkills(Enums.OtherSkills.MagicPoints, value)
         End Set
     End Property
 
     Public Overridable Property PuzzlePoints As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetSkills - 2)
+            If TypeOf Me Is CharV2 Then
+                Return DirectCast(Me, CharV2).PuzzlePoints
+            Else
+                Return Me.DecodedValues(Me.OffsetSkills - 2)
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetSkills - 2) = value And &HF7
+            If TypeOf Me Is CharV2 Then
+                DirectCast(Me, CharV2).PuzzlePoints = value
+            Else
+                Me.DecodedValues(Me.OffsetSkills - 2) = value And &HF7
+            End If
         End Set
     End Property
 
     Public Overridable Property Daggers As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetInventory)
+            If TypeOf Me Is CharV2 Then
+                Return DirectCast(Me, CharV2).Daggers
+            Else
+                Return Me.DecodedValues(Me.OffsetInventory)
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetInventory) = value
+            If TypeOf Me Is CharV2 Then
+                DirectCast(Me, CharV2).Daggers = value
+            Else
+                Me.DecodedValues(Me.OffsetInventory) = value
+            End If
         End Set
     End Property
 
     Public Overridable Property HealingPotions As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetInventory + 1)
+            If TypeOf Me Is CharV2 Then
+                Return DirectCast(Me, CharV2).HealingPotions
+            Else
+                Return Me.DecodedValues(Me.OffsetInventory + 1)
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetInventory + 1) = value
+            If TypeOf Me Is CharV2 Then
+                DirectCast(Me, CharV2).HealingPotions = value
+            Else
+                Me.DecodedValues(Me.OffsetInventory + 1) = value
+            End If
         End Set
     End Property
 
     Public Overridable Property MagicPotions As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetInventory + 2)
+            If TypeOf Me Is CharV2 Then
+                Return DirectCast(Me, CharV2).MagicPotions
+            Else
+                Return Me.DecodedValues(Me.OffsetInventory + 2)
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetInventory + 2) = value
+            If TypeOf Me Is CharV2 Then
+                DirectCast(Me, CharV2).MagicPotions = value
+            Else
+                Me.DecodedValues(Me.OffsetInventory + 2) = value
+            End If
         End Set
     End Property
 
     Public Overridable Property StaminaPotions As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetInventory + 3)
+            If TypeOf Me Is CharV2 Then
+                Return DirectCast(Me, CharV2).StaminaPotions
+            Else
+                Return Me.DecodedValues(Me.OffsetInventory + 3)
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetInventory + 3) = value
+            If TypeOf Me Is CharV2 Then
+                DirectCast(Me, CharV2).StaminaPotions = value
+            Else
+                Me.DecodedValues(Me.OffsetInventory + 3) = value
+            End If
         End Set
     End Property
 
     Public Overridable Property Currency As Integer
         Get
-            Dim hun As Integer = (Me.DecodedValues(Me.OffsetCharClass + 1) - 1) * 100
-            Dim tens As Integer = Me.DecodedValues(Me.OffsetCharClass + 2)
-            Return hun + tens
+            If TypeOf Me Is CharV2 Then
+                Return DirectCast(Me, CharV2).Currency
+            Else
+                Dim hun As Integer = (Me.DecodedValues(Me.OffsetCharClass + 1) - 1) * 100
+                Dim tens As Integer = Me.DecodedValues(Me.OffsetCharClass + 2)
+                Return hun + tens
+            End If
         End Get
         Set(value As Integer)
-            Dim small As Byte = value Mod 100
-            Dim large As Byte = ((value - small) / 100) + 1
-            Me.DecodedValues(Me.OffsetCharClass + 1) = large
-            Me.DecodedValues(Me.OffsetCharClass + 2) = small
+            If TypeOf Me Is CharV2 Then
+                DirectCast(Me, CharV2).Currency = value
+            Else
+                Dim small As Byte = value Mod 100
+                Dim large As Byte = ((value - small) / 100) + 1
+                Me.DecodedValues(Me.OffsetCharClass + 1) = large
+                Me.DecodedValues(Me.OffsetCharClass + 2) = small
+            End If
         End Set
     End Property
 
@@ -373,18 +445,50 @@
     End Function
 
     Public Sub SetSkill(skills As Enums.Skills, value As Integer)
-        Me.DecodedValues(Me.OffsetSkills + skills) = value
+        If TypeOf Me Is CharV2 Then
+            DirectCast(Me, CharV2).SetSkill(skills, value)
+        Else
+            Me.DecodedValues(Me.OffsetSkills + skills) = value
+        End If
     End Sub
     Public Function GetSkills(skills As Enums.Skills) As Integer
-        Return Me.DecodedValues(Me.OffsetSkills + skills)
+        If TypeOf Me Is CharV2 Then
+            Return DirectCast(Me, CharV2).GetSkills(skills)
+        Else
+            Return Me.DecodedValues(Me.OffsetSkills + skills)
+        End If
     End Function
 
     Public Sub SetMagicSpell(spell As Enums.Magic, value As Integer)
-        Me.DecodedValues(Me.OffsetSpells + spell) = value
+        If TypeOf Me Is CharV2 Then
+            DirectCast(Me, CharV2).SetMagicSpell(spell, value)
+        Else
+            Me.DecodedValues(Me.OffsetSpells + spell) = value
+        End If
     End Sub
 
     Public Function GetMagicSpell(spell As Enums.Magic) As Integer
-        Return Me.DecodedValues(Me.OffsetSpells + spell)
+        If TypeOf Me Is CharV2 Then
+            Return DirectCast(Me, CharV2).GetMagicSpell(spell)
+        Else
+            Return Me.DecodedValues(Me.OffsetSpells + spell)
+        End If
+    End Function
+
+    Public Sub SetOtherSkills(skill As Enums.OtherSkills, value As Integer)
+        If TypeOf Me Is CharV2 Then
+            DirectCast(Me, CharV2).SetOtherSkills(skill, value)
+        Else
+            Me.DecodedValues(Me.OffsetExperience + skill) = value
+        End If
+    End Sub
+
+    Public Function GetOtherSkills(skill As Enums.OtherSkills) As Integer
+        If TypeOf Me Is CharV2 Then
+            Return DirectCast(Me, CharV2).GetOtherSkills(skill)
+        Else
+            Return Me.DecodedValues(Me.OffsetExperience + skill)
+        End If
     End Function
 
 
@@ -406,13 +510,21 @@
                 End If
             End If
             Me.EncodedString = data
-            Me.EncodedData = convertHexStringToByteArray(data)
+
+            If Me.Game = Enums.Games.QFG3 AndAlso Me.EncodedString.Length <> 208 Then
+                'QFG3 data longer than 208 characters is victim to an overflow error... we cannot deal with that yet.
+                MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG3 files with data larger than 208 characters can an error, and this program cannot work around that yet.")
+                Exit Sub
+            End If
+
+            'NOTE: we need to seperate this out, so QFG3 and QFG4 can call their own conversion functions
+            Call ConvertHexStringToBinary(Me.EncodedString)
             Call Me.DecodeValues()
         End If
     End Sub
 
-    Public Sub DecodeValues()
-        Me.DecodedValues = Me.GetDecodedBytes(Me.EncodedData)
+    Public Overridable Sub DecodeValues()
+        Me.DecodedValues = Me.GetDecodedBinary(Me.EncodedData)
     End Sub
 
     Public Shared Function GetGame(FileContents As String) As Enums.Games
@@ -477,6 +589,16 @@
         Return lines
     End Function
 
+    Friend Overridable Sub ConvertHexStringToBinary(hexString As String)
+        Me.EncodedData = convertHexStringToByteArray(hexString)
+    End Sub
+
+    ''' <summary>
+    ''' This is used for QFG1 and QFG2
+    ''' </summary>
+    ''' <param name="hexString"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Shared Function convertHexStringToByteArray(hexString As String) As Byte()
         Dim upperBound As Integer = Math.Ceiling(hexString.Length / 2)
         Dim buffer(upperBound - 1) As Byte
@@ -487,9 +609,9 @@
             If indexInString < hexString.Length - 1 Then
                 tempHex = hexString.Substring(indexInString, 2).Trim()
             Else
-                'NOTE: In QFG3/4, the size of the hex string is sometimes unexpectedly cut short.
-                '   I do not know why this is, so if we are one character short for a full byte
-                '   we add a 0 to the end of the last character
+                'NOTE: In QFG3/4, overflow errors can cause the data string to be unexpectedly long.
+                '   At some point, I will attempt to read this properly, but until then if we are 
+                '   one character short for a full byte we add a 0 to the end of the last character.
                 tempHex = hexString.Substring(indexInString, 1).Trim & "0"
             End If
             buffer(i) = Convert.ToByte(tempHex, 16)
@@ -497,7 +619,42 @@
         Return buffer
     End Function
 
-    Public Function GetDecodedBytes(encodedData As Byte()) As Byte()
+    ''' <summary>
+    ''' This is used for QFG3/4.
+    ''' It is a custom two-byte word conversion, for QFG3/4.
+    ''' AA BB = (AA*100)+BB
+    ''' </summary>
+    ''' <param name="hexString"></param>
+    ''' <returns></returns>
+    ''' <remarks>Does not work if there are errors/overage in the SAV file</remarks>
+    Public Shared Function convertHexStringToShortArray(hexString As String) As Short()
+        'TODO: Some day, we need to account for data length overflow errors.
+        Debug.Print(hexString)
+        Dim tempByte() As Byte = convertHexStringToByteArray(hexString)
+
+        Dim chkByte As String = String.Empty
+        For Each x As Byte In tempByte
+            chkByte &= x.ToString("X2") & " "
+        Next
+        Debug.Print(chkByte)
+
+        Dim x2((tempByte.Length / 2) - 1) As Short
+        For i As Integer = 0 To tempByte.Length - 1 Step 2
+            Dim val As Short = tempByte(i) * 100 + tempByte(i + 1)
+            x2(i / 2) = val
+        Next
+
+        Dim tmpstr As String = String.Empty
+        For Each x As Short In x2
+            tmpstr &= x.ToString("X4") & " "
+        Next
+        Debug.Print(tmpstr)
+
+
+        Return x2
+    End Function
+
+    Public Function GetDecodedBinary(encodedData As Byte()) As Byte()
         Select Case Me.Game
             Case Enums.Games.QFG1, Enums.Games.QFG2
                 Return CharGeneric.DecodeBytesXor(encodedData, Me.InitialCipher, Me.InitialLimiter)
@@ -507,7 +664,11 @@
         End Select
     End Function
 
-    Public Function GetEncodedBytes(decodedValues As Byte()) As Byte()
+    Public Function GetDecodedBinary(encodedData As Short()) As Short()
+        Return CharGeneric.DecodeBytesXor(encodedData, Me.InitialCipher)
+    End Function
+
+    Public Function GetEncodedBinary(decodedValues As Byte()) As Byte()
         Select Case Me.Game
             Case Enums.Games.QFG1, Enums.Games.QFG2
                 Return CharGeneric.EncodeBytesXor(decodedValues, Me.InitialCipher, Me.InitialLimiter)
@@ -515,6 +676,10 @@
                 'for everything else, do not even try to decode the values
                 Return decodedValues
         End Select
+    End Function
+
+    Public Function GetEncodedBinary(decodedValues As Short()) As Short()
+        Return CharGeneric.EncodeBytesXor(decodedValues, Me.InitialCipher)
     End Function
 
     ''' <summary>
@@ -542,11 +707,11 @@
         Return decodedValues
     End Function
 
-    Public Shared Function DecodeBytesXor(encodedData As UShort(), initialCipher As UShort, Optional Limiter As UShort = UShort.MaxValue) As UShort()
-        Dim decodedValues(encodedData.Length - 1) As UShort
+    Public Shared Function DecodeBytesXor(encodedData As Short(), initialCipher As Short, Optional Limiter As Short = Short.MaxValue) As Short()
+        Dim decodedValues(encodedData.Length - 1) As Short
 
         For i As Integer = 0 To encodedData.Length - 1
-            Dim cipher As UShort
+            Dim cipher As Short
             If i = 0 Then
                 cipher = initialCipher
             Else
@@ -556,6 +721,11 @@
             decodedValues(i) = encodedData(i) Xor cipher
         Next
 
+        Dim chkDecodedShort As String = String.Empty
+        For Each x As Short In decodedValues
+            chkDecodedShort &= x.ToString("X4") & " "
+        Next
+        Debug.Print(chkDecodedShort)
         Return decodedValues
     End Function
 
@@ -565,6 +735,24 @@
 
         For i As Integer = 0 To decodedValues.Length - 1
             Dim cipher As Byte
+            If i = 0 Then
+                cipher = initialCipher
+            Else
+                ' use the previously (just) encoded value as a cipher for the next value to encode
+                cipher = encodedData(i - 1) And Limiter
+            End If
+
+            encodedData(i) = decodedValues(i) Xor cipher
+        Next
+
+        Return encodedData
+    End Function
+
+    Public Shared Function EncodeBytesXor(decodedValues As Short(), initialCipher As Short, Optional Limiter As Short = Short.MaxValue) As Short()
+        Dim encodedData(decodedValues.Length - 1) As Short
+
+        For i As Integer = 0 To decodedValues.Length - 1
+            Dim cipher As Short
             If i = 0 Then
                 cipher = initialCipher
             Else
@@ -647,9 +835,13 @@
         Next
     End Sub
 
-    Private Sub EncodeValues()
-        Call SetChecksums()
-        Me.EncodedData = Me.GetEncodedBytes(Me.DecodedValues)
+    Friend Sub EncodeValues()
+        If TypeOf Me Is CharV2 Then
+            Call DirectCast(Me, CharV2).EncodeValues()
+        Else
+            Call SetChecksums()
+            Me.EncodedData = Me.GetEncodedBinary(Me.DecodedValues)
+        End If
     End Sub
 
     Public Sub New()
@@ -657,7 +849,11 @@
     End Sub
 
     Public Function DecodedValuesToString() As String
-        Return CharGeneric.BytesToString(Me.DecodedValues)
+        If TypeOf Me Is CharV2 Then
+            Return DirectCast(Me, CharV2).DecodedValuesToString
+        Else
+            Return CharGeneric.BytesToString(Me.DecodedValues)
+        End If
     End Function
 
     Public Shared Function BytesToString(byteArray As Byte(), Optional hex As Boolean = True) As String
@@ -675,7 +871,7 @@
         Return values.Trim
     End Function
 
-    Public Shared Function BytesToString(shortArray As UShort(), Optional hex As Boolean = True) As String
+    Public Shared Function BytesToString(shortArray As Short(), Optional hex As Boolean = True) As String
         Dim values As String = String.Empty
         If shortArray IsNot Nothing Then
             For Each i As Integer In shortArray
@@ -694,6 +890,14 @@
 
     Public Function ToByteString() As String
         Call EncodeValues()
+        If TypeOf Me Is CharV2 Then
+            Return DirectCast(Me, CharV2).BinaryToString()
+        Else
+            Return Me.BinaryToString
+        End If
+    End Function
+
+    Friend Function BinaryToString() As String
         Dim str As String = String.Empty
         str = Me.Name & vbLf
         For Each b As Byte In Me.EncodedData
