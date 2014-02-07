@@ -3,7 +3,7 @@
 
     Friend Overrides ReadOnly Property InitialChecksum As Byte
         Get
-            Return 0
+            Return &HD0
         End Get
     End Property
 

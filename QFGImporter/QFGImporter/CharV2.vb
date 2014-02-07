@@ -213,7 +213,7 @@
             chk(1) = (chk(1) + values(i)) Mod &H10000
         Next
 
-        'add 0xCE (206) to the 1st checksum
+        'add 0xD0 (208) to the 1st checksum
         chk(0) = (CInt(chk(0)) + CInt(Me.InitialChecksum)) Mod &H10000
 
         ''the InitialLimiter is neccessary for QFG1,
@@ -237,7 +237,6 @@
             Dim upper As Byte = Math.Floor(b / 100)
             Dim lower As Byte = b Mod 100
             Dim test As Short = upper * 100 + lower
-            Debug.Print(b & " " & test)
             Dim hexHi As String = " " & upper.ToString("X").ToLower
             hexHi = hexHi.Substring(hexHi.Length - 2)
             Dim hexLo As String = " " & lower.ToString("X").ToLower
@@ -256,7 +255,6 @@
         For i As Integer = 0 To chk.Length - 1
             Me.DecodedValues(Me.OffsetChecksum + i) = chk(i)
         Next
-        Debug.Print(Me.DecodedValues(43))
     End Sub
 
     Friend Shadows Sub EncodeValues()
