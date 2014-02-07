@@ -762,12 +762,13 @@ Partial Class Form1
         Me.grpSpells.Controls.Add(Me.numOpen)
         Me.grpSpells.Controls.Add(Me.lblFrostBite)
         Me.grpSpells.Controls.Add(Me.lblGlide)
+        Me.grpSpells.Controls.Add(Me.numLightningBall)
+        Me.grpSpells.Controls.Add(Me.lblLightningBall)
         Me.grpSpells.Controls.Add(Me.lblSummonStaff)
         Me.grpSpells.Controls.Add(Me.lblHide)
         Me.grpSpells.Controls.Add(Me.lblReversal)
         Me.grpSpells.Controls.Add(Me.lblResistance)
         Me.grpSpells.Controls.Add(Me.lblAura)
-        Me.grpSpells.Controls.Add(Me.lblLightningBall)
         Me.grpSpells.Controls.Add(Me.lblLevitation)
         Me.grpSpells.Controls.Add(Me.numDetectMagic)
         Me.grpSpells.Controls.Add(Me.lblFlameDart)
@@ -792,7 +793,6 @@ Partial Class Form1
         Me.grpSpells.Controls.Add(Me.lblDetectMagic)
         Me.grpSpells.Controls.Add(Me.numResistance)
         Me.grpSpells.Controls.Add(Me.numAura)
-        Me.grpSpells.Controls.Add(Me.numLightningBall)
         Me.grpSpells.Controls.Add(Me.numHide)
         Me.grpSpells.Controls.Add(Me.numReversal)
         Me.grpSpells.Controls.Add(Me.numLevitation)
@@ -848,7 +848,7 @@ Partial Class Form1
         '
         Me.lblSummonStaff.AutoSize = True
         Me.lblSummonStaff.Enabled = False
-        Me.lblSummonStaff.Location = New System.Drawing.Point(197, 96)
+        Me.lblSummonStaff.Location = New System.Drawing.Point(197, 70)
         Me.lblSummonStaff.Name = "lblSummonStaff"
         Me.lblSummonStaff.Size = New System.Drawing.Size(73, 13)
         Me.lblSummonStaff.TabIndex = 8
@@ -896,7 +896,7 @@ Partial Class Form1
         '
         Me.lblLightningBall.AutoSize = True
         Me.lblLightningBall.Enabled = False
-        Me.lblLightningBall.Location = New System.Drawing.Point(197, 70)
+        Me.lblLightningBall.Location = New System.Drawing.Point(197, 96)
         Me.lblLightningBall.Name = "lblLightningBall"
         Me.lblLightningBall.Size = New System.Drawing.Size(70, 13)
         Me.lblLightningBall.TabIndex = 8
@@ -1098,7 +1098,7 @@ Partial Class Form1
         '
         Me.numSummonStaff.Enabled = False
         Me.numSummonStaff.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numSummonStaff.Location = New System.Drawing.Point(139, 94)
+        Me.numSummonStaff.Location = New System.Drawing.Point(139, 68)
         Me.numSummonStaff.Name = "numSummonStaff"
         Me.numSummonStaff.Size = New System.Drawing.Size(52, 20)
         Me.numSummonStaff.TabIndex = 13
@@ -1137,7 +1137,7 @@ Partial Class Form1
         '
         Me.numLightningBall.Enabled = False
         Me.numLightningBall.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numLightningBall.Location = New System.Drawing.Point(139, 68)
+        Me.numLightningBall.Location = New System.Drawing.Point(139, 94)
         Me.numLightningBall.Name = "numLightningBall"
         Me.numLightningBall.Size = New System.Drawing.Size(52, 20)
         Me.numLightningBall.TabIndex = 12

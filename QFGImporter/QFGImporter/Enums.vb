@@ -44,8 +44,8 @@
         ForceBolt
         Levitation
         Reversal
-        SummonStaff
         JugglingLights
+        SummonStaff
         LightningBall
         Hide
         Protection

@@ -272,16 +272,52 @@
                 Case numFetch.Name
                     Me.LoadedChar.SetMagicSpell(Enums.Magic.Fetch, numValue.Value)
                 Case numForceBolt.Name
-                    If Me.LoadedChar.Game = Enums.Games.QFG2 Then
-                        DirectCast(Me.LoadedChar, CharQFG2).SetMagicSpell(Enums.Magic.ForceBolt, numValue.Value)
+                    If Me.LoadedChar.Game >= Enums.Games.QFG2 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.ForceBolt, numValue.Value)
                     End If
                 Case numLevitation.Name
-                    If Me.LoadedChar.Game = Enums.Games.QFG2 Then
-                        DirectCast(Me.LoadedChar, CharQFG2).SetMagicSpell(Enums.Magic.Levitation, numValue.Value)
+                    If Me.LoadedChar.Game >= Enums.Games.QFG2 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Levitation, numValue.Value)
                     End If
                 Case numReversal.Name
-                    If Me.LoadedChar.Game = Enums.Games.QFG2 Then
-                        DirectCast(Me.LoadedChar, CharQFG2).SetMagicSpell(Enums.Magic.Reversal, numValue.Value)
+                    If Me.LoadedChar.Game >= Enums.Games.QFG2 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Reversal, numValue.Value)
+                    End If
+                Case numJugglingLights.Name
+                    If Me.LoadedChar.Game >= Enums.Games.QFG3 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.JugglingLights, numValue.Value)
+                    End If
+                Case numSummonStaff.Name
+                    If Me.LoadedChar.Game >= Enums.Games.QFG3 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.SummonStaff, numValue.Value)
+                    End If
+                Case numLightningBall.Name
+                    If Me.LoadedChar.Game >= Enums.Games.QFG3 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.LightningBall, numValue.Value)
+                    End If
+                Case numHide.Name
+                    If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Hide, numValue.Value)
+                    End If
+                Case numProtection.Name
+                    If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Protection, numValue.Value)
+                    End If
+                Case numAura.Name
+                    If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Aura, numValue.Value)
+                    End If
+                Case numGlide.Name
+                    If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Glide, numValue.Value)
+                    End If
+                Case numResistance.Name
+                    If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Resistance, numValue.Value)
+                    End If
+                Case numFrostBite.Name
+                    If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
+                        Me.LoadedChar.SetMagicSpell(Enums.Magic.FrostBite, numValue.Value)
                     End If
             End Select
         End If
@@ -551,8 +587,8 @@
     Private Sub LoadQFG2Common()
 
 
-        numCommunication.Value = Me.LoadedChar.GetSkills(Enums.Skills.Communication)
-        numHonor.Value = Me.LoadedChar.GetSkills(Enums.Skills.Honor)
+        numCommunication.Value = Me.LoadedChar.GetSkill(Enums.Skills.Communication)
+        numHonor.Value = Me.LoadedChar.GetSkill(Enums.Skills.Honor)
 
         numForceBolt.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.ForceBolt)
         numLevitation.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Levitation)
