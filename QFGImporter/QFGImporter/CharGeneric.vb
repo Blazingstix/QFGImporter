@@ -15,42 +15,30 @@
     Friend MustOverride ReadOnly Property SkillMaximum As UShort
     Friend MustOverride ReadOnly Property SkillTechnicalMaximum As UShort
 
-    Friend MustOverride ReadOnly Property InitialCipher As Byte
+    Friend Overridable ReadOnly Property InitialCipher As Byte
+        Get
+            Return &H53
+        End Get
+    End Property
     Friend MustOverride ReadOnly Property InitialChecksum As Byte
     Friend Overridable ReadOnly Property InitialLimiter As Byte
         Get
-            Return &HFF
+            Return Byte.MaxValue
         End Get
     End Property
+
+    Friend MustOverride Sub SetGame()
 
 #End Region
 
 
 #Region "Basic Properties"
 
-    Friend aEncodedDataByte As Byte()
-    Friend aDecodedValuesByte As Byte()
-    'Friend aEncodedDataShort As Short()
-    'Friend aDecodedValuesShort As Short()
+    Friend Property EncodedData As Byte()
+    Friend Property DecodedValues As Byte()
 
     Public Property Game As Enums.Games
     Public Property Name As String = String.Empty
-    Friend Property EncodedData As Byte()
-        Get
-            Return aEncodedDataByte
-        End Get
-        Set(value As Byte())
-            aEncodedDataByte = value
-        End Set
-    End Property
-    Friend Property DecodedValues As Byte()
-        Get
-            Return aDecodedValuesByte
-        End Get
-        Set(value As Byte())
-            aDecodedValuesByte = value
-        End Set
-    End Property
     Friend Property Extra As String
     Friend Property EncodedString As String
 
@@ -59,24 +47,24 @@
 #Region "Specific Properties"
     Public Property CharacterClass As Enums.CharacterClass
         Get
-            If TypeOf Me Is CharV2 Then
-                Return DirectCast(Me, CharV2).CharacterClass
+            If TypeOf Me Is CharV1 Then
+                Return DirectCast(Me, CharV1).CharacterClass
             Else
-                Return Me.DecodedValues(Me.OffsetCharClass)
+                Return DirectCast(Me, CharV2).CharacterClass
             End If
         End Get
         Set(value As Enums.CharacterClass)
-            If TypeOf Me Is CharV2 Then
-                DirectCast(Me, CharV2).CharacterClass = value
+            If TypeOf Me Is CharV1 Then
+                DirectCast(Me, CharV1).CharacterClass = value
             Else
-                Me.DecodedValues(Me.OffsetCharClass) = value
+                DirectCast(Me, CharV2).CharacterClass = value
             End If
         End Set
     End Property
 
     Public Property Strength As Integer
         Get
-            Return GetSkills(Enums.Skills.Strength)
+            Return GetSkill(Enums.Skills.Strength)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Strength, value)
@@ -85,7 +73,7 @@
 
     Public Property Intelligence As Integer
         Get
-            Return GetSkills(Enums.Skills.Intelligence)
+            Return GetSkill(Enums.Skills.Intelligence)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Intelligence, value)
@@ -94,7 +82,7 @@
 
     Public Property Agility As Integer
         Get
-            Return GetSkills(Enums.Skills.Agility)
+            Return GetSkill(Enums.Skills.Agility)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Agility, value)
@@ -102,7 +90,7 @@
     End Property
     Public Property Vitality As Integer
         Get
-            Return GetSkills(Enums.Skills.Vitality)
+            Return GetSkill(Enums.Skills.Vitality)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Vitality, value)
@@ -110,7 +98,7 @@
     End Property
     Public Property Luck As Integer
         Get
-            Return GetSkills(Enums.Skills.Luck)
+            Return GetSkill(Enums.Skills.Luck)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Luck, value)
@@ -119,7 +107,7 @@
 
     Public Property WeaponUse As Integer
         Get
-            Return GetSkills(Enums.Skills.WeaponUse)
+            Return GetSkill(Enums.Skills.WeaponUse)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.WeaponUse, value)
@@ -127,7 +115,7 @@
     End Property
     Public Property Parry As Integer
         Get
-            Return GetSkills(Enums.Skills.Parry)
+            Return GetSkill(Enums.Skills.Parry)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Parry, value)
@@ -135,7 +123,7 @@
     End Property
     Public Property Dodge As Integer
         Get
-            Return GetSkills(Enums.Skills.Dodge)
+            Return GetSkill(Enums.Skills.Dodge)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Dodge, value)
@@ -143,7 +131,7 @@
     End Property
     Public Property Stealth As Integer
         Get
-            Return GetSkills(Enums.Skills.Stealth)
+            Return GetSkill(Enums.Skills.Stealth)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Stealth, value)
@@ -151,7 +139,7 @@
     End Property
     Public Property PickLocks As Integer
         Get
-            Return GetSkills(Enums.Skills.Picklocks)
+            Return GetSkill(Enums.Skills.Picklocks)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Picklocks, value)
@@ -159,7 +147,7 @@
     End Property
     Public Property Throwing As Integer
         Get
-            Return GetSkills(Enums.Skills.Throwing)
+            Return GetSkill(Enums.Skills.Throwing)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Throwing, value)
@@ -167,86 +155,70 @@
     End Property
     Public Property Climbing As Integer
         Get
-            Return GetSkills(Enums.Skills.Climbing)
+            Return GetSkill(Enums.Skills.Climbing)
         End Get
         Set(value As Integer)
-            SetSkill(Enums.Skills.Climbing, value)
+            Me.SetSkill(Enums.Skills.Climbing, value)
         End Set
     End Property
     Public Property Magic As Integer
         Get
-            Return GetSkills(Enums.Skills.Magic)
+            Return GetSkill(Enums.Skills.Magic)
         End Get
         Set(value As Integer)
-            SetSkill(Enums.Skills.Magic, value)
+            Me.SetSkill(Enums.Skills.Magic, value)
         End Set
     End Property
 
     Public Overridable Property Experience As Integer
         Get
-            Return Me.GetOtherSkills(Enums.OtherSkills.Experience)
+            Return Me.GetOtherSkill(Enums.OtherSkills.Experience)
         End Get
         Set(value As Integer)
-            Me.SetOtherSkills(Enums.OtherSkills.Experience, value)
+            Me.SetOtherSkill(Enums.OtherSkills.Experience, value)
         End Set
     End Property
 
     Public Overridable Property HealthPoints As Integer
         Get
-            If TypeOf Me Is CharV2 Then
-                Return Me.GetOtherSkills(Enums.OtherSkills.HealthPoints)
-            Else
-                Return Me.GetOtherSkills(Enums.OtherSkills.HealthPoints) / 2
-            End If
+            Return Me.GetOtherSkill(Enums.OtherSkills.HealthPoints)
         End Get
         Set(value As Integer)
-            If TypeOf Me Is CharV2 Then
-                Me.SetOtherSkills(Enums.OtherSkills.HealthPoints, value)
-            Else
-                Me.SetOtherSkills(Enums.OtherSkills.HealthPoints, value * 2)
-            End If
+            Me.SetOtherSkill(Enums.OtherSkills.HealthPoints, value)
         End Set
     End Property
 
     Public Overridable Property StaminaPoints As Integer
         Get
-            If TypeOf Me Is CharV2 Then
-                Return Me.GetOtherSkills(Enums.OtherSkills.StaminaPoints)
-            Else
-                Return Me.GetOtherSkills(Enums.OtherSkills.StaminaPoints) / 4
-            End If
+            Return Me.GetOtherSkill(Enums.OtherSkills.StaminaPoints)
         End Get
         Set(value As Integer)
-            If TypeOf Me Is CharV2 Then
-                Me.SetOtherSkills(Enums.OtherSkills.StaminaPoints, value)
-            Else
-                Me.SetOtherSkills(Enums.OtherSkills.StaminaPoints, value * 4)
-            End If
+            Me.SetOtherSkill(Enums.OtherSkills.StaminaPoints, value)
         End Set
     End Property
 
     Public Overridable Property MagicPoints As Integer
         Get
-            Return Me.GetOtherSkills(Enums.OtherSkills.MagicPoints)
+            Return Me.GetOtherSkill(Enums.OtherSkills.MagicPoints)
         End Get
         Set(value As Integer)
-            Me.SetOtherSkills(Enums.OtherSkills.MagicPoints, value)
+            Me.SetOtherSkill(Enums.OtherSkills.MagicPoints, value)
         End Set
     End Property
 
     Public Overridable Property PuzzlePoints As Integer
         Get
-            If TypeOf Me Is CharV2 Then
-                Return DirectCast(Me, CharV2).PuzzlePoints
+            If TypeOf Me Is CharV1 Then
+                Return DirectCast(Me, CharV1).PuzzlePoints
             Else
-                Return Me.DecodedValues(Me.OffsetSkills - 2)
+                Return DirectCast(Me, CharV2).PuzzlePoints
             End If
         End Get
         Set(value As Integer)
-            If TypeOf Me Is CharV2 Then
-                DirectCast(Me, CharV2).PuzzlePoints = value
+            If TypeOf Me Is CharV1 Then
+                DirectCast(Me, CharV1).PuzzlePoints = value
             Else
-                Me.DecodedValues(Me.OffsetSkills - 2) = value And &HF7
+                DirectCast(Me, CharV2).PuzzlePoints = value
             End If
         End Set
     End Property
@@ -321,22 +293,17 @@
 
     Public Overridable Property Currency As Integer
         Get
-            If TypeOf Me Is CharV2 Then
-                Return DirectCast(Me, CharV2).Currency
+            If TypeOf Me Is CharV1 Then
+                Return DirectCast(Me, CharV1).Currency
             Else
-                Dim hun As Integer = (Me.DecodedValues(Me.OffsetCharClass + 1) - 1) * 100
-                Dim tens As Integer = Me.DecodedValues(Me.OffsetCharClass + 2)
-                Return hun + tens
+                Return DirectCast(Me, CharV2).Currency
             End If
         End Get
         Set(value As Integer)
-            If TypeOf Me Is CharV2 Then
-                DirectCast(Me, CharV2).Currency = value
+            If TypeOf Me Is CharV1 Then
+                DirectCast(Me, CharV1).Currency = value
             Else
-                Dim small As Byte = value Mod 100
-                Dim large As Byte = ((value - small) / 100) + 1
-                Me.DecodedValues(Me.OffsetCharClass + 1) = large
-                Me.DecodedValues(Me.OffsetCharClass + 2) = small
+                DirectCast(Me, CharV2).Currency = value
             End If
         End Set
     End Property
@@ -415,7 +382,7 @@
 
 #End Region
 
-    Private Function getBit(inputByte As Byte, bit As Byte) As Boolean
+    Public Shared Function getBit(inputByte As Byte, bit As Byte) As Boolean
         If bit > 7 Then
             Return 0
         End If
@@ -424,7 +391,7 @@
         Return inputByte And mask
     End Function
 
-    Private Function toggleBit(inputByte As Byte, bit As Byte) As Byte
+    Public Shared Function toggleBit(inputByte As Byte, bit As Byte) As Byte
         If bit > 7 Then
             Return inputByte
         End If
@@ -432,7 +399,7 @@
         Return inputByte Xor mask
     End Function
 
-    Private Function setBit(inputByte As Byte, bit As Byte, value As Boolean) As Byte
+    Public Shared Function setBit(inputByte As Byte, bit As Byte, value As Boolean) As Byte
         If bit > 7 Then
             Return inputByte
         End If
@@ -444,18 +411,18 @@
         End If
     End Function
 
-    Public Sub SetSkill(skills As Enums.Skills, value As Integer)
+    Public Sub SetSkill(skill As Enums.Skills, value As Integer)
         If TypeOf Me Is CharV2 Then
-            DirectCast(Me, CharV2).SetSkill(skills, value)
+            DirectCast(Me, CharV2).SetSkill(skill, value)
         Else
-            Me.DecodedValues(Me.OffsetSkills + skills) = value
+            DirectCast(Me, CharV1).SetSkill(skill, value)
         End If
     End Sub
-    Public Function GetSkills(skills As Enums.Skills) As Integer
+    Public Function GetSkill(skill As Enums.Skills) As Integer
         If TypeOf Me Is CharV2 Then
-            Return DirectCast(Me, CharV2).GetSkills(skills)
+            Return DirectCast(Me, CharV2).GetSkill(skill)
         Else
-            Return Me.DecodedValues(Me.OffsetSkills + skills)
+            Return DirectCast(Me, CharV1).GetSkill(skill)
         End If
     End Function
 
@@ -463,7 +430,7 @@
         If TypeOf Me Is CharV2 Then
             DirectCast(Me, CharV2).SetMagicSpell(spell, value)
         Else
-            Me.DecodedValues(Me.OffsetSpells + spell) = value
+            DirectCast(Me, CharV1).SetMagicSpell(spell, value)
         End If
     End Sub
 
@@ -471,26 +438,25 @@
         If TypeOf Me Is CharV2 Then
             Return DirectCast(Me, CharV2).GetMagicSpell(spell)
         Else
-            Return Me.DecodedValues(Me.OffsetSpells + spell)
+            Return DirectCast(Me, CharV1).GetMagicSpell(spell)
         End If
     End Function
 
-    Public Sub SetOtherSkills(skill As Enums.OtherSkills, value As Integer)
+    Public Sub SetOtherSkill(skill As Enums.OtherSkills, value As Integer)
         If TypeOf Me Is CharV2 Then
-            DirectCast(Me, CharV2).SetOtherSkills(skill, value)
+            DirectCast(Me, CharV2).SetOtherSkill(skill, value)
         Else
-            Me.DecodedValues(Me.OffsetExperience + skill) = value
+            DirectCast(Me, CharV1).SetOtherSkill(skill, value)
         End If
     End Sub
 
-    Public Function GetOtherSkills(skill As Enums.OtherSkills) As Integer
+    Public Function GetOtherSkill(skill As Enums.OtherSkills) As Integer
         If TypeOf Me Is CharV2 Then
-            Return DirectCast(Me, CharV2).GetOtherSkills(skill)
+            Return DirectCast(Me, CharV2).GetOtherSkill(skill)
         Else
-            Return Me.DecodedValues(Me.OffsetExperience + skill)
+            Return DirectCast(Me, CharV1).GetOtherSkill(skill)
         End If
     End Function
-
 
     Public Sub Load(fileContents As String)
         Dim lines As String() = Me.ParseCharacter(fileContents)
@@ -546,8 +512,6 @@
         MessageBox.Show("Not Recognised")
         Return Nothing
     End Function
-
-    Friend MustOverride Sub SetGame()
 
     Public Shared Function SplitInputFile(import As String) As String()
         If import.Contains(vbCrLf) Then

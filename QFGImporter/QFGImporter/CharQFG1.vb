@@ -120,12 +120,6 @@
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property InitialCipher As Byte
-        Get
-            Return &H53
-        End Get
-    End Property
-
     Friend Overrides ReadOnly Property InitialLimiter As Byte
         Get
             Return &H7F

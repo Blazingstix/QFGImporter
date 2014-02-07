@@ -98,12 +98,6 @@
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property InitialCipher As Byte
-        Get
-            Return &H53
-        End Get
-    End Property
-
     Friend Overrides ReadOnly Property InitialChecksum As Byte
         Get
             Return &HDA
@@ -124,7 +118,7 @@
 
     Public Property Communication As Integer
         Get
-            Return GetSkills(Enums.Skills.Communication)
+            Return GetSkill(Enums.Skills.Communication)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Communication, value)
@@ -133,7 +127,7 @@
 
     Public Property Honor As Integer
         Get
-            Return GetSkills(Enums.Skills.Honor)
+            Return GetSkill(Enums.Skills.Honor)
         End Get
         Set(value As Integer)
             SetSkill(Enums.Skills.Honor, value)

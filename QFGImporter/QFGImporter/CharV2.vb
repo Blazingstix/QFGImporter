@@ -1,103 +1,8 @@
 ﻿Public MustInherit Class CharV2
     Inherits CharGeneric
 
-    Friend Shadows aEncodedDataByte As Short()
-    Friend Shadows aDecodedValuesByte As Short()
-
     Friend Shadows Property EncodedData As Short()
-        Get
-            Return aEncodedDataByte
-        End Get
-        Set(value As Short())
-            aEncodedDataByte = value
-        End Set
-    End Property
     Friend Shadows Property DecodedValues As Short()
-        Get
-            Return aDecodedValuesByte
-        End Get
-        Set(value As Short())
-            aDecodedValuesByte = value
-        End Set
-    End Property
-
-    Friend Overrides ReadOnly Property InitialChecksum As Byte
-        Get
-            Return &HD0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property InitialCipher As Byte
-        Get
-            Return &H53
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property OffsetCharClass As Byte
-        Get
-            Return 0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property OffsetChecksum As Byte
-        Get
-            Return 0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property OffsetEOF As Byte
-        Get
-            Return 0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property OffsetExperience As Byte
-        Get
-            Return 0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property OffsetInventory As Byte
-        Get
-            Return 0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property OffsetOther As Byte
-        Get
-            Return 0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property OffsetOther2 As Byte
-        Get
-            Return 0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property OffsetSkills As Byte
-        Get
-            Return 0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property OffsetSpells As Byte
-        Get
-            Return 0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property SkillMaximum As UShort
-        Get
-            Return 0
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property SkillTechnicalMaximum As UShort
-        Get
-            Return 0
-        End Get
-    End Property
 
     Public Shadows Property CharacterClass As Enums.CharacterClass
         Get
@@ -108,12 +13,12 @@
         End Set
     End Property
 
-    Public Shadows Sub SetSkill(skills As Enums.Skills, value As Integer)
-        Me.DecodedValues(Me.OffsetSkills + skills) = value
+    Public Shadows Sub SetSkill(skill As Enums.Skills, value As Integer)
+        Me.DecodedValues(Me.OffsetSkills + skill) = value
     End Sub
 
-    Public Shadows Function GetSkills(skills As Enums.Skills) As Integer
-        Return Me.DecodedValues(Me.OffsetSkills + skills)
+    Public Shadows Function GetSkill(skill As Enums.Skills) As Integer
+        Return Me.DecodedValues(Me.OffsetSkills + skill)
     End Function
 
     Public Shadows Sub SetMagicSpell(spell As Enums.Magic, value As Integer)
@@ -124,11 +29,11 @@
         Return Me.DecodedValues(Me.OffsetSpells + spell)
     End Function
 
-    Public Shadows Sub SetOtherSkills(skill As Enums.OtherSkills, value As Integer)
+    Public Shadows Sub SetOtherSkill(skill As Enums.OtherSkills, value As Integer)
         Me.DecodedValues(Me.OffsetExperience + skill) = value
     End Sub
 
-    Public Shadows Function GetOtherSkills(skill As Enums.OtherSkills) As Integer
+    Public Shadows Function GetOtherSkill(skill As Enums.OtherSkills) As Integer
         Return Me.DecodedValues(Me.OffsetExperience + skill)
     End Function
 
