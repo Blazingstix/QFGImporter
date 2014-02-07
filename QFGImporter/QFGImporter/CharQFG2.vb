@@ -1,5 +1,5 @@
 ﻿Public Class CharQFG2
-    Inherits CharGeneric
+    Inherits CharV1
     Enum ByteNames
         CharacterClass = 0
         DinarHundreds

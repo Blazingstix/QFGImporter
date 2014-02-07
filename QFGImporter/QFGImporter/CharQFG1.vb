@@ -1,5 +1,5 @@
 ﻿Public Class CharQFG1
-    Inherits CharGeneric
+    Inherits CharV1
     Enum Inventorys
         Daggers
         HealingPotions
