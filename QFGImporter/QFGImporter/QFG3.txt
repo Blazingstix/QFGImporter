@@ -67,7 +67,7 @@ Shorts 20 - 22: HP/SP/MP Current Levels
 	   value is mp 
     
 Shorts 23 - 36: Magic Spells
-    (23 - Open, ... , 30 - Fetch, 31 - ForceBolt, 32 - Levitate, 33 - Reversal, 34 - Juggling Lights, 35 - Lightning Ball, 36 - Summon Staff)
+    (23 - Open, ... , 30 - Fetch, 31 - ForceBolt, 32 - Levitate, 33 - Reversal, 34 - Juggling Lights, 35 - Summon Staff, 36 - Lightning Ball)
     
 Shorts: 37 - 43: Inventory (unconfirmed)
     Short 37: Daggers (unconfirmed)
