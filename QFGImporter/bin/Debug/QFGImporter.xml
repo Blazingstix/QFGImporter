@@ -6,7 +6,12 @@ QFGImporter
 </name>
 </assembly>
 <members>
-<member name="M:QFGImporter.CharGeneric.convertHexStringToByteArray(System.String)">
+<member name="M:QFGImporter.Form1.LoadSelectedByte">
+	<summary>
+ Loads the selected byte for viewing/editing
+ </summary>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.CharGeneric.convertHexStringToByteArray(System.String)">
 	<summary>
  This is used for QFG1 and QFG2
  </summary>
@@ -30,11 +35,6 @@ QFGImporter
 	<param name="initialCipher"></param>
 	<param name="Limiter"></param>
 	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:QFGImporter.Form1.LoadSelectedByte">
-	<summary>
- Loads the selected byte for viewing/editing
- </summary>
 	<remarks></remarks>
 </member><member name="P:QFGImporter.My.Resources.Resources.ResourceManager">
 	<summary>

@@ -38,6 +38,7 @@
                 Me.Text = Me.OriginalTitle
                 Me.LoadedFilename = Nothing
             End If
+
         End If
     End Sub
 
@@ -58,6 +59,8 @@
                 MessageBox.Show("Quest for Glory 4 export characters are not supported yet.")
                 Return False
         End Select
+        'now load the 3rd tab, all the debugging information
+        Call LoadTestDisplay()
         Return True
     End Function
 
@@ -107,7 +110,7 @@
     End Sub
 
     Private Sub numInventory_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numGold.ValueChanged, numDaggers.ValueChanged, numHealingPotions.ValueChanged, numVigorPotions.ValueChanged, numMagicPotions.ValueChanged, numOtherPotions.ValueChanged
-        If Me.LoadedChar IsNot Nothing Then
+        If Me.LoadedChar IsNot Nothing AndAlso Not Me.Loading Then
             Dim numValue As NumericUpDown = sender
             Select Case numValue.Name
                 Case numGold.Name
@@ -129,20 +132,20 @@
     End Sub
 
     Private Sub txtName_LostFocus(sender As Object, e As System.EventArgs) Handles txtName.LostFocus
-        If Me.LoadedChar IsNot Nothing Then
+        If Me.LoadedChar IsNot Nothing AndAlso Not Me.Loading Then
             DirectCast(sender, TextBox).Text = Me.LoadedChar.Name
         End If
     End Sub
 
     Private Sub txtName_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtName.TextChanged
-        If Me.LoadedChar IsNot Nothing Then
+        If Me.LoadedChar IsNot Nothing AndAlso Not Me.Loading Then
             Me.LoadedChar.Name = DirectCast(sender, TextBox).Text
         End If
     End Sub
 
     Private Sub chkUniqueInventory_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkFlag1.CheckedChanged, chkFlag2.CheckedChanged, chkFlag3.CheckedChanged, chkFlag4.CheckedChanged, chkFlag5.CheckedChanged, chkFlag6.CheckedChanged, chkFlag7.CheckedChanged, chkFlag8.CheckedChanged
         Dim chkFlag As CheckBox = sender
-        If Me.LoadedChar IsNot Nothing Then
+        If Me.LoadedChar IsNot Nothing AndAlso Not Me.Loading Then
             If TypeOf Me.LoadedChar Is CharQFG1 Then
                 Dim QFG1 As CharQFG1 = Me.LoadedChar
                 Select Case chkFlag.Name
@@ -188,7 +191,7 @@
     End Sub
 
     Private Sub rdoCharClass_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdoFighter.CheckedChanged, rdoWizard.CheckedChanged, rdoThief.CheckedChanged, rdoPaladin.CheckedChanged
-        If Me.LoadedChar IsNot Nothing Then
+        If Me.LoadedChar IsNot Nothing AndAlso Not Me.Loading Then
             Dim classChange As RadioButton = sender
             Select Case classChange.Name
                 Case rdoFighter.Name
@@ -204,7 +207,7 @@
     End Sub
 
     Private Sub numAbilitySkill_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numStrength.ValueChanged, numIntelligence.ValueChanged, numAgility.ValueChanged, numVitality.ValueChanged, numLuck.ValueChanged, numWeaponUse.ValueChanged, numParry.ValueChanged, numDodge.ValueChanged, numStealth.ValueChanged, numPickLocks.ValueChanged, numThrowing.ValueChanged, numClimbing.ValueChanged, numMagic.ValueChanged, numCommunication.ValueChanged, numHonor.ValueChanged, numAcrobatics.ValueChanged
-        If Me.LoadedChar IsNot Nothing Then
+        If Me.LoadedChar IsNot Nothing AndAlso Not Me.Loading Then
             Dim numValue As NumericUpDown = sender
             Select Case numValue.Name
                 Case numStrength.Name
@@ -252,7 +255,7 @@
     End Sub
 
     Private Sub numMagicSpells_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numOpen.ValueChanged, numDetectMagic.ValueChanged, numTrigger.ValueChanged, numDazzle.ValueChanged, numZap.ValueChanged, numCalm.ValueChanged, numFlameDart.ValueChanged, numFetch.ValueChanged, numForceBolt.ValueChanged, numLevitation.ValueChanged, numReversal.ValueChanged, numJugglingLights.ValueChanged, numLightningBall.ValueChanged, numSummonStaff.ValueChanged, numHide.ValueChanged, numProtection.ValueChanged, numAura.ValueChanged, numGlide.ValueChanged, numResistance.ValueChanged, numFrostBite.ValueChanged
-        If Me.LoadedChar IsNot Nothing Then
+        If Me.LoadedChar IsNot Nothing AndAlso Not Me.Loading Then
             Dim numValue As NumericUpDown = sender
             Select Case numValue.Name
                 Case numOpen.Name
@@ -324,7 +327,7 @@
     End Sub
 
     Private Sub numOther_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numPuzzlePoints.ValueChanged, numExperience.ValueChanged, numHealthPoints.ValueChanged, numStaminaPoints.ValueChanged, numMagicPoints.ValueChanged
-        If Me.LoadedChar IsNot Nothing Then
+        If Me.LoadedChar IsNot Nothing AndAlso Not Me.Loading Then
             Dim numValue As NumericUpDown = sender
             Select Case numValue.Name
                 Case numPuzzlePoints.Name
@@ -349,6 +352,46 @@
         Me.LoadedChar = Nothing
         Me.LoadedFilename = Nothing
         Me.UnalteredData = Nothing
+        Call ClearAllFields()
+    End Sub
+
+    Private Sub ClearAllFields()
+        For Each x As Control In grpAbilities.Controls
+            If TypeOf x Is NumericUpDown Then
+                DirectCast(x, NumericUpDown).Value = 0
+            End If
+        Next
+
+        For Each x As Control In grpSkills.Controls
+            If TypeOf x Is NumericUpDown Then
+                DirectCast(x, NumericUpDown).Value = 0
+            End If
+        Next
+
+        For Each x As Control In grpOther.Controls
+            If TypeOf x Is NumericUpDown Then
+                DirectCast(x, NumericUpDown).Value = 0
+            End If
+        Next
+
+        For Each x As Control In grpSpells.Controls
+            If TypeOf x Is NumericUpDown Then
+                DirectCast(x, NumericUpDown).Value = 0
+            End If
+        Next
+
+        For Each x As Control In grpInventory.Controls
+            If TypeOf x Is NumericUpDown Then
+                DirectCast(x, NumericUpDown).Value = 0
+            End If
+        Next
+
+        For Each x As Control In grpUniqueInventory.Controls
+            If TypeOf x Is CheckBox Then
+                DirectCast(x, CheckBox).Checked = False
+            End If
+        Next
+
     End Sub
 
     Private Sub LoadForm()
@@ -1089,66 +1132,25 @@
     End Sub
 #End Region
 
+    Private Sub LoadTestDisplay()
+        If Me.LoadedChar IsNot Nothing Then
+            txtEncodedString.Text = Me.LoadedChar.EncodedString
+            lblEncodedStringLength.Text = txtEncodedString.TextLength
+            txtEncodedByteArray.Text = Me.LoadedChar.EncodedDataToString
+            txtDecodedByteArray.Text = Me.LoadedChar.DecodedValuesToString
+            txtDecodedByteArrayDecimal.Text = Me.LoadedChar.DecodedValuesToString(False)
+        End If
+    End Sub
+
     Private Sub btnTest_Click(sender As System.Object, e As System.EventArgs) Handles btnTest.Click
         Dim tstDlg As New TestForm
 
         If tstDlg.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Call Me.CloseCharacter()
             Dim fileContents As String = tstDlg.FileContents
 
             Call LoadGameFromFileContents(fileContents)
         End If
-    End Sub
-
-    Private Sub Test()
-        Dim qfg1 As CharQFG1 = LoadedChar
-        Dim output As String = String.Empty
-        For Each i As Integer In qfg1.DecodedValues
-            output &= i.ToString & " "
-        Next
-        'MessageBox.Show(output)
-
-        Dim newValues(qfg1.DecodedValues.Length - 1) As Integer
-        newValues(0) = qfg1.EncodedData(0) >> 6
-        For i As Integer = 1 To newValues.Length - 1
-            newValues(i) = qfg1.EncodedData(i) >> 4 Or qfg1.EncodedData(i - 1) << 4
-        Next
-
-        Dim output2 As String = String.Empty
-        For Each i As Integer In newValues
-            output2 &= i.ToString & " "
-        Next
-
-        'MessageBox.Show(output & vbCrLf & vbCrLf & output2)
-    End Sub
-
-    Private Sub btnCipher_Click(sender As System.Object, e As System.EventArgs) Handles btnCipher.Click
-
-        'Dim qg3 As CharQFG3
-        'If TypeOf Me.LoadedChar Is CharQFG3 Then
-        '    qg3 = Me.LoadedChar
-        '    Dim x As Byte() = qg3.EncodedData
-        '    Dim y As New Collections.ArrayList
-        '    Dim x2((x.Length / 2) - 1) As UShort
-        '    For i As Integer = 0 To x.Length - 1 Step 2
-        '        Dim val As UShort = x(i) * 100 + x(i + 1)
-        '        y.Add(val)
-        '        x2(i / 2) = val
-        '    Next
-        '    Dim out() As UShort = CharGeneric.DecodeBytesXor(x2, &H53)
-        '    MessageBox.Show(y.Count & x2.Length)
-        '    'qg3.Encode()
-        'End If
-
-        'If Me.UnalteredData Is Nothing Then
-        '    Me.UnalteredData = Me.LoadedChar.EncodedData
-        '    txtReferenceData.Text = CharGeneric.BytesToString(Me.UnalteredData)
-        'End If
-        'Dim s As String = InputBox("Please enter a cipher value (0 - 255):")
-        'Dim i As Byte
-        'If Byte.TryParse(s, i) Then
-        '    Me.LoadedChar.DecodedValues = CharGeneric.DecodeBytesXor(Me.LoadedChar.EncodedData, i)
-        '    Call LoadTestData()
-        'End If
     End Sub
 
     Private Sub btnAttemptRevert_Click(sender As System.Object, e As System.EventArgs)
@@ -1168,9 +1170,4 @@
         End If
     End Sub
 
-    Private Sub numBytesPerWord_ValueChanged(sender As System.Object, e As System.EventArgs)
-        If Not Me.Loading AndAlso Me.LoadedChar IsNot Nothing Then
-            Call RefreshTestDecrypting()
-        End If
-    End Sub
 End Class

@@ -76,12 +76,13 @@ Partial Class Form1
         Me.numOpen = New System.Windows.Forms.NumericUpDown()
         Me.lblFrostBite = New System.Windows.Forms.Label()
         Me.lblGlide = New System.Windows.Forms.Label()
+        Me.numLightningBall = New System.Windows.Forms.NumericUpDown()
+        Me.lblLightningBall = New System.Windows.Forms.Label()
         Me.lblSummonStaff = New System.Windows.Forms.Label()
         Me.lblHide = New System.Windows.Forms.Label()
         Me.lblReversal = New System.Windows.Forms.Label()
         Me.lblResistance = New System.Windows.Forms.Label()
         Me.lblAura = New System.Windows.Forms.Label()
-        Me.lblLightningBall = New System.Windows.Forms.Label()
         Me.lblLevitation = New System.Windows.Forms.Label()
         Me.numDetectMagic = New System.Windows.Forms.NumericUpDown()
         Me.lblFlameDart = New System.Windows.Forms.Label()
@@ -106,7 +107,6 @@ Partial Class Form1
         Me.lblDetectMagic = New System.Windows.Forms.Label()
         Me.numResistance = New System.Windows.Forms.NumericUpDown()
         Me.numAura = New System.Windows.Forms.NumericUpDown()
-        Me.numLightningBall = New System.Windows.Forms.NumericUpDown()
         Me.numHide = New System.Windows.Forms.NumericUpDown()
         Me.numReversal = New System.Windows.Forms.NumericUpDown()
         Me.numLevitation = New System.Windows.Forms.NumericUpDown()
@@ -128,7 +128,7 @@ Partial Class Form1
         Me.btnTest = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tabCharacter = New System.Windows.Forms.TabPage()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.grpInventory = New System.Windows.Forms.GroupBox()
         Me.lblOtherPotions = New System.Windows.Forms.Label()
         Me.lblMagicPotions = New System.Windows.Forms.Label()
         Me.lblVigorPotions = New System.Windows.Forms.Label()
@@ -176,7 +176,7 @@ Partial Class Form1
         Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.grpDebugBits = New System.Windows.Forms.GroupBox()
         Me.numReferenceValueHex = New System.Windows.Forms.NumericUpDown()
         Me.numValueHex = New System.Windows.Forms.NumericUpDown()
         Me.numReferenceValue = New System.Windows.Forms.NumericUpDown()
@@ -243,6 +243,7 @@ Partial Class Form1
         CType(Me.numStrength, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpSpells.SuspendLayout()
         CType(Me.numOpen, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numLightningBall, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDetectMagic, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numTrigger, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDazzle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -257,7 +258,6 @@ Partial Class Form1
         CType(Me.numSummonStaff, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numResistance, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numAura, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numLightningBall, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHide, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numReversal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numLevitation, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -270,7 +270,7 @@ Partial Class Form1
         CType(Me.numHealthPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
         Me.tabCharacter.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.grpInventory.SuspendLayout()
         CType(Me.numOtherPotions, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMagicPotions, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numGold, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -280,7 +280,7 @@ Partial Class Form1
         Me.grpUniqueInventory.SuspendLayout()
         Me.tabRawData.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
+        Me.grpDebugBits.SuspendLayout()
         CType(Me.numReferenceValueHex, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numValueHex, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numReferenceValue, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -844,6 +844,26 @@ Partial Class Form1
         Me.lblGlide.TabIndex = 8
         Me.lblGlide.Text = "Glide"
         '
+        'numLightningBall
+        '
+        Me.numLightningBall.Enabled = False
+        Me.numLightningBall.Increment = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.numLightningBall.Location = New System.Drawing.Point(139, 94)
+        Me.numLightningBall.Name = "numLightningBall"
+        Me.numLightningBall.Size = New System.Drawing.Size(52, 20)
+        Me.numLightningBall.TabIndex = 12
+        Me.numLightningBall.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'lblLightningBall
+        '
+        Me.lblLightningBall.AutoSize = True
+        Me.lblLightningBall.Enabled = False
+        Me.lblLightningBall.Location = New System.Drawing.Point(197, 96)
+        Me.lblLightningBall.Name = "lblLightningBall"
+        Me.lblLightningBall.Size = New System.Drawing.Size(70, 13)
+        Me.lblLightningBall.TabIndex = 8
+        Me.lblLightningBall.Text = "Lightning Ball"
+        '
         'lblSummonStaff
         '
         Me.lblSummonStaff.AutoSize = True
@@ -891,16 +911,6 @@ Partial Class Form1
         Me.lblAura.Size = New System.Drawing.Size(29, 13)
         Me.lblAura.TabIndex = 8
         Me.lblAura.Text = "Aura"
-        '
-        'lblLightningBall
-        '
-        Me.lblLightningBall.AutoSize = True
-        Me.lblLightningBall.Enabled = False
-        Me.lblLightningBall.Location = New System.Drawing.Point(197, 96)
-        Me.lblLightningBall.Name = "lblLightningBall"
-        Me.lblLightningBall.Size = New System.Drawing.Size(70, 13)
-        Me.lblLightningBall.TabIndex = 8
-        Me.lblLightningBall.Text = "Lightning Ball"
         '
         'lblLevitation
         '
@@ -1133,16 +1143,6 @@ Partial Class Form1
         Me.numAura.TabIndex = 16
         Me.numAura.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'numLightningBall
-        '
-        Me.numLightningBall.Enabled = False
-        Me.numLightningBall.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numLightningBall.Location = New System.Drawing.Point(139, 94)
-        Me.numLightningBall.Name = "numLightningBall"
-        Me.numLightningBall.Size = New System.Drawing.Size(52, 20)
-        Me.numLightningBall.TabIndex = 12
-        Me.numLightningBall.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'numHide
         '
         Me.numHide.Increment = New Decimal(New Integer() {5, 0, 0, 0})
@@ -1353,7 +1353,7 @@ Partial Class Form1
         '
         'tabCharacter
         '
-        Me.tabCharacter.Controls.Add(Me.GroupBox2)
+        Me.tabCharacter.Controls.Add(Me.grpInventory)
         Me.tabCharacter.Controls.Add(Me.grpUniqueInventory)
         Me.tabCharacter.Controls.Add(Me.grpGames)
         Me.tabCharacter.Controls.Add(Me.grpClass)
@@ -1371,26 +1371,26 @@ Partial Class Form1
         Me.tabCharacter.Text = "Character Sheet"
         Me.tabCharacter.UseVisualStyleBackColor = True
         '
-        'GroupBox2
+        'grpInventory
         '
-        Me.GroupBox2.Controls.Add(Me.lblOtherPotions)
-        Me.GroupBox2.Controls.Add(Me.lblMagicPotions)
-        Me.GroupBox2.Controls.Add(Me.lblVigorPotions)
-        Me.GroupBox2.Controls.Add(Me.lblHealingPotions)
-        Me.GroupBox2.Controls.Add(Me.lblDaggers)
-        Me.GroupBox2.Controls.Add(Me.numOtherPotions)
-        Me.GroupBox2.Controls.Add(Me.numMagicPotions)
-        Me.GroupBox2.Controls.Add(Me.lblCurrency)
-        Me.GroupBox2.Controls.Add(Me.numGold)
-        Me.GroupBox2.Controls.Add(Me.numVigorPotions)
-        Me.GroupBox2.Controls.Add(Me.numHealingPotions)
-        Me.GroupBox2.Controls.Add(Me.numDaggers)
-        Me.GroupBox2.Location = New System.Drawing.Point(508, 6)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(156, 149)
-        Me.GroupBox2.TabIndex = 3
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Inventory"
+        Me.grpInventory.Controls.Add(Me.lblOtherPotions)
+        Me.grpInventory.Controls.Add(Me.lblMagicPotions)
+        Me.grpInventory.Controls.Add(Me.lblVigorPotions)
+        Me.grpInventory.Controls.Add(Me.lblHealingPotions)
+        Me.grpInventory.Controls.Add(Me.lblDaggers)
+        Me.grpInventory.Controls.Add(Me.numOtherPotions)
+        Me.grpInventory.Controls.Add(Me.numMagicPotions)
+        Me.grpInventory.Controls.Add(Me.lblCurrency)
+        Me.grpInventory.Controls.Add(Me.numGold)
+        Me.grpInventory.Controls.Add(Me.numVigorPotions)
+        Me.grpInventory.Controls.Add(Me.numHealingPotions)
+        Me.grpInventory.Controls.Add(Me.numDaggers)
+        Me.grpInventory.Location = New System.Drawing.Point(508, 6)
+        Me.grpInventory.Name = "grpInventory"
+        Me.grpInventory.Size = New System.Drawing.Size(156, 149)
+        Me.grpInventory.TabIndex = 3
+        Me.grpInventory.TabStop = False
+        Me.grpInventory.Text = "Inventory"
         '
         'lblOtherPotions
         '
@@ -1610,7 +1610,7 @@ Partial Class Form1
         Me.tabRawData.Controls.Add(Me.lblMainData)
         Me.tabRawData.Controls.Add(Me.lblByteName)
         Me.tabRawData.Controls.Add(Me.DataGridView1)
-        Me.tabRawData.Controls.Add(Me.GroupBox1)
+        Me.tabRawData.Controls.Add(Me.grpDebugBits)
         Me.tabRawData.Controls.Add(Me.lblBytes)
         Me.tabRawData.Controls.Add(Me.lblOffset)
         Me.tabRawData.Controls.Add(Me.numBytes)
@@ -1832,36 +1832,36 @@ Partial Class Form1
         Me.Column15.Name = "Column15"
         Me.Column15.Width = 25
         '
-        'GroupBox1
+        'grpDebugBits
         '
-        Me.GroupBox1.Controls.Add(Me.numReferenceValueHex)
-        Me.GroupBox1.Controls.Add(Me.numValueHex)
-        Me.GroupBox1.Controls.Add(Me.numReferenceValue)
-        Me.GroupBox1.Controls.Add(Me.numValue)
-        Me.GroupBox1.Controls.Add(Me.rdoLE)
-        Me.GroupBox1.Controls.Add(Me.rdoBE)
-        Me.GroupBox1.Controls.Add(Me.chkOther7)
-        Me.GroupBox1.Controls.Add(Me.chkOther3)
-        Me.GroupBox1.Controls.Add(Me.chkBit7)
-        Me.GroupBox1.Controls.Add(Me.chkOther6)
-        Me.GroupBox1.Controls.Add(Me.chkBit3)
-        Me.GroupBox1.Controls.Add(Me.chkOther2)
-        Me.GroupBox1.Controls.Add(Me.chkBit6)
-        Me.GroupBox1.Controls.Add(Me.chkOther5)
-        Me.GroupBox1.Controls.Add(Me.chkBit2)
-        Me.GroupBox1.Controls.Add(Me.chkOther1)
-        Me.GroupBox1.Controls.Add(Me.chkBit5)
-        Me.GroupBox1.Controls.Add(Me.chkOther4)
-        Me.GroupBox1.Controls.Add(Me.chkBit1)
-        Me.GroupBox1.Controls.Add(Me.chkOther0)
-        Me.GroupBox1.Controls.Add(Me.chkBit4)
-        Me.GroupBox1.Controls.Add(Me.chkBit0)
-        Me.GroupBox1.Location = New System.Drawing.Point(6, 45)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(436, 94)
-        Me.GroupBox1.TabIndex = 5
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Bits"
+        Me.grpDebugBits.Controls.Add(Me.numReferenceValueHex)
+        Me.grpDebugBits.Controls.Add(Me.numValueHex)
+        Me.grpDebugBits.Controls.Add(Me.numReferenceValue)
+        Me.grpDebugBits.Controls.Add(Me.numValue)
+        Me.grpDebugBits.Controls.Add(Me.rdoLE)
+        Me.grpDebugBits.Controls.Add(Me.rdoBE)
+        Me.grpDebugBits.Controls.Add(Me.chkOther7)
+        Me.grpDebugBits.Controls.Add(Me.chkOther3)
+        Me.grpDebugBits.Controls.Add(Me.chkBit7)
+        Me.grpDebugBits.Controls.Add(Me.chkOther6)
+        Me.grpDebugBits.Controls.Add(Me.chkBit3)
+        Me.grpDebugBits.Controls.Add(Me.chkOther2)
+        Me.grpDebugBits.Controls.Add(Me.chkBit6)
+        Me.grpDebugBits.Controls.Add(Me.chkOther5)
+        Me.grpDebugBits.Controls.Add(Me.chkBit2)
+        Me.grpDebugBits.Controls.Add(Me.chkOther1)
+        Me.grpDebugBits.Controls.Add(Me.chkBit5)
+        Me.grpDebugBits.Controls.Add(Me.chkOther4)
+        Me.grpDebugBits.Controls.Add(Me.chkBit1)
+        Me.grpDebugBits.Controls.Add(Me.chkOther0)
+        Me.grpDebugBits.Controls.Add(Me.chkBit4)
+        Me.grpDebugBits.Controls.Add(Me.chkBit0)
+        Me.grpDebugBits.Location = New System.Drawing.Point(6, 45)
+        Me.grpDebugBits.Name = "grpDebugBits"
+        Me.grpDebugBits.Size = New System.Drawing.Size(436, 94)
+        Me.grpDebugBits.TabIndex = 5
+        Me.grpDebugBits.TabStop = False
+        Me.grpDebugBits.Text = "Bits"
         '
         'numReferenceValueHex
         '
@@ -2390,6 +2390,7 @@ Partial Class Form1
         Me.grpSpells.ResumeLayout(False)
         Me.grpSpells.PerformLayout()
         CType(Me.numOpen, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numLightningBall, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDetectMagic, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numTrigger, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDazzle, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2404,7 +2405,6 @@ Partial Class Form1
         CType(Me.numSummonStaff, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numResistance, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numAura, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numLightningBall, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHide, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numReversal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numLevitation, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2420,8 +2420,8 @@ Partial Class Form1
         Me.TabControl1.ResumeLayout(False)
         Me.tabCharacter.ResumeLayout(False)
         Me.tabCharacter.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.grpInventory.ResumeLayout(False)
+        Me.grpInventory.PerformLayout()
         CType(Me.numOtherPotions, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMagicPotions, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numGold, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2433,8 +2433,8 @@ Partial Class Form1
         Me.tabRawData.ResumeLayout(False)
         Me.tabRawData.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.grpDebugBits.ResumeLayout(False)
+        Me.grpDebugBits.PerformLayout()
         CType(Me.numReferenceValueHex, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numValueHex, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numReferenceValue, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2544,7 +2544,7 @@ Partial Class Form1
     Friend WithEvents numAura As System.Windows.Forms.NumericUpDown
     Friend WithEvents numHide As System.Windows.Forms.NumericUpDown
     Friend WithEvents grpUniqueInventory As System.Windows.Forms.GroupBox
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents grpDebugBits As System.Windows.Forms.GroupBox
     Friend WithEvents numValue As System.Windows.Forms.NumericUpDown
     Friend WithEvents rdoLE As System.Windows.Forms.RadioButton
     Friend WithEvents rdoBE As System.Windows.Forms.RadioButton
@@ -2603,7 +2603,7 @@ Partial Class Form1
     Friend WithEvents chkFlag4 As System.Windows.Forms.CheckBox
     Friend WithEvents numReferenceValueHex As System.Windows.Forms.NumericUpDown
     Friend WithEvents numReferenceValue As System.Windows.Forms.NumericUpDown
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents grpInventory As System.Windows.Forms.GroupBox
     Friend WithEvents lblOtherPotions As System.Windows.Forms.Label
     Friend WithEvents lblMagicPotions As System.Windows.Forms.Label
     Friend WithEvents lblVigorPotions As System.Windows.Forms.Label

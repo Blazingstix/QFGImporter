@@ -100,11 +100,6 @@
         Me.DecodedValues = Me.GetDecodedBinary(Me.EncodedData)
     End Sub
 
-
-    Public Shadows Function DecodedValuesToString() As String
-        Return CharGeneric.BytesToString(Me.DecodedValues)
-    End Function
-
     Private Shadows Function Checksums(values As Short()) As Short()
         Dim chk() As Short = {0, 0}
 
@@ -166,5 +161,17 @@
         Call SetChecksums()
         Me.EncodedData = Me.GetEncodedBinary(Me.DecodedValues)
     End Sub
+
+    Public Overrides Function EncodedDataToString() As String
+        Dim rtn As String = String.Empty
+        For Each x As Short In Me.EncodedData
+            rtn &= x.ToString("X4") & " "
+        Next
+        Return rtn.Trim
+    End Function
+
+    Public Overrides Function DecodedValuesToString(Optional hex As Boolean = True) As String
+        Return CharGeneric.BytesToString(Me.DecodedValues, hex)
+    End Function
 
 End Class

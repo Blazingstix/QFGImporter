@@ -812,13 +812,8 @@
         Call SetGame()
     End Sub
 
-    Public Function DecodedValuesToString() As String
-        If TypeOf Me Is CharV2 Then
-            Return DirectCast(Me, CharV2).DecodedValuesToString
-        Else
-            Return CharGeneric.BytesToString(Me.DecodedValues)
-        End If
-    End Function
+    Public MustOverride Function EncodedDataToString() As String
+    Public MustOverride Function DecodedValuesToString(Optional hex As Boolean = True) As String
 
     Public Shared Function BytesToString(byteArray As Byte(), Optional hex As Boolean = True) As String
         Dim values As String = String.Empty

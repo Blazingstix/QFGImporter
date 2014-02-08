@@ -73,4 +73,16 @@
         End Set
     End Property
 
+    Public Overrides Function EncodedDataToString() As String
+        Dim rtn As String = String.Empty
+        For Each x As Byte In Me.EncodedData
+            rtn &= x.ToString("X2") & " "
+        Next
+        Return rtn.Trim
+    End Function
+
+    Public Overrides Function DecodedValuesToString(Optional hex As Boolean = True) As String
+        Return CharGeneric.BytesToString(Me.DecodedValues, hex)
+    End Function
+
 End Class
