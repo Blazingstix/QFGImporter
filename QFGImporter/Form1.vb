@@ -126,6 +126,8 @@
                 Case numOtherPotions.Name
                     If Me.LoadedChar.Game = Enums.Games.QFG1 Then
                         DirectCast(Me.LoadedChar, CharQFG1).UndeadUnguent = numValue.Value
+                    ElseIf Me.LoadedChar.Game = Enums.Games.QFG2 Then
+                        DirectCast(Me.LoadedChar, CharQFG2).PoisonCurePills = numValue.Value
                     End If
             End Select
         End If
@@ -536,7 +538,7 @@
         chkFlag7.Text = "Flag 7"
         chkFlag8.Text = "Flag 8"
 
-        lblCurrency.Text = "Currency"
+        lblCurrency.Text = "Golden Royals"
         lblHealingPotions.Text = "Healing Pills"
         lblMagicPotions.Text = "Magic Pills"
         lblVigorPotions.Text = "Vigor Pills"
@@ -553,7 +555,7 @@
         chkFlag7.Text = "Flag 7"
         chkFlag8.Text = "Flag 8"
 
-        lblCurrency.Text = "Currency"
+        lblCurrency.Text = "Golden Crowns"
         lblHealingPotions.Text = "Healing Potions"
         lblMagicPotions.Text = "Magic Potions"
         lblVigorPotions.Text = "Vigor Potions"
