@@ -767,12 +767,12 @@
 
         'check even values
         For i As Integer = 0 To Me.OffsetOther - 1 Step 2
-            chk(0) = (chk(0) + values(i)) Mod &H100
+            chk(0) = (CInt(chk(0)) + CInt(values(i))) Mod &H100
         Next
 
         'check odd values
         For i As Integer = 1 To Me.OffsetOther - 1 Step 2
-            chk(1) = (chk(1) + values(i)) Mod &H100
+            chk(1) = (CInt(chk(1)) + CInt(values(i))) Mod &H100
         Next
 
         'add 0xCE (206) to the 1st checksum
