@@ -61,13 +61,19 @@
 
     Public Overridable Shadows Property Currency As Integer
         Get
-            Dim hun As Integer = (Me.DecodedValues(Me.OffsetCharClass + 1) - 1) * 100
-            Dim tens As Integer = Me.DecodedValues(Me.OffsetCharClass + 2)
-            Return hun + tens
+            'QFG1 adds 1 to the large value, but QFG2 does not.
+            Dim valueOffset As Integer = 2 - Me.Game
+            'QFG1/2 stores currency in two bytes. The high byte is the value / 100. The low byte is the remainder.
+            Dim large As Integer = (Me.DecodedValues(Me.OffsetCharClass + 1) - valueOffset) * 100
+            Dim small As Integer = Me.DecodedValues(Me.OffsetCharClass + 2)
+            Return large + small
         End Get
         Set(value As Integer)
+            'QFG1 adds 1 to the large value, but QFG2 does not.
+            Dim valueOffset As Integer = 2 - Me.Game
+            'QFG1/2 stores currency in two bytes. The high byte is the value / 100. The low byte is the remainder.
             Dim small As Byte = value Mod 100
-            Dim large As Byte = ((value - small) / 100) + 1
+            Dim large As Byte = ((value - small) / 100) + valueOffset
             Me.DecodedValues(Me.OffsetCharClass + 1) = large
             Me.DecodedValues(Me.OffsetCharClass + 2) = small
         End Set

@@ -134,20 +134,6 @@
         End Set
     End Property
 
-    Public Overrides Property Currency As Integer
-        Get
-            Dim hun As Integer = (Me.DecodedValues(Me.OffsetCharClass + 1)) * 100
-            Dim tens As Integer = Me.DecodedValues(Me.OffsetCharClass + 2)
-            Return hun + tens
-        End Get
-        Set(value As Integer)
-            Dim small As Byte = value Mod 100
-            Dim large As Byte = ((value - small) / 100)
-            Me.DecodedValues(Me.OffsetCharClass + 1) = large
-            Me.DecodedValues(Me.OffsetCharClass + 2) = small
-        End Set
-    End Property
-
     Public Property PoisonCurePills As Integer
         Get
             Return Me.DecodedValues(CharQFG2.ByteNames.InventoryPoisonCurePills)
