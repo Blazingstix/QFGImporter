@@ -143,55 +143,55 @@
 
     Public Property HasBroadsword As Boolean
         Get
-            Return Me.Flag1()
+            Return Me.Flag(0)
         End Get
         Set(value As Boolean)
-            Me.Flag1 = value
+            Me.Flag(0) = value
         End Set
     End Property
 
     Public Property HasChainmail As Boolean
         Get
-            Return Me.Flag2
+            Return Me.Flag(1)
         End Get
         Set(value As Boolean)
-            Me.Flag2 = value
+            Me.Flag(1) = value
         End Set
     End Property
 
     Public Property HasLockpick As Boolean
         Get
-            Return Me.Flag3
+            Return Me.Flag(2)
         End Get
         Set(value As Boolean)
-            Me.Flag3 = value
+            Me.Flag(2) = value
         End Set
     End Property
 
     Public Property HasToolkit As Boolean
         Get
-            Return Me.Flag4
+            Return Me.Flag(3)
         End Get
         Set(value As Boolean)
-            Me.Flag4 = value
+            Me.Flag(3) = value
         End Set
     End Property
 
     Public Property HeroOfSpielburg As Boolean
         Get
-            Return Me.Flag5
+            Return Me.Flag(4)
         End Get
         Set(value As Boolean)
-            Me.Flag5 = value
+            Me.Flag(4) = value
         End Set
     End Property
 
     Public Property DefeatedBabaYaga As Boolean
         Get
-            Return Me.Flag6
+            Return Me.Flag(5)
         End Get
         Set(value As Boolean)
-            Me.Flag6 = value
+            Me.Flag(5) = value
         End Set
     End Property
 

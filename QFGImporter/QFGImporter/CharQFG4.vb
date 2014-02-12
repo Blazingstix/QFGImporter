@@ -1,4 +1,4 @@
-﻿Public Class CharQFG3
+﻿Public Class CharQFG4
     Inherits CharV2
 
     Friend Overrides ReadOnly Property InitialChecksum As Byte
@@ -79,41 +79,17 @@
         End Get
     End Property
 
-    'Public Property EncodedDataShort As Short()
-    'Public Property DecodedValuesShort As Short()
-
     Public Sub New(fileContents)
         Call Load(fileContents)
-        If Me.EncodedString.Length <> 208 Then
-            MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG3 files with data larger than 208 characters has an error, and this program cannot work around that yet.")
+        If (Me.EncodedString.Length Mod 4) <> 0 Then
+            MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG4 files with data not divisible by 4 has an error, and this program cannot work around that yet.")
             Exit Sub
         End If
         'Me.EncodedDataShort = ConvertByteToShortX(Me.EncodedData)
     End Sub
 
-
-    ' ''' <summary>
-    ' ''' Custom two-byte word conversion, for QFG3/4.
-    ' ''' AA BB = (AA*100)+BB
-    ' ''' </summary>
-    ' ''' <param name="bytes"></param>
-    ' ''' <returns></returns>
-    ' ''' <remarks>Does not work if there are errors/overage in the SAV file</remarks>
-    'Private Shared Function ConvertByteToShortX(bytes As Byte()) As UShort()
-
-    '    'Dim y As New Collections.ArrayList
-    '    Dim x2((bytes.Length / 2) - 1) As UShort
-    '    For i As Integer = 0 To bytes.Length - 1 Step 2
-    '        Dim val As UShort = bytes(i) * 100 + bytes(i + 1)
-    '        'y.Add(val)
-    '        x2(i / 2) = val
-    '    Next
-    '    '        Dim out() As UShort = CharGeneric.DecodeBytesXor(x2, &H53)
-    '    Return x2
-    'End Function
-
     Friend Overrides Sub SetGame()
-        Me.Game = Enums.Games.QFG3
+        Me.Game = Enums.Games.QFG4
     End Sub
 
 End Class

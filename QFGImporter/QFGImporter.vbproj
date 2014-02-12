@@ -81,6 +81,7 @@
     <Compile Include="QFGImporter\CharQFG3.vb" />
     <Compile Include="QFGImporter\CharV2.vb" />
     <Compile Include="QFGImporter\CharV1.vb" />
+    <Compile Include="QFGImporter\CharQFG4.vb" />
     <Compile Include="QFGImporter\Enums.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
@@ -104,6 +105,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="QFGImporter\CharGenericShared.vb" />
     <Compile Include="Tests\TestForm.Designer.vb">
       <DependentUpon>TestForm.vb</DependentUpon>
     </Compile>

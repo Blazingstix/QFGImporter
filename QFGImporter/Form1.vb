@@ -54,10 +54,11 @@
             Case Enums.Games.QFG3
                 Me.LoadedChar = New CharQFG3(fileContents)
                 Call LoadForm()
-                Call RefreshTestDecrypting()
+                'Call RefreshTestDecrypting()
             Case Enums.Games.QFG4
-                MessageBox.Show("Quest for Glory 4 export characters are not supported yet.")
-                Return False
+                MessageBox.Show("Quest for Glory 4 export characters are only partially supported, so far. Be patient.")
+                Me.LoadedChar = New CharQFG4(fileContents)
+                Call LoadForm()
         End Select
         'now load the 3rd tab, all the debugging information
         Call LoadTestDisplay()
@@ -116,19 +117,15 @@
                 Case numGold.Name
                     Me.LoadedChar.Currency = numValue.Value
                 Case numDaggers.Name
-                    Me.LoadedChar.Daggers = numValue.Value
+                    Me.LoadedChar.Inventory(Enums.Inventory.Daggers) = numValue.Value
                 Case numHealingPotions.Name
-                    Me.LoadedChar.HealingPotions = numValue.Value
+                    Me.LoadedChar.Inventory(Enums.Inventory.HealingPotion) = numValue.Value
                 Case numVigorPotions.Name
-                    Me.LoadedChar.StaminaPotions = numValue.Value
+                    Me.LoadedChar.Inventory(Enums.Inventory.VigorPotion) = numValue.Value
                 Case numMagicPotions.Name
-                    Me.LoadedChar.MagicPotions = numValue.Value
+                    Me.LoadedChar.Inventory(Enums.Inventory.MagicPotion) = numValue.Value
                 Case numOtherPotions.Name
-                    If Me.LoadedChar.Game = Enums.Games.QFG1 Then
-                        DirectCast(Me.LoadedChar, CharQFG1).UndeadUnguent = numValue.Value
-                    ElseIf Me.LoadedChar.Game = Enums.Games.QFG2 Then
-                        DirectCast(Me.LoadedChar, CharQFG2).PoisonCurePills = numValue.Value
-                    End If
+                    Me.LoadedChar.Inventory(Enums.Inventory.OtherPotion) = numValue.Value
             End Select
         End If
     End Sub
@@ -152,19 +149,19 @@
                 Dim QFG1 As CharQFG1 = Me.LoadedChar
                 Select Case chkFlag.Name
                     Case chkFlag1.Name
-                        QFG1.Flag1 = chkFlag.Checked
+                        QFG1.Flag(0) = chkFlag.Checked
                     Case chkFlag2.Name
-                        QFG1.Flag2 = chkFlag.Checked
+                        QFG1.Flag(1) = chkFlag.Checked
                     Case chkFlag3.Name
-                        QFG1.Flag3 = chkFlag.Checked
+                        QFG1.Flag(2) = chkFlag.Checked
                     Case chkFlag4.Name
-                        QFG1.Flag4 = chkFlag.Checked
+                        QFG1.Flag(3) = chkFlag.Checked
                     Case chkFlag5.Name
-                        QFG1.Flag5 = chkFlag.Checked
+                        QFG1.Flag(4) = chkFlag.Checked
                     Case chkFlag6.Name
-                        QFG1.Flag6 = chkFlag.Checked
+                        QFG1.Flag(5) = chkFlag.Checked
                     Case chkFlag7.Name
-                        QFG1.Flag7 = chkFlag.Checked
+                        QFG1.Flag(6) = chkFlag.Checked
                     Case chkFlag8.Name
 
                 End Select
@@ -172,21 +169,21 @@
                 Dim QFG2 As CharQFG2 = Me.LoadedChar
                 Select Case chkFlag.Name
                     Case chkFlag1.Name
-                        QFG2.Flag1 = chkFlag.Checked
+                        QFG2.Flag(0) = chkFlag.Checked
                     Case chkFlag2.Name
-                        QFG2.Flag2 = chkFlag.Checked
+                        QFG2.Flag(1) = chkFlag.Checked
                     Case chkFlag3.Name
-                        QFG2.Flag3 = chkFlag.Checked
+                        QFG2.Flag(2) = chkFlag.Checked
                     Case chkFlag4.Name
-                        QFG2.Flag4 = chkFlag.Checked
+                        QFG2.Flag(3) = chkFlag.Checked
                     Case chkFlag5.Name
-                        QFG2.Flag5 = chkFlag.Checked
+                        QFG2.Flag(4) = chkFlag.Checked
                     Case chkFlag6.Name
-                        QFG2.Flag6 = chkFlag.Checked
+                        QFG2.Flag(5) = chkFlag.Checked
                     Case chkFlag7.Name
-                        QFG2.Flag7 = chkFlag.Checked
+                        QFG2.Flag(6) = chkFlag.Checked
                     Case chkFlag8.Name
-                        QFG2.Flag8 = chkFlag.Checked
+                        QFG2.Flag(7) = chkFlag.Checked
                 End Select
             End If
         End If
@@ -213,40 +210,38 @@
             Dim numValue As NumericUpDown = sender
             Select Case numValue.Name
                 Case numStrength.Name
-                    Me.LoadedChar.Strength = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Strength) = numValue.Value
                 Case numIntelligence.Name
-                    Me.LoadedChar.Intelligence = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Intelligence) = numValue.Value
                 Case numAgility.Name
-                    Me.LoadedChar.Agility = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Agility) = numValue.Value
                 Case numVitality.Name
-                    Me.LoadedChar.Vitality = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Vitality) = numValue.Value
                 Case numLuck.Name
-                    Me.LoadedChar.Luck = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Luck) = numValue.Value
                 Case numWeaponUse.Name
-                    Me.LoadedChar.WeaponUse = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.WeaponUse) = numValue.Value
                 Case numParry.Name
-                    Me.LoadedChar.Parry = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Parry) = numValue.Value
                 Case numDodge.Name
-                    Me.LoadedChar.Dodge = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Dodge) = numValue.Value
                 Case numStealth.Name
-                    Me.LoadedChar.Stealth = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Stealth) = numValue.Value
                 Case numPickLocks.Name
-                    Me.LoadedChar.PickLocks = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Picklocks) = numValue.Value
                 Case numThrowing.Name
-                    Me.LoadedChar.Throwing = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Throwing) = numValue.Value
                 Case numClimbing.Name
-                    Me.LoadedChar.Climbing = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Climbing) = numValue.Value
                 Case numMagic.Name
-                    Me.LoadedChar.Magic = numValue.Value
+                    Me.LoadedChar.Skill(Enums.Skills.Magic) = numValue.Value
                 Case numCommunication.Name
-                    If Me.LoadedChar.Game = Enums.Games.QFG2 Then
-                        DirectCast(Me.LoadedChar, CharQFG2).Communication = numValue.Value
-                        'TODO: Add communication change for other games
+                    If Me.LoadedChar.Game >= Enums.Games.QFG2 Then
+                        Me.LoadedChar.Skill(Enums.Skills.Communication) = numValue.Value
                     End If
                 Case numHonor.Name
-                    If Me.LoadedChar.Game = Enums.Games.QFG2 Then
-                        DirectCast(Me.LoadedChar, CharQFG2).Honor = numValue.Value
-                        'TODO: Add Honor change for other games
+                    If Me.LoadedChar.Game >= Enums.Games.QFG2 Then
+                        Me.LoadedChar.Skill(Enums.Skills.Honor) = numValue.Value
                     End If
                 Case numAcrobatics.Name
                     If Me.LoadedChar.Game = Enums.Games.QFG4 Then
@@ -261,68 +256,68 @@
             Dim numValue As NumericUpDown = sender
             Select Case numValue.Name
                 Case numOpen.Name
-                    Me.LoadedChar.SetMagicSpell(Enums.Magic.Open, numValue.Value)
+                    Me.LoadedChar.MagicSpell(Enums.Magic.Open) = numValue.Value
                 Case numDetectMagic.Name
-                    Me.LoadedChar.SetMagicSpell(Enums.Magic.Detect, numValue.Value)
+                    Me.LoadedChar.MagicSpell(Enums.Magic.Detect) = numValue.Value
                 Case numTrigger.Name
-                    Me.LoadedChar.SetMagicSpell(Enums.Magic.Trigger, numValue.Value)
+                    Me.LoadedChar.MagicSpell(Enums.Magic.Trigger) = numValue.Value
                 Case numDazzle.Name
-                    Me.LoadedChar.SetMagicSpell(Enums.Magic.Dazzle, numValue.Value)
+                    Me.LoadedChar.MagicSpell(Enums.Magic.Dazzle) = numValue.Value
                 Case numZap.Name
-                    Me.LoadedChar.SetMagicSpell(Enums.Magic.Zap, numValue.Value)
+                    Me.LoadedChar.MagicSpell(Enums.Magic.Zap) = numValue.Value
                 Case numCalm.Name
-                    Me.LoadedChar.SetMagicSpell(Enums.Magic.Calm, numValue.Value)
+                    Me.LoadedChar.MagicSpell(Enums.Magic.Calm) = numValue.Value
                 Case numFlameDart.Name
-                    Me.LoadedChar.SetMagicSpell(Enums.Magic.Flame, numValue.Value)
+                    Me.LoadedChar.MagicSpell(Enums.Magic.Flame) = numValue.Value
                 Case numFetch.Name
-                    Me.LoadedChar.SetMagicSpell(Enums.Magic.Fetch, numValue.Value)
+                    Me.LoadedChar.MagicSpell(Enums.Magic.Fetch) = numValue.Value
                 Case numForceBolt.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG2 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.ForceBolt, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.ForceBolt) = numValue.Value
                     End If
                 Case numLevitation.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG2 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Levitation, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.Levitation) = numValue.Value
                     End If
                 Case numReversal.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG2 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Reversal, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.Reversal) = numValue.Value
                     End If
                 Case numJugglingLights.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG3 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.JugglingLights, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.JugglingLights) = numValue.Value
                     End If
                 Case numSummonStaff.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG3 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.SummonStaff, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.SummonStaff) = numValue.Value
                     End If
                 Case numLightningBall.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG3 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.LightningBall, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.LightningBall) = numValue.Value
                     End If
                 Case numHide.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Hide, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.Hide) = numValue.Value
                     End If
                 Case numProtection.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Protection, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.Protection) = numValue.Value
                     End If
                 Case numAura.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Aura, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.Aura) = numValue.Value
                     End If
                 Case numGlide.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Glide, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.Glide) = numValue.Value
                     End If
                 Case numResistance.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.Resistance, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.Resistance) = numValue.Value
                     End If
                 Case numFrostBite.Name
                     If Me.LoadedChar.Game >= Enums.Games.QFG4 Then
-                        Me.LoadedChar.SetMagicSpell(Enums.Magic.FrostBite, numValue.Value)
+                        Me.LoadedChar.MagicSpell(Enums.Magic.FrostBite) = numValue.Value
                     End If
             End Select
         End If
@@ -335,13 +330,13 @@
                 Case numPuzzlePoints.Name
                     Me.LoadedChar.PuzzlePoints = numValue.Value
                 Case numExperience.Name
-                    Me.LoadedChar.Experience = numValue.Value
+                    Me.LoadedChar.OtherSkill(Enums.OtherSkills.Experience) = numValue.Value
                 Case numHealthPoints.Name
-                    Me.LoadedChar.HealthPoints = numValue.Value
+                    Me.LoadedChar.OtherSkill(Enums.OtherSkills.HealthPoints) = numValue.Value
                 Case numStaminaPoints.Name
-                    Me.LoadedChar.StaminaPoints = numValue.Value
+                    Me.LoadedChar.OtherSkill(Enums.OtherSkills.StaminaPoints) = numValue.Value
                 Case numMagicPoints.Name
-                    Me.LoadedChar.MagicPoints = numValue.Value
+                    Me.LoadedChar.OtherSkill(Enums.OtherSkills.MagicPoints) = numValue.Value
             End Select
         End If
     End Sub
@@ -420,23 +415,23 @@
                 numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
 
                 'unique inventory
-                chkFlag1.Checked = Me.LoadedChar.Flag1
-                chkFlag2.Checked = Me.LoadedChar.Flag2
-                chkFlag3.Checked = Me.LoadedChar.Flag3
-                chkFlag4.Checked = Me.LoadedChar.Flag4
-                chkFlag5.Checked = Me.LoadedChar.Flag5
-                chkFlag6.Checked = Me.LoadedChar.Flag6
-                chkFlag7.Checked = Me.LoadedChar.Flag7
+                chkFlag1.Checked = Me.LoadedChar.Flag(0)
+                chkFlag2.Checked = Me.LoadedChar.Flag(1)
+                chkFlag3.Checked = Me.LoadedChar.Flag(2)
+                chkFlag4.Checked = Me.LoadedChar.Flag(3)
+                chkFlag5.Checked = Me.LoadedChar.Flag(4)
+                chkFlag6.Checked = Me.LoadedChar.Flag(5)
+                chkFlag7.Checked = Me.LoadedChar.Flag(6)
 
                 'inventory
                 numGold.Maximum = 10000
                 numGold.Value = Me.LoadedChar.Currency
 
-                numDaggers.Value = Me.LoadedChar.Daggers
-                numHealingPotions.Value = Me.LoadedChar.HealingPotions
-                numVigorPotions.Value = Me.LoadedChar.StaminaPotions
-                numMagicPotions.Value = Me.LoadedChar.MagicPotions
-                numOtherPotions.Value = DirectCast(Me.LoadedChar, CharQFG1).UndeadUnguent
+                numDaggers.Value = Me.LoadedChar.Inventory(Enums.Inventory.Daggers)
+                numHealingPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.HealingPotion)
+                numVigorPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.VigorPotion)
+                numMagicPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.MagicPotion)
+                numOtherPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.OtherPotion)
             ElseIf TypeOf Me.LoadedChar Is CharQFG2 Then
                 Call SetMaximumSkill(255)
                 Call SetMaximumInventory(255)
@@ -448,24 +443,24 @@
                 numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
 
                 'unique inventory
-                chkFlag1.Checked = Me.LoadedChar.Flag1
-                chkFlag2.Checked = Me.LoadedChar.Flag2
-                chkFlag3.Checked = Me.LoadedChar.Flag3
-                chkFlag4.Checked = Me.LoadedChar.Flag4
-                chkFlag5.Checked = Me.LoadedChar.Flag5
-                chkFlag6.Checked = Me.LoadedChar.Flag6
-                chkFlag7.Checked = Me.LoadedChar.Flag7
-                chkFlag8.Checked = Me.LoadedChar.Flag8
+                chkFlag1.Checked = Me.LoadedChar.Flag(0)
+                chkFlag2.Checked = Me.LoadedChar.Flag(1)
+                chkFlag3.Checked = Me.LoadedChar.Flag(2)
+                chkFlag4.Checked = Me.LoadedChar.Flag(3)
+                chkFlag5.Checked = Me.LoadedChar.Flag(4)
+                chkFlag6.Checked = Me.LoadedChar.Flag(5)
+                chkFlag7.Checked = Me.LoadedChar.Flag(6)
+                chkFlag8.Checked = Me.LoadedChar.Flag(7)
 
                 'inventory
                 numGold.Maximum = 10000
                 numGold.Value = Me.LoadedChar.Currency
 
-                numDaggers.Value = Me.LoadedChar.Daggers
-                numHealingPotions.Value = Me.LoadedChar.HealingPotions
-                numVigorPotions.Value = Me.LoadedChar.StaminaPotions
-                numMagicPotions.Value = Me.LoadedChar.MagicPotions
-                numOtherPotions.Value = DirectCast(Me.LoadedChar, CharQFG2).PoisonCurePills
+                numDaggers.Value = Me.LoadedChar.Inventory(Enums.Inventory.Daggers)
+                numHealingPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.HealingPotion)
+                numVigorPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.VigorPotion)
+                numMagicPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.MagicPotion)
+                numOtherPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.OtherPotion)
             ElseIf TypeOf Me.LoadedChar Is CharQFG3 Then
                 Call SetMaximumSkill(300)
                 Call SetMaximumInventory(300)
@@ -480,10 +475,11 @@
                 numGold.Maximum = 10000
                 numGold.Value = Me.LoadedChar.Currency
 
-                numDaggers.Value = Me.LoadedChar.Daggers
-                numHealingPotions.Value = Me.LoadedChar.HealingPotions
-                numVigorPotions.Value = Me.LoadedChar.StaminaPotions
-                numMagicPotions.Value = Me.LoadedChar.MagicPotions
+                numDaggers.Value = Me.LoadedChar.Inventory(Enums.Inventory.Daggers)
+                numHealingPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.HealingPotion)
+                numVigorPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.VigorPotion)
+                numMagicPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.MagicPotion)
+
             End If
 
         End If
@@ -592,59 +588,56 @@
 
     Private Sub LoadQFG1Common()
         'abilities
-        numStrength.Value = Me.LoadedChar.Strength
-        numIntelligence.Value = Me.LoadedChar.Intelligence
-        numAgility.Value = Me.LoadedChar.Agility
-        numVitality.Value = Me.LoadedChar.Vitality
-        numLuck.Value = Me.LoadedChar.Luck
+        numStrength.Value = Me.LoadedChar.Skill(Enums.Skills.Strength)
+        numIntelligence.Value = Me.LoadedChar.Skill(Enums.Skills.Intelligence)
+        numAgility.Value = Me.LoadedChar.Skill(Enums.Skills.Agility)
+        numVitality.Value = Me.LoadedChar.Skill(Enums.Skills.Vitality)
+        numLuck.Value = Me.LoadedChar.Skill(Enums.Skills.Luck)
 
         'skills
-        numWeaponUse.Value = Me.LoadedChar.WeaponUse
-        numParry.Value = Me.LoadedChar.Parry
-        numDodge.Value = Me.LoadedChar.Dodge
-        numStealth.Value = Me.LoadedChar.Stealth
-        numPickLocks.Value = Me.LoadedChar.PickLocks
-        numThrowing.Value = Me.LoadedChar.Throwing
-        numClimbing.Value = Me.LoadedChar.Climbing
-        numMagic.Value = Me.LoadedChar.Magic
+        numWeaponUse.Value = Me.LoadedChar.Skill(Enums.Skills.WeaponUse)
+        numParry.Value = Me.LoadedChar.Skill(Enums.Skills.Parry)
+        numDodge.Value = Me.LoadedChar.Skill(Enums.Skills.Dodge)
+        numStealth.Value = Me.LoadedChar.Skill(Enums.Skills.Stealth)
+        numPickLocks.Value = Me.LoadedChar.Skill(Enums.Skills.Picklocks)
+        numThrowing.Value = Me.LoadedChar.Skill(Enums.Skills.Throwing)
+        numClimbing.Value = Me.LoadedChar.Skill(Enums.Skills.Climbing)
+        numMagic.Value = Me.LoadedChar.Skill(Enums.Skills.Magic)
 
         'magic
-        numOpen.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Open)
-        numDetectMagic.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Detect)
-        numTrigger.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Trigger)
-        numDazzle.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Dazzle)
-        numZap.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Zap)
-        numCalm.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Calm)
-        numFlameDart.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Flame)
-        numFetch.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Fetch)
+        numOpen.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Open)
+        numDetectMagic.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Detect)
+        numTrigger.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Trigger)
+        numDazzle.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Dazzle)
+        numZap.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Zap)
+        numCalm.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Calm)
+        numFlameDart.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Flame)
+        numFetch.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Fetch)
 
         'assorted other attributesd
         If TypeOf Me.LoadedChar Is CharV2 Then
             numExperience.Maximum = Short.MaxValue
         End If
-        numExperience.Value = Me.LoadedChar.Experience
-        numHealthPoints.Value = Me.LoadedChar.HealthPoints
-        numStaminaPoints.Value = Me.LoadedChar.StaminaPoints
-        numMagicPoints.Value = Me.LoadedChar.MagicPoints
+        numExperience.Value = Me.LoadedChar.OtherSkill(Enums.OtherSkills.Experience)
+        numHealthPoints.Value = Me.LoadedChar.OtherSkill(Enums.OtherSkills.HealthPoints)
+        numStaminaPoints.Value = Me.LoadedChar.OtherSkill(Enums.OtherSkills.StaminaPoints)
+        numMagicPoints.Value = Me.LoadedChar.OtherSkill(Enums.OtherSkills.MagicPoints)
 
     End Sub
 
     Private Sub LoadQFG2Common()
+        numCommunication.Value = Me.LoadedChar.Skill(Enums.Skills.Communication)
+        numHonor.Value = Me.LoadedChar.Skill(Enums.Skills.Honor)
 
-
-        numCommunication.Value = Me.LoadedChar.GetSkill(Enums.Skills.Communication)
-        numHonor.Value = Me.LoadedChar.GetSkill(Enums.Skills.Honor)
-
-        numForceBolt.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.ForceBolt)
-        numLevitation.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Levitation)
-        numReversal.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.Reversal)
+        numForceBolt.Value = Me.LoadedChar.MagicSpell(Enums.Magic.ForceBolt)
+        numLevitation.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Levitation)
+        numReversal.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Reversal)
     End Sub
 
     Private Sub LoadQFG3Common()
-
-        numJugglingLights.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.JugglingLights)
-        numLightningBall.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.LightningBall)
-        numSummonStaff.Value = Me.LoadedChar.GetMagicSpell(Enums.Magic.SummonStaff)
+        numJugglingLights.Value = Me.LoadedChar.MagicSpell(Enums.Magic.JugglingLights)
+        numLightningBall.Value = Me.LoadedChar.MagicSpell(Enums.Magic.LightningBall)
+        numSummonStaff.Value = Me.LoadedChar.MagicSpell(Enums.Magic.SummonStaff)
     End Sub
 
     Private Sub EnableQFG1(enabled As Boolean)

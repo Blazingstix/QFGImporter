@@ -116,23 +116,23 @@
         End Get
     End Property
 
-    Public Property Communication As Integer
-        Get
-            Return GetSkill(Enums.Skills.Communication)
-        End Get
-        Set(value As Integer)
-            SetSkill(Enums.Skills.Communication, value)
-        End Set
-    End Property
+    'Public Property Communication As Integer
+    '    Get
+    '        Return Me.Skill(Enums.Skills.Communication)
+    '    End Get
+    '    Set(value As Integer)
+    '        Me.Skill(Enums.Skills.Communication) = value
+    '    End Set
+    'End Property
 
-    Public Property Honor As Integer
-        Get
-            Return GetSkill(Enums.Skills.Honor)
-        End Get
-        Set(value As Integer)
-            SetSkill(Enums.Skills.Honor, value)
-        End Set
-    End Property
+    'Public Property Honor As Integer
+    '    Get
+    '        Return Me.Skill(Enums.Skills.Honor)
+    '    End Get
+    '    Set(value As Integer)
+    '        Me.Skill(Enums.Skills.Honor) = value
+    '    End Set
+    'End Property
 
     Public Property PoisonCurePills As Integer
         Get
@@ -145,73 +145,73 @@
 
     Public Property HasFineSword As Boolean
         Get
-            Return Me.Flag1
+            Return Me.Flag(0)
         End Get
         Set(value As Boolean)
-            Me.Flag1 = value
+            Me.Flag(0) = value
         End Set
     End Property
 
     Public Property HasSoulforge As Boolean
         Get
-            Return Me.Flag2
+            Return Me.Flag(1)
         End Get
         Set(value As Boolean)
-            Me.Flag2 = value
+            Me.Flag(1) = value
         End Set
     End Property
 
     Public Property HasSaphirrePin As Boolean
         Get
-            Return Me.Flag3
+            Return Me.Flag(2)
         End Get
         Set(value As Boolean)
-            Me.Flag3 = value
+            Me.Flag(2) = value
         End Set
     End Property
 
     Public Property HasBrassLamp As Boolean
         Get
-            Return Me.Flag4
+            Return Me.Flag(3)
         End Get
         Set(value As Boolean)
-            Me.Flag4 = value
+            Me.Flag(3) = value
         End Set
     End Property
 
     Public Property HasEOFBadge As Boolean
         Get
-            Return Me.Flag5
+            Return Me.Flag(4)
         End Get
         Set(value As Boolean)
-            Me.Flag5 = value
+            Me.Flag(4) = value
         End Set
     End Property
 
     Public Property HasXRayGlasses As Boolean
         Get
-            Return Me.Flag6
+            Return Me.Flag(5)
         End Get
         Set(value As Boolean)
-            Me.Flag6 = value
+            Me.Flag(5) = value
         End Set
     End Property
 
     Public Property HasBroadsword As Boolean
         Get
-            Return Me.Flag7
+            Return Me.Flag(6)
         End Get
         Set(value As Boolean)
-            Me.Flag7 = value
+            Me.Flag(6) = value
         End Set
     End Property
 
     Public Property HasChainmail As Boolean
         Get
-            Return Me.Flag8
+            Return Me.Flag(7)
         End Get
         Set(value As Boolean)
-            Me.Flag8 = value
+            Me.Flag(7) = value
         End Set
     End Property
 

@@ -64,13 +64,11 @@
     End Enum
 
     Public Enum Inventory
-        Gold
-        Silver
-        Daggers = 21
-        Healing
-        Magic
-        Vigor
-        PoisonCure
+        Daggers = 0
+        HealingPotion
+        MagicPotion
+        VigorPotion
+        OtherPotion
     End Enum
 
 End Class

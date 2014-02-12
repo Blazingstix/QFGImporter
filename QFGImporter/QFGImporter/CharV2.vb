@@ -4,7 +4,8 @@
     Friend Shadows Property EncodedData As Short()
     Friend Shadows Property DecodedValues As Short()
 
-    Public Shadows Property CharacterClass As Enums.CharacterClass
+#Region "Generic Skill Functions"
+    Public Overrides Property CharacterClass As Enums.CharacterClass
         Get
             Return Me.DecodedValues(Me.OffsetCharClass)
         End Get
@@ -13,87 +14,78 @@
         End Set
     End Property
 
-    Public Shadows Sub SetSkill(skill As Enums.Skills, value As Integer)
-        Me.DecodedValues(Me.OffsetSkills + skill) = value
-    End Sub
-
-    Public Shadows Function GetSkill(skill As Enums.Skills) As Integer
-        Return Me.DecodedValues(Me.OffsetSkills + skill)
-    End Function
-
-    Public Shadows Sub SetMagicSpell(spell As Enums.Magic, value As Integer)
-        Me.DecodedValues(Me.OffsetSpells + spell) = value
-    End Sub
-
-    Public Shadows Function GetMagicSpell(spell As Enums.Magic) As Integer
-        Return Me.DecodedValues(Me.OffsetSpells + spell)
-    End Function
-
-    Public Shadows Sub SetOtherSkill(skill As Enums.OtherSkills, value As Integer)
-        Me.DecodedValues(Me.OffsetExperience + skill) = value
-    End Sub
-
-    Public Shadows Function GetOtherSkill(skill As Enums.OtherSkills) As Integer
-        Return Me.DecodedValues(Me.OffsetExperience + skill)
-    End Function
-
-    Public Overridable Shadows Property PuzzlePoints As Integer
+    Public Overrides Property Skill(vSkill As Enums.Skills) As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetSkills - 2)
+            Return Me.DecodedValues(Me.OffsetSkills + vSkill)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetSkills - 2) = value
+            Me.DecodedValues(Me.OffsetSkills + vSkill) = value
         End Set
     End Property
 
-    Public Overridable Shadows Property Daggers As Integer
+    Public Overrides Property MagicSpell(spell As Enums.Magic) As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetInventory)
+            Return Me.DecodedValues(Me.OffsetSpells + spell)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetInventory) = value
+            Me.DecodedValues(Me.OffsetSpells + spell) = value
         End Set
     End Property
 
-    Public Overridable Shadows Property HealingPotions As Integer
+    Public Overrides Property OtherSkill(skill As Enums.OtherSkills) As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetInventory + 1)
+            Return Me.DecodedValues(Me.OffsetExperience + skill)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetInventory + 1) = value
+            Me.DecodedValues(Me.OffsetExperience + skill) = value
         End Set
     End Property
 
-    Public Overridable Shadows Property MagicPotions As Integer
+    Public Overrides Property Inventory(item As Enums.Inventory) As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetInventory + 2)
+            Return Me.DecodedValues(Me.OffsetInventory + item)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetInventory + 2) = value
+            Me.DecodedValues(Me.OffsetInventory + item) = value
         End Set
     End Property
 
-    Public Overridable Shadows Property StaminaPotions As Integer
+    Public Overrides Property PuzzlePoints As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetInventory + 3)
+            Return Me.DecodedValues(Me.OffsetPuzzlePoints)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetInventory + 3) = value
+            Me.DecodedValues(Me.OffsetPuzzlePoints) = value
         End Set
     End Property
 
-    Public Overridable Shadows Property Currency As Integer
+    Public Overrides Property Currency As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetCharClass + 1)
+            Return Me.DecodedValues(Me.OffsetCurrency)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetCharClass + 1) = value
+            Me.DecodedValues(Me.OffsetCurrency) = value
         End Set
     End Property
 
+    Public Overrides Property Flag(position As Byte) As Boolean
+        Get
+            If position < 0 Or position > 7 Then
+                Throw New IndexOutOfRangeException
+            End If
+            Return CharGeneric.getBit(Me.DecodedValues(Me.OffsetUniqueInventory), position)
+        End Get
+        Set(value As Boolean)
+            If position < 0 Or position > 7 Then
+                Throw New IndexOutOfRangeException
+            End If
+            Me.DecodedValues(Me.OffsetUniqueInventory) = CharGeneric.setBit(Me.DecodedValues(Me.OffsetUniqueInventory), position, value)
+        End Set
+    End Property
+#End Region
 
-    Friend Overrides Sub ConvertHexStringToBinary(hexString As String)
-        Me.EncodedData = convertHexStringToShortArray(hexString)
+    Friend Overrides Sub ParseHexString(hexString As String)
+        Me.EncodedData = CharGeneric.convertHexStringToShortArray(hexString)
     End Sub
 
     Public Overrides Sub DecodeValues()
@@ -105,21 +97,15 @@
 
         'check even values
         For i As Integer = 0 To Me.OffsetOther - 1 Step 2
-            chk(0) = (chk(0) + values(i)) Mod &H10000
+            chk(0) = (CInt(chk(0)) + CInt(values(i))) Mod &H10000
         Next
 
         'check odd values
         For i As Integer = 1 To Me.OffsetOther - 1 Step 2
-            chk(1) = (chk(1) + values(i)) Mod &H10000
+            chk(1) = (CInt(chk(1)) + CInt(values(i))) Mod &H10000
         Next
 
-        'add 0xD0 (208) to the 1st checksum
         chk(0) = (CInt(chk(0)) + CInt(Me.InitialChecksum)) Mod &H10000
-
-        ''the InitialLimiter is neccessary for QFG1,
-        ''   where all the bytes are only 7 bits (i.e. 127 max)
-        'chk(0) = chk(0) And Me.InitialLimiter
-        'chk(1) = chk(1) And Me.InitialLimiter
 
         Return chk
     End Function

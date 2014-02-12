@@ -3,45 +3,47 @@
 
 #Region "Generic Skill Functions"
 
-    Public Shadows Sub SetSkill(skill As Enums.Skills, value As Integer)
-        Me.DecodedValues(Me.OffsetSkills + skill) = value
-    End Sub
+    Public Overrides Property Skill(vSkill As Enums.Skills) As Integer
+        Get
+            Return Me.DecodedValues(Me.OffsetSkills + vSkill)
+        End Get
+        Set(value As Integer)
+            Me.DecodedValues(Me.OffsetSkills + vSkill) = value
+        End Set
+    End Property
 
-    Public Shadows Function GetSkill(skill As Enums.Skills) As Integer
-        Return Me.DecodedValues(Me.OffsetSkills + skill)
-    End Function
+    Public Overrides Property MagicSpell(spell As Enums.Magic) As Integer
+        Get
+            Return Me.DecodedValues(Me.OffsetSpells + spell)
+        End Get
+        Set(value As Integer)
+            Me.DecodedValues(Me.OffsetSpells + spell) = value
+        End Set
+    End Property
 
-    Public Shadows Sub SetMagicSpell(spell As Enums.Magic, value As Integer)
-        Me.DecodedValues(Me.OffsetSpells + spell) = value
-    End Sub
+    Public Overrides Property OtherSkill(skill As Enums.OtherSkills) As Integer
+        Get
+            Dim value As Integer = Me.DecodedValues(Me.OffsetExperience + skill)
+            Select Case skill
+                Case Enums.OtherSkills.HealthPoints
+                    value = value / 2
+                Case Enums.OtherSkills.StaminaPoints
+                    value = value / 4
+            End Select
+            Return value
+        End Get
+        Set(value As Integer)
+            Select Case skill
+                Case Enums.OtherSkills.HealthPoints
+                    value = value * 2
+                Case Enums.OtherSkills.StaminaPoints
+                    value = value * 4
+            End Select
+            Me.DecodedValues(Me.OffsetExperience + skill) = value And Me.InitialLimiter
+        End Set
+    End Property
 
-    Public Shadows Function GetMagicSpell(spell As Enums.Magic) As Integer
-        Return Me.DecodedValues(Me.OffsetSpells + spell)
-    End Function
-
-    Public Shadows Sub SetOtherSkill(skill As Enums.OtherSkills, value As Integer)
-        Select Case skill
-            Case Enums.OtherSkills.HealthPoints
-                value = value * 2
-            Case Enums.OtherSkills.StaminaPoints
-                value = value * 4
-        End Select
-        Me.DecodedValues(Me.OffsetExperience + skill) = value
-    End Sub
-
-    Public Shadows Function GetOtherSkill(skill As Enums.OtherSkills) As Integer
-        Dim value As Integer = Me.DecodedValues(Me.OffsetExperience + skill)
-        Select Case skill
-            Case Enums.OtherSkills.HealthPoints
-                value = value / 2
-            Case Enums.OtherSkills.StaminaPoints
-                value = value / 4
-        End Select
-        Return value
-    End Function
-#End Region
-
-    Public Shadows Property CharacterClass As Enums.CharacterClass
+    Public Overrides Property CharacterClass As Enums.CharacterClass
         Get
             Return Me.DecodedValues(Me.OffsetCharClass)
         End Get
@@ -50,22 +52,31 @@
         End Set
     End Property
 
-    Public Shadows Property PuzzlePoints As Integer
+    Public Overrides Property PuzzlePoints As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetSkills - 2)
+            Return Me.DecodedValues(Me.OffsetPuzzlePoints)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetSkills - 2) = value And &HF7
+            Me.DecodedValues(Me.OffsetPuzzlePoints) = value And Me.InitialLimiter
         End Set
     End Property
 
-    Public Overridable Shadows Property Currency As Integer
+    Public Overrides Property Inventory(item As Enums.Inventory) As Integer
+        Get
+            Return Me.DecodedValues(Me.OffsetInventory + item)
+        End Get
+        Set(value As Integer)
+            Me.DecodedValues(Me.OffsetInventory + item) = value
+        End Set
+    End Property
+
+    Public Overrides Property Currency As Integer
         Get
             'QFG1 adds 1 to the large value, but QFG2 does not.
             Dim valueOffset As Integer = 2 - Me.Game
             'QFG1/2 stores currency in two bytes. The high byte is the value / 100. The low byte is the remainder.
-            Dim large As Integer = (Me.DecodedValues(Me.OffsetCharClass + 1) - valueOffset) * 100
-            Dim small As Integer = Me.DecodedValues(Me.OffsetCharClass + 2)
+            Dim large As Integer = (Me.DecodedValues(Me.OffsetCurrency) - valueOffset) * 100
+            Dim small As Integer = Me.DecodedValues(Me.OffsetCurrency + 1)
             Return large + small
         End Get
         Set(value As Integer)
@@ -74,10 +85,30 @@
             'QFG1/2 stores currency in two bytes. The high byte is the value / 100. The low byte is the remainder.
             Dim small As Byte = value Mod 100
             Dim large As Byte = ((value - small) / 100) + valueOffset
-            Me.DecodedValues(Me.OffsetCharClass + 1) = large
-            Me.DecodedValues(Me.OffsetCharClass + 2) = small
+            Me.DecodedValues(Me.OffsetCurrency) = large
+            Me.DecodedValues(Me.OffsetCurrency + 1) = small
         End Set
     End Property
+
+    Public Overrides Property Flag(position As Byte) As Boolean
+        Get
+            If position < 0 Or position > 7 Then
+                Throw New IndexOutOfRangeException
+            End If
+            Return CharGeneric.getBit(Me.DecodedValues(Me.OffsetUniqueInventory), position)
+        End Get
+        Set(value As Boolean)
+            If position < 0 Or position > 7 Then
+                Throw New IndexOutOfRangeException
+            End If
+            Me.DecodedValues(Me.OffsetUniqueInventory) = CharGeneric.setBit(Me.DecodedValues(Me.OffsetUniqueInventory), position, value)
+        End Set
+    End Property
+#End Region
+
+    Public Overrides Sub DecodeValues()
+        Me.DecodedValues = Me.GetDecodedBinary(Me.EncodedData)
+    End Sub
 
     Public Overrides Function EncodedDataToString() As String
         Dim rtn As String = String.Empty
@@ -91,4 +122,7 @@
         Return CharGeneric.BytesToString(Me.DecodedValues, hex)
     End Function
 
+    Friend Overrides Sub ParseHexString(hexString As String)
+        Me.EncodedData = CharGeneric.convertHexStringToByteArray(hexString)
+    End Sub
 End Class
