@@ -83,7 +83,7 @@
         fso.Title = "Save QFG Character File As..."
         If fso.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim fs As New IO.StreamWriter(fso.OpenFile())
-            fs.Write(Me.LoadedChar.ToByteString)
+            fs.Write(Me.LoadedChar.ExportString)
             fs.Close()
         End If
     End Sub

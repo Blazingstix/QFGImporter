@@ -7,9 +7,9 @@
     Friend MustOverride ReadOnly Property OffsetExperience As Byte
     Friend MustOverride ReadOnly Property OffsetSpells As Byte
     Friend MustOverride ReadOnly Property OffsetInventory As Byte
-    Friend MustOverride ReadOnly Property OffsetOther As Byte
+    Friend MustOverride ReadOnly Property OffsetConstants1 As Byte
     Friend MustOverride ReadOnly Property OffsetChecksum As Byte
-    Friend MustOverride ReadOnly Property OffsetOther2 As Byte
+    Friend MustOverride ReadOnly Property OffsetConstants2 As Byte
     Friend MustOverride ReadOnly Property OffsetEOF As Byte
     Friend Overridable ReadOnly Property OffsetCurrency As Byte
         Get
@@ -71,6 +71,11 @@
 
 #End Region
 
+    Public MustOverride Sub DecodeValues()
+    Friend MustOverride Sub ParseHexString(hexString As String)
+    Friend MustOverride Sub EncodeValues()
+    Friend MustOverride Sub SetChecksums()
+
     Public Sub Load(fileContents As String)
         Dim lines As String() = Me.ParseCharacter(fileContents)
         If lines.Length > 1 Then
@@ -101,8 +106,6 @@
             Call Me.DecodeValues()
         End If
     End Sub
-
-    Public MustOverride Sub DecodeValues()
 
     Public Shared Function GetGame(FileContents As String) As Enums.Games
         Dim lines As String() = CharGeneric.SplitInputFile(FileContents)
@@ -164,44 +167,21 @@
         Return lines
     End Function
 
-    Friend MustOverride Sub ParseHexString(hexString As String)
-
-    Public Function GetDecodedBinary(encodedData As Byte()) As Byte()
-        Return CharGeneric.DecodeBytesXor(encodedData, Me.InitialCipher, Me.InitialLimiter)
-    End Function
-
-    Public Function GetDecodedBinary(encodedData As Short()) As Short()
-        Return CharGeneric.DecodeBytesXor(encodedData, Me.InitialCipher)
-    End Function
-
-    Public Function GetEncodedBinary(decodedValues As Byte()) As Byte()
-        Return CharGeneric.EncodeBytesXor(decodedValues, Me.InitialCipher, Me.InitialLimiter)
-    End Function
-
-    Public Function GetEncodedBinary(decodedValues As Short()) As Short()
-        Return CharGeneric.EncodeBytesXor(decodedValues, Me.InitialCipher)
-    End Function
-
     ''' <summary>
     ''' QFG1/2 calls this function, while QFG3/4 calls a shadow function
     ''' </summary>
     ''' <param name="values"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Friend Overridable Function Checksums(values As Byte()) As Byte()
+    Friend Overridable Function CalculateChecksums(values As Byte()) As Byte()
         Dim chk() As Byte = {0, 0}
 
-        'check even values
-        For i As Integer = 0 To Me.OffsetOther - 1 Step 2
-            chk(0) = (CInt(chk(0)) + CInt(values(i))) Mod &H100
+        'all even values are summed, as are all odd values.
+        For i As Integer = 0 To Me.OffsetConstants1 - 1
+            chk(i Mod 2) = (CInt(chk(i Mod 2)) + CInt(values(i))) Mod &H100
         Next
 
-        'check odd values
-        For i As Integer = 1 To Me.OffsetOther - 1 Step 2
-            chk(1) = (CInt(chk(1)) + CInt(values(i))) Mod &H100
-        Next
-
-        'add 0xCE (206) to the 1st checksum
+        'add a constant value to the 1st checksum
         chk(0) = (CInt(chk(0)) + CInt(Me.InitialChecksum)) Mod &H100
 
         'the InitialLimiter is neccessary for QFG1,
@@ -212,54 +192,39 @@
         Return chk
     End Function
 
-    Private Function VerifyChecksums() As Boolean
-        Dim chk() As Byte = Checksums(Me.DecodedValues)
-        Return (chk(0) = Me.DecodedValues(Me.OffsetChecksum) AndAlso chk(1) = Me.DecodedValues(Me.OffsetChecksum + 1))
-    End Function
-
-    Private Sub SetChecksums()
-        Dim chk() As Byte = Me.Checksums(Me.DecodedValues)
-        'replace checksum with calculated values
-        For i As Integer = 0 To chk.Length - 1
-            Me.DecodedValues(Me.OffsetChecksum + i) = chk(i)
-        Next
-    End Sub
-
-    Friend Sub EncodeValues()
-        If TypeOf Me Is CharV2 Then
-            Call DirectCast(Me, CharV2).EncodeValues()
-        Else
-            Call SetChecksums()
-            Me.EncodedData = Me.GetEncodedBinary(Me.DecodedValues)
-        End If
-    End Sub
+    Friend MustOverride Function VerifyChecksums() As Boolean
 
     Public Sub New()
         Call SetGame()
     End Sub
 
+    Public MustOverride ReadOnly Property HeaderString As String
     Public MustOverride Function EncodedDataToString() As String
+
+    ''' <summary>
+    ''' FOR DEBUG ONLY
+    ''' Outputs the Decoded Values to a space separated text string.
+    ''' </summary>
+    ''' <param name="hex"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public MustOverride Function DecodedValuesToString(Optional hex As Boolean = True) As String
 
-    Public Function ToByteString() As String
+    ''' <summary>
+    ''' Updates the checksums, and the encoded values, then returns the string to be saved to a file
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function ExportString() As String
         Call EncodeValues()
-        If TypeOf Me Is CharV2 Then
-            Return DirectCast(Me, CharV2).BinaryToString()
-        Else
-            Return Me.BinaryToString
-        End If
-    End Function
 
-    Friend Function BinaryToString() As String
         Dim str As String = String.Empty
-        str = Me.Name & vbLf
-        For Each b As Byte In Me.EncodedData
-            Dim hex As String = " " & b.ToString("X").ToLower
-            hex = hex.Substring(hex.Length - 2)
-            str &= hex
-        Next
-        str &= vbLf
+        str = Me.HeaderString
+        str &= Me.Name & vbLf
+        str &= Me.EncodedDataToString & vbLf
         Return str
     End Function
+
+
 
 End Class

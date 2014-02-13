@@ -5,19 +5,30 @@
 
     Public Overrides Property Skill(vSkill As Enums.Skills) As Integer
         Get
+            'QFG1 does not have Communication or Honor... it only goes up to Magic
+            If Me.Game < Enums.Games.QFG2 And vSkill >= Enums.Skills.Communication Then
+                Return 0
+            End If
             Return Me.DecodedValues(Me.OffsetSkills + vSkill)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetSkills + vSkill) = value
+            If Not (Me.Game < Enums.Games.QFG2 And vSkill >= Enums.Skills.Communication) Then
+                Me.DecodedValues(Me.OffsetSkills + vSkill) = value
+            End If
         End Set
     End Property
 
     Public Overrides Property MagicSpell(spell As Enums.Magic) As Integer
         Get
+            If Me.Game < Enums.Games.QFG2 And spell >= Enums.Magic.ForceBolt Then
+                Return 0
+            End If
             Return Me.DecodedValues(Me.OffsetSpells + spell)
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetSpells + spell) = value
+            If Not (Me.Game < Enums.Games.QFG2 And spell >= Enums.Magic.ForceBolt) Then
+                Me.DecodedValues(Me.OffsetSpells + spell) = value
+            End If
         End Set
     End Property
 
@@ -107,16 +118,40 @@
 #End Region
 
     Public Overrides Sub DecodeValues()
-        Me.DecodedValues = Me.GetDecodedBinary(Me.EncodedData)
+        Me.DecodedValues = CharGeneric.DecodeBytesXor(Me.EncodedData, Me.InitialCipher, Me.InitialLimiter)
+    End Sub
+
+    Friend Overrides Sub EncodeValues()
+        Call SetChecksums()
+        Me.EncodedData = CharGeneric.EncodeBytesXor(Me.DecodedValues, Me.InitialCipher, Me.InitialLimiter)
+    End Sub
+
+    Friend Overrides Function VerifyChecksums() As Boolean
+        Dim chk() As Byte = Me.CalculateChecksums(Me.DecodedValues)
+        Return (chk(0) = Me.DecodedValues(Me.OffsetChecksum) AndAlso chk(1) = Me.DecodedValues(Me.OffsetChecksum + 1))
+    End Function
+
+    Friend Overrides Sub SetChecksums()
+        Dim chk() As Byte = Me.CalculateChecksums(Me.DecodedValues)
+        'replace checksum with calculated values
+        For i As Integer = 0 To chk.Length - 1
+            Me.DecodedValues(Me.OffsetChecksum + i) = chk(i)
+        Next
     End Sub
 
     Public Overrides Function EncodedDataToString() As String
         Dim rtn As String = String.Empty
         For Each x As Byte In Me.EncodedData
-            rtn &= x.ToString("X2") & " "
+            rtn &= CharGeneric.ReplaceLeadingZeros(x.ToString("X2").ToLower)
         Next
         Return rtn.Trim
     End Function
+
+    Public Overrides ReadOnly Property HeaderString As String
+        Get
+            Return String.Empty
+        End Get
+    End Property
 
     Public Overrides Function DecodedValuesToString(Optional hex As Boolean = True) As String
         Return CharGeneric.BytesToString(Me.DecodedValues, hex)

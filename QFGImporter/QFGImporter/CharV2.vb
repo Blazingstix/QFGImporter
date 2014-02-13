@@ -89,71 +89,60 @@
     End Sub
 
     Public Overrides Sub DecodeValues()
-        Me.DecodedValues = Me.GetDecodedBinary(Me.EncodedData)
+        Me.DecodedValues = CharGeneric.DecodeBytesXor(Me.EncodedData, Me.InitialCipher)
     End Sub
 
-    Private Shadows Function Checksums(values As Short()) As Short()
-        Dim chk() As Short = {0, 0}
+    Friend Overrides Sub EncodeValues()
+        Call SetChecksums()
+        Me.EncodedData = CharGeneric.EncodeBytesXor(Me.DecodedValues, Me.InitialCipher)
+    End Sub
 
-        'check even values
-        For i As Integer = 0 To Me.OffsetOther - 1 Step 2
-            chk(0) = (CInt(chk(0)) + CInt(values(i))) Mod &H10000
-        Next
-
-        'check odd values
-        For i As Integer = 1 To Me.OffsetOther - 1 Step 2
-            chk(1) = (CInt(chk(1)) + CInt(values(i))) Mod &H10000
-        Next
-
-        chk(0) = (CInt(chk(0)) + CInt(Me.InitialChecksum)) Mod &H10000
-
-        Return chk
+    Friend Overrides Function VerifyChecksums() As Boolean
+        Dim chk() As Short = Me.CalculateChecksums(Me.DecodedValues)
+        Return (chk(0) = Me.DecodedValues(Me.OffsetChecksum) AndAlso chk(1) = Me.DecodedValues(Me.OffsetChecksum + 1))
     End Function
 
-    Public Shadows Function ToByteString() As String
-        Call EncodeValues()
-        Return BinaryToString()
-    End Function
-
-    Friend Shadows Function BinaryToString() As String
-        Dim str As String = String.Empty
-        str = " glory" & Me.Game & ".sav " & vbLf
-        str &= Me.Name & vbLf
-        For Each b As Short In Me.EncodedData
-            Dim upper As Byte = Math.Floor(b / 100)
-            Dim lower As Byte = b Mod 100
-            Dim test As Short = upper * 100 + lower
-            Dim hexHi As String = " " & upper.ToString("X").ToLower
-            hexHi = hexHi.Substring(hexHi.Length - 2)
-            Dim hexLo As String = " " & lower.ToString("X").ToLower
-            hexLo = hexLo.Substring(hexLo.Length - 2)
-
-            str &= hexHi & hexLo
-        Next
-        str &= vbLf
-
-        Return str
-    End Function
-
-    Private Shadows Sub SetChecksums()
-        Dim chk() As Short = Me.Checksums(Me.DecodedValues)
+    Friend Overrides Sub SetChecksums()
+        Dim chk() As Short = Me.CalculateChecksums(Me.DecodedValues)
         'replace checksum with calculated values
         For i As Integer = 0 To chk.Length - 1
             Me.DecodedValues(Me.OffsetChecksum + i) = chk(i)
         Next
     End Sub
 
-    Friend Shadows Sub EncodeValues()
-        Call SetChecksums()
-        Me.EncodedData = Me.GetEncodedBinary(Me.DecodedValues)
-    End Sub
+    Private Shadows Function CalculateChecksums(values As Short()) As Short()
+        Dim chk() As Short = {0, 0}
+
+        'all even values are summed, as are all odd values.
+        For i As Integer = 0 To Me.OffsetConstants1 - 1
+            chk(i Mod 2) = (CInt(chk(i Mod 2)) + CInt(values(i))) And Short.MaxValue
+        Next
+
+        'add a constant value to the 1st checksum
+        chk(0) = (CInt(chk(0)) + CInt(Me.InitialChecksum)) And Short.MaxValue
+
+        Return chk
+    End Function
+
+    Public Overrides ReadOnly Property HeaderString As String
+        Get
+            Return " glory" & Me.Game & ".sav " & vbLf
+        End Get
+    End Property
 
     Public Overrides Function EncodedDataToString() As String
-        Dim rtn As String = String.Empty
-        For Each x As Short In Me.EncodedData
-            rtn &= x.ToString("X4") & " "
+        Dim str As String = String.Empty
+        For Each b As Short In Me.EncodedData
+            Dim upper As Byte = Math.Floor(b / 100)
+            Dim lower As Byte = b Mod 100
+            Dim test As Short = upper * 100 + lower
+            Dim hexHi As String = ReplaceLeadingZeros(upper.ToString("X2").ToLower)
+            'TODO: possible overflow could allow for upper portions to be larger than 2 characters
+            Dim hexLo As String = ReplaceLeadingZeros(lower.ToString("X2").ToLower)
+
+            str &= hexHi & hexLo
         Next
-        Return rtn.Trim
+        Return str
     End Function
 
     Public Overrides Function DecodedValuesToString(Optional hex As Boolean = True) As String

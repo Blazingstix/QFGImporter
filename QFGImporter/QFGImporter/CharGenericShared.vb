@@ -140,6 +140,8 @@
             decodedValues(i) = encodedData(i) Xor cipher
         Next
 
+        Debug.Print(CharGeneric.BytesToString(decodedValues))
+        Debug.Print(CharGeneric.BytesToString(decodedValues, False))
         Return decodedValues
     End Function
 
@@ -158,6 +160,7 @@
         Next
 
         Debug.Print(CharGeneric.BytesToString(decodedValues))
+        Debug.Print(CharGeneric.BytesToString(decodedValues, False))
         Return decodedValues
     End Function
 
@@ -223,11 +226,20 @@
                 Else
                     tmpStr = i.ToString
                 End If
-
                 values &= tmpStr & " "
             Next
         End If
         Return values.Trim
+    End Function
+
+    Public Shared Function ReplaceLeadingZeros(input As String) As String
+        Dim output As String = String.Empty
+        If input.StartsWith("0") Then
+            output = " " & input.Substring(1)
+        Else
+            output = input
+        End If
+        Return output
     End Function
 
 End Class

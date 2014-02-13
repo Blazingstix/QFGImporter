@@ -31,6 +31,27 @@ QFGImporter
 	<param name="Limiter"></param>
 	<returns></returns>
 	<remarks></remarks>
+</member><member name="M:QFGImporter.CharGeneric.CalculateChecksums(System.Byte[])">
+	<summary>
+ QFG1/2 calls this function, while QFG3/4 calls a shadow function
+ </summary>
+	<param name="values"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.CharGeneric.DecodedValuesToString(System.Boolean)">
+	<summary>
+ FOR DEBUG ONLY
+ Outputs the Decoded Values to a space separated text string.
+ </summary>
+	<param name="hex"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.CharGeneric.ExportString">
+	<summary>
+ Updates the checksums, and the encoded values, then returns the string to be saved to a file
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
 </member><member name="M:QFGImporter.Form1.LoadSelectedByte">
 	<summary>
  Loads the selected byte for viewing/editing

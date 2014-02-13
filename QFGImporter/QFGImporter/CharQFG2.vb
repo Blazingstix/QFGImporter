@@ -77,7 +77,7 @@
             Return 35
         End Get
     End Property
-    Friend Overrides ReadOnly Property OffsetOther As Byte
+    Friend Overrides ReadOnly Property OffsetConstants1 As Byte
         Get
             Return 40
         End Get
@@ -87,7 +87,7 @@
             Return 42
         End Get
     End Property
-    Friend Overrides ReadOnly Property OffsetOther2 As Byte
+    Friend Overrides ReadOnly Property OffsetConstants2 As Byte
         Get
             Return 44
         End Get
