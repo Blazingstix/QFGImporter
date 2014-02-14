@@ -1,6 +1,62 @@
 ﻿Public Class CharQFG3
     Inherits CharV2
 
+    Enum ByteNames
+        CharacterClass = 0
+        Royals
+        PuzzlePoints
+        UniqueInventory
+        AbilityStrength = 4
+        AbilityIntelligence
+        AbilityVitality
+        AbilityAgility
+        AbilityLuck
+        SkillWeaponUse = 9
+        SkillParry
+        SkillDodge
+        SkillStealth
+        SkillPickLocks
+        SkillThrowing
+        SkillClimbing
+        SkillMagic
+        SkillCommunication
+        SkillHonor
+        Experience = 19
+        HitPoints
+        StaminaPoints
+        MagicPoints
+        MagicSpellOpen = 23
+        MagicSpellDetect
+        MagicSpellTrigger
+        MagicSpellDazzle
+        MagicSpellZap
+        MagicSpellCalm
+        MagicSpellFlame
+        MagicSpellFetch
+        MagicSpellForceBolt
+        MagicSpellLevitation
+        MagicSpellReversal
+        MagicSpellJugglingLights
+        MagicSpellSummonStaff
+        MagicSpellLightningBall
+        InventoryDaggers = 37
+        InventoryHealingPills
+        InventoryMagicPills
+        InventoryVigorPills
+        InventoryPoisonCurePills
+        InventoryUnknown42 = 42
+        InventoryUnknown43 = 43
+        Constant1 = 44
+        Constant2
+        Checksum1 = 46
+        Checksum2
+        Constant3 = 48
+        Constant4
+        Constant5
+        Constant6 = 51
+
+    End Enum
+
     Friend Overrides ReadOnly Property InitialChecksum As Byte
         Get
             Return &HD0
@@ -27,7 +83,7 @@
 
     Friend Overrides ReadOnly Property OffsetEOF As Byte
         Get
-            Return 51
+            Return 52
         End Get
     End Property
 
