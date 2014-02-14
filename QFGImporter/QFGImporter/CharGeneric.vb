@@ -11,6 +11,8 @@
     Friend MustOverride ReadOnly Property OffsetChecksum As Byte
     Friend MustOverride ReadOnly Property OffsetConstants2 As Byte
     Friend MustOverride ReadOnly Property OffsetEOF As Byte
+    Friend MustOverride ReadOnly Property DataSize As Byte
+
     Friend Overridable ReadOnly Property OffsetCurrency As Byte
         Get
             Return Me.OffsetCharClass + 1
@@ -98,7 +100,7 @@
             If Me.Game = Enums.Games.QFG3 AndAlso Me.EncodedString.Length <> 208 Then
                 'QFG3 data longer than 208 characters is victim to an overflow error... we cannot deal with that yet.
                 MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG3 files with data larger than 208 characters can an error, and this program cannot work around that yet.")
-                Exit Sub
+                'Exit Sub
             End If
 
             'NOTE: we need to seperate this out, so QFG3 and QFG4 can call their own conversion functions

@@ -5,6 +5,12 @@
     Friend Shadows Property DecodedValues As Short()
 
 #Region "Generic Skill Functions"
+    Friend Overrides ReadOnly Property DataSize As Byte
+        Get
+            Return (Me.OffsetEOF) * 4
+        End Get
+    End Property
+
     Public Overrides Property CharacterClass As Enums.CharacterClass
         Get
             Return Me.DecodedValues(Me.OffsetCharClass)
@@ -85,7 +91,7 @@
 #End Region
 
     Friend Overrides Sub ParseHexString(hexString As String)
-        Me.EncodedData = CharGeneric.convertHexStringToShortArray(hexString)
+        Me.EncodedData = CharGeneric.importHexStringX(hexString, Me.DataSize)
     End Sub
 
     Public Overrides Sub DecodeValues()
@@ -133,7 +139,7 @@
     Public Overrides Function EncodedDataToString() As String
         Dim str As String = String.Empty
         For Each b As Short In Me.EncodedData
-            Dim upper As Byte = Math.Floor(b / 100)
+            Dim upper As Short = Math.Floor(b / 100)
             Dim lower As Byte = b Mod 100
             Dim test As Short = upper * 100 + lower
             Dim hexHi As String = ReplaceLeadingZeros(upper.ToString("X2").ToLower)

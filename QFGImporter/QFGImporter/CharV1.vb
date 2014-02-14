@@ -3,6 +3,12 @@
 
 #Region "Generic Skill Functions"
 
+    Friend Overrides ReadOnly Property DataSize As Byte
+        Get
+            Return (Me.OffsetEOF) * 2
+        End Get
+    End Property
+
     Public Overrides Property Skill(vSkill As Enums.Skills) As Integer
         Get
             'QFG1 does not have Communication or Honor... it only goes up to Magic
