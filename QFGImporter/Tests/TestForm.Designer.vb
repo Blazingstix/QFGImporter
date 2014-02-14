@@ -81,7 +81,7 @@ Partial Class TestForm
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(146, 29)
         Me.TableLayoutPanel1.TabIndex = 0
         '
@@ -121,6 +121,7 @@ Partial Class TestForm
         Me.QFG1Fighter.Name = "QFG1Fighter"
         Me.QFG1Fighter.Size = New System.Drawing.Size(94, 17)
         Me.QFG1Fighter.TabIndex = 2
+        Me.QFG1Fighter.TabStop = True
         Me.QFG1Fighter.Text = "QFG1 - Fighter"
         Me.QFG1Fighter.UseVisualStyleBackColor = True
         '
@@ -399,9 +400,9 @@ Partial Class TestForm
         Me.QFG3Fighter.AutoSize = True
         Me.QFG3Fighter.Location = New System.Drawing.Point(136, 212)
         Me.QFG3Fighter.Name = "QFG3Fighter"
-        Me.QFG3Fighter.Size = New System.Drawing.Size(94, 17)
+        Me.QFG3Fighter.Size = New System.Drawing.Size(121, 17)
         Me.QFG3Fighter.TabIndex = 2
-        Me.QFG3Fighter.Text = "QFG3 - Fighter"
+        Me.QFG3Fighter.Text = "QFG3 - Fighter (246)"
         Me.QFG3Fighter.UseVisualStyleBackColor = True
         '
         'QFG3Wizard
@@ -409,9 +410,9 @@ Partial Class TestForm
         Me.QFG3Wizard.AutoSize = True
         Me.QFG3Wizard.Location = New System.Drawing.Point(136, 235)
         Me.QFG3Wizard.Name = "QFG3Wizard"
-        Me.QFG3Wizard.Size = New System.Drawing.Size(95, 17)
+        Me.QFG3Wizard.Size = New System.Drawing.Size(122, 17)
         Me.QFG3Wizard.TabIndex = 3
-        Me.QFG3Wizard.Text = "QFG3 - Wizard"
+        Me.QFG3Wizard.Text = "QFG3 - Wizard (209)"
         Me.QFG3Wizard.UseVisualStyleBackColor = True
         '
         'QFG3Thief
@@ -419,9 +420,9 @@ Partial Class TestForm
         Me.QFG3Thief.AutoSize = True
         Me.QFG3Thief.Location = New System.Drawing.Point(136, 258)
         Me.QFG3Thief.Name = "QFG3Thief"
-        Me.QFG3Thief.Size = New System.Drawing.Size(86, 17)
+        Me.QFG3Thief.Size = New System.Drawing.Size(113, 17)
         Me.QFG3Thief.TabIndex = 4
-        Me.QFG3Thief.Text = "QFG3 - Thief"
+        Me.QFG3Thief.Text = "QFG3 - Thief (208)"
         Me.QFG3Thief.UseVisualStyleBackColor = True
         '
         'QFG3Paladin
@@ -429,39 +430,39 @@ Partial Class TestForm
         Me.QFG3Paladin.AutoSize = True
         Me.QFG3Paladin.Location = New System.Drawing.Point(136, 281)
         Me.QFG3Paladin.Name = "QFG3Paladin"
-        Me.QFG3Paladin.Size = New System.Drawing.Size(97, 17)
+        Me.QFG3Paladin.Size = New System.Drawing.Size(124, 17)
         Me.QFG3Paladin.TabIndex = 4
-        Me.QFG3Paladin.Text = "QFG3 - Paladin"
+        Me.QFG3Paladin.Text = "QFG3 - Paladin (269)"
         Me.QFG3Paladin.UseVisualStyleBackColor = True
         '
         'QFG3FighterA
         '
         Me.QFG3FighterA.AutoSize = True
-        Me.QFG3FighterA.Location = New System.Drawing.Point(236, 212)
+        Me.QFG3FighterA.Location = New System.Drawing.Point(263, 212)
         Me.QFG3FighterA.Name = "QFG3FighterA"
-        Me.QFG3FighterA.Size = New System.Drawing.Size(110, 17)
+        Me.QFG3FighterA.Size = New System.Drawing.Size(137, 17)
         Me.QFG3FighterA.TabIndex = 2
-        Me.QFG3FighterA.Text = "QFG3 - Fighter (A)"
+        Me.QFG3FighterA.Text = "QFG3 - Fighter (A) (246)"
         Me.QFG3FighterA.UseVisualStyleBackColor = True
         '
         'QFG3ThiefA
         '
         Me.QFG3ThiefA.AutoSize = True
-        Me.QFG3ThiefA.Location = New System.Drawing.Point(236, 258)
+        Me.QFG3ThiefA.Location = New System.Drawing.Point(263, 258)
         Me.QFG3ThiefA.Name = "QFG3ThiefA"
-        Me.QFG3ThiefA.Size = New System.Drawing.Size(102, 17)
+        Me.QFG3ThiefA.Size = New System.Drawing.Size(129, 17)
         Me.QFG3ThiefA.TabIndex = 4
-        Me.QFG3ThiefA.Text = "QFG3 - Thief (A)"
+        Me.QFG3ThiefA.Text = "QFG3 - Thief (A) (246)"
         Me.QFG3ThiefA.UseVisualStyleBackColor = True
         '
         'QFG3PaladinA
         '
         Me.QFG3PaladinA.AutoSize = True
-        Me.QFG3PaladinA.Location = New System.Drawing.Point(236, 281)
+        Me.QFG3PaladinA.Location = New System.Drawing.Point(263, 281)
         Me.QFG3PaladinA.Name = "QFG3PaladinA"
-        Me.QFG3PaladinA.Size = New System.Drawing.Size(113, 17)
+        Me.QFG3PaladinA.Size = New System.Drawing.Size(140, 17)
         Me.QFG3PaladinA.TabIndex = 4
-        Me.QFG3PaladinA.Text = "QFG3 - Paladin (A)"
+        Me.QFG3PaladinA.Text = "QFG3 - Paladin (A) (236)"
         Me.QFG3PaladinA.UseVisualStyleBackColor = True
         '
         'QFG4Fighter
@@ -469,9 +470,9 @@ Partial Class TestForm
         Me.QFG4Fighter.AutoSize = True
         Me.QFG4Fighter.Location = New System.Drawing.Point(136, 316)
         Me.QFG4Fighter.Name = "QFG4Fighter"
-        Me.QFG4Fighter.Size = New System.Drawing.Size(94, 17)
+        Me.QFG4Fighter.Size = New System.Drawing.Size(121, 17)
         Me.QFG4Fighter.TabIndex = 2
-        Me.QFG4Fighter.Text = "QFG4 - Fighter"
+        Me.QFG4Fighter.Text = "QFG4 - Fighter (450)"
         Me.QFG4Fighter.UseVisualStyleBackColor = True
         '
         'QFG4Wizard
@@ -479,9 +480,9 @@ Partial Class TestForm
         Me.QFG4Wizard.AutoSize = True
         Me.QFG4Wizard.Location = New System.Drawing.Point(136, 339)
         Me.QFG4Wizard.Name = "QFG4Wizard"
-        Me.QFG4Wizard.Size = New System.Drawing.Size(95, 17)
+        Me.QFG4Wizard.Size = New System.Drawing.Size(122, 17)
         Me.QFG4Wizard.TabIndex = 3
-        Me.QFG4Wizard.Text = "QFG4 - Wizard"
+        Me.QFG4Wizard.Text = "QFG4 - Wizard (480)"
         Me.QFG4Wizard.UseVisualStyleBackColor = True
         '
         'QFG4Thief
@@ -489,9 +490,9 @@ Partial Class TestForm
         Me.QFG4Thief.AutoSize = True
         Me.QFG4Thief.Location = New System.Drawing.Point(136, 362)
         Me.QFG4Thief.Name = "QFG4Thief"
-        Me.QFG4Thief.Size = New System.Drawing.Size(86, 17)
+        Me.QFG4Thief.Size = New System.Drawing.Size(113, 17)
         Me.QFG4Thief.TabIndex = 4
-        Me.QFG4Thief.Text = "QFG4 - Thief"
+        Me.QFG4Thief.Text = "QFG4 - Thief (246)"
         Me.QFG4Thief.UseVisualStyleBackColor = True
         '
         'QFG4Paladin
@@ -499,9 +500,9 @@ Partial Class TestForm
         Me.QFG4Paladin.AutoSize = True
         Me.QFG4Paladin.Location = New System.Drawing.Point(136, 385)
         Me.QFG4Paladin.Name = "QFG4Paladin"
-        Me.QFG4Paladin.Size = New System.Drawing.Size(97, 17)
+        Me.QFG4Paladin.Size = New System.Drawing.Size(124, 17)
         Me.QFG4Paladin.TabIndex = 4
-        Me.QFG4Paladin.Text = "QFG4 - Paladin"
+        Me.QFG4Paladin.Text = "QFG4 - Paladin (444)"
         Me.QFG4Paladin.UseVisualStyleBackColor = True
         '
         'btnSaveAs

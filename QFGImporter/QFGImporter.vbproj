@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="QfgImpIcon.ico" />
+    <Content Include="QFGImporter\QFG4.txt" />
     <Content Include="QFGImporter\QFG1.txt" />
     <Content Include="QFGImporter\QFG2.txt" />
     <Content Include="QFGImporter\QFG3.txt" />

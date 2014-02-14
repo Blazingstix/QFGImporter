@@ -406,7 +406,8 @@
             Call SelectGame(Me.LoadedChar.Game)
 
             If TypeOf Me.LoadedChar Is CharQFG1 Then
-                Call SetMaximumSkill(127)
+                Call SetMaximumSkill(100)
+                Call SetMinimumSkill(0)
                 Call SetMaximumInventory(127)
                 Call LoadQFG1Common()
 
@@ -434,6 +435,7 @@
                 numOtherPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.OtherPotion)
             ElseIf TypeOf Me.LoadedChar Is CharQFG2 Then
                 Call SetMaximumSkill(255)
+                Call SetMinimumSkill(0)
                 Call SetMaximumInventory(255)
                 Call LoadQFG1Common()
                 Call LoadQFG2Common()
@@ -462,7 +464,8 @@
                 numMagicPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.MagicPotion)
                 numOtherPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.OtherPotion)
             ElseIf TypeOf Me.LoadedChar Is CharQFG3 Then
-                Call SetMaximumSkill(300)
+                Call SetMaximumSkill(Short.MaxValue)
+                Call SetMinimumSkill(Short.MinValue)
                 Call SetMaximumInventory(300)
                 Call LoadQFG1Common()
                 Call LoadQFG2Common()
@@ -766,6 +769,31 @@
         numStaminaPoints.Maximum = value
         numMagicPoints.Maximum = value
     End Sub
+
+    Private Sub SetMinimumSkill(value As Short)
+        For Each num As Control In grpAbilities.Controls
+            If TypeOf num Is NumericUpDown Then
+                DirectCast(num, NumericUpDown).Minimum = value
+            End If
+        Next
+
+        For Each num As Control In grpSkills.Controls
+            If TypeOf num Is NumericUpDown Then
+                DirectCast(num, NumericUpDown).Minimum = value
+            End If
+        Next
+
+        For Each num As Control In grpSpells.Controls
+            If TypeOf num Is NumericUpDown Then
+                DirectCast(num, NumericUpDown).Minimum = value
+            End If
+        Next
+
+        numHealthPoints.Minimum = value
+        numStaminaPoints.Minimum = value
+        numMagicPoints.Minimum = value
+    End Sub
+
 
     Private Sub SetMaximumInventory(value As Short)
         numDaggers.Maximum = value
