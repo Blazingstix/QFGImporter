@@ -1,0 +1,99 @@
+﻿Quest For Glory 4: Byte Breakdown
+
+QFG4 is different from QFG1 or QFG2 in a subtle but significant way.
+Instead of each value being one byte (as in the previous two games),
+each value is stored in two bytes.
+
+Encryption Summary:
+	The data portion of the Saved Character is XXX characters long, and is the ascii representation of the hex values. Each byte is represented by 2 characters (0 - f).
+	The compression scheme follows this convention:
+	Encrypted(N) = Short(N) XOR Short(N-1) with Short(-1) == 0x53
+	
+	Then the Encrypted value is split into two bytes AA BB as follows:
+	AA(N) = Encrypted(N) / 100
+	BB(N) = Encrypted(N) MOD 100
+
+	i.e. The first byte is the value divided by 100, and the second byte is the remainder.
+
+This causes a problem in *some* QFG3 games, and many more QFG4 games, when you 
+have values larger than 10,000 (most likely experience).
+
+(From CC:
+Quest for Glory 5 has a similar problem with importing certain QG4 (and a very few QG3) files.  
+The problem is that the export data was output as a series of ASCII values using the "%2x%2x" formatting 
+string (number divided by 100 and remainder thereof) on the assumption that the values would 
+never exceed 10000.  
+Unfortunately, between the facts that stats could get up to 400 and there were more stats in QG4 
+than in earlier games in the series, this sometimes overflowed yielding 5 digits instead of 4, and 
+sometimes went negative (when the values exceeded 32767).
+It's a big mess.)
+
+see also: http://stackoverflow.com/questions/15823597/use-printf-to-print-character-string-in-hex-format-distorted-results
+
+NOTE: Because of the overflow error possibility, you cannot take the below positions for granted.  I do not have a method yet for parsing 
+sav files that have overflow errors.
+	
+Short 0: Character Class 
+    (0 for Fighter, 1 for Magic User, 2 for Thief, 3 for Paladin)
+    
+Shorts 1: Crowns (unconfirmed)
+    
+Short 2: Puzzle Points (unconfirmed)
+	value is puzpoints
+
+Short 3: Unique Inventory Items (unconfirmed)
+	unknown if all 16 bits are used, or if it is more dividion by 100 + remainder seperation
+
+Shorts 4 - 19: Abilities and Skills 
+    (4 - Strength, 5 - Inelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor, 19 - Acrobatics (unconfirmed))
+
+Short 20: Experience
+    value is exp 
+	NOTE: This is the most likely place for an overflow
+    
+Shorts 21 - 23: HP/SP/MP Current Levels
+    Short 21: Health Points 
+       (health is 1:1, i.e. 43HP = 43) 
+       value is hp
+    
+    Short 22: Stamina Points
+       (stamina is 1:1, i.e. 60SP = 60)
+       value is sp
+    
+    Short 23: Magic Points
+       (stamina is 1:1, i.e. 5MP = 5)
+	   value is mp 
+    
+Shorts 24 - 44: Magic Spells
+    (24 - Open, ... , 31 - Fetch, 32 - ForceBolt, 33 - Levitate, 34 - Reversal, 35 - Juggling Lights, 36 - Summon Staff, 37 - Lightning Ball)
+    (note: order of QFG4 spells is unknown... also unknown if Paladin spells are also included)
+	(38 - 44: Aura, Frost Bite, Glide, Hide, Protection, Resistance, Ritual of Release)
+
+Shorts: 45 - 51: Inventory (unconfirmed)
+    Short 45: Daggers (unconfirmed)
+    
+    Short 46: Healing Pills (unconfirmed)
+    
+    Short 47: Magic Pills (unconfirmed)
+    
+    Short 48: Vigor Pills (unconfirmed)
+    
+    Short 49: Poison Cure Pills (unconfirmed)
+
+	Short 50: (unknown)
+
+	Short 51: (unknown)
+    
+Shorts 52 and 53: (constants - unknown)
+    (Byte44 = 0x0019)
+    (Byte45 = 0x00BE)
+    
+Shorts 54 and 55: Checksums
+    (Byte54 is sum of all even bytes 0 - 50)
+    (Byte55 is sum of all odd bytes 1 - 51)
+    
+Shorts 56 - 59: (constants - unknown)
+    (Byte56 = 0x0037)
+    (Byte57 = 0x006D)
+    (Byte58 = 0x00C4)
+    (Byte59 = 0x00F2)

@@ -21,7 +21,7 @@
 
     Friend Overrides ReadOnly Property OffsetEOF As Byte
         Get
-            Return 51
+            Return 60
         End Get
     End Property
 
