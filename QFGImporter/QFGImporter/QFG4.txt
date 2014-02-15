@@ -36,16 +36,31 @@ sav files that have overflow errors.
 Short 0: Character Class 
     (0 for Fighter, 1 for Magic User, 2 for Thief, 3 for Paladin)
     
-Shorts 1: Crowns (unconfirmed)
+Shorts 1 and 2: Crowns (unconfirmed)
+	Short 1: crowns / 100
+	Short 2: remainder
     
-Short 2: Puzzle Points (unconfirmed)
-	value is puzpoints
-
-Short 3: Unique Inventory Items (unconfirmed)
+Short 3: Unique Inventory Items
+	bit  0:
+	bit  1:
+	bit  2: Sapphire pin
+	bit  3:
+	bit  4:
+	bit  5:
+	bit  6:
+	bit  7:
+	but  8:
+	bit  9:
+	bit 10:
+	bit 11:
+	bit 12:
+	bit 13:
+	bit 14:
+	bit 15:
 	unknown if all 16 bits are used, or if it is more dividion by 100 + remainder seperation
 
 Shorts 4 - 19: Abilities and Skills 
-    (4 - Strength, 5 - Intelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor, 19 - Acrobatics (unconfirmed))
+    (4 - Strength, 5 - Intelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor, 19 - Acrobatics)
 
 Short 20: Experience
     value is exp 

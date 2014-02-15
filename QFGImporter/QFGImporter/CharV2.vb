@@ -4,6 +4,16 @@
     Friend Shadows Property EncodedData As Short()
     Friend Shadows Property DecodedValues As Short()
 
+    Enum InventoryItems
+        Unknown1 = 0
+        Unknown2
+        ThrowingDaggers
+        Unknown3
+        HealingPills
+        ManaPills
+        PoisonCurePills
+    End Enum
+
 #Region "Generic Skill Functions"
     Friend Overrides ReadOnly Property DataSize As Byte
         Get
@@ -49,28 +59,67 @@
 
     Public Overrides Property Inventory(item As Enums.Inventory) As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetInventory + item)
+            Dim v2Item As CharV2.InventoryItems
+            Select Case item
+                Case Enums.Inventory.Daggers
+                    v2Item = InventoryItems.ThrowingDaggers
+                Case Enums.Inventory.HealingPotion
+                    v2Item = InventoryItems.HealingPills
+                Case Enums.Inventory.MagicPotion
+                    v2Item = InventoryItems.ManaPills
+                Case Enums.Inventory.OtherPotion
+                    v2Item = InventoryItems.PoisonCurePills
+                Case Else
+                    v2Item = -1
+            End Select
+            If v2Item = -1 Then
+                Return 0
+            Else
+                Return Me.DecodedValues(Me.OffsetInventory + v2Item)
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetInventory + item) = value
+            Dim v2Item As CharV2.InventoryItems
+            Select Case item
+                Case Enums.Inventory.Daggers
+                    v2Item = InventoryItems.ThrowingDaggers
+                Case Enums.Inventory.HealingPotion
+                    v2Item = InventoryItems.HealingPills
+                Case Enums.Inventory.MagicPotion
+                    v2Item = InventoryItems.ManaPills
+                Case Enums.Inventory.OtherPotion
+                    v2Item = InventoryItems.PoisonCurePills
+                Case Else
+                    v2Item = -1
+            End Select
+            If v2Item <> -1 Then
+                Me.DecodedValues(Me.OffsetInventory + v2Item) = value
+            End If
         End Set
     End Property
 
     Public Overrides Property PuzzlePoints As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetPuzzlePoints)
+            Return 0
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetPuzzlePoints) = value
+
         End Set
     End Property
 
     Public Overrides Property Currency As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetCurrency)
+            'QFG3/4 stores currency in two shorts. The high short is the value / 100. The low short is the remainder.
+            Dim large As Integer = (Me.DecodedValues(Me.OffsetCurrency)) * 100
+            Dim small As Integer = Me.DecodedValues(Me.OffsetCurrency + 1)
+            Return large + small
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetCurrency) = value
+            'QFG3/4 stores currency in two shorts. The high short is the value / 100. The low short is the remainder.
+            Dim small As Byte = value Mod 100
+            Dim large As Byte = ((value - small) / 100)
+            Me.DecodedValues(Me.OffsetCurrency) = large
+            Me.DecodedValues(Me.OffsetCurrency + 1) = small
         End Set
     End Property
 

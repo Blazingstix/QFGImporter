@@ -3,8 +3,8 @@
 
     Enum ByteNames
         CharacterClass = 0
-        Royals
-        PuzzlePoints
+        RoyalsHundreds
+        RoyalsRemainder
         UniqueInventory
         AbilityStrength = 4
         AbilityIntelligence

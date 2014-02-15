@@ -413,6 +413,7 @@
 
                 'load puzzle points
                 numPuzzlePoints.Maximum = 500
+                numPuzzlePoints.Enabled = True
                 numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
 
                 'unique inventory
@@ -431,6 +432,7 @@
                 numDaggers.Value = Me.LoadedChar.Inventory(Enums.Inventory.Daggers)
                 numHealingPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.HealingPotion)
                 numVigorPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.VigorPotion)
+                numVigorPotions.Enabled = True
                 numMagicPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.MagicPotion)
                 numOtherPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.OtherPotion)
             ElseIf TypeOf Me.LoadedChar Is CharQFG2 Then
@@ -442,6 +444,7 @@
 
                 'load puzzle points
                 numPuzzlePoints.Maximum = 550
+                numPuzzlePoints.Enabled = True
                 numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
 
                 'unique inventory
@@ -461,18 +464,20 @@
                 numDaggers.Value = Me.LoadedChar.Inventory(Enums.Inventory.Daggers)
                 numHealingPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.HealingPotion)
                 numVigorPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.VigorPotion)
+                numVigorPotions.Enabled = True
                 numMagicPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.MagicPotion)
                 numOtherPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.OtherPotion)
             ElseIf TypeOf Me.LoadedChar Is CharQFG3 Then
                 Call SetMaximumSkill(Short.MaxValue)
                 Call SetMinimumSkill(Short.MinValue)
-                Call SetMaximumInventory(300)
+                Call SetMaximumInventory(Short.MaxValue)
                 Call LoadQFG1Common()
                 Call LoadQFG2Common()
                 Call LoadQFG3Common()
                 'load puzzle points
                 numPuzzlePoints.Maximum = 500
                 numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
+                numPuzzlePoints.Enabled = False
 
                 'inventory
                 numGold.Maximum = 10000
@@ -481,6 +486,7 @@
                 numDaggers.Value = Me.LoadedChar.Inventory(Enums.Inventory.Daggers)
                 numHealingPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.HealingPotion)
                 numVigorPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.VigorPotion)
+                numVigorPotions.Enabled = False
                 numMagicPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.MagicPotion)
             ElseIf TypeOf Me.LoadedChar Is CharQFG4 Then
                 Call SetMaximumSkill(Short.MaxValue)
@@ -490,6 +496,14 @@
                 Call LoadQFG2Common()
                 Call LoadQFG3Common()
                 Call LoadQFG4Common()
+
+                numPuzzlePoints.Enabled = False
+                numPuzzlePoints.Value = Me.LoadedChar.PuzzlePoints
+
+                'inventory
+                numGold.Maximum = 10000
+                numGold.Value = Me.LoadedChar.Currency
+
 
             End If
 
@@ -511,6 +525,7 @@
         chkFlag8.Enabled = False
 
         lblCurrency.Text = "Gold"
+        lblDaggers.Text = "Daggers"
         lblHealingPotions.Text = "Healing Potions"
         lblMagicPotions.Text = "Magic Potions"
         lblVigorPotions.Text = "Vigor Potions"
@@ -529,6 +544,7 @@
         chkFlag8.Enabled = True
 
         lblCurrency.Text = "Golden Dinars"
+        lblDaggers.Text = "Daggers"
         lblHealingPotions.Text = "Healing Pills"
         lblMagicPotions.Text = "Magic Pills"
         lblVigorPotions.Text = "Vigor Pills"
@@ -546,6 +562,7 @@
         chkFlag8.Text = "Flag 8"
 
         lblCurrency.Text = "Golden Royals"
+        lblDaggers.Text = "Throwing Daggers"
         lblHealingPotions.Text = "Healing Pills"
         lblMagicPotions.Text = "Magic Pills"
         lblVigorPotions.Text = "Vigor Pills"
@@ -563,6 +580,7 @@
         chkFlag8.Text = "Flag 8"
 
         lblCurrency.Text = "Golden Crowns"
+        lblDaggers.Text = "Throwing Daggers"
         lblHealingPotions.Text = "Healing Potions"
         lblMagicPotions.Text = "Magic Potions"
         lblVigorPotions.Text = "Vigor Potions"
@@ -1001,9 +1019,9 @@
             End If
         End If
 
-        Call DisplaySelectedByte(testvalue)
+        'Call DisplaySelectedByte(testvalue)
 
-        Call LoadSelectedByteReference()
+        'Call LoadSelectedByteReference()
 
         Select Case Me.LoadedChar.Game
             Case Enums.Games.QFG1
@@ -1011,6 +1029,7 @@
             Case Enums.Games.QFG2
                 lblByteName.Text = DirectCast(CInt(numOffset.Value), CharQFG2.ByteNames).ToString
             Case Enums.Games.QFG3
+                lblByteName.Text = DirectCast(CInt(numOffset.Value), CharQFG3.ByteNames).ToString
             Case Enums.Games.QFG4
         End Select
     End Sub

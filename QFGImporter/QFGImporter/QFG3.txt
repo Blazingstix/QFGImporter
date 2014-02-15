@@ -36,13 +36,30 @@ sav files that have overflow errors.
 Short 0: Character Class 
     (0 for Fighter, 1 for Magic User, 2 for Thief, 3 for Paladin)
     
-Shorts 1: Royals (unconfirmed)
-	note: if royals are saved at the end of QFG3, that value is ignored for the start of QFG4.
+Shorts 1 and 2: Royals
+	Short 1: currency / 100
+	Short 2: remainder
+	100 commons are automatically converted to royals, but anything less than 100 commons is discarded
+	note: royals are saved at the end of QFG3, but that value is ignored for the start of QFG4.
     
-Short 2: Puzzle Points (unconfirmed) ... possible this value is currency...
-	value is puzpoints
-
-Short 3: Unique Inventory Items (unconfirmed)
+Short 3: Unique Inventory Items
+	bit  0:
+	bit  1:
+	bit  2: Sapphire pin
+	bit  3:
+	bit  4:
+	bit  5:
+	bit  6:
+	bit  7:
+	but  8:
+	bit  9:
+	bit 10:
+	bit 11:
+	bit 12:
+	bit 13:
+	bit 14:
+	bit 15:
+	possible candidates for bits: chainmail, sword, shield, fine dagger, tinderbox, became warrior to the simbani, kissed johari, met arnie ardvark, met laurel and hardy, met rhino, had stampy the elephant death message
 	unknown if all 16 bits are used, or if it is more dividion by 100 + remainder seperation
 
 Shorts 4 - 18: Abilities and Skills 
@@ -74,7 +91,7 @@ Shorts: 37 - 43: Inventory
     
     Short 38: (unknown)
     
-    Short 39: Throwing Daggers (unconfirmed)
+    Short 39: Throwing Daggers
     
     Short 40: (unknown)
     
