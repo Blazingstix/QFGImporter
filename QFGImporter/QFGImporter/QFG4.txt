@@ -45,7 +45,7 @@ Short 3: Unique Inventory Items (unconfirmed)
 	unknown if all 16 bits are used, or if it is more dividion by 100 + remainder seperation
 
 Shorts 4 - 19: Abilities and Skills 
-    (4 - Strength, 5 - Inelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor, 19 - Acrobatics (unconfirmed))
+    (4 - Strength, 5 - Intelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor, 19 - Acrobatics (unconfirmed))
 
 Short 20: Experience
     value is exp 

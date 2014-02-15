@@ -35,7 +35,7 @@ Byte 4: Unique Inventory Items
 		   between having the fine sword or soulforge must depend on Class.
 
 Bytes 5 - 19: Abilities and Skills 
-    (5 - Strength, 6 - Inelligence, ... , 17 - Magic, 18 - Communication, 19 - Honor)
+    (5 - Strength, 6 - Intelligence, ... , 17 - Magic, 18 - Communication, 19 - Honor)
 
 Byte 20: Experience
     value is exp AND 0xFF

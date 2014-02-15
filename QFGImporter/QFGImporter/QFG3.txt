@@ -37,16 +37,16 @@ Short 0: Character Class
     (0 for Fighter, 1 for Magic User, 2 for Thief, 3 for Paladin)
     
 Shorts 1: Royals (unconfirmed)
-	note: royals are saved at the end of QFG3, but that value is ignored for the start of QFG4.
+	note: if royals are saved at the end of QFG3, that value is ignored for the start of QFG4.
     
-Short 2: Puzzle Points (unconfirmed)
+Short 2: Puzzle Points (unconfirmed) ... possible this value is currency...
 	value is puzpoints
 
 Short 3: Unique Inventory Items (unconfirmed)
 	unknown if all 16 bits are used, or if it is more dividion by 100 + remainder seperation
 
 Shorts 4 - 18: Abilities and Skills 
-    (4 - Strength, 5 - Inelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor)
+    (4 - Strength, 5 - Intelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor)
 	NOTE: Paladin points are not saved, as they are a direct correlation with Honor
 
 Short 19: Experience
@@ -69,22 +69,25 @@ Shorts 20 - 22: HP/SP/MP Current Levels
 Shorts 23 - 36: Magic Spells
     (23 - Open, ... , 30 - Fetch, 31 - ForceBolt, 32 - Levitate, 33 - Reversal, 34 - Juggling Lights, 35 - Summon Staff, 36 - Lightning Ball)
     
-Shorts: 37 - 43: Inventory (unconfirmed)
-    Short 37: Daggers (unconfirmed)
+Shorts: 37 - 43: Inventory
+    Short 37: (unknown)
     
-    Short 38: Healing Pills (unconfirmed)
+    Short 38: (unknown)
     
-    Short 39: Magic Pills (unconfirmed)
+    Short 39: Throwing Daggers (unconfirmed)
     
-    Short 40: Vigor Pills (unconfirmed)
+    Short 40: (unknown)
     
-    Short 41: Poison Cure Pills (unconfirmed)
+    Short 41: Healing Pills
 
-	Short 42: (unknown)
+	Short 42: Mana Pills
 
-	Short 43: (unknown)
+	Short 43: Poison Cure Pills
+	Note: unknown inventory is none of the following:
+	Tinderbox, Waterskin, Zebra Skin, Dried Meat, Dinosaur Horn, Rocks, Rope, Sapphire Pin, Water from the Pool of Peace, Magic Wood.
+	'Sapphire Pin and Tinderbox may still be part of UniqueInventory
     
-Shorts 44 and 45: (constants - unknown)
+Shorts 44 and 45: (constants)
     (Byte44 = 0x0019)
     (Byte45 = 0x00BE)
     
@@ -92,7 +95,7 @@ Shorts 46 and 47: Checksums
     (Byte46 is sum of all even bytes 0 - 42)
     (Byte47 is sum of all odd bytes 1 - 43)
     
-Shorts 48 - 51: (constants - unknown)
+Shorts 48 - 51: (constants)
     (Byte48 = 0x0037)
     (Byte49 = 0x006D)
     (Byte50 = 0x00C4)

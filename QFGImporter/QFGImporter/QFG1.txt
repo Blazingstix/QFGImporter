@@ -37,7 +37,7 @@ Byte 4: Unique Inventory Items
     bit 7: (unused)
 
 Bytes 5 - 17: Abilities and Skills 
-    (5 - Strength, 6 - Inelligence, ... , 17 - Magic)
+    (5 - Strength, 6 - Intelligence, ... , 17 - Magic)
 
 Byte 18: Experience
     value is exp AND 0xF7
