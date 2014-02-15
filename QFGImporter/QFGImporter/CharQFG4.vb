@@ -15,7 +15,7 @@
 
     Friend Overrides ReadOnly Property OffsetChecksum As Byte
         Get
-            Return 46
+            Return 54
         End Get
     End Property
 
@@ -27,25 +27,25 @@
 
     Friend Overrides ReadOnly Property OffsetExperience As Byte
         Get
-            Return 19
+            Return 20
         End Get
     End Property
 
     Friend Overrides ReadOnly Property OffsetInventory As Byte
         Get
-            Return 37
+            Return 45
         End Get
     End Property
 
     Friend Overrides ReadOnly Property OffsetConstants1 As Byte
         Get
-            Return 44
+            Return 52
         End Get
     End Property
 
     Friend Overrides ReadOnly Property OffsetConstants2 As Byte
         Get
-            Return 48
+            Return 56
         End Get
     End Property
 
@@ -57,7 +57,7 @@
 
     Friend Overrides ReadOnly Property OffsetSpells As Byte
         Get
-            Return 23
+            Return 24
         End Get
     End Property
 
@@ -75,11 +75,6 @@
 
     Public Sub New(fileContents)
         Call Load(fileContents)
-        If (Me.EncodedString.Length Mod 4) <> 0 Then
-            MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG4 files with data not divisible by 4 has an error, and this program cannot work around that yet.")
-            Exit Sub
-        End If
-        'Me.EncodedDataShort = ConvertByteToShortX(Me.EncodedData)
     End Sub
 
     Friend Overrides Sub SetGame()

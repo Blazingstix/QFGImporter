@@ -482,6 +482,14 @@
                 numHealingPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.HealingPotion)
                 numVigorPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.VigorPotion)
                 numMagicPotions.Value = Me.LoadedChar.Inventory(Enums.Inventory.MagicPotion)
+            ElseIf TypeOf Me.LoadedChar Is CharQFG4 Then
+                Call SetMaximumSkill(Short.MaxValue)
+                Call SetMinimumSkill(Short.MinValue)
+                Call SetMaximumInventory(400)
+                Call LoadQFG1Common()
+                Call LoadQFG2Common()
+                Call LoadQFG3Common()
+                Call LoadQFG4Common()
 
             End If
 
@@ -641,6 +649,17 @@
         numJugglingLights.Value = Me.LoadedChar.MagicSpell(Enums.Magic.JugglingLights)
         numLightningBall.Value = Me.LoadedChar.MagicSpell(Enums.Magic.LightningBall)
         numSummonStaff.Value = Me.LoadedChar.MagicSpell(Enums.Magic.SummonStaff)
+    End Sub
+
+    Private Sub LoadQFG4Common()
+        numAcrobatics.Value = Me.LoadedChar.Skill(Enums.Skills.Acrobatics)
+
+        numHide.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Hide)
+        numProtection.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Protection)
+        numAura.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Aura)
+        numGlide.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Glide)
+        numResistance.Value = Me.LoadedChar.MagicSpell(Enums.Magic.Resistance)
+        numFrostBite.Value = Me.LoadedChar.MagicSpell(Enums.Magic.FrostBite)
     End Sub
 
     Private Sub EnableQFG1(enabled As Boolean)

@@ -118,23 +118,25 @@
     End Function
 
 
-    Public Shared Function importHexStringX(hexString As String, expectedSize As Integer) As Short()
+    Public Shared Function importHexStringX2(hexString As String, expectedSize As Integer) As Short()
         'TODO: This function is hard-coded for QFG3... we need to generalize it to support QFG4 too.
-        Debug.Print("expectedSize Length: " & expectedSize & "; actual size: " & hexstring.Length & vbCrLf & "Difference of " & hexstring.Length - expectedSize & " characters.")
+        Debug.Print("expectedSize Length: " & expectedSize & "; actual size: " & hexString.Length & vbCrLf & "Difference of " & hexString.Length - expectedSize & " characters.")
 
         Debug.Print(hexString)
         Dim overflowSize As Integer = hexString.Length - expectedSize
         Dim overflowLeft As Integer = overflowSize
         Dim upperBound As Integer = expectedSize / 4
         Dim buffer(upperBound - 1) As Short
+        Dim POS_EXPERIENCE As Integer = 19
+        Dim POS_CHECKSUM2 As Integer = upperBound - 5
 
 
         Dim curValue As Integer = 0
         Dim curPosition As Integer = 0
 
         'load the first set of values... these are the ones that are most likely to not be corrupted
-        Do Until curValue >= 19
-            If curValue < 19 Or overflowLeft = 0 Then ' me.offsetexperience
+        Do Until curValue >= POS_EXPERIENCE
+            If curValue < POS_EXPERIENCE Or overflowLeft = 0 Then ' me.offsetexperience
                 Dim high As String = hexString.Substring(curPosition, 2).Replace(" ", "0")
                 Dim low As String = hexString.Substring(curPosition + 2, 2).Replace(" ", "0")
                 Dim hiInt As Integer = Convert.ToByte(high, 16) * 100
@@ -155,9 +157,26 @@
         Debug.Print(hexString.Substring(curPosition))
 
         Dim overChar As Integer = 0
-        If overflowSize = 1 Then
+        If overflowSize = 0 Then
             Do Until curPosition >= hexString.Length
-                If curValue = 47 Then
+                overChar = 0
+                Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
+                Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
+                Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
+                Dim loInt As Integer = Convert.ToByte(low, 16)
+                Dim value As Integer = 0
+                If hiInt >= 0 Then
+                    value = hiInt + loInt
+                Else
+                    value = hiInt - loInt
+                End If
+                buffer(curValue) = value And Short.MaxValue
+                curPosition += 4 + overChar
+                curValue += 1
+            Loop
+        ElseIf overflowSize = 1 Then
+            Do Until curPosition >= hexString.Length
+                If curValue = POS_CHECKSUM2 Then
                     overChar = 1
                 Else
                     overChar = 0
@@ -172,13 +191,13 @@
                 Else
                     value = hiInt - loInt
                 End If
-                buffer(curValue) = value And (Short.MaxValue + 1)
+                buffer(curValue) = value And Short.MaxValue
                 curPosition += 4 + overChar
                 curValue += 1
             Loop
         ElseIf overflowSize = 28 Then
             Do Until curPosition >= hexString.Length
-                If curValue < 47 Then
+                If curValue < POS_CHECKSUM2 Then
                     overChar = 1
                 Else
                     overChar = 0
@@ -198,7 +217,7 @@
                 curValue += 1
             Loop
         ElseIf overflowSize = 38 Then
-            Do Until curValue = 48
+            Do Until curValue = POS_CHECKSUM2 + 1
                 overChar = 1
                 Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
                 Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
@@ -221,7 +240,7 @@
             buffer(51) = 0
         ElseIf overflowSize = 56 Or overflowSize = 61 Then
             'TODO: these values are not correct after experience. Perhaps if I overflow the experience value to a negative, it will work better.
-            Do Until curValue = 48
+            Do Until curValue = POS_CHECKSUM2 + 1
                 overChar = 2
                 Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
                 Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
@@ -265,27 +284,146 @@
             buffer(49) = 0
             buffer(50) = 0
             buffer(51) = 0
-
+        Else
+            MessageBox.Show("Unhandled Overflow Size: " & overflowSize)
         End If
-
-
-        'Dim a As Short = &H7C8
-        'Dim x As Short = 0
-        'Dim b As Short = &H119
-        'Dim c As Short = &HA99
-        'For i As Short = Short.MinValue To Short.MaxValue
-        '    Dim y As Short
-        '    y = (a Xor i) Xor b
-        '    If y = c Then MessageBox.Show(i)
-
-        'Next
-
 
         'for debug purposes, we'll print out the binary array (with spaces)
         Debug.Print(CharGeneric.BytesToString(buffer))
 
         Return buffer
     End Function
+
+    Public Shared Function importHexStringX(hexString As String, expectedSize As Integer) As Short()
+        'TODO: This function is hard-coded for QFG3... we need to generalize it to support QFG4 too.
+        Debug.Print("expectedSize Length: " & expectedSize & "; actual size: " & hexString.Length & vbCrLf & "Difference of " & hexString.Length - expectedSize & " characters.")
+
+        Debug.Print(hexString)
+        Dim overflowSize As Integer = hexString.Length - expectedSize
+        Dim upperBound As Integer = expectedSize / 4
+        Dim buffer(upperBound - 1) As Short
+        Dim QFG3 As Boolean = (expectedSize = 208)
+        Dim QFG4 As Boolean = (expectedSize = 240)
+
+        Dim POS_EXPERIENCE As Integer = 19
+        If QFG4 Then
+            POS_EXPERIENCE = 20
+        End If
+        Dim POS_CHECKSUM1 As Integer = upperBound - 6
+
+        Dim curValue As Integer = 0
+        Dim curPosition As Integer = 0
+
+        'load the first set of values... these are the ones that are most likely to not be corrupted
+        Do Until curValue >= upperBound
+            Dim overChar As Integer = 0
+            Dim skipLastFour As Boolean = False
+            If overflowSize = 0 Then ' me.offsetexperience
+                overChar = 0
+            ElseIf curValue < POS_EXPERIENCE Then
+                'There's no likelyhood of an overflow before we reach experience
+                overChar = 0
+            ElseIf overflowSize = 1 Then
+                'QFG3 (only the 2nd checksum has overflowed)... don't know why that doesn't effect the constants...
+                If curValue = POS_CHECKSUM1 + 1 Then
+                    overChar = 1
+                End If
+            ElseIf overflowSize = 6 Then
+                'QFG4 (both checksums have overflowed... and the 4 constants after)
+                If curValue >= POS_CHECKSUM1 Then
+                    overChar = 1
+                End If
+            ElseIf overflowSize = 28 Then
+                'QFG3
+                If curValue < POS_CHECKSUM1 + 1 Then
+                    overChar = 1
+                End If
+            ElseIf overflowSize = 34 Then
+                'QFG4 (weird one... Experience is too large but the magic spell at 0x42 has no overflow, then 43 resumes with overflow, and then checksum2 to EOF has no overflow)
+                If curValue >= POS_EXPERIENCE And curValue <> 42 And curValue <= 54 Then
+                    overChar = 1
+                End If
+            ElseIf overflowSize = 38 Then
+                'QFG3
+                If curValue >= POS_EXPERIENCE Then
+                    overChar = 1
+                    skipLastFour = True
+                End If
+            ElseIf overflowSize = 56 Or overflowSize = 61 Then
+                'QFG3 (large overflow... by 2 extra characters in each value)
+                If curValue >= POS_EXPERIENCE Then
+                    overChar = 2
+                    skipLastFour = True
+                End If
+            ElseIf overflowSize = 204 Then
+                If curValue >= POS_EXPERIENCE And POS_CHECKSUM1 > curValue Then
+                    overChar = 6
+                End If
+            ElseIf overflowSize = 210 Then
+                If curValue >= POS_EXPERIENCE And POS_CHECKSUM1 > curValue Then
+                    overChar = 6
+                ElseIf curValue >= POS_CHECKSUM1 Then
+                    overChar = 1
+                End If
+            ElseIf overflowSize = 240 Then
+                If curValue >= POS_EXPERIENCE Then
+                    overChar = 6
+                End If
+            Else
+                Dim game As String = String.Empty
+                If QFG3 Then
+                    game = "QFG3"
+                ElseIf QFG4 Then
+                    game = "QFG4"
+                Else
+                    game = "(Unknown Game)"
+                End If
+                If curValue = POS_EXPERIENCE Then
+                    MessageBox.Show("This character export file suffers from overflow errors that have not been accounted for by this program." & vbCrLf & vbCrLf & game & " overflow of " & overflowSize & " characters.", "Unhandled overflow size.")
+                End If
+            End If
+
+                If skipLastFour And curValue >= upperBound - 4 Then
+                    buffer(curValue) = 0
+                Else
+                    Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
+                    Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
+                Dim hiInt As Integer = 0
+                If overChar <= 2 Then
+                    hiInt = Convert.ToInt16(high, 16) * 100
+                Else
+                    hiInt = Convert.ToInt32(high, 16) * 100
+                End If
+                Dim loInt As Integer = Convert.ToByte(low, 16)
+                    Dim value As Integer = 0
+                    If hiInt >= 0 Then
+                        value = hiInt + loInt
+                    Else
+                        value = hiInt - loInt
+                    End If
+
+                    buffer(curValue) = value And Short.MaxValue
+                End If
+
+                curPosition += 4 + overChar
+                curValue += 1
+        Loop
+
+        If curPosition < hexString.Length - 1 Then
+            Debug.Print(hexString.Substring(curPosition))
+        End If
+
+
+        'Else
+        'MessageBox.Show("Unhandled Overflow Size: " & overflowSize)
+        'End If
+
+        'for debug purposes, we'll print out the binary array (with spaces)
+        Debug.Print(CharGeneric.BytesToString(buffer))
+
+        Return buffer
+    End Function
+
 
     ''' <summary>
     ''' The main method of encription that QFG1/2 saved characters use

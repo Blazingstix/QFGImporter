@@ -39,13 +39,13 @@
         MagicSpellJugglingLights
         MagicSpellSummonStaff
         MagicSpellLightningBall
-        InventoryDaggers = 37
-        InventoryHealingPills
-        InventoryMagicPills
-        InventoryVigorPills
-        InventoryPoisonCurePills
-        InventoryUnknown42 = 42
-        InventoryUnknown43 = 43
+        InventoryUnknown37 = 37
+        InventoryUnknown38
+        InventoryThrowingDaggers
+        InventoryUnknown40 = 40
+        InventoryHealingPills = 41
+        InventoryManaPills = 42
+        InventoryPoisonCurePills = 43
         Constant1 = 44
         Constant2
         Checksum1 = 46
@@ -140,10 +140,10 @@
 
     Public Sub New(fileContents)
         Call Load(fileContents)
-        If Me.EncodedString.Length <> 208 Then
-            MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG3 files with data larger than 208 characters has an error, and this program cannot work around that yet.")
-            Exit Sub
-        End If
+        'If Me.EncodedString.Length <> 208 Then
+        '    MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG3 files with data larger than 208 characters has an error, and this program cannot work around that yet.")
+        '    Exit Sub
+        'End If
         'Me.EncodedDataShort = ConvertByteToShortX(Me.EncodedData)
     End Sub
 
