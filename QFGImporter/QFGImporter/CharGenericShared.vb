@@ -8,11 +8,28 @@
         Return inputByte And mask
     End Function
 
+    Public Shared Function getBit(inputByte As Short, bit As Byte) As Boolean
+        If bit > 15 Then
+            Return 0
+        End If
+        Dim mask As UShort = 1 << bit
+
+        Return inputByte And mask
+    End Function
+
     Public Shared Function toggleBit(inputByte As Byte, bit As Byte) As Byte
         If bit > 7 Then
             Return inputByte
         End If
         Dim mask As Byte = 1 << bit
+        Return inputByte Xor mask
+    End Function
+
+    Public Shared Function toggleBit(inputByte As Short, bit As Byte) As Byte
+        If bit > 15 Then
+            Return inputByte
+        End If
+        Dim mask As UShort = 1 << bit
         Return inputByte Xor mask
     End Function
 
@@ -24,40 +41,53 @@
         If value Then
             Return inputByte Or mask
         Else
-            Return inputByte And (&HFF Xor mask)
+            Return inputByte And (Byte.MaxValue Xor mask)
         End If
     End Function
 
-    Public Shared Function BitShift(byteArray As Byte(), bits As SByte) As Byte()
-        Dim result(byteArray.Length - 1) As Byte
-        If bits = 0 Then
-            Return byteArray
-        ElseIf bits > 0 And bits < 8 Then
-            For i As Integer = 0 To byteArray.Length - 2
-                result(i) = (byteArray(i) << bits) Or (byteArray(i + 1) >> (8 - bits))
-            Next
-            result(byteArray.Length - 1) = (byteArray(byteArray.Length - 1) << bits)
-        ElseIf bits = 8 Then
-            For i As Integer = 0 To byteArray.Length - 2
-                result(i) = byteArray(i + 1)
-            Next
-        ElseIf bits > 8 And bits < 16 Then
-            bits = bits Mod 8
-            For i As Integer = 0 To byteArray.Length - 3
-                result(i) = (byteArray(i + 1) << bits) Or (byteArray(i + 2) >> (8 - bits))
-            Next
-            result(byteArray.Length - 2) = (byteArray(byteArray.Length - 2) << bits)
-        ElseIf bits < 0 And bits > -8 Then
-
-        ElseIf bits = -8 Then
-            For i As Integer = 1 To byteArray.Length - 1
-                result(i) = byteArray(i - 1)
-            Next
-        ElseIf bits < -8 And bits > -16 Then
-
+    Public Shared Function setBit(inputByte As Short, bit As Byte, value As Boolean) As Byte
+        If bit > 15 Then
+            Return inputByte
         End If
-        Return result
+        Dim mask As UShort = 1 << bit
+        If value Then
+            Return inputByte Or mask
+        Else
+            Return inputByte And (Short.MaxValue Xor mask)
+        End If
     End Function
+
+
+    'Public Shared Function BitShift(byteArray As Byte(), bits As SByte) As Byte()
+    '    Dim result(byteArray.Length - 1) As Byte
+    '    If bits = 0 Then
+    '        Return byteArray
+    '    ElseIf bits > 0 And bits < 8 Then
+    '        For i As Integer = 0 To byteArray.Length - 2
+    '            result(i) = (byteArray(i) << bits) Or (byteArray(i + 1) >> (8 - bits))
+    '        Next
+    '        result(byteArray.Length - 1) = (byteArray(byteArray.Length - 1) << bits)
+    '    ElseIf bits = 8 Then
+    '        For i As Integer = 0 To byteArray.Length - 2
+    '            result(i) = byteArray(i + 1)
+    '        Next
+    '    ElseIf bits > 8 And bits < 16 Then
+    '        bits = bits Mod 8
+    '        For i As Integer = 0 To byteArray.Length - 3
+    '            result(i) = (byteArray(i + 1) << bits) Or (byteArray(i + 2) >> (8 - bits))
+    '        Next
+    '        result(byteArray.Length - 2) = (byteArray(byteArray.Length - 2) << bits)
+    '    ElseIf bits < 0 And bits > -8 Then
+
+    '    ElseIf bits = -8 Then
+    '        For i As Integer = 1 To byteArray.Length - 1
+    '            result(i) = byteArray(i - 1)
+    '        Next
+    '    ElseIf bits < -8 And bits > -16 Then
+
+    '    End If
+    '    Return result
+    'End Function
 
     ''' <summary>
     ''' This is used for QFG1 and QFG2
@@ -92,210 +122,210 @@
         Return buffer
     End Function
 
-    ''' <summary>
-    ''' This is used for QFG3/4.
-    ''' It is a custom two-byte word conversion, for QFG3/4.
-    ''' AA BB = (AA*100)+BB
-    ''' </summary>
-    ''' <param name="hexString"></param>
-    ''' <returns></returns>
-    ''' <remarks>Does not work if there are errors/overage in the SAV file</remarks>
-    Public Shared Function convertHexStringToShortArray(hexString As String) As Short()
-        'TODO: Some day, we need to account for data length overflow errors.
-        Dim byteArray() As Byte = CharGeneric.convertHexStringToByteArray(hexString)
-        Dim upperBound As Integer = Math.Ceiling(byteArray.Length / 2)
+    ' ''' <summary>
+    ' ''' This is used for QFG3/4.
+    ' ''' It is a custom two-byte word conversion, for QFG3/4.
+    ' ''' AA BB = (AA*100)+BB
+    ' ''' </summary>
+    ' ''' <param name="hexString"></param>
+    ' ''' <returns></returns>
+    ' ''' <remarks>Does not work if there are errors/overage in the SAV file</remarks>
+    'Public Shared Function convertHexStringToShortArray(hexString As String) As Short()
+    '    'TODO: Some day, we need to account for data length overflow errors.
+    '    Dim byteArray() As Byte = CharGeneric.convertHexStringToByteArray(hexString)
+    '    Dim upperBound As Integer = Math.Ceiling(byteArray.Length / 2)
 
-        Dim buffer(upperBound - 1) As Short
-        For i As Integer = 0 To byteArray.Length - 1 Step 2
-            Dim val As Short = byteArray(i) * 100 + byteArray(i + 1)
-            buffer(i / 2) = val
-        Next
+    '    Dim buffer(upperBound - 1) As Short
+    '    For i As Integer = 0 To byteArray.Length - 1 Step 2
+    '        Dim val As Short = byteArray(i) * 100 + byteArray(i + 1)
+    '        buffer(i / 2) = val
+    '    Next
 
-        'for debug purposes, we'll print out the binary array (with spaces)
-        Debug.Print(CharGeneric.BytesToString(buffer))
+    '    'for debug purposes, we'll print out the binary array (with spaces)
+    '    Debug.Print(CharGeneric.BytesToString(buffer))
 
-        Return buffer
-    End Function
-
-
-    Public Shared Function importHexStringX2(hexString As String, expectedSize As Integer) As Short()
-        'TODO: This function is hard-coded for QFG3... we need to generalize it to support QFG4 too.
-        Debug.Print("expectedSize Length: " & expectedSize & "; actual size: " & hexString.Length & vbCrLf & "Difference of " & hexString.Length - expectedSize & " characters.")
-
-        Debug.Print(hexString)
-        Dim overflowSize As Integer = hexString.Length - expectedSize
-        Dim overflowLeft As Integer = overflowSize
-        Dim upperBound As Integer = expectedSize / 4
-        Dim buffer(upperBound - 1) As Short
-        Dim POS_EXPERIENCE As Integer = 19
-        Dim POS_CHECKSUM2 As Integer = upperBound - 5
+    '    Return buffer
+    'End Function
 
 
-        Dim curValue As Integer = 0
-        Dim curPosition As Integer = 0
+    'Public Shared Function importHexStringX2(hexString As String, expectedSize As Integer) As Short()
+    '    'TODO: This function is hard-coded for QFG3... we need to generalize it to support QFG4 too.
+    '    Debug.Print("expectedSize Length: " & expectedSize & "; actual size: " & hexString.Length & vbCrLf & "Difference of " & hexString.Length - expectedSize & " characters.")
 
-        'load the first set of values... these are the ones that are most likely to not be corrupted
-        Do Until curValue >= POS_EXPERIENCE
-            If curValue < POS_EXPERIENCE Or overflowLeft = 0 Then ' me.offsetexperience
-                Dim high As String = hexString.Substring(curPosition, 2).Replace(" ", "0")
-                Dim low As String = hexString.Substring(curPosition + 2, 2).Replace(" ", "0")
-                Dim hiInt As Integer = Convert.ToByte(high, 16) * 100
-                Dim loInt As Integer = Convert.ToByte(low, 16)
-                Dim value As Integer = 0
-                If hiInt >= 0 Then
-                    value = hiInt + loInt
-                Else
-                    value = hiInt - loInt
-                End If
+    '    Debug.Print(hexString)
+    '    Dim overflowSize As Integer = hexString.Length - expectedSize
+    '    Dim overflowLeft As Integer = overflowSize
+    '    Dim upperBound As Integer = expectedSize / 4
+    '    Dim buffer(upperBound - 1) As Short
+    '    Dim POS_EXPERIENCE As Integer = 19
+    '    Dim POS_CHECKSUM2 As Integer = upperBound - 5
 
-                buffer(curValue) = value
-                curPosition += 4
-            End If
-            curValue += 1
-        Loop
 
-        Debug.Print(hexString.Substring(curPosition))
+    '    Dim curValue As Integer = 0
+    '    Dim curPosition As Integer = 0
 
-        Dim overChar As Integer = 0
-        If overflowSize = 0 Then
-            Do Until curPosition >= hexString.Length
-                overChar = 0
-                Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
-                Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
-                Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
-                Dim loInt As Integer = Convert.ToByte(low, 16)
-                Dim value As Integer = 0
-                If hiInt >= 0 Then
-                    value = hiInt + loInt
-                Else
-                    value = hiInt - loInt
-                End If
-                buffer(curValue) = value And Short.MaxValue
-                curPosition += 4 + overChar
-                curValue += 1
-            Loop
-        ElseIf overflowSize = 1 Then
-            Do Until curPosition >= hexString.Length
-                If curValue = POS_CHECKSUM2 Then
-                    overChar = 1
-                Else
-                    overChar = 0
-                End If
-                Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
-                Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
-                Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
-                Dim loInt As Integer = Convert.ToByte(low, 16)
-                Dim value As Integer = 0
-                If hiInt >= 0 Then
-                    value = hiInt + loInt
-                Else
-                    value = hiInt - loInt
-                End If
-                buffer(curValue) = value And Short.MaxValue
-                curPosition += 4 + overChar
-                curValue += 1
-            Loop
-        ElseIf overflowSize = 28 Then
-            Do Until curPosition >= hexString.Length
-                If curValue < POS_CHECKSUM2 Then
-                    overChar = 1
-                Else
-                    overChar = 0
-                End If
-                Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
-                Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
-                Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
-                Dim loInt As Integer = Convert.ToByte(low, 16)
-                Dim value As Integer = 0
-                If hiInt >= 0 Then
-                    value = hiInt + loInt
-                Else
-                    value = hiInt - loInt
-                End If
-                buffer(curValue) = value And Short.MaxValue
-                curPosition += 4 + overChar
-                curValue += 1
-            Loop
-        ElseIf overflowSize = 38 Then
-            Do Until curValue = POS_CHECKSUM2 + 1
-                overChar = 1
-                Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
-                Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
-                Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
-                Dim loInt As Integer = Convert.ToByte(low, 16)
-                Dim value As Integer = 0
-                If hiInt >= 0 Then
-                    value = hiInt + loInt
-                Else
-                    value = hiInt - loInt
-                End If
-                buffer(curValue) = value And Short.MaxValue
-                curPosition += 4 + overChar
-                curValue += 1
-            Loop
-            'manually set the final bits to their expected values (or 0 in this case).
-            buffer(48) = 0
-            buffer(49) = 0
-            buffer(50) = 0
-            buffer(51) = 0
-        ElseIf overflowSize = 56 Or overflowSize = 61 Then
-            'TODO: these values are not correct after experience. Perhaps if I overflow the experience value to a negative, it will work better.
-            Do Until curValue = POS_CHECKSUM2 + 1
-                overChar = 2
-                Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
-                Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
-                Dim hiSht As Short = Convert.ToInt16(high, 16)
-                Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
-                Dim loInt As Integer = Convert.ToByte(low, 16)
-                Dim value As Integer = 0
-                If hiInt >= 0 Then
-                    value = hiInt + loInt
-                Else
-                    value = hiInt - loInt
-                End If
+    '    'load the first set of values... these are the ones that are most likely to not be corrupted
+    '    Do Until curValue >= POS_EXPERIENCE
+    '        If curValue < POS_EXPERIENCE Or overflowLeft = 0 Then ' me.offsetexperience
+    '            Dim high As String = hexString.Substring(curPosition, 2).Replace(" ", "0")
+    '            Dim low As String = hexString.Substring(curPosition + 2, 2).Replace(" ", "0")
+    '            Dim hiInt As Integer = Convert.ToByte(high, 16) * 100
+    '            Dim loInt As Integer = Convert.ToByte(low, 16)
+    '            Dim value As Integer = 0
+    '            If hiInt >= 0 Then
+    '                value = hiInt + loInt
+    '            Else
+    '                value = hiInt - loInt
+    '            End If
 
-                'simulate overflow loop-around
-                'Dim tmpVal As Integer = 0
-                'If value > Short.MaxValue Then
-                '    For i As Integer = 0 To value - 1
-                '        If tmpVal = Short.MaxValue Then
-                '            tmpVal = Short.MinValue
-                '        Else
-                '            tmpVal += 1
-                '        End If
-                '    Next
-                '    value = tmpVal
-                'End If
-                'Dim tmpVal As Integer = 0
-                'If value > Short.MaxValue Then
-                '    tmpVal = value And Short.MaxValue
-                '    value = tmpVal
-                'End If
-                If curValue = 19 Then
-                    value = value And Short.MaxValue
-                    value += 100
-                End If
-                buffer(curValue) = value And Short.MaxValue
-                curPosition += 4 + overChar
-                curValue += 1
-            Loop
-            'manually set the final bits to their expected values (or 0 in this case).
-            buffer(48) = 0
-            buffer(49) = 0
-            buffer(50) = 0
-            buffer(51) = 0
-        Else
-            MessageBox.Show("Unhandled Overflow Size: " & overflowSize)
-        End If
+    '            buffer(curValue) = value
+    '            curPosition += 4
+    '        End If
+    '        curValue += 1
+    '    Loop
 
-        'for debug purposes, we'll print out the binary array (with spaces)
-        Debug.Print(CharGeneric.BytesToString(buffer))
+    '    Debug.Print(hexString.Substring(curPosition))
 
-        Return buffer
-    End Function
+    '    Dim overChar As Integer = 0
+    '    If overflowSize = 0 Then
+    '        Do Until curPosition >= hexString.Length
+    '            overChar = 0
+    '            Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
+    '            Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
+    '            Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
+    '            Dim loInt As Integer = Convert.ToByte(low, 16)
+    '            Dim value As Integer = 0
+    '            If hiInt >= 0 Then
+    '                value = hiInt + loInt
+    '            Else
+    '                value = hiInt - loInt
+    '            End If
+    '            buffer(curValue) = value And Short.MaxValue
+    '            curPosition += 4 + overChar
+    '            curValue += 1
+    '        Loop
+    '    ElseIf overflowSize = 1 Then
+    '        Do Until curPosition >= hexString.Length
+    '            If curValue = POS_CHECKSUM2 Then
+    '                overChar = 1
+    '            Else
+    '                overChar = 0
+    '            End If
+    '            Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
+    '            Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
+    '            Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
+    '            Dim loInt As Integer = Convert.ToByte(low, 16)
+    '            Dim value As Integer = 0
+    '            If hiInt >= 0 Then
+    '                value = hiInt + loInt
+    '            Else
+    '                value = hiInt - loInt
+    '            End If
+    '            buffer(curValue) = value And Short.MaxValue
+    '            curPosition += 4 + overChar
+    '            curValue += 1
+    '        Loop
+    '    ElseIf overflowSize = 28 Then
+    '        Do Until curPosition >= hexString.Length
+    '            If curValue < POS_CHECKSUM2 Then
+    '                overChar = 1
+    '            Else
+    '                overChar = 0
+    '            End If
+    '            Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
+    '            Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
+    '            Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
+    '            Dim loInt As Integer = Convert.ToByte(low, 16)
+    '            Dim value As Integer = 0
+    '            If hiInt >= 0 Then
+    '                value = hiInt + loInt
+    '            Else
+    '                value = hiInt - loInt
+    '            End If
+    '            buffer(curValue) = value And Short.MaxValue
+    '            curPosition += 4 + overChar
+    '            curValue += 1
+    '        Loop
+    '    ElseIf overflowSize = 38 Then
+    '        Do Until curValue = POS_CHECKSUM2 + 1
+    '            overChar = 1
+    '            Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
+    '            Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
+    '            Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
+    '            Dim loInt As Integer = Convert.ToByte(low, 16)
+    '            Dim value As Integer = 0
+    '            If hiInt >= 0 Then
+    '                value = hiInt + loInt
+    '            Else
+    '                value = hiInt - loInt
+    '            End If
+    '            buffer(curValue) = value And Short.MaxValue
+    '            curPosition += 4 + overChar
+    '            curValue += 1
+    '        Loop
+    '        'manually set the final bits to their expected values (or 0 in this case).
+    '        buffer(48) = 0
+    '        buffer(49) = 0
+    '        buffer(50) = 0
+    '        buffer(51) = 0
+    '    ElseIf overflowSize = 56 Or overflowSize = 61 Then
+    '        'TODO: these values are not correct after experience. Perhaps if I overflow the experience value to a negative, it will work better.
+    '        Do Until curValue = POS_CHECKSUM2 + 1
+    '            overChar = 2
+    '            Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
+    '            Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
+    '            Dim hiSht As Short = Convert.ToInt16(high, 16)
+    '            Dim hiInt As Integer = Convert.ToInt16(high, 16) * 100
+    '            Dim loInt As Integer = Convert.ToByte(low, 16)
+    '            Dim value As Integer = 0
+    '            If hiInt >= 0 Then
+    '                value = hiInt + loInt
+    '            Else
+    '                value = hiInt - loInt
+    '            End If
+
+    '            'simulate overflow loop-around
+    '            'Dim tmpVal As Integer = 0
+    '            'If value > Short.MaxValue Then
+    '            '    For i As Integer = 0 To value - 1
+    '            '        If tmpVal = Short.MaxValue Then
+    '            '            tmpVal = Short.MinValue
+    '            '        Else
+    '            '            tmpVal += 1
+    '            '        End If
+    '            '    Next
+    '            '    value = tmpVal
+    '            'End If
+    '            'Dim tmpVal As Integer = 0
+    '            'If value > Short.MaxValue Then
+    '            '    tmpVal = value And Short.MaxValue
+    '            '    value = tmpVal
+    '            'End If
+    '            If curValue = 19 Then
+    '                value = value And Short.MaxValue
+    '                value += 100
+    '            End If
+    '            buffer(curValue) = value And Short.MaxValue
+    '            curPosition += 4 + overChar
+    '            curValue += 1
+    '        Loop
+    '        'manually set the final bits to their expected values (or 0 in this case).
+    '        buffer(48) = 0
+    '        buffer(49) = 0
+    '        buffer(50) = 0
+    '        buffer(51) = 0
+    '    Else
+    '        MessageBox.Show("Unhandled Overflow Size: " & overflowSize)
+    '    End If
+
+    '    'for debug purposes, we'll print out the binary array (with spaces)
+    '    Debug.Print(CharGeneric.BytesToString(buffer))
+
+    '    Return buffer
+    'End Function
 
     Public Shared Function importHexStringX(hexString As String, expectedSize As Integer) As Short()
-        'TODO: This function is hard-coded for QFG3... we need to generalize it to support QFG4 too.
+        'TODO: This function is hard-coded for specific overflow sizes... need to generalize it more.
         Debug.Print("expectedSize Length: " & expectedSize & "; actual size: " & hexString.Length & vbCrLf & "Difference of " & hexString.Length - expectedSize & " characters.")
 
         Debug.Print(hexString)
@@ -426,7 +456,7 @@
 
 
     ''' <summary>
-    ''' The main method of encription that QFG1/2 saved characters use
+    ''' The main method of encryption that QFG1/2 saved characters use
     ''' </summary>
     ''' <param name="encodedData"></param>
     ''' <param name="initialCipher"></param>

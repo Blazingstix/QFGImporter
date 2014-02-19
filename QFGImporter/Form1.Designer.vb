@@ -129,12 +129,12 @@ Partial Class Form1
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tabCharacter = New System.Windows.Forms.TabPage()
         Me.grpInventory = New System.Windows.Forms.GroupBox()
-        Me.lblOtherPotions = New System.Windows.Forms.Label()
+        Me.lblUndeadUnguent = New System.Windows.Forms.Label()
         Me.lblMagicPotions = New System.Windows.Forms.Label()
         Me.lblVigorPotions = New System.Windows.Forms.Label()
         Me.lblHealingPotions = New System.Windows.Forms.Label()
         Me.lblDaggers = New System.Windows.Forms.Label()
-        Me.numOtherPotions = New System.Windows.Forms.NumericUpDown()
+        Me.numUndeadUnguent = New System.Windows.Forms.NumericUpDown()
         Me.numMagicPotions = New System.Windows.Forms.NumericUpDown()
         Me.lblCurrency = New System.Windows.Forms.Label()
         Me.numGold = New System.Windows.Forms.NumericUpDown()
@@ -221,6 +221,22 @@ Partial Class Form1
         Me.txtEncodedByteArray = New System.Windows.Forms.TextBox()
         Me.txtEncodedString = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
+        Me.chkFlag9 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag10 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag12 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag13 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag14 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag15 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag16 = New System.Windows.Forms.CheckBox()
+        Me.chkFlag11 = New System.Windows.Forms.CheckBox()
+        Me.numPoisonCurePills = New System.Windows.Forms.NumericUpDown()
+        Me.lblPoisonCurePills = New System.Windows.Forms.Label()
+        Me.numUnknownItem1 = New System.Windows.Forms.NumericUpDown()
+        Me.lblUnknownItem1 = New System.Windows.Forms.Label()
+        Me.numUnknownItem2 = New System.Windows.Forms.NumericUpDown()
+        Me.lblUnknownItem2 = New System.Windows.Forms.Label()
+        Me.numUnknownItem3 = New System.Windows.Forms.NumericUpDown()
+        Me.lblUnknownItem3 = New System.Windows.Forms.Label()
         Me.grpGames.SuspendLayout()
         Me.grpClass.SuspendLayout()
         Me.grpSkills.SuspendLayout()
@@ -271,7 +287,7 @@ Partial Class Form1
         Me.TabControl1.SuspendLayout()
         Me.tabCharacter.SuspendLayout()
         Me.grpInventory.SuspendLayout()
-        CType(Me.numOtherPotions, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numUndeadUnguent, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMagicPotions, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numGold, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numVigorPotions, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -289,6 +305,10 @@ Partial Class Form1
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabDecode.SuspendLayout()
         CType(Me.numCipher, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numPoisonCurePills, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numUnknownItem1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numUnknownItem2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numUnknownItem3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grpGames
@@ -1348,7 +1368,7 @@ Partial Class Form1
         Me.TabControl1.Location = New System.Drawing.Point(12, 41)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(682, 501)
+        Me.TabControl1.Size = New System.Drawing.Size(841, 501)
         Me.TabControl1.TabIndex = 12
         '
         'tabCharacter
@@ -1366,40 +1386,48 @@ Partial Class Form1
         Me.tabCharacter.Location = New System.Drawing.Point(4, 22)
         Me.tabCharacter.Name = "tabCharacter"
         Me.tabCharacter.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabCharacter.Size = New System.Drawing.Size(674, 475)
+        Me.tabCharacter.Size = New System.Drawing.Size(833, 475)
         Me.tabCharacter.TabIndex = 0
         Me.tabCharacter.Text = "Character Sheet"
         Me.tabCharacter.UseVisualStyleBackColor = True
         '
         'grpInventory
         '
-        Me.grpInventory.Controls.Add(Me.lblOtherPotions)
+        Me.grpInventory.Controls.Add(Me.lblUnknownItem3)
+        Me.grpInventory.Controls.Add(Me.lblUnknownItem2)
+        Me.grpInventory.Controls.Add(Me.lblUnknownItem1)
+        Me.grpInventory.Controls.Add(Me.lblPoisonCurePills)
+        Me.grpInventory.Controls.Add(Me.lblUndeadUnguent)
         Me.grpInventory.Controls.Add(Me.lblMagicPotions)
         Me.grpInventory.Controls.Add(Me.lblVigorPotions)
         Me.grpInventory.Controls.Add(Me.lblHealingPotions)
         Me.grpInventory.Controls.Add(Me.lblDaggers)
-        Me.grpInventory.Controls.Add(Me.numOtherPotions)
+        Me.grpInventory.Controls.Add(Me.numUnknownItem3)
+        Me.grpInventory.Controls.Add(Me.numUnknownItem2)
+        Me.grpInventory.Controls.Add(Me.numUnknownItem1)
+        Me.grpInventory.Controls.Add(Me.numPoisonCurePills)
+        Me.grpInventory.Controls.Add(Me.numUndeadUnguent)
         Me.grpInventory.Controls.Add(Me.numMagicPotions)
         Me.grpInventory.Controls.Add(Me.lblCurrency)
         Me.grpInventory.Controls.Add(Me.numGold)
         Me.grpInventory.Controls.Add(Me.numVigorPotions)
         Me.grpInventory.Controls.Add(Me.numHealingPotions)
         Me.grpInventory.Controls.Add(Me.numDaggers)
-        Me.grpInventory.Location = New System.Drawing.Point(508, 6)
+        Me.grpInventory.Location = New System.Drawing.Point(670, 6)
         Me.grpInventory.Name = "grpInventory"
-        Me.grpInventory.Size = New System.Drawing.Size(156, 149)
+        Me.grpInventory.Size = New System.Drawing.Size(156, 246)
         Me.grpInventory.TabIndex = 3
         Me.grpInventory.TabStop = False
         Me.grpInventory.Text = "Inventory"
         '
-        'lblOtherPotions
+        'lblUndeadUnguent
         '
-        Me.lblOtherPotions.AutoSize = True
-        Me.lblOtherPotions.Location = New System.Drawing.Point(64, 126)
-        Me.lblOtherPotions.Name = "lblOtherPotions"
-        Me.lblOtherPotions.Size = New System.Drawing.Size(89, 13)
-        Me.lblOtherPotions.TabIndex = 1
-        Me.lblOtherPotions.Text = "Undead Unguent"
+        Me.lblUndeadUnguent.AutoSize = True
+        Me.lblUndeadUnguent.Location = New System.Drawing.Point(64, 126)
+        Me.lblUndeadUnguent.Name = "lblUndeadUnguent"
+        Me.lblUndeadUnguent.Size = New System.Drawing.Size(89, 13)
+        Me.lblUndeadUnguent.TabIndex = 1
+        Me.lblUndeadUnguent.Text = "Undead Unguent"
         '
         'lblMagicPotions
         '
@@ -1437,14 +1465,14 @@ Partial Class Form1
         Me.lblDaggers.TabIndex = 1
         Me.lblDaggers.Text = "Daggers"
         '
-        'numOtherPotions
+        'numUndeadUnguent
         '
-        Me.numOtherPotions.Location = New System.Drawing.Point(6, 124)
-        Me.numOtherPotions.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
-        Me.numOtherPotions.Name = "numOtherPotions"
-        Me.numOtherPotions.Size = New System.Drawing.Size(52, 20)
-        Me.numOtherPotions.TabIndex = 5
-        Me.numOtherPotions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.numUndeadUnguent.Location = New System.Drawing.Point(6, 124)
+        Me.numUndeadUnguent.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
+        Me.numUndeadUnguent.Name = "numUndeadUnguent"
+        Me.numUndeadUnguent.Size = New System.Drawing.Size(52, 20)
+        Me.numUndeadUnguent.TabIndex = 5
+        Me.numUndeadUnguent.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'numMagicPotions
         '
@@ -1502,17 +1530,25 @@ Partial Class Form1
         '
         'grpUniqueInventory
         '
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag11)
         Me.grpUniqueInventory.Controls.Add(Me.chkFlag3)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag16)
         Me.grpUniqueInventory.Controls.Add(Me.chkFlag8)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag15)
         Me.grpUniqueInventory.Controls.Add(Me.chkFlag7)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag14)
         Me.grpUniqueInventory.Controls.Add(Me.chkFlag6)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag13)
         Me.grpUniqueInventory.Controls.Add(Me.chkFlag5)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag12)
         Me.grpUniqueInventory.Controls.Add(Me.chkFlag4)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag10)
         Me.grpUniqueInventory.Controls.Add(Me.chkFlag2)
+        Me.grpUniqueInventory.Controls.Add(Me.chkFlag9)
         Me.grpUniqueInventory.Controls.Add(Me.chkFlag1)
         Me.grpUniqueInventory.Location = New System.Drawing.Point(370, 6)
         Me.grpUniqueInventory.Name = "grpUniqueInventory"
-        Me.grpUniqueInventory.Size = New System.Drawing.Size(132, 149)
+        Me.grpUniqueInventory.Size = New System.Drawing.Size(294, 149)
         Me.grpUniqueInventory.TabIndex = 2
         Me.grpUniqueInventory.TabStop = False
         Me.grpUniqueInventory.Text = "Unique Inventory"
@@ -2350,11 +2386,164 @@ Partial Class Form1
         Me.btnSave.Text = "Save As..."
         Me.btnSave.UseVisualStyleBackColor = True
         '
+        'chkFlag9
+        '
+        Me.chkFlag9.AutoSize = True
+        Me.chkFlag9.Location = New System.Drawing.Point(139, 20)
+        Me.chkFlag9.Name = "chkFlag9"
+        Me.chkFlag9.Size = New System.Drawing.Size(52, 17)
+        Me.chkFlag9.TabIndex = 0
+        Me.chkFlag9.Text = "Flag9"
+        Me.chkFlag9.UseVisualStyleBackColor = True
+        '
+        'chkFlag10
+        '
+        Me.chkFlag10.AutoSize = True
+        Me.chkFlag10.Location = New System.Drawing.Point(139, 36)
+        Me.chkFlag10.Name = "chkFlag10"
+        Me.chkFlag10.Size = New System.Drawing.Size(58, 17)
+        Me.chkFlag10.TabIndex = 1
+        Me.chkFlag10.Text = "Flag10"
+        Me.chkFlag10.UseVisualStyleBackColor = True
+        '
+        'chkFlag12
+        '
+        Me.chkFlag12.AutoSize = True
+        Me.chkFlag12.Location = New System.Drawing.Point(139, 68)
+        Me.chkFlag12.Name = "chkFlag12"
+        Me.chkFlag12.Size = New System.Drawing.Size(58, 17)
+        Me.chkFlag12.TabIndex = 3
+        Me.chkFlag12.Text = "Flag12"
+        Me.chkFlag12.UseVisualStyleBackColor = True
+        '
+        'chkFlag13
+        '
+        Me.chkFlag13.AutoSize = True
+        Me.chkFlag13.Location = New System.Drawing.Point(139, 84)
+        Me.chkFlag13.Name = "chkFlag13"
+        Me.chkFlag13.Size = New System.Drawing.Size(58, 17)
+        Me.chkFlag13.TabIndex = 4
+        Me.chkFlag13.Text = "Flag13"
+        Me.chkFlag13.UseVisualStyleBackColor = True
+        '
+        'chkFlag14
+        '
+        Me.chkFlag14.AutoSize = True
+        Me.chkFlag14.Location = New System.Drawing.Point(139, 100)
+        Me.chkFlag14.Name = "chkFlag14"
+        Me.chkFlag14.Size = New System.Drawing.Size(58, 17)
+        Me.chkFlag14.TabIndex = 5
+        Me.chkFlag14.Text = "Flag14"
+        Me.chkFlag14.UseVisualStyleBackColor = True
+        '
+        'chkFlag15
+        '
+        Me.chkFlag15.AutoSize = True
+        Me.chkFlag15.Location = New System.Drawing.Point(139, 116)
+        Me.chkFlag15.Name = "chkFlag15"
+        Me.chkFlag15.Size = New System.Drawing.Size(58, 17)
+        Me.chkFlag15.TabIndex = 6
+        Me.chkFlag15.Text = "Flag15"
+        Me.chkFlag15.UseVisualStyleBackColor = True
+        '
+        'chkFlag16
+        '
+        Me.chkFlag16.AutoSize = True
+        Me.chkFlag16.Enabled = False
+        Me.chkFlag16.Location = New System.Drawing.Point(139, 132)
+        Me.chkFlag16.Name = "chkFlag16"
+        Me.chkFlag16.Size = New System.Drawing.Size(58, 17)
+        Me.chkFlag16.TabIndex = 6
+        Me.chkFlag16.Text = "Flag16"
+        Me.chkFlag16.UseVisualStyleBackColor = True
+        '
+        'chkFlag11
+        '
+        Me.chkFlag11.AutoSize = True
+        Me.chkFlag11.Location = New System.Drawing.Point(139, 52)
+        Me.chkFlag11.Name = "chkFlag11"
+        Me.chkFlag11.Size = New System.Drawing.Size(58, 17)
+        Me.chkFlag11.TabIndex = 2
+        Me.chkFlag11.Text = "Flag11"
+        Me.chkFlag11.UseVisualStyleBackColor = True
+        '
+        'numPoisonCurePills
+        '
+        Me.numPoisonCurePills.Location = New System.Drawing.Point(6, 146)
+        Me.numPoisonCurePills.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
+        Me.numPoisonCurePills.Name = "numPoisonCurePills"
+        Me.numPoisonCurePills.Size = New System.Drawing.Size(52, 20)
+        Me.numPoisonCurePills.TabIndex = 5
+        Me.numPoisonCurePills.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'lblPoisonCurePills
+        '
+        Me.lblPoisonCurePills.AutoSize = True
+        Me.lblPoisonCurePills.Location = New System.Drawing.Point(64, 148)
+        Me.lblPoisonCurePills.Name = "lblPoisonCurePills"
+        Me.lblPoisonCurePills.Size = New System.Drawing.Size(85, 13)
+        Me.lblPoisonCurePills.TabIndex = 1
+        Me.lblPoisonCurePills.Text = "Poison Cure Pills"
+        '
+        'numUnknownItem1
+        '
+        Me.numUnknownItem1.Location = New System.Drawing.Point(6, 169)
+        Me.numUnknownItem1.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
+        Me.numUnknownItem1.Name = "numUnknownItem1"
+        Me.numUnknownItem1.Size = New System.Drawing.Size(52, 20)
+        Me.numUnknownItem1.TabIndex = 5
+        Me.numUnknownItem1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'lblUnknownItem1
+        '
+        Me.lblUnknownItem1.AutoSize = True
+        Me.lblUnknownItem1.Location = New System.Drawing.Point(64, 171)
+        Me.lblUnknownItem1.Name = "lblUnknownItem1"
+        Me.lblUnknownItem1.Size = New System.Drawing.Size(85, 13)
+        Me.lblUnknownItem1.TabIndex = 1
+        Me.lblUnknownItem1.Text = "Unknown Item 1"
+        '
+        'numUnknownItem2
+        '
+        Me.numUnknownItem2.Location = New System.Drawing.Point(6, 192)
+        Me.numUnknownItem2.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
+        Me.numUnknownItem2.Name = "numUnknownItem2"
+        Me.numUnknownItem2.Size = New System.Drawing.Size(52, 20)
+        Me.numUnknownItem2.TabIndex = 5
+        Me.numUnknownItem2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'lblUnknownItem2
+        '
+        Me.lblUnknownItem2.AutoSize = True
+        Me.lblUnknownItem2.Location = New System.Drawing.Point(64, 194)
+        Me.lblUnknownItem2.Name = "lblUnknownItem2"
+        Me.lblUnknownItem2.Size = New System.Drawing.Size(85, 13)
+        Me.lblUnknownItem2.TabIndex = 1
+        Me.lblUnknownItem2.Text = "Unknown Item 2"
+        '
+        'numUnknownItem3
+        '
+        Me.numUnknownItem3.Location = New System.Drawing.Point(6, 218)
+        Me.numUnknownItem3.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
+        Me.numUnknownItem3.Name = "numUnknownItem3"
+        Me.numUnknownItem3.Size = New System.Drawing.Size(52, 20)
+        Me.numUnknownItem3.TabIndex = 5
+        Me.numUnknownItem3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'lblUnknownItem3
+        '
+        Me.lblUnknownItem3.AutoSize = True
+        Me.lblUnknownItem3.Location = New System.Drawing.Point(64, 220)
+        Me.lblUnknownItem3.Name = "lblUnknownItem3"
+        Me.lblUnknownItem3.Size = New System.Drawing.Size(85, 13)
+        Me.lblUnknownItem3.TabIndex = 1
+        Me.lblUnknownItem3.Text = "Unknown Item 3"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(706, 554)
+        Me.ClientSize = New System.Drawing.Size(865, 554)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.btnTest)
@@ -2422,7 +2611,7 @@ Partial Class Form1
         Me.tabCharacter.PerformLayout()
         Me.grpInventory.ResumeLayout(False)
         Me.grpInventory.PerformLayout()
-        CType(Me.numOtherPotions, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numUndeadUnguent, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMagicPotions, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numGold, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numVigorPotions, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2444,6 +2633,10 @@ Partial Class Form1
         Me.tabDecode.ResumeLayout(False)
         Me.tabDecode.PerformLayout()
         CType(Me.numCipher, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numPoisonCurePills, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numUnknownItem1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numUnknownItem2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numUnknownItem3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2604,12 +2797,12 @@ Partial Class Form1
     Friend WithEvents numReferenceValueHex As System.Windows.Forms.NumericUpDown
     Friend WithEvents numReferenceValue As System.Windows.Forms.NumericUpDown
     Friend WithEvents grpInventory As System.Windows.Forms.GroupBox
-    Friend WithEvents lblOtherPotions As System.Windows.Forms.Label
+    Friend WithEvents lblUndeadUnguent As System.Windows.Forms.Label
     Friend WithEvents lblMagicPotions As System.Windows.Forms.Label
     Friend WithEvents lblVigorPotions As System.Windows.Forms.Label
     Friend WithEvents lblHealingPotions As System.Windows.Forms.Label
     Friend WithEvents lblDaggers As System.Windows.Forms.Label
-    Friend WithEvents numOtherPotions As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numUndeadUnguent As System.Windows.Forms.NumericUpDown
     Friend WithEvents numMagicPotions As System.Windows.Forms.NumericUpDown
     Friend WithEvents numVigorPotions As System.Windows.Forms.NumericUpDown
     Friend WithEvents numHealingPotions As System.Windows.Forms.NumericUpDown
@@ -2642,5 +2835,21 @@ Partial Class Form1
     Friend WithEvents numCipher As System.Windows.Forms.NumericUpDown
     Friend WithEvents txtDecodedByteArrayDecimal As System.Windows.Forms.TextBox
     Friend WithEvents lblDecodedByteArrayDecimal As System.Windows.Forms.Label
+    Friend WithEvents chkFlag11 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag16 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag15 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag14 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag13 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag12 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag10 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkFlag9 As System.Windows.Forms.CheckBox
+    Friend WithEvents lblUnknownItem3 As System.Windows.Forms.Label
+    Friend WithEvents lblUnknownItem2 As System.Windows.Forms.Label
+    Friend WithEvents lblUnknownItem1 As System.Windows.Forms.Label
+    Friend WithEvents lblPoisonCurePills As System.Windows.Forms.Label
+    Friend WithEvents numUnknownItem3 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numUnknownItem2 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numUnknownItem1 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numPoisonCurePills As System.Windows.Forms.NumericUpDown
 
 End Class

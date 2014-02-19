@@ -68,7 +68,12 @@
         HealingPotion
         MagicPotion
         VigorPotion
-        OtherPotion
+        UndeadUnguent = 4
+        PoisonCurePill = 4
+        OtherPotion = 4
+        UnknownItem1
+        UnknownItem2
+        UnknownItem3
     End Enum
 
 End Class

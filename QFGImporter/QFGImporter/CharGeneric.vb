@@ -13,6 +13,10 @@
     Friend MustOverride ReadOnly Property OffsetEOF As Byte
     Friend MustOverride ReadOnly Property DataSize As Byte
 
+    Friend MustOverride ReadOnly Property SkillCount As Byte
+    Friend MustOverride ReadOnly Property MagicCount As Byte
+    Friend MustOverride ReadOnly Property InventoryCount As Byte
+
     Friend Overridable ReadOnly Property OffsetCurrency As Byte
         Get
             Return Me.OffsetCharClass + 1
@@ -28,8 +32,8 @@
             Return Me.OffsetSkills - 1
         End Get
     End Property
-    Friend MustOverride ReadOnly Property SkillMaximum As UShort
-    Friend MustOverride ReadOnly Property SkillTechnicalMaximum As UShort
+    Friend MustOverride ReadOnly Property SkillMaximum As Short
+    Friend MustOverride ReadOnly Property SkillTechnicalMaximum As Short
 
     Friend Overridable ReadOnly Property InitialCipher As Byte
         Get
@@ -37,7 +41,7 @@
         End Get
     End Property
     Friend MustOverride ReadOnly Property InitialChecksum As Byte
-    Friend Overridable ReadOnly Property InitialLimiter As Byte
+    Friend Overridable ReadOnly Property InitialLimiter As Short
         Get
             Return Byte.MaxValue
         End Get
@@ -97,13 +101,12 @@
             End If
             Me.EncodedString = data
 
-            If Me.Game = Enums.Games.QFG3 AndAlso Me.EncodedString.Length <> 208 Then
-                'QFG3 data longer than 208 characters is victim to an overflow error... we cannot deal with that yet.
-                MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG3 files with data larger than 208 characters can an error, and this program cannot work around that yet.")
-                'Exit Sub
-            End If
+            'If Me.Game = Enums.Games.QFG3 AndAlso Me.EncodedString.Length <> 208 Then
+            '    'QFG3 data longer than 208 characters is victim to an overflow error... we cannot deal with that yet.
+            '    MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG3 files with data larger than 208 characters can an error, and this program cannot work around that yet.")
+            '    'Exit Sub
+            'End If
 
-            'NOTE: we need to seperate this out, so QFG3 and QFG4 can call their own conversion functions
             Call ParseHexString(Me.EncodedString)
             Call Me.DecodeValues()
         End If

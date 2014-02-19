@@ -61,15 +61,33 @@
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property SkillMaximum As UShort
+    Friend Overrides ReadOnly Property SkillMaximum As Short
         Get
             Return 400
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property SkillTechnicalMaximum As UShort
+    Friend Overrides ReadOnly Property SkillTechnicalMaximum As Short
         Get
             Return 400
+        End Get
+    End Property
+
+    Friend Overrides ReadOnly Property SkillCount As Byte
+        Get
+            Return 15
+        End Get
+    End Property
+
+    Friend Overrides ReadOnly Property MagicCount As Byte
+        Get
+            Return 21
+        End Get
+    End Property
+
+    Friend Overrides ReadOnly Property InventoryCount As Byte
+        Get
+            Return 7
         End Get
     End Property
 

@@ -11,14 +11,14 @@
 
     Public Overrides Property Skill(vSkill As Enums.Skills) As Integer
         Get
-            'QFG1 does not have Communication or Honor... it only goes up to Magic
-            If Me.Game < Enums.Games.QFG2 And vSkill >= Enums.Skills.Communication Then
+            If vSkill >= 0 And vSkill < Me.SkillCount Then
+                Return Me.DecodedValues(Me.OffsetSkills + vSkill)
+            Else
                 Return 0
             End If
-            Return Me.DecodedValues(Me.OffsetSkills + vSkill)
         End Get
         Set(value As Integer)
-            If Not (Me.Game < Enums.Games.QFG2 And vSkill >= Enums.Skills.Communication) Then
+            If vSkill >= 0 And vSkill < Me.SkillCount Then
                 Me.DecodedValues(Me.OffsetSkills + vSkill) = value
             End If
         End Set
@@ -26,13 +26,14 @@
 
     Public Overrides Property MagicSpell(spell As Enums.Magic) As Integer
         Get
-            If Me.Game < Enums.Games.QFG2 And spell >= Enums.Magic.ForceBolt Then
+            If spell >= 0 And spell < Me.MagicCount Then
+                Return Me.DecodedValues(Me.OffsetSpells + spell)
+            Else
                 Return 0
             End If
-            Return Me.DecodedValues(Me.OffsetSpells + spell)
         End Get
         Set(value As Integer)
-            If Not (Me.Game < Enums.Games.QFG2 And spell >= Enums.Magic.ForceBolt) Then
+            If spell >= 0 And spell < Me.MagicCount Then
                 Me.DecodedValues(Me.OffsetSpells + spell) = value
             End If
         End Set
@@ -80,10 +81,16 @@
 
     Public Overrides Property Inventory(item As Enums.Inventory) As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetInventory + item)
+            If item >= 0 And item < Me.InventoryCount Then
+                Return Me.DecodedValues(Me.OffsetInventory + item)
+            Else
+                Return 0
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetInventory + item) = value
+            If item >= 0 And item < Me.InventoryCount Then
+                Me.DecodedValues(Me.OffsetInventory + item) = value
+            End If
         End Set
     End Property
 

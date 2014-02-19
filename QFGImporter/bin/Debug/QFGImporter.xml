@@ -13,18 +13,9 @@ QFGImporter
 	<param name="hexString"></param>
 	<returns></returns>
 	<remarks></remarks>
-</member><member name="M:QFGImporter.CharGeneric.convertHexStringToShortArray(System.String)">
-	<summary>
- This is used for QFG3/4.
- It is a custom two-byte word conversion, for QFG3/4.
- AA BB = (AA*100)+BB
- </summary>
-	<param name="hexString"></param>
-	<returns></returns>
-	<remarks>Does not work if there are errors/overage in the SAV file</remarks>
 </member><member name="M:QFGImporter.CharGeneric.DecodeBytesXor(System.Byte[],System.Byte,System.Byte)">
 	<summary>
- The main method of encription that QFG1/2 saved characters use
+ The main method of encryption that QFG1/2 saved characters use
  </summary>
 	<param name="encodedData"></param>
 	<param name="initialCipher"></param>

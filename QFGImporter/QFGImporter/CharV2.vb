@@ -5,6 +5,7 @@
     Friend Shadows Property DecodedValues As Short()
 
     Enum InventoryItems
+        NotAnItem = -1
         Unknown1 = 0
         Unknown2
         ThrowingDaggers
@@ -21,6 +22,12 @@
         End Get
     End Property
 
+    Friend Overrides ReadOnly Property InitialLimiter As Short
+        Get
+            Return Short.MaxValue
+        End Get
+    End Property
+
     Public Overrides Property CharacterClass As Enums.CharacterClass
         Get
             Return Me.DecodedValues(Me.OffsetCharClass)
@@ -32,19 +39,31 @@
 
     Public Overrides Property Skill(vSkill As Enums.Skills) As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetSkills + vSkill)
+            If vSkill >= 0 And vSkill < Me.SkillCount Then
+                Return Me.DecodedValues(Me.OffsetSkills + vSkill)
+            Else
+                Return 0
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetSkills + vSkill) = value
+            If vSkill >= 0 And vSkill < Me.SkillCount Then
+                Me.DecodedValues(Me.OffsetSkills + vSkill) = value
+            End If
         End Set
     End Property
 
     Public Overrides Property MagicSpell(spell As Enums.Magic) As Integer
         Get
-            Return Me.DecodedValues(Me.OffsetSpells + spell)
+            If spell >= 0 And spell < Me.MagicCount Then
+                Return Me.DecodedValues(Me.OffsetSpells + spell)
+            Else
+                Return 0
+            End If
         End Get
         Set(value As Integer)
-            Me.DecodedValues(Me.OffsetSpells + spell) = value
+            If spell >= 0 And spell < Me.MagicCount Then
+                Me.DecodedValues(Me.OffsetSpells + spell) = value
+            End If
         End Set
     End Property
 
@@ -59,44 +78,42 @@
 
     Public Overrides Property Inventory(item As Enums.Inventory) As Integer
         Get
-            Dim v2Item As CharV2.InventoryItems
-            Select Case item
-                Case Enums.Inventory.Daggers
-                    v2Item = InventoryItems.ThrowingDaggers
-                Case Enums.Inventory.HealingPotion
-                    v2Item = InventoryItems.HealingPills
-                Case Enums.Inventory.MagicPotion
-                    v2Item = InventoryItems.ManaPills
-                Case Enums.Inventory.OtherPotion
-                    v2Item = InventoryItems.PoisonCurePills
-                Case Else
-                    v2Item = -1
-            End Select
-            If v2Item = -1 Then
+            Dim v2Item As CharV2.InventoryItems = ConvertV1Inventory(item)
+            If v2Item = InventoryItems.NotAnItem Then
                 Return 0
             Else
                 Return Me.DecodedValues(Me.OffsetInventory + v2Item)
             End If
         End Get
         Set(value As Integer)
-            Dim v2Item As CharV2.InventoryItems
-            Select Case item
-                Case Enums.Inventory.Daggers
-                    v2Item = InventoryItems.ThrowingDaggers
-                Case Enums.Inventory.HealingPotion
-                    v2Item = InventoryItems.HealingPills
-                Case Enums.Inventory.MagicPotion
-                    v2Item = InventoryItems.ManaPills
-                Case Enums.Inventory.OtherPotion
-                    v2Item = InventoryItems.PoisonCurePills
-                Case Else
-                    v2Item = -1
-            End Select
-            If v2Item <> -1 Then
+            Dim v2Item As CharV2.InventoryItems = ConvertV1Inventory(item)
+            If v2Item <> InventoryItems.NotAnItem Then
                 Me.DecodedValues(Me.OffsetInventory + v2Item) = value
             End If
         End Set
     End Property
+
+    Friend Function ConvertV1Inventory(item As Enums.Inventory) As CharV2.InventoryItems
+        Select Case item
+            Case Enums.Inventory.Daggers
+                Return InventoryItems.ThrowingDaggers
+            Case Enums.Inventory.HealingPotion
+                Return InventoryItems.HealingPills
+            Case Enums.Inventory.MagicPotion
+                Return InventoryItems.ManaPills
+            Case Enums.Inventory.PoisonCurePill
+                Return InventoryItems.PoisonCurePills
+            Case Enums.Inventory.UnknownItem1
+                Return InventoryItems.Unknown1
+            Case Enums.Inventory.UnknownItem2
+                Return InventoryItems.Unknown2
+            Case Enums.Inventory.UnknownItem3
+                Return InventoryItems.Unknown3
+            Case Else
+                Return InventoryItems.NotAnItem
+        End Select
+
+    End Function
 
     Public Overrides Property PuzzlePoints As Integer
         Get
@@ -125,13 +142,13 @@
 
     Public Overrides Property Flag(position As Byte) As Boolean
         Get
-            If position < 0 Or position > 7 Then
+            If position < 0 Or position > 15 Then
                 Throw New IndexOutOfRangeException
             End If
             Return CharGeneric.getBit(Me.DecodedValues(Me.OffsetUniqueInventory), position)
         End Get
         Set(value As Boolean)
-            If position < 0 Or position > 7 Then
+            If position < 0 Or position > 15 Then
                 Throw New IndexOutOfRangeException
             End If
             Me.DecodedValues(Me.OffsetUniqueInventory) = CharGeneric.setBit(Me.DecodedValues(Me.OffsetUniqueInventory), position, value)
