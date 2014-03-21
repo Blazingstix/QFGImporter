@@ -413,11 +413,11 @@
                 End If
             End If
 
-                If skipLastFour And curValue >= upperBound - 4 Then
-                    buffer(curValue) = 0
-                Else
-                    Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
-                    Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
+            If skipLastFour And curValue >= upperBound - 4 Then
+                buffer(curValue) = 0
+            Else
+                Dim high As String = hexString.Substring(curPosition, 2 + overChar).Replace(" ", "0")
+                Dim low As String = hexString.Substring(curPosition + 2 + overChar, 2).Replace(" ", "0")
                 Dim hiInt As Integer = 0
                 If overChar <= 2 Then
                     hiInt = Convert.ToInt16(high, 16) * 100
@@ -425,15 +425,15 @@
                     hiInt = Convert.ToInt32(high, 16) * 100
                 End If
                 Dim loInt As Integer = Convert.ToByte(low, 16)
-                    Dim value As Integer = 0
-                    If hiInt >= 0 Then
-                        value = hiInt + loInt
-                    Else
-                        value = hiInt - loInt
-                    End If
-
-                    buffer(curValue) = value And Short.MaxValue
+                Dim value As Integer = 0
+                If hiInt >= 0 Then
+                    value = hiInt + loInt
+                Else
+                    value = hiInt - loInt
                 End If
+
+                buffer(curValue) = value And Short.MaxValue
+            End If
 
                 curPosition += 4 + overChar
                 curValue += 1

@@ -1,5 +1,83 @@
 ﻿Public Class CharQFG4
     Inherits CharV2
+    Enum ByteNames
+        CharacterClass = 0
+        CrownsHundreds
+        CrownsRemainder
+        UniqueInventory
+        AbilityStrength = 4
+        AbilityIntelligence
+        AbilityVitality
+        AbilityAgility
+        AbilityLuck
+        SkillWeaponUse = 9
+        SkillParry
+        SkillDodge
+        SkillStealth
+        SkillPickLocks
+        SkillThrowing
+        SkillClimbing
+        SkillMagic
+        SkillCommunication
+        SkillHonor
+        SkillAcrobatics
+        Experience = 20
+        HitPoints
+        StaminaPoints
+        MagicPoints
+        MagicSpellOpen = 24
+        MagicSpellDetect
+        MagicSpellTrigger
+        MagicSpellDazzle
+        MagicSpellZap
+        MagicSpellCalm
+        MagicSpellFlame
+        MagicSpellFetch
+        MagicSpellForceBolt
+        MagicSpellLevitation
+        MagicSpellReversal
+        MagicSpellJugglingLights
+        MagicSpellSummonStaff
+        MagicSpellLightningBall
+        MagicSpellFrostBite
+        MagicSpellGlide
+        MagicSpellHide
+        MagicSpellAura
+        MagicSpellProtection
+        MagicSpellResistance
+        MagicSpellRitualOfRelease
+        InventoryUnknown45 = 45
+        InventoryUnknown46
+        InventoryThrowingDaggers
+        InventoryUnknown48 = 48
+        InventoryHealingPills = 49
+        InventoryManaPills
+        InventoryPoisonCurePills
+        Constant1 = 52
+        Constant2
+        Checksum1 = 54
+        Checksum2
+        Constant3 = 56
+        Constant4
+        Constant5
+        Constant6 = 59
+
+    End Enum
+
+    Friend Overrides ReadOnly Property Constants1 As Integer()
+        Get
+            Return {&H19, &HBE}
+        End Get
+    End Property
+    Friend Overrides ReadOnly Property Constants2 As Integer()
+        Get
+            Return {&H37, &H6D, &HC4, &HF2}
+        End Get
+    End Property
+
+    Sub New()
+        ' TODO: Complete member initialization 
+    End Sub
 
     Friend Overrides ReadOnly Property InitialChecksum As Byte
         Get

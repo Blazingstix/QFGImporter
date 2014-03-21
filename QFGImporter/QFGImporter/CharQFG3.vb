@@ -56,6 +56,20 @@
         Constant6 = 51
 
     End Enum
+    Friend Overrides ReadOnly Property Constants1 As Integer()
+        Get
+            Return {&H19, &HBE}
+        End Get
+    End Property
+    Friend Overrides ReadOnly Property Constants2 As Integer()
+        Get
+            Return {&H37, &H6D, &HC4, &HF2}
+        End Get
+    End Property
+
+    Sub New()
+        ' TODO: Complete member initialization 
+    End Sub
 
     Friend Overrides ReadOnly Property InitialChecksum As Byte
         Get
@@ -152,7 +166,6 @@
             Return 7
         End Get
     End Property
-
 
     Public Sub New(fileContents)
         Call Load(fileContents)

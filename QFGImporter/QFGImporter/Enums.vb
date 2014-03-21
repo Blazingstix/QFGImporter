@@ -47,12 +47,12 @@
         JugglingLights
         SummonStaff
         LightningBall
-        Hide
-        Protection
-        Aura
-        Glide
-        Resistance
         FrostBite
+        Glide
+        Hide
+        Aura
+        Protection
+        Resistance
         RitualOfRelease
     End Enum
 

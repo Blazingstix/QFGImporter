@@ -17,6 +17,9 @@
     Friend MustOverride ReadOnly Property MagicCount As Byte
     Friend MustOverride ReadOnly Property InventoryCount As Byte
 
+    Friend MustOverride ReadOnly Property Constants1 As Integer()
+    Friend MustOverride ReadOnly Property Constants2 As Integer()
+
     Friend Overridable ReadOnly Property OffsetCurrency As Byte
         Get
             Return Me.OffsetCharClass + 1
@@ -119,6 +122,9 @@
                 Return Enums.Games.QFG3
             ElseIf lines(0).Trim = "glory4.sav" Then
                 Return Enums.Games.QFG4
+            ElseIf lines(0).Trim = "palad1.sav" Then
+                'the Paladin import character that comes with QFG5 is actually from QFG3
+                Return Enums.Games.QFG3
             ElseIf lines(1).Length = 86 Then
                 Return Enums.Games.QFG1
             ElseIf lines(1).Length = 96 Then
@@ -143,7 +149,8 @@
         '   original QFG Importer '95. In that program, I appended a text disclaimer 
         '   to the end of each created file.
         Dim lines() As String = import.Split(splitChars, 3)
-        If lines(0).Trim.Equals("glory3.sav") Or lines(0).Trim.Equals("glory4.sav") Then
+        If lines(0).Trim.EndsWith(".sav") Then
+            '(this assumes a character's name doesn't end in ".sav")
             lines = import.Split(splitChars, 4)
         End If
         Return lines
@@ -201,6 +208,23 @@
 
     Public Sub New()
         Call SetGame()
+        Me.Name = "Unknown Hero"
+        'create a blank valueset
+        Dim blankVals(Me.OffsetEOF - 1) As Byte
+        For i As Integer = 0 To blankVals.Length - 1
+            blankVals(i) = 0
+        Next
+
+        'fill in the constant values
+        For i As Integer = 0 To 1
+            blankVals(Me.OffsetConstants1 + i) = Me.Constants1(i)
+        Next
+        For i As Integer = 0 To 3
+            blankVals(Me.OffsetConstants2 + i) = Me.Constants2(i)
+        Next
+
+        Me.DecodedValues = blankVals
+
     End Sub
 
     Public MustOverride ReadOnly Property HeaderString As String

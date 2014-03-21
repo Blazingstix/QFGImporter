@@ -221,4 +221,24 @@
         Return CharGeneric.BytesToString(Me.DecodedValues, hex)
     End Function
 
+    Public Sub New()
+        Call MyBase.New()
+
+        'create a blank valueset
+        Dim blankVals(Me.OffsetEOF - 1) As Short
+        For i As Integer = 0 To blankVals.Length - 1
+            blankVals(i) = 0
+        Next
+
+        'fill in the constant values
+        For i As Integer = 0 To 1
+            blankVals(Me.OffsetConstants1 + i) = Me.Constants1(i)
+        Next
+        For i As Integer = 0 To 3
+            blankVals(Me.OffsetConstants2 + i) = Me.Constants2(i)
+        Next
+
+        Me.DecodedValues = blankVals
+
+    End Sub
 End Class

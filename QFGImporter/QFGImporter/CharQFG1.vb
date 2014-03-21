@@ -51,16 +51,26 @@
         InventoryMagicPotions
         InventoryVigorPotions
         InventoryUndeadUnguent = 34
-        Unknown35
-        Unknown36
+        Constant1
+        Constant2
         Checksum1 = 37
         Checksum2
-        Unknown39 = 39
-        Unknown40
-        Unknown41
-        Unknown42
+        Constant3 = 39
+        Constant4
+        Constant5
+        Constant6
 
     End Enum
+    Friend Overrides ReadOnly Property Constants1 As Integer()
+        Get
+            Return {&H79, &H6}
+        End Get
+    End Property
+    Friend Overrides ReadOnly Property Constants2 As Integer()
+        Get
+            Return {&H43, &H8, &H2D, &H70}
+        End Get
+    End Property
 
     Friend Overrides ReadOnly Property OffsetCharClass As Byte
         Get
@@ -219,18 +229,6 @@
 
     Public Sub New()
         Call MyBase.New()
-        Me.Name = String.Empty
-        Dim newDeco(Me.OffsetEOF - 1) As Byte
-        For i As Integer = 0 To newDeco.Length - 1
-            newDeco(i) = 0
-        Next
-        newDeco.SetValue(&H79, 35)
-        newDeco.SetValue(&H6, 36)
-        newDeco.SetValue(&H43, 39)
-        newDeco.SetValue(&H8, 40)
-        newDeco.SetValue(&H2D, 41)
-        newDeco.SetValue(&H70, 42)
-        Me.DecodedValues = newDeco
     End Sub
 
     Public Sub New(fileContents)

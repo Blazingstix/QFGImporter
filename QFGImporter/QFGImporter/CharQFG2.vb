@@ -41,17 +41,28 @@
         InventoryMagicPills
         InventoryVigorPills
         InventoryPoisonCurePills = 39
-        Unknown40
-        Unknown41
+        Constant1
+        Constant2
         Checksum1 = 42
         Checksum2
-        Unknown44 = 44
-        Unknown45
-        Unknown46
-        Unknown47
+        Constant3 = 44
+        Constant4
+        Constant5
+        Constant6
 
     End Enum
 
+    Friend Overrides ReadOnly Property Constants1 As Integer()
+        Get
+            Return {&HA0, &H3E}
+        End Get
+    End Property
+
+    Friend Overrides ReadOnly Property Constants2 As Integer()
+        Get
+            Return {&H2F, &H90, &H19, &HA3}
+        End Get
+    End Property
     Friend Overrides ReadOnly Property OffsetCharClass As Byte
         Get
             Return 0
