@@ -81,23 +81,23 @@ Shorts 21 - 23: HP/SP/MP Current Levels
     
 Shorts 24 - 44: Magic Spells
     (24 - Open, ... , 31 - Fetch, 32 - ForceBolt, 33 - Levitate, 34 - Reversal, 35 - Juggling Lights, 36 - Summon Staff, 37 - Lightning Ball)
-    (note: order of QFG4 spells is unknown... also unknown if Paladin spells are also included)
-	(38 - 44: Aura, Frost Bite, Glide, Hide, Protection, Resistance, Ritual of Release)
+	(38 - 44: Frost Bite, Glide, Hide, Aura, Protection, Resistance, Ritual of Release)
+	(note: paladin spells are entirely dependent on Honor levels)
 
 Shorts: 45 - 51: Inventory (unconfirmed)
-    Short 45: Daggers (unconfirmed)
+    Short 45: (unknown)
     
-    Short 46: Healing Pills (unconfirmed)
+    Short 46: (unknown)
     
-    Short 47: Magic Pills (unconfirmed)
+    Short 47: Throwing Daggers
     
-    Short 48: Vigor Pills (unconfirmed)
+    Short 48: (unknown)
     
-    Short 49: Poison Cure Pills (unconfirmed)
+    Short 49: Healing Potions
 
-	Short 50: (unknown)
+	Short 50: Mana Potions
 
-	Short 51: (unknown)
+	Short 51: Poison Cure Potions
     
 Shorts 52 and 53: (constants - unknown)
     (Byte44 = 0x0019)
