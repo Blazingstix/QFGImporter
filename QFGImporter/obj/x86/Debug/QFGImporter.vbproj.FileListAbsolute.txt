@@ -21,10 +21,12 @@ C:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.pdb
 D:\Git\QFGImporter\QFGImporter\bin\Debug\QFGImporter.exe
 D:\Git\QFGImporter\QFGImporter\bin\Debug\QFGImporter.pdb
 D:\Git\QFGImporter\QFGImporter\bin\Debug\QFGImporter.xml
-D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.Form1.resources
 D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.Resources.resources
 D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.TestForm.resources
 D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.vbproj.GenerateResource.Cache
 D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.exe
 D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.xml
 D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.pdb
+D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.SelectGame.resources
+D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.CharacterEditor.resources
+D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.MainForm.resources

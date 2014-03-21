@@ -6,7 +6,12 @@ QFGImporter
 </name>
 </assembly>
 <members>
-<member name="M:QFGImporter.CharGeneric.convertHexStringToByteArray(System.String)">
+<member name="M:QFGImporter.CharacterEditor.LoadSelectedByte">
+	<summary>
+ Loads the selected byte for viewing/editing
+ </summary>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.CharGeneric.convertHexStringToByteArray(System.String)">
 	<summary>
  This is used for QFG1 and QFG2
  </summary>
@@ -43,11 +48,6 @@ QFGImporter
  </summary>
 	<returns></returns>
 	<remarks></remarks>
-</member><member name="M:QFGImporter.Form1.LoadSelectedByte">
-	<summary>
- Loads the selected byte for viewing/editing
- </summary>
-	<remarks></remarks>
 </member><member name="P:QFGImporter.My.Resources.Resources.ResourceManager">
 	<summary>
   Returns the cached ResourceManager instance used by this class.
@@ -56,6 +56,22 @@ QFGImporter
 	<summary>
   Overrides the current thread's CurrentUICulture property for all
   resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:QFGImporter.My.Resources.Resources.s_QFG1VGA_Cover">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:QFGImporter.My.Resources.Resources.s_QFG2_Cover">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:QFGImporter.My.Resources.Resources.s_QFG3_Cover">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:QFGImporter.My.Resources.Resources.s_QFG4_Cover">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member><member name="T:QFGImporter.My.Resources.Resources">
 	<summary>

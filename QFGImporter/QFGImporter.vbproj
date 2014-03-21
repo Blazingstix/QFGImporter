@@ -75,6 +75,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainForm.Designer.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="QFGImporter\CharGeneric.vb" />
     <Compile Include="QFGImporter\CharQFG1.vb" />
     <Compile Include="QFGImporter\CharQFG2.vb" />
@@ -83,11 +89,11 @@
     <Compile Include="QFGImporter\CharV1.vb" />
     <Compile Include="QFGImporter\CharQFG4.vb" />
     <Compile Include="QFGImporter\Enums.vb" />
-    <Compile Include="Form1.vb">
+    <Compile Include="CharacterEditor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="CharacterEditor.Designer.vb">
+      <DependentUpon>CharacterEditor.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -106,6 +112,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="QFGImporter\CharGenericShared.vb" />
+    <Compile Include="SelectGame.Designer.vb">
+      <DependentUpon>SelectGame.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SelectGame.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tests\MinimumCharacters.vb" />
     <Compile Include="Tests\TestForm.Designer.vb">
       <DependentUpon>TestForm.vb</DependentUpon>
     </Compile>
@@ -115,14 +128,20 @@
     <Compile Include="Tests\TestCases.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="CharacterEditor.resx">
+      <DependentUpon>CharacterEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectGame.resx">
+      <DependentUpon>SelectGame.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tests\TestForm.resx">
       <DependentUpon>TestForm.vb</DependentUpon>
@@ -145,6 +164,10 @@
     <Content Include="QFGImporter\QFG1.txt" />
     <Content Include="QFGImporter\QFG2.txt" />
     <Content Include="QFGImporter\QFG3.txt" />
+    <None Include="Resources\s-QFG4-Cover.jpg" />
+    <None Include="Resources\s-QFG3-Cover.jpg" />
+    <None Include="Resources\s-QFG2-Cover.jpg" />
+    <None Include="Resources\s-QFG1VGA-Cover.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

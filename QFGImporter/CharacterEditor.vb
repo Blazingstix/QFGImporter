@@ -1,4 +1,4 @@
-﻿Public Class Form1
+﻿Public Class CharacterEditor
     Private Property Loading As Boolean = True
     Private Property OriginalTitle As String = String.Empty
     Private Property LoadedFilename As String = String.Empty
@@ -8,7 +8,63 @@
     Public Property UnalteredData As Byte()
 
 #Region "Events_Main"
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Call PreLoadForm()
+    End Sub
+
+    Public Sub New(filename As String)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Call PreLoadForm()
+        Call Me.CloseCharacter()
+        Me.LoadedFilename = filename
+        Call LoadFromFile(filename)
+    End Sub
+
+    Public Sub New(character As CharGeneric)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Call PreLoadForm()
+        Me.LoadedFilename = "New Export"
+        Me.LoadedChar = character
+        Call LoadForm()
+    End Sub
+
+    Private Sub LoadFromFile(filename As String)
+        Me.LoadedFilename = filename
+        Dim fileContents As String = String.Empty
+        Dim s As IO.FileStream = System.IO.File.OpenRead(filename)
+        If s.Length < 1024 Then
+            Dim t As New IO.StreamReader(s)
+            fileContents = t.ReadToEnd
+        End If
+        s.Close()
+
+        'set the form's title, based on the open file's name
+        If LoadContents(fileContents) Then
+            Me.Text = Me.OriginalTitle & ": " & System.IO.Path.GetFileName(Me.LoadedFilename)
+        Else
+            Me.Text = Me.OriginalTitle
+            Me.LoadedFilename = Nothing
+        End If
+    End Sub
+
     Private Sub Form1_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        'Call PreLoadForm()
+    End Sub
+
+    Private Sub PreLoadForm()
         Me.OriginalTitle = Me.Text
         Call EnableTestData(False)
         lblOtherDataFilename.Text = String.Empty
@@ -31,8 +87,8 @@
             End If
             s.Close()
 
-            'set the form's title, baased on the open file's name
-            If LoadGameFromFileContents(fileContents) Then
+            'set the form's title, based on the open file's name
+            If LoadContents(fileContents) Then
                 Me.Text = Me.OriginalTitle & ": " & System.IO.Path.GetFileName(Me.LoadedFilename)
             Else
                 Me.Text = Me.OriginalTitle
@@ -42,7 +98,7 @@
         End If
     End Sub
 
-    Private Function LoadGameFromFileContents(fileContents As String) As Boolean
+    Public Function LoadContents(fileContents As String) As Boolean
         'CharGeneric.ParseCharacter(fileContents)
         Select Case CharGeneric.GetGame(fileContents)
             Case Enums.Games.QFG1
@@ -62,6 +118,12 @@
         Call LoadTestDisplay()
         Return True
     End Function
+
+    Private Sub LoadCoverPicture()
+        Dim xSelGame As New SelectGame
+        picCover.Image = xSelGame.GetCover(Me.LoadedChar.Game)
+    End Sub
+
 
     Private Sub RefreshTestDecrypting()
         'txtEncodedString.Text = Me.LoadedChar.EncodedString
@@ -84,28 +146,6 @@
             fs.Write(Me.LoadedChar.ExportString)
             fs.Close()
         End If
-    End Sub
-
-    Private Sub rdoQFG_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdoQFG1.CheckedChanged, rdoQFG2.CheckedChanged, rdoQFG3.CheckedChanged, rdoQFG4.CheckedChanged
-        Select Case DirectCast(sender, Control).Name
-            Case rdoQFG1.Name
-                Call SetQFG1Display()
-            Case rdoQFG2.Name
-                Call SetQFG2Display()
-            Case rdoQFG3.Name
-                Call SetQFG3Display()
-            Case rdoQFG4.Name
-                Call SetQFG4Display()
-        End Select
-
-        EnableQFG4(rdoQFG4.Checked)
-        EnableQFG3(rdoQFG4.Checked Or rdoQFG3.Checked)
-        EnableQFG2(rdoQFG4.Checked Or rdoQFG3.Checked Or rdoQFG2.Checked)
-        EnableQFG1(rdoQFG4.Checked Or rdoQFG3.Checked Or rdoQFG2.Checked Or rdoQFG1.Checked)
-        If rdoQFG1.Checked And rdoPaladin.Checked Then
-            rdoFighter.Checked = True
-        End If
-        rdoPaladin.Enabled = True
     End Sub
 
     Private Sub numInventory_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numGold.ValueChanged, numDaggers.ValueChanged, numHealingPotions.ValueChanged, numVigorPotions.ValueChanged, numMagicPotions.ValueChanged, numUndeadUnguent.ValueChanged, numPoisonCurePills.ValueChanged, numUnknownItem3.ValueChanged, numUnknownItem2.ValueChanged, numUnknownItem1.ValueChanged
@@ -217,6 +257,11 @@
     Private Sub SetWarningColour(numeric As NumericUpDown)
         numeric.BackColor = Color.Orange
         numeric.ForeColor = Color.Brown
+    End Sub
+
+    Private Sub numericUpDown_GotFocus(sender As Object, e As System.EventArgs) Handles numStrength.GotFocus, numIntelligence.GotFocus, numAgility.GotFocus, numVitality.GotFocus, numLuck.GotFocus, numWeaponUse.GotFocus, numParry.GotFocus, numDodge.GotFocus, numStealth.GotFocus, numPickLocks.GotFocus, numThrowing.GotFocus, numClimbing.GotFocus, numMagic.GotFocus, numCommunication.GotFocus, numHonor.GotFocus, numAcrobatics.GotFocus, numPuzzlePoints.GotFocus, numExperience.GotFocus, numHealthPoints.GotFocus, numStaminaPoints.GotFocus, numMagicPoints.GotFocus, numOpen.GotFocus, numDetectMagic.GotFocus, numTrigger.GotFocus, numDazzle.GotFocus, numZap.GotFocus, numCalm.GotFocus, numFlameDart.GotFocus, numFetch.GotFocus, numForceBolt.GotFocus, numLevitation.GotFocus, numReversal.GotFocus, numJugglingLights.GotFocus, numSummonStaff.GotFocus, numLightningBall.GotFocus, numHide.GotFocus, numProtection.GotFocus, numAura.GotFocus, numGlide.GotFocus, numResistance.GotFocus, numFrostBite.GotFocus, numGold.GotFocus, numDaggers.GotFocus, numHealingPotions.GotFocus, numMagicPotions.GotFocus, numVigorPotions.GotFocus, numUndeadUnguent.GotFocus, numPoisonCurePills.GotFocus, numUnknownItem1.GotFocus, numUnknownItem2.GotFocus, numUnknownItem3.GotFocus
+        Dim xSender As NumericUpDown = sender
+        xSender.Select(0, xSender.Value.ToString.Length)
     End Sub
 
 
@@ -438,13 +483,15 @@
 
     Private Sub LoadForm()
         Me.Loading = True
+
         If Me.LoadedChar Is Nothing Then
             grpAbilities.Enabled = False
             grpClass.Enabled = False
-            grpGames.Enabled = False
             grpSkills.Enabled = False
             grpSpells.Enabled = False
         Else
+            Call LoadCoverPicture()
+
             txtName.Text = Me.LoadedChar.Name
             Call SelectClass(Me.LoadedChar.CharacterClass)
 
@@ -769,17 +816,35 @@
     End Sub
 
     Private Sub SelectGame(game As Enums.Games)
+        Dim Is4 As Boolean = False
+        Dim Is3 As Boolean = False
+        Dim Is2 As Boolean = False
+        Dim Is1 As Boolean = False
+
         Select Case game
             Case Enums.Games.QFG1
-                rdoQFG1.Checked = True
+                Call SetQFG1Display()
+                Is1 = True
             Case Enums.Games.QFG2
-                rdoQFG2.Checked = True
-
+                Call SetQFG2Display()
+                Is2 = True
             Case Enums.Games.QFG3
-                rdoQFG3.Checked = True
+                Call SetQFG3Display()
+                Is3 = True
             Case Enums.Games.QFG4
-                rdoQFG4.Checked = True
+                Call SetQFG4Display()
+                Is4 = True
         End Select
+
+        EnableQFG4(Is4)
+        EnableQFG3(Is4 Or Is3)
+        EnableQFG2(Is4 Or Is3 Or Is2)
+        EnableQFG1(Is4 Or Is3 Or Is2 Or Is1)
+        If game = Enums.Games.QFG1 And rdoPaladin.Checked Then
+            rdoFighter.Checked = True
+        End If
+        rdoPaladin.Enabled = True
+
     End Sub
 
     Private Sub SelectClass(charClass As Enums.CharacterClass)
@@ -1404,7 +1469,7 @@
             Call Me.CloseCharacter()
             Dim fileContents As String = tstDlg.FileContents
 
-            Call LoadGameFromFileContents(fileContents)
+            Call LoadContents(fileContents)
         End If
     End Sub
 
