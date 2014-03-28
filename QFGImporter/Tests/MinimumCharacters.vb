@@ -13,7 +13,61 @@
 
     Public Const QFG5Fighter As String = " 053 053 053 053 245 021 335 021 245 053 245 053 053 053 353 053 053 353 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 053 04a 22c16 c264c263b2742281a27 c"
     Public Const QFG5Wizard As String = " 052 052 052 052 144 5 2 212 5 2 212 5 2 5 2 212 212 212 212 212 358 144 358 358 358 358 358 358 352 052 136 052 352 426 136 052 144 060 144 060 060 136 052 052 136 052 136 052 052 052 052 052 052 052 052 052 04b 22d24 4 934 9 b 95e 8 6 950"
-    Public Const QFG5Thief As String = " 051 051 051 051 147 35b 211 023 247 023 023 337 04f 337 04f 249 249 03d 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 163 216 060135c27442817283a2646284c"
+    Public Const QFG5Thief As String = " 051 051 051 051 147 35b 211 023 247 023 023 337 04f 337 04f 249 249 03d 163 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 45b 462 3201140275428 7282a2636285c"
 
     Public Const QFG5Paladin As String = " 050 050 050 050 430 224 33e 02a 23e 058 23e 058 058 058 438 21c 21c 438 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 132 12b 0311754255c26 f2516243e2548"
+
+    Public Shared Function GetCharacter(game As Enums.Games, [class] As Enums.CharacterClass) As CharGeneric
+        Dim newChar As CharGeneric = Nothing
+        Select Case game
+            Case Enums.Games.QFG1
+                newChar = New CharQFG1
+                Select Case [class]
+                    Case Enums.CharacterClass.Fighter, Enums.CharacterClass.Paladin
+                        newChar.LoadData(QFG2Fighter)
+                    Case Enums.CharacterClass.Magic
+                        newChar.LoadData(QFG2Wizard)
+                    Case Enums.CharacterClass.Thief
+                        newChar.LoadData(QFG2Thief)
+                End Select
+            Case Enums.Games.QFG2
+                newChar = New CharQFG2
+                Select Case [class]
+                    Case Enums.CharacterClass.Fighter, Enums.CharacterClass.Paladin
+                        newChar.LoadData(QFG3Fighter)
+                    Case Enums.CharacterClass.Magic
+                        newChar.LoadData(QFG3Wizard)
+                    Case Enums.CharacterClass.Thief
+                        newChar.LoadData(QFG3Thief)
+                End Select
+            Case Enums.Games.QFG3
+                newChar = New CharQFG3
+                Select Case [class]
+                    Case Enums.CharacterClass.Fighter, Enums.CharacterClass.Paladin
+                        newChar.LoadData(QFG4Fighter)
+                    Case Enums.CharacterClass.Magic
+                        newChar.LoadData(QFG4Wizard)
+                    Case Enums.CharacterClass.Thief
+                        newChar.LoadData(QFG4Thief)
+                End Select
+            Case Enums.Games.QFG4
+                newChar = New CharQFG4
+                Select Case [class]
+                    Case Enums.CharacterClass.Fighter
+                        newChar.LoadData(QFG5Fighter)
+                    Case Enums.CharacterClass.Magic
+                        newChar.LoadData(QFG5Wizard)
+                    Case Enums.CharacterClass.Thief
+                        newChar.LoadData(QFG5Thief)
+                    Case Enums.CharacterClass.Paladin
+                        newChar.LoadData(QFG5Paladin)
+                End Select
+        End Select
+        If newChar IsNot Nothing Then
+            newChar.Name = "Unknown Hero"
+        End If
+        Return newChar
+    End Function
+
+
 End Class
