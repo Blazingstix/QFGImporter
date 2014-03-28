@@ -120,7 +120,7 @@
 
     Friend Overrides ReadOnly Property SkillTechnicalMaximum As Short
         Get
-            Return 127
+            Return SByte.MaxValue
         End Get
     End Property
 

@@ -145,24 +145,6 @@
         End Get
     End Property
 
-    'Public Property Communication As Integer
-    '    Get
-    '        Return Me.Skill(Enums.Skills.Communication)
-    '    End Get
-    '    Set(value As Integer)
-    '        Me.Skill(Enums.Skills.Communication) = value
-    '    End Set
-    'End Property
-
-    'Public Property Honor As Integer
-    '    Get
-    '        Return Me.Skill(Enums.Skills.Honor)
-    '    End Get
-    '    Set(value As Integer)
-    '        Me.Skill(Enums.Skills.Honor) = value
-    '    End Set
-    'End Property
-
     Public Property PoisonCurePills As Integer
         Get
             Return Me.DecodedValues(CharQFG2.ByteNames.InventoryPoisonCurePills)

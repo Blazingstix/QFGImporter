@@ -124,13 +124,13 @@
     Public Overrides Property Flag(position As Byte) As Boolean
         Get
             If position < 0 Or position > 7 Then
-                Throw New IndexOutOfRangeException
+                Return False
             End If
             Return CharGeneric.getBit(Me.DecodedValues(Me.OffsetUniqueInventory), position)
         End Get
         Set(value As Boolean)
             If position < 0 Or position > 7 Then
-                Throw New IndexOutOfRangeException
+                Return
             End If
             Me.DecodedValues(Me.OffsetUniqueInventory) = CharGeneric.setBit(Me.DecodedValues(Me.OffsetUniqueInventory), position, value)
         End Set

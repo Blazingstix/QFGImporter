@@ -147,13 +147,13 @@
 
     Friend Overrides ReadOnly Property SkillTechnicalMaximum As Short
         Get
-            Return 400
+            Return 500
         End Get
     End Property
 
     Friend Overrides ReadOnly Property SkillCount As Byte
         Get
-            Return 15
+            Return 16
         End Get
     End Property
 

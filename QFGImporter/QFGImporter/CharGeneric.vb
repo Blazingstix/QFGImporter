@@ -2,6 +2,7 @@
 #Region "Constants"
     Public Const QFGFileFilter As String = "QFG Import Character (*.sav)|*.sav|All Files (*.*)|*.*"
 
+    Public Property Filename As String = String.Empty
     Friend MustOverride ReadOnly Property OffsetCharClass As Byte
     Friend MustOverride ReadOnly Property OffsetSkills As Byte
     Friend MustOverride ReadOnly Property OffsetExperience As Byte
@@ -102,17 +103,21 @@
                     Me.Extra = lines(3)
                 End If
             End If
-            Me.EncodedString = data
-
-            'If Me.Game = Enums.Games.QFG3 AndAlso Me.EncodedString.Length <> 208 Then
-            '    'QFG3 data longer than 208 characters is victim to an overflow error... we cannot deal with that yet.
-            '    MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG3 files with data larger than 208 characters can an error, and this program cannot work around that yet.")
-            '    'Exit Sub
-            'End If
-
-            Call ParseHexString(Me.EncodedString)
-            Call Me.DecodeValues()
+            Call LoadData(data)
         End If
+    End Sub
+
+    Public Sub LoadData(dataString As String)
+        Me.EncodedString = dataString
+
+        'If Me.Game = Enums.Games.QFG3 AndAlso Me.EncodedString.Length <> 208 Then
+        '    'QFG3 data longer than 208 characters is victim to an overflow error... we cannot deal with that yet.
+        '    MessageBox.Show("This saved character has " & Me.EncodedString.Length & " characters in the data portion of the file." & vbCrLf & "QFG3 files with data larger than 208 characters can an error, and this program cannot work around that yet.")
+        '    'Exit Sub
+        'End If
+
+        Call ParseHexString(Me.EncodedString)
+        Call Me.DecodeValues()
     End Sub
 
     Public Shared Function GetGame(FileContents As String) As Enums.Games
@@ -215,16 +220,19 @@
             blankVals(i) = 0
         Next
 
-        'fill in the constant values
-        For i As Integer = 0 To 1
-            blankVals(Me.OffsetConstants1 + i) = Me.Constants1(i)
-        Next
-        For i As Integer = 0 To 3
-            blankVals(Me.OffsetConstants2 + i) = Me.Constants2(i)
-        Next
 
         Me.DecodedValues = blankVals
+        Call UpdateConstants()
+    End Sub
 
+    Public Overridable Sub UpdateConstants()
+        'fill in the constant values
+        For i As Integer = 0 To 1
+            Me.DecodedValues(Me.OffsetConstants1 + i) = Me.Constants1(i)
+        Next
+        For i As Integer = 0 To 3
+            Me.DecodedValues(Me.OffsetConstants2 + i) = Me.Constants2(i)
+        Next
     End Sub
 
     Public MustOverride ReadOnly Property HeaderString As String
@@ -254,6 +262,38 @@
         Return str
     End Function
 
+    Public ReadOnly Property HasOverflowError As Boolean
+        Get
+            Return Me.EncodedString.Length <> Me.DataSize
+        End Get
+    End Property
 
+    Public Sub Update()
+        Call UpdateConstants()
+        Call Me.EncodeValues()
+        Me.EncodedString = Me.EncodedDataToString
+    End Sub
+
+    Public Shared Function GetCharacterFromContents(fileContents As String) As CharGeneric
+        Dim OutputChar As CharGeneric = Nothing
+        'CharGeneric.ParseCharacter(fileContents)
+        Select Case CharGeneric.GetGame(fileContents)
+            Case Enums.Games.QFG1
+                OutputChar = New CharQFG1(fileContents)
+            Case Enums.Games.QFG2
+                OutputChar = New CharQFG2(fileContents)
+            Case Enums.Games.QFG3
+                OutputChar = New CharQFG3(fileContents)
+            Case Enums.Games.QFG4
+                OutputChar = New CharQFG4(fileContents)
+        End Select
+        Return OutputChar
+    End Function
+
+    Public ReadOnly Property IsNewCharacter() As Boolean
+        Get
+            Return String.IsNullOrEmpty(Me.Filename)
+        End Get
+    End Property
 
 End Class

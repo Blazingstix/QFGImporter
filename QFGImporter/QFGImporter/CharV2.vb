@@ -230,15 +230,21 @@
             blankVals(i) = 0
         Next
 
-        'fill in the constant values
-        For i As Integer = 0 To 1
-            blankVals(Me.OffsetConstants1 + i) = Me.Constants1(i)
-        Next
-        For i As Integer = 0 To 3
-            blankVals(Me.OffsetConstants2 + i) = Me.Constants2(i)
-        Next
-
         Me.DecodedValues = blankVals
+        Call UpdateConstants()
 
     End Sub
+
+    Public Overrides Sub UpdateConstants()
+        If Me.DecodedValues IsNot Nothing Then
+            'fill in the constant values
+            For i As Integer = 0 To 1
+                Me.DecodedValues(Me.OffsetConstants1 + i) = Me.Constants1(i)
+            Next
+            For i As Integer = 0 To 3
+                Me.DecodedValues(Me.OffsetConstants2 + i) = Me.Constants2(i)
+            Next
+        End If
+    End Sub
+
 End Class

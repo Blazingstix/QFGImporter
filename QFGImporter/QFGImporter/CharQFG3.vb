@@ -145,7 +145,7 @@
 
     Friend Overrides ReadOnly Property SkillTechnicalMaximum As Short
         Get
-            Return 300
+            Return 500
         End Get
     End Property
 
