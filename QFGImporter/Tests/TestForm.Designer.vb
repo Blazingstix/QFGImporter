@@ -244,6 +244,7 @@ Partial Class TestForm
         Me.Button1.TabIndex = 8
         Me.Button1.Text = "Test QFG1"
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'QFG2Fighter
         '
@@ -513,6 +514,7 @@ Partial Class TestForm
         Me.btnSaveAs.TabIndex = 9
         Me.btnSaveAs.Text = "Save As..."
         Me.btnSaveAs.UseVisualStyleBackColor = True
+        Me.btnSaveAs.Visible = False
         '
         'TestForm
         '

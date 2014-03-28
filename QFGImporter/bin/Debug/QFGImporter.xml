@@ -6,12 +6,7 @@ QFGImporter
 </name>
 </assembly>
 <members>
-<member name="M:QFGImporter.CharacterEditor.LoadSelectedByte">
-	<summary>
- Loads the selected byte for viewing/editing
- </summary>
-	<remarks></remarks>
-</member><member name="M:QFGImporter.CharGeneric.convertHexStringToByteArray(System.String)">
+<member name="M:QFGImporter.CharGeneric.convertHexStringToByteArray(System.String)">
 	<summary>
  This is used for QFG1 and QFG2
  </summary>
@@ -47,6 +42,33 @@ QFGImporter
  Updates the checksums, and the encoded values, then returns the string to be saved to a file
  </summary>
 	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.CharacterEditor.ClearAllFields">
+	<summary>
+ Sets all controls to have a blank, 0, or unchecked value.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.CharacterEditor.RefreshFormLayout">
+	<summary>
+ This enables or disables controls based on the Game selected.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.CharacterEditor.IsNumericOver">
+	<summary>
+ Search through all the numeric updown controls and see if any are above the default maximum.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.CharacterEditor.IsBelowArchetype">
+	<summary>
+ Checks if any character value is lower than the default for a new character of this class
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:QFGImporter.CharacterEditor.LoadSelectedByte">
+	<summary>
+ Loads the selected byte for viewing/editing
+ </summary>
 	<remarks></remarks>
 </member><member name="P:QFGImporter.My.Resources.Resources.ResourceManager">
 	<summary>

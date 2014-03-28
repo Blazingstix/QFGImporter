@@ -76,6 +76,7 @@ Partial Class CharacterEditor
         Me.lblSummonStaff = New System.Windows.Forms.Label()
         Me.lblHide = New System.Windows.Forms.Label()
         Me.lblReversal = New System.Windows.Forms.Label()
+        Me.lblRitualOfRelease = New System.Windows.Forms.Label()
         Me.lblResistance = New System.Windows.Forms.Label()
         Me.lblAura = New System.Windows.Forms.Label()
         Me.lblLevitation = New System.Windows.Forms.Label()
@@ -100,6 +101,7 @@ Partial Class CharacterEditor
         Me.numGlide = New System.Windows.Forms.NumericUpDown()
         Me.numSummonStaff = New System.Windows.Forms.NumericUpDown()
         Me.lblDetectMagic = New System.Windows.Forms.Label()
+        Me.numRitualOfRelease = New System.Windows.Forms.NumericUpDown()
         Me.numResistance = New System.Windows.Forms.NumericUpDown()
         Me.numAura = New System.Windows.Forms.NumericUpDown()
         Me.numHide = New System.Windows.Forms.NumericUpDown()
@@ -119,10 +121,11 @@ Partial Class CharacterEditor
         Me.numHealthPoints = New System.Windows.Forms.NumericUpDown()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
-        Me.btnLoad = New System.Windows.Forms.Button()
-        Me.btnTest = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tabCharacter = New System.Windows.Forms.TabPage()
+        Me.picWarning = New System.Windows.Forms.PictureBox()
+        Me.btnFix = New System.Windows.Forms.Button()
+        Me.lblOverflowError = New System.Windows.Forms.Label()
         Me.picCover = New System.Windows.Forms.PictureBox()
         Me.grpInventory = New System.Windows.Forms.GroupBox()
         Me.lblUnknownItem3 = New System.Windows.Forms.Label()
@@ -219,15 +222,10 @@ Partial Class CharacterEditor
         Me.txtOriginalData = New System.Windows.Forms.TextBox()
         Me.tabDecode = New System.Windows.Forms.TabPage()
         Me.txtDecodedByteArrayDecimal = New System.Windows.Forms.TextBox()
-        Me.lblCipherApplied = New System.Windows.Forms.Label()
-        Me.numCipher = New System.Windows.Forms.NumericUpDown()
         Me.lblEncodedStringLength = New System.Windows.Forms.Label()
         Me.lblDecodedByteArrayDecimal = New System.Windows.Forms.Label()
         Me.lblDecodedByteArray = New System.Windows.Forms.Label()
         Me.lblByteArray = New System.Windows.Forms.Label()
-        Me.btnAttemptRevert = New System.Windows.Forms.Button()
-        Me.bnBitShift = New System.Windows.Forms.Button()
-        Me.btnCipher = New System.Windows.Forms.Button()
         Me.lblEncodedString = New System.Windows.Forms.Label()
         Me.txtDecodedByteArray = New System.Windows.Forms.TextBox()
         Me.txtEncodedByteArray = New System.Windows.Forms.TextBox()
@@ -267,6 +265,7 @@ Partial Class CharacterEditor
         CType(Me.numFrostBite, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numGlide, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSummonStaff, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRitualOfRelease, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numResistance, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numAura, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHide, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -281,6 +280,7 @@ Partial Class CharacterEditor
         CType(Me.numHealthPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
         Me.tabCharacter.SuspendLayout()
+        CType(Me.picWarning, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picCover, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpInventory.SuspendLayout()
         CType(Me.numUnknownItem3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -304,7 +304,6 @@ Partial Class CharacterEditor
         CType(Me.numBytes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabDecode.SuspendLayout()
-        CType(Me.numCipher, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grpClass
@@ -323,7 +322,7 @@ Partial Class CharacterEditor
         'rdoPaladin
         '
         Me.rdoPaladin.AutoSize = True
-        Me.rdoPaladin.Location = New System.Drawing.Point(6, 88)
+        Me.rdoPaladin.Location = New System.Drawing.Point(69, 42)
         Me.rdoPaladin.Name = "rdoPaladin"
         Me.rdoPaladin.Size = New System.Drawing.Size(60, 17)
         Me.rdoPaladin.TabIndex = 3
@@ -333,7 +332,7 @@ Partial Class CharacterEditor
         'rdoThief
         '
         Me.rdoThief.AutoSize = True
-        Me.rdoThief.Location = New System.Drawing.Point(6, 65)
+        Me.rdoThief.Location = New System.Drawing.Point(6, 42)
         Me.rdoThief.Name = "rdoThief"
         Me.rdoThief.Size = New System.Drawing.Size(49, 17)
         Me.rdoThief.TabIndex = 2
@@ -343,7 +342,7 @@ Partial Class CharacterEditor
         'rdoWizard
         '
         Me.rdoWizard.AutoSize = True
-        Me.rdoWizard.Location = New System.Drawing.Point(6, 42)
+        Me.rdoWizard.Location = New System.Drawing.Point(69, 19)
         Me.rdoWizard.Name = "rdoWizard"
         Me.rdoWizard.Size = New System.Drawing.Size(58, 17)
         Me.rdoWizard.TabIndex = 1
@@ -659,7 +658,7 @@ Partial Class CharacterEditor
         '
         'numExperience
         '
-        Me.numExperience.Increment = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.numExperience.Increment = New Decimal(New Integer() {100, 0, 0, 0})
         Me.numExperience.Location = New System.Drawing.Point(6, 45)
         Me.numExperience.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.numExperience.Name = "numExperience"
@@ -728,6 +727,7 @@ Partial Class CharacterEditor
         Me.grpSpells.Controls.Add(Me.lblSummonStaff)
         Me.grpSpells.Controls.Add(Me.lblHide)
         Me.grpSpells.Controls.Add(Me.lblReversal)
+        Me.grpSpells.Controls.Add(Me.lblRitualOfRelease)
         Me.grpSpells.Controls.Add(Me.lblResistance)
         Me.grpSpells.Controls.Add(Me.lblAura)
         Me.grpSpells.Controls.Add(Me.lblLevitation)
@@ -752,6 +752,7 @@ Partial Class CharacterEditor
         Me.grpSpells.Controls.Add(Me.numGlide)
         Me.grpSpells.Controls.Add(Me.numSummonStaff)
         Me.grpSpells.Controls.Add(Me.lblDetectMagic)
+        Me.grpSpells.Controls.Add(Me.numRitualOfRelease)
         Me.grpSpells.Controls.Add(Me.numResistance)
         Me.grpSpells.Controls.Add(Me.numAura)
         Me.grpSpells.Controls.Add(Me.numHide)
@@ -789,7 +790,7 @@ Partial Class CharacterEditor
         '
         Me.lblFrostBite.AutoSize = True
         Me.lblFrostBite.Enabled = False
-        Me.lblFrostBite.Location = New System.Drawing.Point(197, 122)
+        Me.lblFrostBite.Location = New System.Drawing.Point(205, 96)
         Me.lblFrostBite.Name = "lblFrostBite"
         Me.lblFrostBite.Size = New System.Drawing.Size(51, 13)
         Me.lblFrostBite.TabIndex = 8
@@ -799,7 +800,7 @@ Partial Class CharacterEditor
         '
         Me.lblGlide.AutoSize = True
         Me.lblGlide.Enabled = False
-        Me.lblGlide.Location = New System.Drawing.Point(197, 148)
+        Me.lblGlide.Location = New System.Drawing.Point(205, 122)
         Me.lblGlide.Name = "lblGlide"
         Me.lblGlide.Size = New System.Drawing.Size(31, 13)
         Me.lblGlide.TabIndex = 8
@@ -809,7 +810,7 @@ Partial Class CharacterEditor
         '
         Me.numLightningBall.Enabled = False
         Me.numLightningBall.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numLightningBall.Location = New System.Drawing.Point(139, 94)
+        Me.numLightningBall.Location = New System.Drawing.Point(147, 68)
         Me.numLightningBall.Name = "numLightningBall"
         Me.numLightningBall.Size = New System.Drawing.Size(52, 20)
         Me.numLightningBall.TabIndex = 13
@@ -819,7 +820,7 @@ Partial Class CharacterEditor
         '
         Me.lblLightningBall.AutoSize = True
         Me.lblLightningBall.Enabled = False
-        Me.lblLightningBall.Location = New System.Drawing.Point(197, 96)
+        Me.lblLightningBall.Location = New System.Drawing.Point(205, 70)
         Me.lblLightningBall.Name = "lblLightningBall"
         Me.lblLightningBall.Size = New System.Drawing.Size(70, 13)
         Me.lblLightningBall.TabIndex = 8
@@ -829,7 +830,7 @@ Partial Class CharacterEditor
         '
         Me.lblSummonStaff.AutoSize = True
         Me.lblSummonStaff.Enabled = False
-        Me.lblSummonStaff.Location = New System.Drawing.Point(197, 70)
+        Me.lblSummonStaff.Location = New System.Drawing.Point(205, 44)
         Me.lblSummonStaff.Name = "lblSummonStaff"
         Me.lblSummonStaff.Size = New System.Drawing.Size(73, 13)
         Me.lblSummonStaff.TabIndex = 8
@@ -838,7 +839,7 @@ Partial Class CharacterEditor
         'lblHide
         '
         Me.lblHide.AutoSize = True
-        Me.lblHide.Location = New System.Drawing.Point(197, 174)
+        Me.lblHide.Location = New System.Drawing.Point(205, 148)
         Me.lblHide.Name = "lblHide"
         Me.lblHide.Size = New System.Drawing.Size(29, 13)
         Me.lblHide.TabIndex = 8
@@ -847,17 +848,27 @@ Partial Class CharacterEditor
         'lblReversal
         '
         Me.lblReversal.AutoSize = True
-        Me.lblReversal.Location = New System.Drawing.Point(197, 18)
+        Me.lblReversal.Location = New System.Drawing.Point(64, 278)
         Me.lblReversal.Name = "lblReversal"
         Me.lblReversal.Size = New System.Drawing.Size(49, 13)
         Me.lblReversal.TabIndex = 8
         Me.lblReversal.Text = "Reversal"
         '
+        'lblRitualOfRelease
+        '
+        Me.lblRitualOfRelease.AutoSize = True
+        Me.lblRitualOfRelease.Enabled = False
+        Me.lblRitualOfRelease.Location = New System.Drawing.Point(205, 252)
+        Me.lblRitualOfRelease.Name = "lblRitualOfRelease"
+        Me.lblRitualOfRelease.Size = New System.Drawing.Size(88, 13)
+        Me.lblRitualOfRelease.TabIndex = 8
+        Me.lblRitualOfRelease.Text = "Ritual of Release"
+        '
         'lblResistance
         '
         Me.lblResistance.AutoSize = True
         Me.lblResistance.Enabled = False
-        Me.lblResistance.Location = New System.Drawing.Point(197, 252)
+        Me.lblResistance.Location = New System.Drawing.Point(205, 226)
         Me.lblResistance.Name = "lblResistance"
         Me.lblResistance.Size = New System.Drawing.Size(60, 13)
         Me.lblResistance.TabIndex = 8
@@ -867,7 +878,7 @@ Partial Class CharacterEditor
         '
         Me.lblAura.AutoSize = True
         Me.lblAura.Enabled = False
-        Me.lblAura.Location = New System.Drawing.Point(197, 200)
+        Me.lblAura.Location = New System.Drawing.Point(205, 174)
         Me.lblAura.Name = "lblAura"
         Me.lblAura.Size = New System.Drawing.Size(29, 13)
         Me.lblAura.TabIndex = 8
@@ -915,7 +926,7 @@ Partial Class CharacterEditor
         '
         Me.lblProtection.AutoSize = True
         Me.lblProtection.Enabled = False
-        Me.lblProtection.Location = New System.Drawing.Point(197, 226)
+        Me.lblProtection.Location = New System.Drawing.Point(205, 200)
         Me.lblProtection.Name = "lblProtection"
         Me.lblProtection.Size = New System.Drawing.Size(55, 13)
         Me.lblProtection.TabIndex = 7
@@ -925,7 +936,7 @@ Partial Class CharacterEditor
         '
         Me.lblJugglingLights.AutoSize = True
         Me.lblJugglingLights.Enabled = False
-        Me.lblJugglingLights.Location = New System.Drawing.Point(197, 44)
+        Me.lblJugglingLights.Location = New System.Drawing.Point(205, 18)
         Me.lblJugglingLights.Name = "lblJugglingLights"
         Me.lblJugglingLights.Size = New System.Drawing.Size(77, 13)
         Me.lblJugglingLights.TabIndex = 7
@@ -1001,7 +1012,7 @@ Partial Class CharacterEditor
         '
         Me.numProtection.Enabled = False
         Me.numProtection.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numProtection.Location = New System.Drawing.Point(139, 224)
+        Me.numProtection.Location = New System.Drawing.Point(147, 198)
         Me.numProtection.Name = "numProtection"
         Me.numProtection.Size = New System.Drawing.Size(52, 20)
         Me.numProtection.TabIndex = 18
@@ -1011,7 +1022,7 @@ Partial Class CharacterEditor
         '
         Me.numJugglingLights.Enabled = False
         Me.numJugglingLights.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numJugglingLights.Location = New System.Drawing.Point(139, 42)
+        Me.numJugglingLights.Location = New System.Drawing.Point(147, 16)
         Me.numJugglingLights.Name = "numJugglingLights"
         Me.numJugglingLights.Size = New System.Drawing.Size(52, 20)
         Me.numJugglingLights.TabIndex = 11
@@ -1049,7 +1060,7 @@ Partial Class CharacterEditor
         '
         Me.numFrostBite.Enabled = False
         Me.numFrostBite.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numFrostBite.Location = New System.Drawing.Point(139, 120)
+        Me.numFrostBite.Location = New System.Drawing.Point(147, 94)
         Me.numFrostBite.Name = "numFrostBite"
         Me.numFrostBite.Size = New System.Drawing.Size(52, 20)
         Me.numFrostBite.TabIndex = 14
@@ -1059,7 +1070,7 @@ Partial Class CharacterEditor
         '
         Me.numGlide.Enabled = False
         Me.numGlide.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numGlide.Location = New System.Drawing.Point(139, 146)
+        Me.numGlide.Location = New System.Drawing.Point(147, 120)
         Me.numGlide.Name = "numGlide"
         Me.numGlide.Size = New System.Drawing.Size(52, 20)
         Me.numGlide.TabIndex = 15
@@ -1069,7 +1080,7 @@ Partial Class CharacterEditor
         '
         Me.numSummonStaff.Enabled = False
         Me.numSummonStaff.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numSummonStaff.Location = New System.Drawing.Point(139, 68)
+        Me.numSummonStaff.Location = New System.Drawing.Point(147, 42)
         Me.numSummonStaff.Name = "numSummonStaff"
         Me.numSummonStaff.Size = New System.Drawing.Size(52, 20)
         Me.numSummonStaff.TabIndex = 12
@@ -1084,11 +1095,21 @@ Partial Class CharacterEditor
         Me.lblDetectMagic.TabIndex = 2
         Me.lblDetectMagic.Text = "Detect Magic"
         '
+        'numRitualOfRelease
+        '
+        Me.numRitualOfRelease.Enabled = False
+        Me.numRitualOfRelease.Increment = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.numRitualOfRelease.Location = New System.Drawing.Point(147, 250)
+        Me.numRitualOfRelease.Name = "numRitualOfRelease"
+        Me.numRitualOfRelease.Size = New System.Drawing.Size(52, 20)
+        Me.numRitualOfRelease.TabIndex = 19
+        Me.numRitualOfRelease.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'numResistance
         '
         Me.numResistance.Enabled = False
         Me.numResistance.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numResistance.Location = New System.Drawing.Point(139, 250)
+        Me.numResistance.Location = New System.Drawing.Point(147, 224)
         Me.numResistance.Name = "numResistance"
         Me.numResistance.Size = New System.Drawing.Size(52, 20)
         Me.numResistance.TabIndex = 19
@@ -1098,7 +1119,7 @@ Partial Class CharacterEditor
         '
         Me.numAura.Enabled = False
         Me.numAura.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numAura.Location = New System.Drawing.Point(139, 198)
+        Me.numAura.Location = New System.Drawing.Point(147, 172)
         Me.numAura.Name = "numAura"
         Me.numAura.Size = New System.Drawing.Size(52, 20)
         Me.numAura.TabIndex = 17
@@ -1107,7 +1128,7 @@ Partial Class CharacterEditor
         'numHide
         '
         Me.numHide.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numHide.Location = New System.Drawing.Point(139, 172)
+        Me.numHide.Location = New System.Drawing.Point(147, 146)
         Me.numHide.Name = "numHide"
         Me.numHide.Size = New System.Drawing.Size(52, 20)
         Me.numHide.TabIndex = 16
@@ -1116,7 +1137,7 @@ Partial Class CharacterEditor
         'numReversal
         '
         Me.numReversal.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numReversal.Location = New System.Drawing.Point(139, 16)
+        Me.numReversal.Location = New System.Drawing.Point(6, 276)
         Me.numReversal.Name = "numReversal"
         Me.numReversal.Size = New System.Drawing.Size(52, 20)
         Me.numReversal.TabIndex = 10
@@ -1280,26 +1301,6 @@ Partial Class CharacterEditor
         Me.txtName.Size = New System.Drawing.Size(312, 20)
         Me.txtName.TabIndex = 0
         '
-        'btnLoad
-        '
-        Me.btnLoad.Location = New System.Drawing.Point(93, 12)
-        Me.btnLoad.Name = "btnLoad"
-        Me.btnLoad.Size = New System.Drawing.Size(75, 23)
-        Me.btnLoad.TabIndex = 9
-        Me.btnLoad.Text = "Load..."
-        Me.btnLoad.UseVisualStyleBackColor = True
-        Me.btnLoad.Visible = False
-        '
-        'btnTest
-        '
-        Me.btnTest.Location = New System.Drawing.Point(174, 12)
-        Me.btnTest.Name = "btnTest"
-        Me.btnTest.Size = New System.Drawing.Size(75, 23)
-        Me.btnTest.TabIndex = 11
-        Me.btnTest.Text = "Test..."
-        Me.btnTest.UseVisualStyleBackColor = True
-        Me.btnTest.Visible = False
-        '
         'TabControl1
         '
         Me.TabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -1311,11 +1312,14 @@ Partial Class CharacterEditor
         Me.TabControl1.Location = New System.Drawing.Point(12, 41)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(698, 633)
+        Me.TabControl1.Size = New System.Drawing.Size(698, 662)
         Me.TabControl1.TabIndex = 9
         '
         'tabCharacter
         '
+        Me.tabCharacter.Controls.Add(Me.picWarning)
+        Me.tabCharacter.Controls.Add(Me.btnFix)
+        Me.tabCharacter.Controls.Add(Me.lblOverflowError)
         Me.tabCharacter.Controls.Add(Me.picCover)
         Me.tabCharacter.Controls.Add(Me.grpInventory)
         Me.tabCharacter.Controls.Add(Me.grpUniqueInventory)
@@ -1329,10 +1333,41 @@ Partial Class CharacterEditor
         Me.tabCharacter.Location = New System.Drawing.Point(4, 22)
         Me.tabCharacter.Name = "tabCharacter"
         Me.tabCharacter.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabCharacter.Size = New System.Drawing.Size(690, 607)
+        Me.tabCharacter.Size = New System.Drawing.Size(690, 636)
         Me.tabCharacter.TabIndex = 0
         Me.tabCharacter.Text = "Character Sheet"
         Me.tabCharacter.UseVisualStyleBackColor = True
+        '
+        'picWarning
+        '
+        Me.picWarning.Location = New System.Drawing.Point(85, 607)
+        Me.picWarning.Name = "picWarning"
+        Me.picWarning.Size = New System.Drawing.Size(24, 24)
+        Me.picWarning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picWarning.TabIndex = 10
+        Me.picWarning.TabStop = False
+        Me.picWarning.Visible = False
+        '
+        'btnFix
+        '
+        Me.btnFix.Location = New System.Drawing.Point(6, 608)
+        Me.btnFix.Name = "btnFix"
+        Me.btnFix.Size = New System.Drawing.Size(75, 23)
+        Me.btnFix.TabIndex = 9
+        Me.btnFix.Text = "Fix"
+        Me.btnFix.UseVisualStyleBackColor = True
+        Me.btnFix.Visible = False
+        '
+        'lblOverflowError
+        '
+        Me.lblOverflowError.AutoSize = True
+        Me.lblOverflowError.Location = New System.Drawing.Point(109, 613)
+        Me.lblOverflowError.Name = "lblOverflowError"
+        Me.lblOverflowError.Size = New System.Drawing.Size(526, 13)
+        Me.lblOverflowError.TabIndex = 8
+        Me.lblOverflowError.Text = "Warning: This exported character contains an overflow error, which may cause prob" & _
+    "lems when trying to import."
+        Me.lblOverflowError.Visible = False
         '
         'picCover
         '
@@ -1374,7 +1409,7 @@ Partial Class CharacterEditor
         'lblUnknownItem3
         '
         Me.lblUnknownItem3.AutoSize = True
-        Me.lblUnknownItem3.Location = New System.Drawing.Point(64, 220)
+        Me.lblUnknownItem3.Location = New System.Drawing.Point(64, 260)
         Me.lblUnknownItem3.Name = "lblUnknownItem3"
         Me.lblUnknownItem3.Size = New System.Drawing.Size(85, 13)
         Me.lblUnknownItem3.TabIndex = 1
@@ -1383,7 +1418,7 @@ Partial Class CharacterEditor
         'lblUnknownItem2
         '
         Me.lblUnknownItem2.AutoSize = True
-        Me.lblUnknownItem2.Location = New System.Drawing.Point(64, 194)
+        Me.lblUnknownItem2.Location = New System.Drawing.Point(64, 233)
         Me.lblUnknownItem2.Name = "lblUnknownItem2"
         Me.lblUnknownItem2.Size = New System.Drawing.Size(85, 13)
         Me.lblUnknownItem2.TabIndex = 1
@@ -1392,7 +1427,7 @@ Partial Class CharacterEditor
         'lblUnknownItem1
         '
         Me.lblUnknownItem1.AutoSize = True
-        Me.lblUnknownItem1.Location = New System.Drawing.Point(64, 171)
+        Me.lblUnknownItem1.Location = New System.Drawing.Point(64, 205)
         Me.lblUnknownItem1.Name = "lblUnknownItem1"
         Me.lblUnknownItem1.Size = New System.Drawing.Size(85, 13)
         Me.lblUnknownItem1.TabIndex = 1
@@ -1401,7 +1436,7 @@ Partial Class CharacterEditor
         'lblPoisonCurePills
         '
         Me.lblPoisonCurePills.AutoSize = True
-        Me.lblPoisonCurePills.Location = New System.Drawing.Point(64, 148)
+        Me.lblPoisonCurePills.Location = New System.Drawing.Point(64, 179)
         Me.lblPoisonCurePills.Name = "lblPoisonCurePills"
         Me.lblPoisonCurePills.Size = New System.Drawing.Size(85, 13)
         Me.lblPoisonCurePills.TabIndex = 1
@@ -1410,7 +1445,7 @@ Partial Class CharacterEditor
         'lblUndeadUnguent
         '
         Me.lblUndeadUnguent.AutoSize = True
-        Me.lblUndeadUnguent.Location = New System.Drawing.Point(64, 126)
+        Me.lblUndeadUnguent.Location = New System.Drawing.Point(64, 152)
         Me.lblUndeadUnguent.Name = "lblUndeadUnguent"
         Me.lblUndeadUnguent.Size = New System.Drawing.Size(89, 13)
         Me.lblUndeadUnguent.TabIndex = 1
@@ -1419,7 +1454,7 @@ Partial Class CharacterEditor
         'lblMagicPotions
         '
         Me.lblMagicPotions.AutoSize = True
-        Me.lblMagicPotions.Location = New System.Drawing.Point(64, 82)
+        Me.lblMagicPotions.Location = New System.Drawing.Point(64, 98)
         Me.lblMagicPotions.Name = "lblMagicPotions"
         Me.lblMagicPotions.Size = New System.Drawing.Size(74, 13)
         Me.lblMagicPotions.TabIndex = 1
@@ -1428,7 +1463,7 @@ Partial Class CharacterEditor
         'lblVigorPotions
         '
         Me.lblVigorPotions.AutoSize = True
-        Me.lblVigorPotions.Location = New System.Drawing.Point(64, 104)
+        Me.lblVigorPotions.Location = New System.Drawing.Point(64, 125)
         Me.lblVigorPotions.Name = "lblVigorPotions"
         Me.lblVigorPotions.Size = New System.Drawing.Size(69, 13)
         Me.lblVigorPotions.TabIndex = 1
@@ -1437,7 +1472,7 @@ Partial Class CharacterEditor
         'lblHealingPotions
         '
         Me.lblHealingPotions.AutoSize = True
-        Me.lblHealingPotions.Location = New System.Drawing.Point(64, 60)
+        Me.lblHealingPotions.Location = New System.Drawing.Point(64, 71)
         Me.lblHealingPotions.Name = "lblHealingPotions"
         Me.lblHealingPotions.Size = New System.Drawing.Size(81, 13)
         Me.lblHealingPotions.TabIndex = 1
@@ -1446,7 +1481,7 @@ Partial Class CharacterEditor
         'lblDaggers
         '
         Me.lblDaggers.AutoSize = True
-        Me.lblDaggers.Location = New System.Drawing.Point(64, 38)
+        Me.lblDaggers.Location = New System.Drawing.Point(64, 44)
         Me.lblDaggers.Name = "lblDaggers"
         Me.lblDaggers.Size = New System.Drawing.Size(47, 13)
         Me.lblDaggers.TabIndex = 1
@@ -1454,7 +1489,7 @@ Partial Class CharacterEditor
         '
         'numUnknownItem3
         '
-        Me.numUnknownItem3.Location = New System.Drawing.Point(6, 218)
+        Me.numUnknownItem3.Location = New System.Drawing.Point(6, 258)
         Me.numUnknownItem3.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numUnknownItem3.Name = "numUnknownItem3"
         Me.numUnknownItem3.Size = New System.Drawing.Size(52, 20)
@@ -1463,7 +1498,7 @@ Partial Class CharacterEditor
         '
         'numUnknownItem2
         '
-        Me.numUnknownItem2.Location = New System.Drawing.Point(6, 192)
+        Me.numUnknownItem2.Location = New System.Drawing.Point(6, 231)
         Me.numUnknownItem2.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numUnknownItem2.Name = "numUnknownItem2"
         Me.numUnknownItem2.Size = New System.Drawing.Size(52, 20)
@@ -1472,7 +1507,7 @@ Partial Class CharacterEditor
         '
         'numUnknownItem1
         '
-        Me.numUnknownItem1.Location = New System.Drawing.Point(6, 169)
+        Me.numUnknownItem1.Location = New System.Drawing.Point(6, 204)
         Me.numUnknownItem1.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numUnknownItem1.Name = "numUnknownItem1"
         Me.numUnknownItem1.Size = New System.Drawing.Size(52, 20)
@@ -1481,7 +1516,7 @@ Partial Class CharacterEditor
         '
         'numPoisonCurePills
         '
-        Me.numPoisonCurePills.Location = New System.Drawing.Point(6, 146)
+        Me.numPoisonCurePills.Location = New System.Drawing.Point(6, 177)
         Me.numPoisonCurePills.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numPoisonCurePills.Name = "numPoisonCurePills"
         Me.numPoisonCurePills.Size = New System.Drawing.Size(52, 20)
@@ -1490,7 +1525,7 @@ Partial Class CharacterEditor
         '
         'numUndeadUnguent
         '
-        Me.numUndeadUnguent.Location = New System.Drawing.Point(6, 124)
+        Me.numUndeadUnguent.Location = New System.Drawing.Point(6, 150)
         Me.numUndeadUnguent.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numUndeadUnguent.Name = "numUndeadUnguent"
         Me.numUndeadUnguent.Size = New System.Drawing.Size(52, 20)
@@ -1499,7 +1534,7 @@ Partial Class CharacterEditor
         '
         'numMagicPotions
         '
-        Me.numMagicPotions.Location = New System.Drawing.Point(6, 80)
+        Me.numMagicPotions.Location = New System.Drawing.Point(6, 96)
         Me.numMagicPotions.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numMagicPotions.Name = "numMagicPotions"
         Me.numMagicPotions.Size = New System.Drawing.Size(52, 20)
@@ -1509,7 +1544,7 @@ Partial Class CharacterEditor
         'lblCurrency
         '
         Me.lblCurrency.AutoSize = True
-        Me.lblCurrency.Location = New System.Drawing.Point(64, 16)
+        Me.lblCurrency.Location = New System.Drawing.Point(64, 17)
         Me.lblCurrency.Name = "lblCurrency"
         Me.lblCurrency.Size = New System.Drawing.Size(49, 13)
         Me.lblCurrency.TabIndex = 1
@@ -1517,7 +1552,7 @@ Partial Class CharacterEditor
         '
         'numGold
         '
-        Me.numGold.Location = New System.Drawing.Point(6, 14)
+        Me.numGold.Location = New System.Drawing.Point(6, 15)
         Me.numGold.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
         Me.numGold.Name = "numGold"
         Me.numGold.Size = New System.Drawing.Size(52, 20)
@@ -1526,7 +1561,7 @@ Partial Class CharacterEditor
         '
         'numVigorPotions
         '
-        Me.numVigorPotions.Location = New System.Drawing.Point(6, 102)
+        Me.numVigorPotions.Location = New System.Drawing.Point(6, 123)
         Me.numVigorPotions.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numVigorPotions.Name = "numVigorPotions"
         Me.numVigorPotions.Size = New System.Drawing.Size(52, 20)
@@ -1535,7 +1570,7 @@ Partial Class CharacterEditor
         '
         'numHealingPotions
         '
-        Me.numHealingPotions.Location = New System.Drawing.Point(6, 58)
+        Me.numHealingPotions.Location = New System.Drawing.Point(6, 69)
         Me.numHealingPotions.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numHealingPotions.Name = "numHealingPotions"
         Me.numHealingPotions.Size = New System.Drawing.Size(52, 20)
@@ -1544,7 +1579,7 @@ Partial Class CharacterEditor
         '
         'numDaggers
         '
-        Me.numDaggers.Location = New System.Drawing.Point(6, 36)
+        Me.numDaggers.Location = New System.Drawing.Point(6, 42)
         Me.numDaggers.Maximum = New Decimal(New Integer() {127, 0, 0, 0})
         Me.numDaggers.Name = "numDaggers"
         Me.numDaggers.Size = New System.Drawing.Size(52, 20)
@@ -1760,7 +1795,7 @@ Partial Class CharacterEditor
         Me.tabRawData.Location = New System.Drawing.Point(4, 22)
         Me.tabRawData.Name = "tabRawData"
         Me.tabRawData.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabRawData.Size = New System.Drawing.Size(690, 607)
+        Me.tabRawData.Size = New System.Drawing.Size(690, 636)
         Me.tabRawData.TabIndex = 1
         Me.tabRawData.Text = "Edit Raw Data"
         Me.tabRawData.UseVisualStyleBackColor = True
@@ -2317,15 +2352,10 @@ Partial Class CharacterEditor
         'tabDecode
         '
         Me.tabDecode.Controls.Add(Me.txtDecodedByteArrayDecimal)
-        Me.tabDecode.Controls.Add(Me.lblCipherApplied)
-        Me.tabDecode.Controls.Add(Me.numCipher)
         Me.tabDecode.Controls.Add(Me.lblEncodedStringLength)
         Me.tabDecode.Controls.Add(Me.lblDecodedByteArrayDecimal)
         Me.tabDecode.Controls.Add(Me.lblDecodedByteArray)
         Me.tabDecode.Controls.Add(Me.lblByteArray)
-        Me.tabDecode.Controls.Add(Me.btnAttemptRevert)
-        Me.tabDecode.Controls.Add(Me.bnBitShift)
-        Me.tabDecode.Controls.Add(Me.btnCipher)
         Me.tabDecode.Controls.Add(Me.lblEncodedString)
         Me.tabDecode.Controls.Add(Me.txtDecodedByteArray)
         Me.tabDecode.Controls.Add(Me.txtEncodedByteArray)
@@ -2333,7 +2363,7 @@ Partial Class CharacterEditor
         Me.tabDecode.Location = New System.Drawing.Point(4, 22)
         Me.tabDecode.Name = "tabDecode"
         Me.tabDecode.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabDecode.Size = New System.Drawing.Size(690, 607)
+        Me.tabDecode.Size = New System.Drawing.Size(690, 636)
         Me.tabDecode.TabIndex = 2
         Me.tabDecode.Text = "Decrypt Data"
         Me.tabDecode.UseVisualStyleBackColor = True
@@ -2349,26 +2379,6 @@ Partial Class CharacterEditor
         Me.txtDecodedByteArrayDecimal.ReadOnly = True
         Me.txtDecodedByteArrayDecimal.Size = New System.Drawing.Size(662, 72)
         Me.txtDecodedByteArrayDecimal.TabIndex = 28
-        '
-        'lblCipherApplied
-        '
-        Me.lblCipherApplied.AutoSize = True
-        Me.lblCipherApplied.Location = New System.Drawing.Point(170, 198)
-        Me.lblCipherApplied.Name = "lblCipherApplied"
-        Me.lblCipherApplied.Size = New System.Drawing.Size(75, 13)
-        Me.lblCipherApplied.TabIndex = 25
-        Me.lblCipherApplied.Text = "Cipher Applied"
-        '
-        'numCipher
-        '
-        Me.numCipher.Hexadecimal = True
-        Me.numCipher.Location = New System.Drawing.Point(116, 194)
-        Me.numCipher.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.numCipher.Name = "numCipher"
-        Me.numCipher.Size = New System.Drawing.Size(49, 20)
-        Me.numCipher.TabIndex = 24
-        Me.numCipher.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numCipher.Value = New Decimal(New Integer() {83, 0, 0, 0})
         '
         'lblEncodedStringLength
         '
@@ -2405,36 +2415,6 @@ Partial Class CharacterEditor
         Me.lblByteArray.Size = New System.Drawing.Size(104, 13)
         Me.lblByteArray.TabIndex = 19
         Me.lblByteArray.Text = "Encoded Byte Array:"
-        '
-        'btnAttemptRevert
-        '
-        Me.btnAttemptRevert.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAttemptRevert.Location = New System.Drawing.Point(220, 446)
-        Me.btnAttemptRevert.Name = "btnAttemptRevert"
-        Me.btnAttemptRevert.Size = New System.Drawing.Size(101, 23)
-        Me.btnAttemptRevert.TabIndex = 18
-        Me.btnAttemptRevert.Text = "Revert Attempt"
-        Me.btnAttemptRevert.UseVisualStyleBackColor = True
-        '
-        'bnBitShift
-        '
-        Me.bnBitShift.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.bnBitShift.Location = New System.Drawing.Point(113, 446)
-        Me.bnBitShift.Name = "bnBitShift"
-        Me.bnBitShift.Size = New System.Drawing.Size(101, 23)
-        Me.bnBitShift.TabIndex = 17
-        Me.bnBitShift.Text = "Attempt Bitshift"
-        Me.bnBitShift.UseVisualStyleBackColor = True
-        '
-        'btnCipher
-        '
-        Me.btnCipher.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnCipher.Location = New System.Drawing.Point(6, 446)
-        Me.btnCipher.Name = "btnCipher"
-        Me.btnCipher.Size = New System.Drawing.Size(101, 23)
-        Me.btnCipher.TabIndex = 16
-        Me.btnCipher.Text = "Attempt Cipher"
-        Me.btnCipher.UseVisualStyleBackColor = True
         '
         'lblEncodedString
         '
@@ -2494,11 +2474,9 @@ Partial Class CharacterEditor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(722, 686)
+        Me.ClientSize = New System.Drawing.Size(722, 715)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.TabControl1)
-        Me.Controls.Add(Me.btnTest)
-        Me.Controls.Add(Me.btnLoad)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -2542,6 +2520,7 @@ Partial Class CharacterEditor
         CType(Me.numFrostBite, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numGlide, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numSummonStaff, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRitualOfRelease, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numResistance, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numAura, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHide, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2559,6 +2538,7 @@ Partial Class CharacterEditor
         Me.TabControl1.ResumeLayout(False)
         Me.tabCharacter.ResumeLayout(False)
         Me.tabCharacter.PerformLayout()
+        CType(Me.picWarning, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picCover, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpInventory.ResumeLayout(False)
         Me.grpInventory.PerformLayout()
@@ -2587,7 +2567,6 @@ Partial Class CharacterEditor
         CType(Me.numOffset, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabDecode.ResumeLayout(False)
         Me.tabDecode.PerformLayout()
-        CType(Me.numCipher, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2664,8 +2643,6 @@ Partial Class CharacterEditor
     Friend WithEvents numLightningBall As System.Windows.Forms.NumericUpDown
     Friend WithEvents lblName As System.Windows.Forms.Label
     Friend WithEvents txtName As System.Windows.Forms.TextBox
-    Friend WithEvents btnLoad As System.Windows.Forms.Button
-    Friend WithEvents btnTest As System.Windows.Forms.Button
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
     Friend WithEvents tabCharacter As System.Windows.Forms.TabPage
     Friend WithEvents tabRawData As System.Windows.Forms.TabPage
@@ -2768,17 +2745,12 @@ Partial Class CharacterEditor
     Friend WithEvents btnCloseReference As System.Windows.Forms.Button
     Friend WithEvents tabDecode As System.Windows.Forms.TabPage
     Friend WithEvents lblByteArray As System.Windows.Forms.Label
-    Friend WithEvents btnAttemptRevert As System.Windows.Forms.Button
-    Friend WithEvents bnBitShift As System.Windows.Forms.Button
-    Friend WithEvents btnCipher As System.Windows.Forms.Button
     Friend WithEvents lblEncodedString As System.Windows.Forms.Label
     Friend WithEvents txtEncodedString As System.Windows.Forms.TextBox
     Friend WithEvents txtEncodedByteArray As System.Windows.Forms.TextBox
     Friend WithEvents lblDecodedByteArray As System.Windows.Forms.Label
     Friend WithEvents txtDecodedByteArray As System.Windows.Forms.TextBox
     Friend WithEvents lblEncodedStringLength As System.Windows.Forms.Label
-    Friend WithEvents lblCipherApplied As System.Windows.Forms.Label
-    Friend WithEvents numCipher As System.Windows.Forms.NumericUpDown
     Friend WithEvents txtDecodedByteArrayDecimal As System.Windows.Forms.TextBox
     Friend WithEvents lblDecodedByteArrayDecimal As System.Windows.Forms.Label
     Friend WithEvents chkFlag11 As System.Windows.Forms.CheckBox
@@ -2798,5 +2770,10 @@ Partial Class CharacterEditor
     Friend WithEvents numUnknownItem1 As System.Windows.Forms.NumericUpDown
     Friend WithEvents numPoisonCurePills As System.Windows.Forms.NumericUpDown
     Friend WithEvents picCover As System.Windows.Forms.PictureBox
+    Friend WithEvents btnFix As System.Windows.Forms.Button
+    Friend WithEvents lblOverflowError As System.Windows.Forms.Label
+    Friend WithEvents lblRitualOfRelease As System.Windows.Forms.Label
+    Friend WithEvents numRitualOfRelease As System.Windows.Forms.NumericUpDown
+    Friend WithEvents picWarning As System.Windows.Forms.PictureBox
 
 End Class
