@@ -206,7 +206,12 @@
         Dim str As String = String.Empty
         For Each b As Short In Me.EncodedData
             Dim upper As Short = Math.Floor(b / 100)
-            Dim lower As Byte = b Mod 100
+            Dim lower As Byte
+            If b < 0 Then
+                lower = (b Mod 100) + 100
+            Else
+                lower = b Mod 100
+            End If
             Dim test As Short = upper * 100 + lower
             Dim hexHi As String = ReplaceLeadingZeros(upper.ToString("X2").ToLower)
             'TODO: possible overflow could allow for upper portions to be larger than 2 characters

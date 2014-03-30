@@ -94,7 +94,9 @@
     Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
         Dim fso As New SaveFileDialog
         fso.Filter = CharGeneric.QFGFileFilter
-        fso.InitialDirectory = IO.Path.GetDirectoryName(Me.LoadedChar.Filename)
+        If Not String.IsNullOrWhiteSpace(Me.LoadedChar.Filename) Then
+            fso.InitialDirectory = IO.Path.GetDirectoryName(Me.LoadedChar.Filename)
+        End If
         fso.FileName = IO.Path.GetFileName(Me.LoadedChar.Filename)
         fso.OverwritePrompt = True
         fso.DefaultExt = ".sav"
@@ -1073,7 +1075,7 @@
         chkFlag13.Enabled = enabled
         chkFlag14.Enabled = enabled
         chkFlag15.Enabled = enabled
-        chkFlag16.Enabled = enabled
+        chkFlag16.Enabled = False
         If Not enabled Then
             chkFlag9.Text = "(unused)"
             chkFlag10.Text = "(unused)"

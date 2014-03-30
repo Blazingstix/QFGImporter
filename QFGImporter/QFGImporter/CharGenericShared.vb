@@ -25,7 +25,7 @@
         Return inputByte Xor mask
     End Function
 
-    Public Shared Function toggleBit(inputByte As Short, bit As Byte) As Byte
+    Public Shared Function toggleBit(inputByte As Short, bit As Byte) As Short
         If bit > 15 Then
             Return inputByte
         End If
@@ -45,11 +45,16 @@
         End If
     End Function
 
-    Public Shared Function setBit(inputByte As Short, bit As Byte, value As Boolean) As Byte
+    Public Shared Function setBit(inputByte As Short, bit As Byte, value As Boolean) As Short
         If bit > 15 Then
             Return inputByte
         End If
-        Dim mask As UShort = 1 << bit
+        Dim mask As Short
+        If bit = 15 Then
+            mask = Short.MinValue
+        Else
+            mask = 1 << bit
+        End If
         If value Then
             Return inputByte Or mask
         Else
