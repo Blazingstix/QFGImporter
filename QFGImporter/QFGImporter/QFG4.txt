@@ -43,7 +43,7 @@ Shorts 1 and 2: Crowns (unconfirmed)
 Short 3: Unique Inventory Items
 	bit  0:
 	bit  1:
-	bit  2: Sapphire pin
+	bit  2: Sapphire pin (?)
 	bit  3:
 	bit  4:
 	bit  5:
@@ -81,7 +81,7 @@ Shorts 21 - 23: HP/SP/MP Current Levels
     
 Shorts 24 - 44: Magic Spells
     (24 - Open, ... , 31 - Fetch, 32 - ForceBolt, 33 - Levitate, 34 - Reversal, 35 - Juggling Lights, 36 - Summon Staff, 37 - Lightning Ball)
-	(38 - 44: Frost Bite, Glide, Hide, Aura, Protection, Resistance, Ritual of Release)
+	(38 - 44: Frost Bite, Ritual of Release, Hide, Aura, Protection, Resistance, Glide)
 	(note: paladin spells are entirely dependent on Honor levels)
 
 Shorts: 45 - 51: Inventory (unconfirmed)

@@ -1,4 +1,5 @@
 ﻿Public Class CharacterEditor
+    Private Property DebugMode As Boolean = False
     Private Property Loading As Boolean = True
     Private Property OriginalTitle As String = String.Empty
     'Private Property LoadedFilename As String = String.Empty
@@ -59,8 +60,10 @@
         Call SetQFG1Display()
 
         'remove the debug tabs from the display
-        Me.TabControl1.TabPages.Remove(TabControl1.TabPages.Item(2))
-        Me.TabControl1.TabPages.Remove(TabControl1.TabPages.Item(1))
+        If Not Me.DebugMode Then
+            Me.TabControl1.TabPages.Remove(TabControl1.TabPages.Item(2))
+            Me.TabControl1.TabPages.Remove(TabControl1.TabPages.Item(1))
+        End If
     End Sub
 
     Private Sub LoadFlagCollection()
@@ -638,6 +641,8 @@
 
         EnableTestData(True)
         Call LoadTestData()
+        Call RefreshTestDisplay()
+
         Me.Loading = False
     End Sub
 
@@ -1584,7 +1589,7 @@
 
     Private Sub txtOriginalData_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtOriginalData.MouseUp
         If Not Me.Loading Then
-            If TypeOf Me.LoadedChar Is CharV2 Then
+            If Me.LoadedChar.Game >= Enums.Games.QFG3 Then
                 Dim selected As Integer = 0
                 selected = DirectCast(sender, TextBox).SelectionStart
                 selected = Math.Floor(selected / 5)
@@ -1677,6 +1682,7 @@
             Case Enums.Games.QFG3
                 lblByteName.Text = DirectCast(CInt(numOffset.Value), CharQFG3.ByteNames).ToString
             Case Enums.Games.QFG4
+                lblByteName.Text = DirectCast(CInt(numOffset.Value), CharQFG4.ByteNames).ToString
         End Select
     End Sub
 
@@ -1785,8 +1791,12 @@
     End Function
 
     Private Sub HighlightSelectedByte()
-        txtOriginalData.SelectionStart = 3 * numOffset.Value
-        txtOriginalData.SelectionLength = (3 * numBytes.Value) - 1
+        Dim hiStart As Integer = 3
+        If Me.LoadedChar.Game >= Enums.Games.QFG3 Then
+            hiStart = 5
+        End If
+        txtOriginalData.SelectionStart = hiStart * numOffset.Value
+        txtOriginalData.SelectionLength = (hiStart * numBytes.Value) - 1
         If Me.ReferenceChar IsNot Nothing Then
             txtReferenceData.SelectionStart = txtOriginalData.SelectionStart
             txtReferenceData.SelectionLength = txtOriginalData.SelectionLength
@@ -1830,7 +1840,7 @@
     End Sub
 
     Private Sub UpdateSelectedByte()
-        If TypeOf Me.LoadedChar Is CharV2 Then
+        If Me.LoadedChar.Game >= Enums.Games.QFG3 Then
             DirectCast(Me.LoadedChar, CharV2).DecodedValues(numOffset.Value) = numValue.Value
         Else
             Me.LoadedChar.DecodedValues(numOffset.Value) = numValue.Value
@@ -1839,7 +1849,7 @@
     End Sub
 #End Region
 
-    Private Sub LoadTestDisplay()
+    Private Sub RefreshTestDisplay()
         If Me.LoadedChar IsNot Nothing Then
             txtEncodedString.Text = Me.LoadedChar.EncodedString
             lblEncodedStringLength.Text = txtEncodedString.TextLength
@@ -1868,7 +1878,9 @@
                 Call RefreshFormValues()
             Case Else
         End Select
+    End Sub
 
-        Call LoadTestDisplay()
+    Private Sub txtOriginalData_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtOriginalData.TextChanged
+
     End Sub
 End Class

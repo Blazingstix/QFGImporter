@@ -800,7 +800,7 @@ Partial Class CharacterEditor
         '
         Me.lblGlide.AutoSize = True
         Me.lblGlide.Enabled = False
-        Me.lblGlide.Location = New System.Drawing.Point(205, 122)
+        Me.lblGlide.Location = New System.Drawing.Point(205, 252)
         Me.lblGlide.Name = "lblGlide"
         Me.lblGlide.Size = New System.Drawing.Size(31, 13)
         Me.lblGlide.TabIndex = 8
@@ -858,7 +858,7 @@ Partial Class CharacterEditor
         '
         Me.lblRitualOfRelease.AutoSize = True
         Me.lblRitualOfRelease.Enabled = False
-        Me.lblRitualOfRelease.Location = New System.Drawing.Point(205, 252)
+        Me.lblRitualOfRelease.Location = New System.Drawing.Point(205, 122)
         Me.lblRitualOfRelease.Name = "lblRitualOfRelease"
         Me.lblRitualOfRelease.Size = New System.Drawing.Size(88, 13)
         Me.lblRitualOfRelease.TabIndex = 8
@@ -1070,7 +1070,7 @@ Partial Class CharacterEditor
         '
         Me.numGlide.Enabled = False
         Me.numGlide.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numGlide.Location = New System.Drawing.Point(147, 120)
+        Me.numGlide.Location = New System.Drawing.Point(147, 250)
         Me.numGlide.Name = "numGlide"
         Me.numGlide.Size = New System.Drawing.Size(52, 20)
         Me.numGlide.TabIndex = 15
@@ -1099,7 +1099,7 @@ Partial Class CharacterEditor
         '
         Me.numRitualOfRelease.Enabled = False
         Me.numRitualOfRelease.Increment = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.numRitualOfRelease.Location = New System.Drawing.Point(147, 250)
+        Me.numRitualOfRelease.Location = New System.Drawing.Point(147, 120)
         Me.numRitualOfRelease.Name = "numRitualOfRelease"
         Me.numRitualOfRelease.Size = New System.Drawing.Size(52, 20)
         Me.numRitualOfRelease.TabIndex = 19
@@ -2305,6 +2305,7 @@ Partial Class CharacterEditor
         '
         'numBytes
         '
+        Me.numBytes.Enabled = False
         Me.numBytes.Location = New System.Drawing.Point(77, 19)
         Me.numBytes.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.numBytes.Minimum = New Decimal(New Integer() {1, 0, 0, 0})

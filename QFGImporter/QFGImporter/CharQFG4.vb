@@ -40,12 +40,12 @@
         MagicSpellSummonStaff
         MagicSpellLightningBall
         MagicSpellFrostBite
-        MagicSpellGlide
+        MagicSpellRitualOfRelease
         MagicSpellHide
         MagicSpellAura
         MagicSpellProtection
         MagicSpellResistance
-        MagicSpellRitualOfRelease
+        MagicSpellGlide
         InventoryUnknown45 = 45
         InventoryUnknown46
         InventoryThrowingDaggers

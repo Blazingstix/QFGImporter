@@ -48,12 +48,12 @@
         SummonStaff
         LightningBall
         FrostBite
-        Glide
+        RitualOfRelease
         Hide
         Aura
         Protection
         Resistance
-        RitualOfRelease
+        Glide
     End Enum
 
     Public Enum OtherSkills
