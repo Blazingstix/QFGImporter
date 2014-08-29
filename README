@@ -1,21 +1,11 @@
-﻿This project can fully read/edit/create every aspect of the exported/imported 
-character sav file from the infamous Quest For Glory computer game series.
+﻿This project can fully read/edit/create every aspect of the exported/imported character sav file from the infamous Quest For Glory computer game series.
 
-I originally begun the concept in 1995 as an alternative to saving my characters on 
-a floppy disk, but severely lacked the skills neccessary, so the idea sat shelved 
-since 1998.
+I originally begun the concept in 1995 as an alternative to saving my characters on a floppy disk, but severely lacked the skills neccessary, so the idea sat shelved since 1998.
 
-It wasn't until I came across Adam Plocher's QfgCharacterEditor on github 
-(https://github.com/aplocher), and his success in decoding the files for QFG1 and 
-QFG2 that it reignited my passion to fully explore the sav files.
+It wasn't until I came across Adam Plocher's QfgCharacterEditor on github (https://github.com/aplocher), and his success in decoding the files for QFG1 and QFG2 that it reignited my passion to fully explore the sav files.
 
-With that passion restored I have identified 100% of the QFG1 and QFG2 files and 
-have decrypted everything in QFG3 and QFG4. The only thing that remains is 
-identifying some of the QFG3 and QFG4 unique inventory flags (such as the Sapphire 
-pin, etc.)
+With that passion restored I have identified 100% of the QFG1 and QFG2 files and have decrypted everything in QFG3 and QFG4. The only thing that remains is identifying some of the QFG3 and QFG4 unique inventory flags (such as the Sapphire pin, etc.)
 
-Now, with the QFGImporter/Exporter/Passport tool in hand, you can read/edit/create any and
-all Quest For Glory 1-4 export characters, and even correct errors that prevent the games 
-from recognising the files as valid.
+Now, with the QFGImporter/Exporter/Passport tool in hand, you can read/edit/create any and all Quest For Glory 1-4 export characters, and even correct errors that prevent the games from recognising the files as valid.
 
 - Charles. (August 29, 2014)
