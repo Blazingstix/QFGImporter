@@ -33,6 +33,11 @@ Byte 4: Unique Inventory Items
     note: the lock pick, theif's toolkit, and thieves' guild license are not saved in the character file
     note2: having the Compass counts as both bits 0 and 1, so ultimately distinguishing 
 		   between having the fine sword or soulforge must depend on Class.
+	note3: There is likely a programming bug involving the EOF Badge and the X-Ray Glasses. 
+		   Later games (QFG3/QFG4) took steps to use having both the EOF Badge and the X-Ray glasses
+		   as an indicator that you turned Baba Yaga into a frog in Spielburg.
+		   (Interestingly, even though QFG4 read in that information, it ultimately did nothing with it, 
+		   and the story progresssed under the assumption you *did* turn her into a frog).
 
 Bytes 5 - 19: Abilities and Skills 
     (5 - Strength, 6 - Intelligence, ... , 17 - Magic, 18 - Communication, 19 - Honor)

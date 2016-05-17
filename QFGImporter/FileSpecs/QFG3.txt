@@ -43,24 +43,31 @@ Shorts 1 and 2: Royals
 	note: royals are saved at the end of QFG3, but that value is ignored for the start of QFG4.
     
 Short 3: Unique Inventory Items
-	bit  0:
-	bit  1:
+	bit  0: Dispell Potion
+	bit  1: Tinderbox
 	bit  2: Sapphire pin
-	bit  3:
-	bit  4:
-	bit  5:
-	bit  6:
-	bit  7:
-	but  8:
-	bit  9:
-	bit 10:
-	bit 11:
-	bit 12:
-	bit 13:
-	bit 14:
-	bit 15:
-	possible candidates for bits: chainmail, sword, shield, fine dagger, tinderbox, became warrior to the simbani, kissed johari, met arnie ardvark, met laurel and hardy, met rhino, had stampy the elephant death message
-	unknown if all 16 bits are used, or if it is more dividion by 100 + remainder seperation
+	bit  3: Fine Dagger
+	bit  4: Waterskin
+	bit  5: Fake Black Bird (Tarna Junk Shop)
+	bit  6: Event: Turned Baba Yaga into a frog in Spielburg
+	bit  7: Rope
+	but  8: Thieves Tool Kit
+	bit  9: Sword
+	bit 10: Shield (only if Fighter)
+	bit 11: (unused)
+	bit 12: (unused)
+	bit 13: (unused)
+	bit 14: (unused)
+	bit 15: (unused)
+	Note: bit 6 is a little ambiguous. The value is different depending on it the character was imported from QFG1 or from QFG2, 
+	however I see no way of determining which game it was *actually* imported from.
+	If imported from QFG1, this flag is enabled if the Hero turned Baba Yaga into a frog.
+	If imported form QFG2, this flag is enabled if the Hero has both the EOF badge, and the X-Ray Glasses. (why is that useful??)
+	Note2: When QFG4 imports, it makes the same check on QFG2 exports. If the Hero has the EOF Badge *and* the X-Ray Glasses, 
+			it sets the same flag as if the hero turned Baba Yaga into a frog.
+			It's possible there was a programming bug introduced in QFG2 where they were *supposed* to track that separately, but programmed
+			it incorrectly, and then had to support that through the remaining games in the series
+
 
 Shorts 4 - 18: Abilities and Skills 
     (4 - Strength, 5 - Intelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor)
@@ -87,22 +94,13 @@ Shorts 23 - 36: Magic Spells
     (23 - Open, ... , 30 - Fetch, 31 - ForceBolt, 32 - Levitate, 33 - Reversal, 34 - Juggling Lights, 35 - Summon Staff, 36 - Lightning Ball)
     
 Shorts: 37 - 43: Inventory
-    Short 37: (unknown)
-    
-    Short 38: (unknown)
-    
+    Short 37: (unused)
+    Short 38: Rations
     Short 39: Throwing Daggers
-    
-    Short 40: (unknown)
-    
+    Short 40: Flasks of Oil
     Short 41: Healing Pills
-
 	Short 42: Mana Pills
-
 	Short 43: Poison Cure Pills
-	Note: unknown inventory is none of the following:
-	Tinderbox, Waterskin, Zebra Skin, Dried Meat, Dinosaur Horn, Rocks, Rope, Sapphire Pin, Water from the Pool of Peace, Magic Wood.
-	'Sapphire Pin and Tinderbox may still be part of UniqueInventory
     
 Shorts 44 and 45: (constants)
     (Byte44 = 0x0019)

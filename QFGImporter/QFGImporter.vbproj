@@ -160,10 +160,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="QfgImpIcon.ico" />
-    <Content Include="QFGImporter\QFG4.txt" />
-    <Content Include="QFGImporter\QFG1.txt" />
-    <Content Include="QFGImporter\QFG2.txt" />
-    <Content Include="QFGImporter\QFG3.txt" />
+    <Content Include="FileSpecs\QFG4.txt" />
+    <Content Include="FileSpecs\QFG1.txt" />
+    <Content Include="FileSpecs\QFG2.txt" />
+    <Content Include="FileSpecs\QFG3.txt" />
     <None Include="Resources\s-QFG4-Cover.jpg" />
     <None Include="Resources\s-QFG3-Cover.jpg" />
     <None Include="Resources\s-QFG2-Cover.jpg" />

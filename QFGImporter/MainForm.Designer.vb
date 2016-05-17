@@ -50,7 +50,7 @@ Partial Class MainForm
         Me.btnNewTemplate.Name = "btnNewTemplate"
         Me.btnNewTemplate.Size = New System.Drawing.Size(138, 39)
         Me.btnNewTemplate.TabIndex = 1
-        Me.btnNewTemplate.Text = "Load Saved Character"
+        Me.btnNewTemplate.Text = "Pre-Created Characters..."
         Me.btnNewTemplate.UseVisualStyleBackColor = True
         '
         'GroupBox1

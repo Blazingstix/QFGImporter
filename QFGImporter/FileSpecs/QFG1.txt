@@ -31,12 +31,10 @@ Byte 4: Unique Inventory Items
     bit 1: Chainmail Armor
     bit 2: Lockpick
     bit 3: Thieves Toolkit
-    bit 4: Became Hero of Spielburg
-    bit 5: Defeated Baba Yaga
-    bit 6: (unknown - possibly related to Erasmus, and defeating him at Mage’s Maze?)
+    bit 4: Magic Mirror (i.e. Became Hero of Spielburg)
+    bit 5: Event: Turned Baba Yaga into a Frog
+    bit 6: Flagged if Puzzle Points are above 255.
     bit 7: (unused)
-	Note: bit 6 is not any of the following:
-		Killing Toro, Killing Stag, Killing Antwerp
 
 Bytes 5 - 17: Abilities and Skills 
     (5 - Strength, 6 - Intelligence, ... , 17 - Magic)

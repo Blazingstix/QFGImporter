@@ -36,28 +36,29 @@ sav files that have overflow errors.
 Short 0: Character Class 
     (0 for Fighter, 1 for Magic User, 2 for Thief, 3 for Paladin)
     
-Shorts 1 and 2: Crowns (unconfirmed)
+Shorts 1 and 2: Crowns
 	Short 1: crowns / 100
 	Short 2: remainder
     
 Short 3: Unique Inventory Items
-	bit  0:
-	bit  1:
-	bit  2: Sapphire pin (?)
-	bit  3:
-	bit  4:
-	bit  5:
-	bit  6:
-	bit  7:
-	but  8:
-	bit  9:
-	bit 10:
-	bit 11:
-	bit 12:
-	bit 13:
-	bit 14:
-	bit 15:
-	unknown if all 16 bits are used, or if it is more dividion by 100 + remainder seperation
+	bit  0: (unused)
+	bit  1: (unused)
+	bit  2: (unused)
+	bit  3: (unused)
+	bit  4: Fake Black Bird (Tarna Junk Shop)
+	bit  5: Fake Black Bird (Mordavia Monastery)
+	bit  6: (unused)
+	bit  7: (unused)
+	but  8: (unused)
+	bit  9: (unused)
+	bit 10: (unused)
+	bit 11: (unused)
+	bit 12: (unused)
+	bit 13: (unused)
+	bit 14: (unused)
+	bit 15: (unused)
+	all 16 bits are allocated, however in a disappointing turn, only two flags are actually used.
+	And no reference to the Sapphire Pin from QFG2 is present.
 
 Shorts 4 - 19: Abilities and Skills 
     (4 - Strength, 5 - Intelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor, 19 - Acrobatics)
@@ -84,21 +85,16 @@ Shorts 24 - 44: Magic Spells
 	(38 - 44: Frost Bite, Ritual of Release, Hide, Aura, Protection, Resistance, Glide)
 	(note: paladin spells are entirely dependent on Honor levels)
 
-Shorts: 45 - 51: Inventory (unconfirmed)
-    Short 45: (unknown)
-    
-    Short 46: (unknown)
-    
-    Short 47: Throwing Daggers
-    
-    Short 48: (unknown)
-    
-    Short 49: Healing Potions
+Shorts: 45 - 51: Inventory
+    Short 45: (unused)
+    Short 46: (unused)
+    Short 47: (unused)
+    Short 48: (unused)
+    Short 49: (unused)
+	Short 50: (unused)
+	Short 51: (unused)
+    Also disappointing is that none of the inventory values are saved for use in QFG5
 
-	Short 50: Mana Potions
-
-	Short 51: Poison Cure Potions
-    
 Shorts 52 and 53: (constants - unknown)
     (Byte44 = 0x0019)
     (Byte45 = 0x00BE)

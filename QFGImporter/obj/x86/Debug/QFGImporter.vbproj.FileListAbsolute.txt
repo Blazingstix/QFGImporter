@@ -30,3 +30,15 @@ D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.vbproj.GenerateResource
 D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.exe
 D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.xml
 D:\Git\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.pdb
+D:\Git\Blazingstix\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.exe
+D:\Git\Blazingstix\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.xml
+D:\Git\Blazingstix\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.pdb
+D:\Git\Blazingstix\QFGImporter\QFGImporter\bin\Debug\QFGImporter.exe
+D:\Git\Blazingstix\QFGImporter\QFGImporter\bin\Debug\QFGImporter.pdb
+D:\Git\Blazingstix\QFGImporter\QFGImporter\bin\Debug\QFGImporter.xml
+D:\Git\Blazingstix\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.CharacterEditor.resources
+D:\Git\Blazingstix\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.MainForm.resources
+D:\Git\Blazingstix\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.Resources.resources
+D:\Git\Blazingstix\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.SelectGame.resources
+D:\Git\Blazingstix\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.TestForm.resources
+D:\Git\Blazingstix\QFGImporter\QFGImporter\obj\x86\Debug\QFGImporter.vbproj.GenerateResource.Cache

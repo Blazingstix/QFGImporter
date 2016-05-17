@@ -674,6 +674,13 @@
                 End If
             End If
         Next
+
+        'because UndeadUnguent and PoisonCurePills use the same InventoryID if 
+        'the PoisonCurePills are too low in QFG2-4, then the UndeadUnguent will highlight as yellow, too
+        'so if we're in anything other than QFG1, make UndeadUnguent normal coloured regardless.
+        If Me.LoadedChar.Game <> Enums.Games.QFG1 Then
+            SetNormalColour(numUndeadUnguent)
+        End If
     End Sub
 
     Private Function SetArchetypeColour(chkValue As CheckBox) As Boolean
@@ -1095,7 +1102,7 @@
         chkFlag4.Text = "Thief’s Tool Kit"
         chkFlag5.Text = "Hero of Spielburg"
         chkFlag6.Text = "Defeated Baba Yaga"
-        chkFlag7.Text = "Flag7"
+        chkFlag7.Text = "Puzzle Points > 255"
         chkFlag8.Text = "(unused)"
         chkFlag8.Enabled = False
         ExtendedUniqueItemsEnabled(False)
@@ -1139,22 +1146,22 @@
     End Sub
 
     Private Sub SetQFG3Display()
-        chkFlag1.Text = "Flag 1"
-        chkFlag2.Text = "Flag 2"
+        chkFlag1.Text = "Dispell Potion"
+        chkFlag2.Text = "Tinderbox"
         chkFlag3.Text = "Sapphire Pin"
-        chkFlag4.Text = "Flag 4"
-        chkFlag5.Text = "Flag 5"
-        chkFlag6.Text = "Flag 6"
-        chkFlag7.Text = "Flag 7"
-        chkFlag8.Text = "Flag 8"
-        chkFlag9.Text = "Flag 9"
-        chkFlag10.Text = "Flag 10"
-        chkFlag11.Text = "Flag 11"
-        chkFlag12.Text = "Flag 12"
-        chkFlag13.Text = "Flag 13"
-        chkFlag14.Text = "Flag 14"
-        chkFlag15.Text = "Flag 15"
-        chkFlag16.Text = "Flag 16"
+        chkFlag4.Text = "Fine Dagger"
+        chkFlag5.Text = "Waterskin"
+        chkFlag6.Text = "Fake Black Bird"
+        chkFlag7.Text = "Defeated Baba Yaga"
+        chkFlag8.Text = "Rope"
+        chkFlag9.Text = "Thieves Toolkit"
+        chkFlag10.Text = "Sword"
+        chkFlag11.Text = "Shield"
+        chkFlag12.Text = "(unused)"
+        chkFlag13.Text = "(unused)"
+        chkFlag14.Text = "(unused)"
+        chkFlag15.Text = "(unused)"
+        chkFlag16.Text = "(unused)"
         chkFlag8.Enabled = True
         ExtendedUniqueItemsEnabled(True)
 
@@ -1174,22 +1181,22 @@
     End Sub
 
     Private Sub SetQFG4Display()
-        chkFlag1.Text = "Flag 1"
-        chkFlag2.Text = "Flag 2"
-        chkFlag3.Text = "Flag 3"
-        chkFlag4.Text = "Flag 4"
-        chkFlag5.Text = "Flag 5"
-        chkFlag6.Text = "Flag 6"
-        chkFlag7.Text = "Flag 7"
-        chkFlag8.Text = "Flag 8"
-        chkFlag9.Text = "Flag 9"
-        chkFlag10.Text = "Flag 10"
-        chkFlag11.Text = "Flag 11"
-        chkFlag12.Text = "Flag 12"
-        chkFlag13.Text = "Flag 13"
-        chkFlag14.Text = "Flag 14"
-        chkFlag15.Text = "Flag 15"
-        chkFlag16.Text = "Flag 16"
+        chkFlag1.Text = "(unused)"
+        chkFlag2.Text = "(unused)"
+        chkFlag3.Text = "(unused)"
+        chkFlag4.Text = "(unused)"
+        chkFlag5.Text = "Black Bird (from QFG3)"
+        chkFlag6.Text = "Black Bird (from QFG4)"
+        chkFlag7.Text = "(unused)"
+        chkFlag8.Text = "(unused)"
+        chkFlag9.Text = "(unused)"
+        chkFlag10.Text = "(unused)"
+        chkFlag11.Text = "(unused)"
+        chkFlag12.Text = "(unused)"
+        chkFlag13.Text = "(unused)"
+        chkFlag14.Text = "(unused)"
+        chkFlag15.Text = "(unused)"
+        chkFlag16.Text = "(unused)"
         chkFlag8.Enabled = True
         ExtendedUniqueItemsEnabled(True)
 

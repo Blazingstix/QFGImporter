@@ -363,6 +363,12 @@
                 If curValue = POS_CHECKSUM1 + 1 Then
                     overChar = 1
                 End If
+            ElseIf overflowSize = 5 Then
+                'QFG3 (experience and 2nd checksum overflowed)
+                'we can pretty much ignore this... not sure why.
+                If curValue = POS_EXPERIENCE Then
+                    overChar = 0
+                End If
             ElseIf overflowSize = 6 Then
                 'QFG4 (both checksums have overflowed... and the 4 constants after)
                 If curValue >= POS_CHECKSUM1 Then
