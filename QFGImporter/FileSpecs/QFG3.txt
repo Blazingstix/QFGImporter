@@ -59,10 +59,10 @@ Short 3: Unique Inventory Items
 	bit 13: (unused)
 	bit 14: (unused)
 	bit 15: (unused)
-	Note: bit 6 is a little ambiguous. The value is different depending on it the character was imported from QFG1 or from QFG2, 
+	Note: bit 6 is a little ambiguous. The value is different depending on if the character was imported from QFG1 or from QFG2, 
 	however I see no way of determining which game it was *actually* imported from.
 	If imported from QFG1, this flag is enabled if the Hero turned Baba Yaga into a frog.
-	If imported form QFG2, this flag is enabled if the Hero has both the EOF badge, and the X-Ray Glasses. (why is that useful??)
+	If imported from QFG2, this flag is enabled if the Hero has both the EOF badge, and the X-Ray Glasses. (why is that useful??)
 	Note2: When QFG4 imports, it makes the same check on QFG2 exports. If the Hero has the EOF Badge *and* the X-Ray Glasses, 
 			it sets the same flag as if the hero turned Baba Yaga into a frog.
 			It's possible there was a programming bug introduced in QFG2 where they were *supposed* to track that separately, but programmed
