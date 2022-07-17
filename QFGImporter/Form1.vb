@@ -1,4 +1,4 @@
-﻿Public Class MainForm
+﻿Public Class Form1
 
     Private Sub btnLoad_Click(sender As System.Object, e As System.EventArgs) Handles btnLoad.Click
         Dim fso As New OpenFileDialog
