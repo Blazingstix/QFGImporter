@@ -1,10 +1,9 @@
-﻿Public Class CharQFG3
+﻿Public Class CharQFG4
     Inherits CharV2
-
     Enum ByteNames
         CharacterClass = 0
-        RoyalsHundreds
-        RoyalsRemainder
+        CrownsHundreds
+        CrownsRemainder
         UniqueInventory
         AbilityStrength = 4
         AbilityIntelligence
@@ -21,11 +20,12 @@
         SkillMagic
         SkillCommunication
         SkillHonor
-        Experience = 19
+        SkillAcrobatics
+        Experience = 20
         HitPoints
         StaminaPoints
         MagicPoints
-        MagicSpellOpen = 23
+        MagicSpellOpen = 24
         MagicSpellDetect
         MagicSpellTrigger
         MagicSpellDazzle
@@ -39,23 +39,31 @@
         MagicSpellJugglingLights
         MagicSpellSummonStaff
         MagicSpellLightningBall
-        InventoryUnknown37 = 37
-        InventoryUnknown38
+        MagicSpellFrostBite
+        MagicSpellRitualOfRelease
+        MagicSpellHide
+        MagicSpellAura
+        MagicSpellProtection
+        MagicSpellResistance
+        MagicSpellGlide
+        PaladinHealing = 45
+        InventoryRations = 46
         InventoryThrowingDaggers
-        InventoryUnknown40 = 40
-        InventoryHealingPills = 41
-        InventoryManaPills = 42
-        InventoryPoisonCurePills = 43
-        Constant1 = 44
+        InventoryOilFlasks = 48
+        InventoryHealingPotions = 49
+        InventoryManaPotions
+        InventoryPoisonCurePotions
+        Constant1 = 52
         Constant2
-        Checksum1 = 46
+        Checksum1 = 54
         Checksum2
-        Constant3 = 48
+        Constant3 = 56
         Constant4
         Constant5
-        Constant6 = 51
+        Constant6 = 59
 
     End Enum
+
     Friend Overrides ReadOnly Property Constants1 As Integer()
         Get
             Return {&H19, &HBE}
@@ -77,12 +85,6 @@
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property InitialCipher As Byte
-        Get
-            Return &H53
-        End Get
-    End Property
-
     Friend Overrides ReadOnly Property OffsetCharClass As Byte
         Get
             Return 0
@@ -91,37 +93,37 @@
 
     Friend Overrides ReadOnly Property OffsetChecksum As Byte
         Get
-            Return 46
+            Return 54
         End Get
     End Property
 
     Friend Overrides ReadOnly Property OffsetEOF As Byte
         Get
-            Return 52
+            Return 60
         End Get
     End Property
 
     Friend Overrides ReadOnly Property OffsetExperience As Byte
         Get
-            Return 19
+            Return 20
         End Get
     End Property
 
     Friend Overrides ReadOnly Property OffsetInventory As Byte
         Get
-            Return 37
+            Return 45
         End Get
     End Property
 
     Friend Overrides ReadOnly Property OffsetConstants1 As Byte
         Get
-            Return 44
+            Return 52
         End Get
     End Property
 
     Friend Overrides ReadOnly Property OffsetConstants2 As Byte
         Get
-            Return 48
+            Return 56
         End Get
     End Property
 
@@ -133,17 +135,17 @@
 
     Friend Overrides ReadOnly Property OffsetSpells As Byte
         Get
-            Return 23
+            Return 24
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property SkillMaximum As Short
+    Public Overrides ReadOnly Property SkillMaximum As Short
         Get
-            Return 300
+            Return 400
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property SkillTechnicalMaximum As Short
+    Public Overrides ReadOnly Property SkillTechnicalMaximum As Short
         Get
             Return 500
         End Get
@@ -151,13 +153,13 @@
 
     Friend Overrides ReadOnly Property SkillCount As Byte
         Get
-            Return 15
+            Return 16
         End Get
     End Property
 
     Friend Overrides ReadOnly Property MagicCount As Byte
         Get
-            Return 14
+            Return 21
         End Get
     End Property
 
@@ -172,7 +174,7 @@
     End Sub
 
     Friend Overrides Sub SetGame()
-        Me.Game = Enums.Games.QFG3
+        Me.Game = Enums.Games.QFG4
     End Sub
 
 End Class

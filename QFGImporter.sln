@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "QFGImporter", "QFGImporter\QFGImporter.vbproj", "{E695091F-CBC7-414D-A055-7535CE5E6F38}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "QFGImporter.Lib", "QFGImporter.Lib\QFGImporter.Lib.vbproj", "{B0CFA8B9-5403-439D-A134-213359DB3855}"
+EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "QFGImporter.WinForms", "QFGImporter.WinForms\QFGImporter.WinForms.vbproj", "{DBFCE1DC-16B9-4B4A-B3D7-40332B4666FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E695091F-CBC7-414D-A055-7535CE5E6F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E695091F-CBC7-414D-A055-7535CE5E6F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E695091F-CBC7-414D-A055-7535CE5E6F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E695091F-CBC7-414D-A055-7535CE5E6F38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0CFA8B9-5403-439D-A134-213359DB3855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0CFA8B9-5403-439D-A134-213359DB3855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0CFA8B9-5403-439D-A134-213359DB3855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0CFA8B9-5403-439D-A134-213359DB3855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBFCE1DC-16B9-4B4A-B3D7-40332B4666FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBFCE1DC-16B9-4B4A-B3D7-40332B4666FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBFCE1DC-16B9-4B4A-B3D7-40332B4666FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBFCE1DC-16B9-4B4A-B3D7-40332B4666FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -36,8 +36,8 @@
             Return Me.OffsetSkills - 1
         End Get
     End Property
-    Friend MustOverride ReadOnly Property SkillMaximum As Short
-    Friend MustOverride ReadOnly Property SkillTechnicalMaximum As Short
+    Public MustOverride ReadOnly Property SkillMaximum As Short
+    Public MustOverride ReadOnly Property SkillTechnicalMaximum As Short
 
     Friend Overridable ReadOnly Property InitialCipher As Byte
         Get
@@ -138,8 +138,7 @@
 
             End If
         End If
-        'Throw New Exception("File not recognised")
-        MessageBox.Show("Not Recognised")
+        Throw New Exception("File not recognised")
         Return Nothing
     End Function
 
@@ -296,4 +295,103 @@
         End Get
     End Property
 
+    Public Sub ResetCharacterValues(oldClass As CharGeneric, archetype As CharGeneric)
+        For i As Integer = 0 To SkillCount - 1
+            If Skill(i) = oldClass.Skill(i) Then
+                Skill(i) = archetype.Skill(i)
+            End If
+        Next
+        For i As Integer = 0 To MagicCount - 1
+            If MagicSpell(i) = oldClass.MagicSpell(i) Then
+                MagicSpell(i) = archetype.MagicSpell(i)
+            End If
+        Next
+
+        For i As Integer = 0 To Enums.Inventory.OilFlasks
+            If Inventory(i) = oldClass.Inventory(i) Then
+                Inventory(i) = archetype.Inventory(i)
+            End If
+        Next
+
+        For i As Integer = 0 To 15
+            If Flag(i) = oldClass.Flag(i) Then
+                Flag(i) = archetype.Flag(i)
+            End If
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Checks if any character value is lower than the default for a new character of this class
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function IsBelowArchetype(archetype As CharGeneric) As Boolean
+        'check all skills
+        For i As Integer = 0 To SkillCount - 1
+            If Skill(i) < archetype.Skill(i) Then
+                Return True
+            End If
+        Next
+
+        If archetype.Skill(Enums.Skills.Magic) > 0 Then
+            For i As Integer = 0 To MagicCount - 1
+                If MagicSpell(i) < archetype.MagicSpell(i) Then
+                    Return True
+                End If
+            Next
+        End If
+
+        If Currency < archetype.Currency Then
+            Return True
+        End If
+
+        For i As Integer = 0 To Enums.Inventory.OilFlasks
+            If Inventory(i) < archetype.Inventory(i) Then
+                Return True
+            End If
+        Next
+
+        For i As Integer = 0 To 15
+            If Not Flag(i) And archetype.Flag(i) Then
+                Return True
+            End If
+        Next
+
+        Return False
+    End Function
+
+
+    Public Sub FixBelowArchetype(archetype As CharGeneric)
+        'check all skills
+        For i As Integer = 0 To SkillCount - 1
+            If Skill(i) < archetype.Skill(i) Then
+                Skill(i) = archetype.Skill(i)
+            End If
+        Next
+
+        If archetype.Skill(Enums.Skills.Magic) > 0 Then
+            For i As Integer = 0 To MagicCount - 1
+                If MagicSpell(i) < archetype.MagicSpell(i) Then
+                    MagicSpell(i) = archetype.MagicSpell(i)
+                End If
+            Next
+        End If
+
+        If Currency < archetype.Currency Then
+            Currency = archetype.Currency
+        End If
+
+        For i As Integer = 0 To Enums.Inventory.OilFlasks
+            If Inventory(i) < archetype.Inventory(i) Then
+                Inventory(i) = archetype.Inventory(i)
+            End If
+        Next
+
+        For i As Integer = 0 To 15
+            If Not Flag(i) And archetype.Flag(i) Then
+                Flag(i) = archetype.Flag(i)
+            End If
+        Next
+
+    End Sub
 End Class

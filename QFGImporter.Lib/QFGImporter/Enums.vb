@@ -71,9 +71,9 @@
         UndeadUnguent = 4
         PoisonCurePill = 4
         OtherPotion = 4
-        UnknownItem1
-        UnknownItem2
-        UnknownItem3
+        PaladinHealingSpell
+        Rations
+        OilFlasks
     End Enum
 
 End Class

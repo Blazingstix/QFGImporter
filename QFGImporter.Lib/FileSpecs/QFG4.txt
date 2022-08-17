@@ -1,13 +1,13 @@
 ﻿Quest For Glory 4: Byte Breakdown
 
 QFG4 is different from QFG1 or QFG2 in a subtle but significant way.
-Instead of each value being one byte (as in the previous two games),
+Instead of each value being one byte (as in the first two games),
 each value is stored in two bytes.
 
 Encryption Summary:
-	The data portion of the Saved Character is XXX characters long, and is the ascii representation of the hex values. Each byte is represented by 2 characters (0 - f).
+	The data portion of the Saved Character is 240 characters long, and is the ascii representation of the hex values. Each byte is represented by 2 characters (0 - f).
 	The compression scheme follows this convention:
-	Encrypted(N) = Short(N) XOR Short(N-1) with Short(-1) == 0x53
+	Encrypted(N) = Short(N) XOR Short(N-1) with Short(-1) == 0x0053
 	
 	Then the Encrypted value is split into two bytes AA BB as follows:
 	AA(N) = Encrypted(N) / 100
@@ -57,11 +57,32 @@ Short 3: Unique Inventory Items
 	bit 13: (unused)
 	bit 14: (unused)
 	bit 15: (unused)
-	all 16 bits are allocated, however in a disappointing turn, only two flags are actually used.
+	note: all 16 bits are allocated, however in a disappointing turn, only two flags are actually used.
 	And no reference to the Sapphire Pin from QFG2 is present.
 
 Shorts 4 - 19: Abilities and Skills 
-    (4 - Strength, 5 - Intelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor, 19 - Acrobatics)
+    Skills from QFG1:
+    4  - Strength
+    5  - Intelligence
+    6  - Agility
+    7  - Vitality
+    8  - Luck
+    Abilities from QFG1:
+    9  - Weapon Use
+    10 - Parry
+    11 - Dodge
+    12 - Stealth
+    13 - Pick Locks
+    14 - Throwing
+    15 - Climbing
+    16 - Magic
+    Skills/Abilities from QFG2:
+    17 - Communication
+    18 - Honor
+    no new skills added for QFG3.
+    New Skills/Abilities for QFG4
+    19 - Acrobatics
+	NOTE: Paladin points are not saved, as they are directly correlated with Honor
 
 Short 20: Experience
     value is exp 
@@ -81,30 +102,56 @@ Shorts 21 - 23: HP/SP/MP Current Levels
 	   value is mp 
     
 Shorts 24 - 44: Magic Spells
-    (24 - Open, ... , 31 - Fetch, 32 - ForceBolt, 33 - Levitate, 34 - Reversal, 35 - Juggling Lights, 36 - Summon Staff, 37 - Lightning Ball)
-	(38 - 44: Frost Bite, Ritual of Release, Hide, Aura, Protection, Resistance, Glide)
-	(note: paladin spells are entirely dependent on Honor levels)
+    Spells from QFG1:
+    24 - Open
+    25 - Detect Magic
+    26 - Trigger
+    27 - Dazzle
+    28 - Zap
+    29 - Calm
+    30 - Flame Dart
+    31 - Fetch
+    Spells from QFG2:
+    32 - ForceBolt
+    33 - Levitate
+    34 - Reversal
+    Spells from QFG3:
+    35 - Juggling Lights
+    36 - Summon Staff
+    37 - Lightning Ball
+    New spells for QFG4:
+    38 - Frost Bite
+    39 - Ritual of Release
+    40 - Hide
+    41 - Aura
+    42 - Protection
+    43 - Resistance
+    44 - Glide
 
-Shorts: 45 - 51: Inventory
-    Short 45: (unused)
-    Short 46: (unused)
-    Short 47: (unused)
-    Short 48: (unused)
-    Short 49: (unused)
-	Short 50: (unused)
-	Short 51: (unused)
-    Also disappointing is that none of the inventory values are saved for use in QFG5
+Short 45: Paladin Spells
+    45 - Paladin Healing Spell
+    (note: There is only one Paladin spell; the other Paladin spells are entirely dependent on Honor levels)
 
-Shorts 52 and 53: (constants - unknown)
-    (Byte44 = 0x0019)
-    (Byte45 = 0x00BE)
+Shorts: 46 - 51: Inventory
+    Short 46: Rations (unused)
+    Short 47: Throwing Daggers (unused)
+    Short 48: Flasks of Oil (unused)
+    Short 49: Healing Potions (unused)
+	Short 50: Mana Potions (unused)
+	Short 51: Poison Cure Potion (unused)
+    (note: In another disappointing move, none of the inventory values above are actually saved when exporting at the end of QFG4.
+            Their intended functions are derived from source code recreation efforts (following the same pattern from QFG3), but are not official.)
+
+Shorts 52 and 53: (constants - as bogus decoy values)
+    (Short44 = 0x0019)
+    (Short45 = 0x00BE)
     
 Shorts 54 and 55: Checksums
-    (Byte54 is sum of all even bytes 0 - 50)
-    (Byte55 is sum of all odd bytes 1 - 51)
+    (Short54 is sum of all even bytes 0 - 50)
+    (short55 is sum of all odd bytes 1 - 51)
     
-Shorts 56 - 59: (constants - unknown)
-    (Byte56 = 0x0037)
-    (Byte57 = 0x006D)
-    (Byte58 = 0x00C4)
-    (Byte59 = 0x00F2)
+Shorts 56 - 59: (constants - as bogus decoy values)
+    (Short56 = 0x0037)
+    (Short57 = 0x006D)
+    (Short58 = 0x00C4)
+    (Short59 = 0x00F2)

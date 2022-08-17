@@ -118,13 +118,13 @@
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property SkillTechnicalMaximum As Short
+    Public Overrides ReadOnly Property SkillTechnicalMaximum As Short
         Get
             Return SByte.MaxValue
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property SkillMaximum As Short
+    Public Overrides ReadOnly Property SkillMaximum As Short
         Get
             Return 100
         End Get

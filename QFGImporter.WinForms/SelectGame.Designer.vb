@@ -43,12 +43,12 @@ Partial Class SelectGame
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(730, 298)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(704, 292)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(146, 29)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(170, 33)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'OK_Button
@@ -57,7 +57,7 @@ Partial Class SelectGame
         Me.OK_Button.Location = New System.Drawing.Point(3, 3)
         Me.OK_Button.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(67, 23)
+        Me.OK_Button.Size = New System.Drawing.Size(78, 27)
         Me.OK_Button.TabIndex = 0
         Me.OK_Button.Text = "OK"
         '
@@ -65,10 +65,10 @@ Partial Class SelectGame
         '
         Me.Cancel_Button.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(76, 3)
+        Me.Cancel_Button.Location = New System.Drawing.Point(88, 3)
         Me.Cancel_Button.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Cancel_Button.Name = "Cancel_Button"
-        Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
+        Me.Cancel_Button.Size = New System.Drawing.Size(78, 27)
         Me.Cancel_Button.TabIndex = 1
         Me.Cancel_Button.Text = "Cancel"
         '
@@ -77,7 +77,7 @@ Partial Class SelectGame
         Me.rdoQFG1.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoQFG1.AutoSize = True
         Me.rdoQFG1.Checked = True
-        Me.rdoQFG1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdoQFG1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.rdoQFG1.ImageKey = "QFG1"
         Me.rdoQFG1.ImageList = Me.imgBoxArt
         Me.rdoQFG1.Location = New System.Drawing.Point(12, 12)
@@ -93,6 +93,7 @@ Partial Class SelectGame
         '
         'imgBoxArt
         '
+        Me.imgBoxArt.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit
         Me.imgBoxArt.ImageStream = CType(resources.GetObject("imgBoxArt.ImageStream"), System.Windows.Forms.ImageListStreamer)
         Me.imgBoxArt.TransparentColor = System.Drawing.Color.Transparent
         Me.imgBoxArt.Images.SetKeyName(0, "QFG1")
@@ -104,7 +105,7 @@ Partial Class SelectGame
         '
         Me.rdoQFG2.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoQFG2.AutoSize = True
-        Me.rdoQFG2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdoQFG2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.rdoQFG2.ImageKey = "QFG2"
         Me.rdoQFG2.ImageList = Me.imgBoxArt
         Me.rdoQFG2.Location = New System.Drawing.Point(232, 12)
@@ -122,7 +123,7 @@ Partial Class SelectGame
         '
         Me.rdoQFG3.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoQFG3.AutoSize = True
-        Me.rdoQFG3.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdoQFG3.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.rdoQFG3.ImageKey = "QFG3"
         Me.rdoQFG3.ImageList = Me.imgBoxArt
         Me.rdoQFG3.Location = New System.Drawing.Point(452, 12)
@@ -140,7 +141,7 @@ Partial Class SelectGame
         '
         Me.rdoQFG4.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdoQFG4.AutoSize = True
-        Me.rdoQFG4.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdoQFG4.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.rdoQFG4.ImageKey = "QFG4"
         Me.rdoQFG4.ImageList = Me.imgBoxArt
         Me.rdoQFG4.Location = New System.Drawing.Point(672, 12)
@@ -157,7 +158,7 @@ Partial Class SelectGame
         'SelectGame
         '
         Me.AcceptButton = Me.OK_Button
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(889, 339)

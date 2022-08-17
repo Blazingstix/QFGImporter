@@ -26,7 +26,7 @@ Bytes 1 and 2: Gold
 Byte 3: Puzzle Points
 	value is puzpoints AND 0xF7
     
-Byte 4: Unique Inventory Items
+Byte 4: Miscellaneous Equipment (Unique Inventory Items)
     bit 0: Sword
     bit 1: Chainmail Armor
     bit 2: Lockpick
@@ -35,9 +35,24 @@ Byte 4: Unique Inventory Items
     bit 5: Event: Turned Baba Yaga into a Frog
     bit 6: Flagged if Puzzle Points are above 255.
     bit 7: (unused)
+    note: the MiscEquip value is truncated to 0xF7, so the 7th bit is unused.
 
 Bytes 5 - 17: Abilities and Skills 
-    (5 - Strength, 6 - Intelligence, ... , 17 - Magic)
+    Skills:
+    5  - Strength
+    6  - Intelligence
+    7  - Agility
+    8  - Vitality
+    9  - Luck
+    Abilities:
+    10 - Weapon Use
+    11 - Parry
+    12 - Dodge
+    13 - Stealth
+    14 - Pick Locks
+    15 - Throwing
+    16 - Climbing
+    17 - Magic
 
 Byte 18: Experience
     value is exp AND 0xF7
@@ -51,11 +66,18 @@ Bytes 19 - 21: HP/SP/MP Current Levels
        (stamina is divided by 4, i.e. 15SP = 60)
        value is sp AND 0xF7
     
-    Byte 21: Magic Points
+    Byte 21: Magic Points (i.e. Mana)
        value is mp AND 0xF7
     
 Bytes 22 - 29: Magic Spells
-    (22 - Open, ... , 29 - Fetch)
+    22 - Open
+    23 - Detect Magic
+    24 - Trigger
+    25 - Dazzle
+    26 - Zap
+    27 - Calm
+    28 - Flame Dart
+    29 - Fetch
     
 Bytes 30 - 34: Inventory    
 	Byte 30: Daggers
@@ -69,7 +91,7 @@ Bytes 30 - 34: Inventory
     
     Byte 34: Flasks of Undead Unguent
     
-Bytes 35 and 36: (constants - unknown)
+Bytes 35 and 36: (constants - as bogus decoy values)
     (Byte35 = 0x79)
     (Byte36 = 0x06)
     
@@ -77,7 +99,7 @@ Bytes 37 and 38: Checksums
     (Byte37 is sum of all even bytes 0 - 34)
     (Byte38 is sum of all odd bytes 1 - 33)
     
-Bytes 39 - 42: (constants - unknown)
+Bytes 39 - 42: (constants - as bogus decoy values)
     (Byte39 = 0x43)
     (Byte40 = 0x08)
     (Byte41 = 0x2D)

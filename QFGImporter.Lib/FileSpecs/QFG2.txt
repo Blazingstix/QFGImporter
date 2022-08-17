@@ -40,7 +40,24 @@ Byte 4: Unique Inventory Items
 		   and the story progresssed under the assumption you *did* turn her into a frog).
 
 Bytes 5 - 19: Abilities and Skills 
-    (5 - Strength, 6 - Intelligence, ... , 17 - Magic, 18 - Communication, 19 - Honor)
+    Skills from QFG1:
+    5  - Strength
+    6  - Intelligence
+    7  - Agility
+    8  - Vitality
+    9  - Luck
+    Abilities from QFG1:
+    10 - Weapon Use
+    11 - Parry
+    12 - Dodge
+    13 - Stealth
+    14 - Pick Locks
+    15 - Throwing
+    16 - Climbing
+    17 - Magic
+    New Skills/Abilities for QFG2:
+    18 - Communication
+    19 - Honor
 
 Byte 20: Experience
     value is exp AND 0xFF
@@ -58,7 +75,19 @@ Bytes 21 - 23: HP/SP/MP Current Levels
        value is mp AND 0xFF
     
 Bytes 24 - 34: Magic Spells
-    (24 - Open, ... , 31 - Fetch, 32 - ForceBolt, 33 - Levitate, 34 - Reversal)
+    Spells from QFG1:
+    24 - Open
+    25 - Detect Magic
+    26 - Trigger
+    27 - Dazzle
+    28 - Zap
+    29 - Calm
+    30 - Flame Dart
+    31 - Fetch
+    New spells for QFG2:
+    32 - ForceBolt
+    33 - Levitate
+    34 - Reversal
     
 Bytes: 35 - 39: Inventory
     Byte 35: Daggers
@@ -72,7 +101,7 @@ Bytes: 35 - 39: Inventory
     
     Byte 39: Poison Cure Pills
     
-Bytes 40 and 41: (constants - unknown)
+Bytes 40 and 41: (constants - as bogus decoy values)
     (Byte40 = 0xA0)
     (Byte41 = 0x3E)
     
@@ -80,7 +109,7 @@ Bytes 42 and 43: Checksums
     (Byte42 is sum of all even bytes 0 - 39)
     (Byte43 is sum of all odd bytes 1 - 38)
     
-Bytes 44 - 47: (constants - unknown)
+Bytes 44 - 47: (constants - as bogus decoy values)
     (Byte44 = 0x2F)
     (Byte45 = 0x90)
     (Byte46 = 0x19)

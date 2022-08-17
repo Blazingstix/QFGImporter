@@ -6,10 +6,10 @@
 
     Enum InventoryItems
         NotAnItem = -1
-        Unknown1 = 0
-        Unknown2
+        PaladinHealingSpell = 0
+        Rations
         ThrowingDaggers
-        Unknown3
+        OilFlasks
         HealingPills
         ManaPills
         PoisonCurePills
@@ -103,12 +103,12 @@
                 Return InventoryItems.ManaPills
             Case Enums.Inventory.PoisonCurePill
                 Return InventoryItems.PoisonCurePills
-            Case Enums.Inventory.UnknownItem1
-                Return InventoryItems.Unknown1
-            Case Enums.Inventory.UnknownItem2
-                Return InventoryItems.Unknown2
-            Case Enums.Inventory.UnknownItem3
-                Return InventoryItems.Unknown3
+            Case Enums.Inventory.PaladinHealingSpell
+                Return InventoryItems.PaladinHealingSpell
+            Case Enums.Inventory.Rations
+                Return InventoryItems.Rations
+            Case Enums.Inventory.OilFlasks
+                Return InventoryItems.OilFlasks
             Case Else
                 Return InventoryItems.NotAnItem
         End Select

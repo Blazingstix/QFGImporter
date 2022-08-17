@@ -3,10 +3,19 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <StartupObject>QFGImporter.Form1</StartupObject>
+    <StartupObject>Sub Main</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+    <RootNamespace>QFGImporter</RootNamespace>
+    <Version>2.0.0</Version>
+    <Authors>Charles Irwin</Authors>
+    <Company>Blazingstix.com</Company>
+    <PackageId>QFGImporter</PackageId>
+    <Product>QFGImporter</Product>
+    <Copyright>Copyright © 2022</Copyright>
+    <Description>A viewer and editor of Quest For Glory import/export character files.</Description>
+    <AssemblyName>QFGImporter</AssemblyName>
     <ApplicationIcon>QfgImpIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -14,6 +23,14 @@
     <Import Include="System.Data" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QFGImporter.Lib\QFGImporter.Lib.vbproj" />
   </ItemGroup>
 
   <ItemGroup>

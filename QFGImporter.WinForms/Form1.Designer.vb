@@ -113,17 +113,18 @@ Partial Class Form1
         Me.grpLoad.TabStop = False
         Me.grpLoad.Text = "Load Character"
         '
-        'MainForm
+        'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(814, 237)
         Me.Controls.Add(Me.grpLoad)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.MaximizeBox = False
-        Me.Name = "MainForm"
+        Me.Name = "Form1"
         Me.Text = "Quest For Glory Passport"
         Me.GroupBox1.ResumeLayout(False)
         Me.grpLoad.ResumeLayout(False)

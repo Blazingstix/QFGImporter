@@ -420,7 +420,8 @@
                     game = "(Unknown Game)"
                 End If
                 If curValue = POS_EXPERIENCE Then
-                    MessageBox.Show("This character export file suffers from overflow errors that have not been accounted for by this program." & vbCrLf & vbCrLf & game & " overflow of " & overflowSize & " characters.", "Unhandled overflow size.")
+                    Trace.TraceError("This character export file suffers from overflow errors that have not been accounted for by this program." & vbCrLf & vbCrLf & game & " overflow of " & overflowSize & " characters.", "Unhandled overflow size.")
+                    Throw New Exception
                 End If
             End If
 

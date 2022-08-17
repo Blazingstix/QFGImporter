@@ -7,7 +7,7 @@ each value is stored in two bytes.
 Encryption Summary:
 	The data portion of the Saved Character is 208 characters long, and is the ascii representation of the hex values. Each byte is represented by 2 characters (0 - f).
 	The compression scheme follows this convention:
-	Encrypted(N) = Short(N) XOR Short(N-1) with Short(-1) == 0x53
+	Encrypted(N) = Short(N) XOR Short(N-1) with Short(-1) == 0x0053
 	
 	Then the Encrypted value is split into two bytes AA BB as follows:
 	AA(N) = Encrypted(N) / 100
@@ -42,6 +42,8 @@ Shorts 1 and 2: Royals
 	100 commons are automatically converted to royals, but anything less than 100 commons is discarded
 	note: royals are saved at the end of QFG3, but that value is ignored for the start of QFG4.
     
+	note: unlike QFG1 and QFG2, Puzzle Points are no longer saved to the export file.
+
 Short 3: Unique Inventory Items
 	bit  0: Dispell Potion
 	bit  1: Tinderbox
@@ -59,10 +61,10 @@ Short 3: Unique Inventory Items
 	bit 13: (unused)
 	bit 14: (unused)
 	bit 15: (unused)
-	Note: bit 6 is a little ambiguous. The value is different depending on if the character was imported from QFG1 or from QFG2, 
+	Note: bit 6 is a little ambiguous. The value is different depending on it the character was imported from QFG1 or from QFG2, 
 	however I see no way of determining which game it was *actually* imported from.
 	If imported from QFG1, this flag is enabled if the Hero turned Baba Yaga into a frog.
-	If imported from QFG2, this flag is enabled if the Hero has both the EOF badge, and the X-Ray Glasses. (why is that useful??)
+	If imported form QFG2, this flag is enabled if the Hero has both the EOF badge, and the X-Ray Glasses. (why is that useful??)
 	Note2: When QFG4 imports, it makes the same check on QFG2 exports. If the Hero has the EOF Badge *and* the X-Ray Glasses, 
 			it sets the same flag as if the hero turned Baba Yaga into a frog.
 			It's possible there was a programming bug introduced in QFG2 where they were *supposed* to track that separately, but programmed
@@ -70,7 +72,25 @@ Short 3: Unique Inventory Items
 
 
 Shorts 4 - 18: Abilities and Skills 
-    (4 - Strength, 5 - Intelligence, ... , 16 - Magic, 17 - Communication, 18 - Honor)
+    Skills from QFG1:
+    4  - Strength
+    5  - Intelligence
+    6  - Agility
+    7  - Vitality
+    8  - Luck
+    Abilities from QFG1:
+    9  - Weapon Use
+    10 - Parry
+    11 - Dodge
+    12 - Stealth
+    13 - Pick Locks
+    14 - Throwing
+    15 - Climbing
+    16 - Magic
+    Skills/Abilities from QFG2:
+    17 - Communication
+    18 - Honor
+    No New Skills/Abilities added for QFG3.
 	NOTE: Paladin points are not saved, as they are a direct correlation with Honor
 
 Short 19: Experience
@@ -91,10 +111,29 @@ Shorts 20 - 22: HP/SP/MP Current Levels
 	   value is mp 
     
 Shorts 23 - 36: Magic Spells
-    (23 - Open, ... , 30 - Fetch, 31 - ForceBolt, 32 - Levitate, 33 - Reversal, 34 - Juggling Lights, 35 - Summon Staff, 36 - Lightning Ball)
-    
-Shorts: 37 - 43: Inventory
-    Short 37: (unused)
+    Spells from QFG1:
+    23 - Open
+    24 - Detect Magic
+    25 - Trigger
+    26 - Dazzle
+    27 - Zap
+    28 - Calm
+    29 - Flame Dart
+    30 - Fetch
+    Spells from QFG2:
+    31 - ForceBolt
+    32 - Levitate
+    33 - Reversal
+    New spells for QFG3:
+    34 - Juggling Lights
+    35 - Summon Staff
+    36 - Lightning Ball
+
+Short 37: Paladin Spells
+    37 - Paladin Healing Spell
+    (note: there is only one Paladin spell)
+        
+Shorts: 38 - 43: Inventory
     Short 38: Rations
     Short 39: Throwing Daggers
     Short 40: Flasks of Oil
@@ -102,16 +141,16 @@ Shorts: 37 - 43: Inventory
 	Short 42: Mana Pills
 	Short 43: Poison Cure Pills
     
-Shorts 44 and 45: (constants)
-    (Byte44 = 0x0019)
-    (Byte45 = 0x00BE)
+Shorts 44 and 45: (constants - as bogus decoy values)
+    (Short44 = 0x0019)
+    (Short45 = 0x00BE)
     
 Shorts 46 and 47: Checksums
-    (Byte46 is sum of all even bytes 0 - 42)
-    (Byte47 is sum of all odd bytes 1 - 43)
+    (Short46 is sum of all even shorts 0 - 42)
+    (Short47 is sum of all odd shorts 1 - 43)
     
-Shorts 48 - 51: (constants)
-    (Byte48 = 0x0037)
-    (Byte49 = 0x006D)
-    (Byte50 = 0x00C4)
-    (Byte51 = 0x00F2)
+Shorts 48 - 51: (constants - as bogus decoy values)
+    (Short48 = 0x0037)
+    (Short49 = 0x006D)
+    (Short50 = 0x00C4)
+    (Short51 = 0x00F2)
